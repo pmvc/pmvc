@@ -11,16 +11,13 @@ function realPath($p){
     return run('\realpath',array($p));
 }
 
-function l($name,$compacts=null,$once=null){
+function l($name,$compacts=null,$once=true){
     static $files=array();
-    if(is_null($once)){
-        $once = true;
-    }
     $name = realpath($name);
     if(!$name){
         return false;
     }
-    if(!($once && isset($files[$name]))){
+    if(!( $once && isset($files[$name]) )){
         $files[$name]=true;
         include($name);
     }
@@ -53,7 +50,7 @@ function load(
     ,$dirs=null
     ,$defaultDir=null
     ,$compacts=null
-    ,$once=null
+    ,$once=true
     ,$isIncludeApp=null
 ){
     if(empty($name)){
@@ -61,7 +58,12 @@ function load(
     }
     $file = run(__NAMESPACE__.'\find',array($name,$type,$dirs,$defaultDir,$isIncludeApp));
     if($file){
-        return l($file,$compacts,$once);
+        if($once){
+            $r=run(__NAMESPACE__.'\l',array($file,$compacts));
+        }else{
+            $r=l($file,$compacts,$once);
+        }
+        return $r;
     }else{
         return 2;
     }
@@ -246,13 +248,19 @@ function &option($act,$k=null,$v=null){
 /**
  * misc
  */
-
 function d(...$params){
     call_plugin('dev','d',$params);
 }
 
 function log(...$params){
     call_plugin('error_trace','log',$params);
+}
+
+function toArray($p){
+    if(!is_array($p)){
+        $p=array($p);
+    }
+    return $p;
 }
 
 function hash(...$params){
@@ -278,9 +286,7 @@ function exists($v,$type){
         return realpath($v);
     case 'plugIn':
         $objs = &getOption(PLUGIN_INSTANCE); 
-        return 
-            isset($objs[$v]) 
-            && is_object($objs[$v]);
+        return !empty($objs[$v]); 
     default:
         return null;
     }
@@ -362,16 +368,26 @@ function plug($name,$config=null){
     if( isset($config[_CLASS]) && class_exists($config[_CLASS]) ){
         $class = $config[_CLASS];
     }else{
+        $file = null; 
         if(!isset($config[_FILE])){
             $alias = getOption(_PLUGIN_ALIAS);
             if(isset($alias[$name])){
-                $config[_FILE]=$alias[$name];
+                $file=$alias[$name];
             }
+        }else{
+            $file=$config[_FILE];
         }
-        $file = ( isset($config[_FILE]) ) ? $config[_FILE] : $name.'.php' ;
-        $default_folder = lastSlash(getOption(_PLUGIN_FOLDER)).$name;
-        $folders = array( 'plugin/'.$name,  $default_folder );
-        $r=load($file, 'file', $folders, null, _INIT_CONFIG, true, false);
+        if( !is_null($file) && realpath($file) ){
+            $r=run(__NAMESPACE__.'\l',array($file,_INIT_CONFIG));
+        } else {
+            $file = $name.'.php' ;
+            $default_folders = toArray(getOption(_PLUGIN_FOLDER));
+            $folders = array();
+            foreach ($default_folders as $folder) {
+                $folders[] = lastSlash($folder).$name;
+            }
+            $r=load($file, 'file', $folders, null, _INIT_CONFIG, true, false);
+        }
         $class = (2!==$r)?$r->var[_INIT_CONFIG][_CLASS]:false;
     }
     if(class_exists($class)){
@@ -383,11 +399,8 @@ function plug($name,$config=null){
         return $name;
     }
     $oPlugin->name=$name;
-    if( isset($r->var[_INIT_CONFIG]) ){
-        unset($r->var[_INIT_CONFIG][_CLASS]);
-        $oPlugin->set($r->var[_INIT_CONFIG]);
-    }
-    if(!is_null($config)){
+    $config = array_merge($r->var[_INIT_CONFIG],$config);
+    if( !empty($config) ){
         $oPlugin->set($config);
     }
     $oPlugin->file = $r->name;

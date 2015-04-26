@@ -8,7 +8,12 @@ $cacheHeader->setCache(0);
 
 PMVC\setPlugInFolder('/git/plugin/');
 
-$a = PMVC\plug('file-list')->ls('./');
-var_dump($a);
+$a =& PMVC\plug('file-list');
+
+var_dump("111",$a,'111');
+PMVC\unplug('file-list');
+$a = PMVC\plug('file-list');
+
+var_dump("111",$a,'111');
 var_dump(time());
 
