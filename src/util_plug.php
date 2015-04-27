@@ -56,7 +56,7 @@ function load(
     if(empty($name)){
         return 1;
     }
-    $file = run(__NAMESPACE__.'\find',array($name,$type,$dirs,$defaultDir,$isIncludeApp));
+    $file = find($name,$type,$dirs,$defaultDir,$isIncludeApp);
     if($file){
         if($once){
             $r=run(__NAMESPACE__.'\l',array($file,$compacts));
@@ -174,7 +174,6 @@ function array_merge_by_default($defaults,$settings){
     }
     return $defaults;
 }
-
 
 /**
  * Data access

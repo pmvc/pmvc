@@ -22,7 +22,6 @@ const ACTION_FORWARDS='__action_forwards__';
  * Plugin 
  */
 const PLUGIN_INSTANCE='__plugin_instance__';
-const LAST_CONFIG_KEY='__last_config_key__';
 
 /**
  * System Error

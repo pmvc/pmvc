@@ -2,26 +2,23 @@
 use PMVC\ActionController as mvc;
 include_once('/home/sys/web/lib/pmvc/include.php');
 
+PMVC\setPlugInFolder('/git/plugin/');
 
 #cache
-include('/home/sys/web/lib/cache_header_helper.php');
-$cacheHeader = new CacheHeaderHelper();
-$cacheHeader->setCache(0);
+PMVC\plug('cache-header')->disable();
 
-define('ROOT_LIB','/home/sys/web/lib/');
-error_reporting(E_ALL);
 
 
 
 $options = array(
     _ROUTING=>'routing'
     ,_VIEW_ENGINE=>'html'
-    ,_PLUGIN_FOLDER=>ROOT_LIB.'plugin/'
     ,_ERROR_ENABLE_LOG=>true
+    ,_ERROR_REPORTING=>E_ALL
     ,_PLUGIN=>array(
         'routing'=>null
         ,'dev'=>null
-        ,'error_trace'=>null
+        ,'error-trace'=>null
     )
 );
 
