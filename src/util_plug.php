@@ -56,10 +56,13 @@ function load(
     if(empty($name)){
         return 1;
     }
-    $file = find($name,$type,$dirs,$defaultDir,$isIncludeApp);
+    /**
+     * cache find in load case, if some case can't use cahce please use find directly
+     */
+    $file = run(__NAMESPACE__.'\find', array($name,$type,$dirs,$defaultDir,$isIncludeApp));
     if($file){
         if($once){
-            $r=run(__NAMESPACE__.'\l',array($file,$compacts));
+            $r=run(__NAMESPACE__.'\l', array($file,$compacts));
         }else{
             $r=l($file,$compacts,$once);
         }
@@ -248,11 +251,11 @@ function &option($act,$k=null,$v=null){
  * misc
  */
 function d(...$params){
-    call_plugin('dev','d',$params);
+    call_plugin('debug','d',$params);
 }
 
 function log(...$params){
-    call_plugin('error_trace','log',$params);
+    call_plugin('error-trace','log',$params);
 }
 
 function toArray($p){
@@ -312,7 +315,7 @@ function setPlugInFolder($folder,$alias=array()){
     if (n($alias,'array')) {
         option('set',_PLUGIN_ALIAS,$alias); 
     }
-    return option('set',_PLUGIN_FOLDER,$folder);
+    return option('set',_PLUGIN_FOLDER,toArray($folder));
 }
 
 /**
@@ -380,7 +383,7 @@ function plug($name,$config=null){
             $r=run(__NAMESPACE__.'\l',array($file,_INIT_CONFIG));
         } else {
             $file = $name.'.php' ;
-            $default_folders = toArray(getOption(_PLUGIN_FOLDER));
+            $default_folders = getOption(_PLUGIN_FOLDER);
             $folders = array();
             foreach ($default_folders as $folder) {
                 $folders[] = lastSlash($folder).$name;

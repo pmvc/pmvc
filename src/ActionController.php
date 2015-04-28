@@ -172,7 +172,7 @@ class ActionController
     private function _processForm($actionMapping)
     {
         $actionForm = null;
-        $name = $actionMapping->getForm();
+        $name = $actionMapping->form;
         //verify that a form has been mapped
         if (strlen($name)) {
             $form =& $this->_mappings->findForm($name);
@@ -253,8 +253,8 @@ class ActionController
                 true
             )
         );
-        $class = $actionMapping->getClass();
-        $func = $actionMapping->getFunc();
+        $class = $actionMapping->class;
+        $func = $actionMapping->func;
         if (!class_exists($class)) {
             trigger_error('parse action error, not define class type', E_USER_ERROR);
         }
@@ -343,7 +343,7 @@ class ActionController
         if ($file) {
             return $file;
         } elseif ($welcome) {
-            $welcome = getOption(WELCOME_APP);
+            $welcome = getOption(_WELCOME_APP);
             return $this->processApp($welcome, $defaultAppFolder);
         } else {
             return 2;

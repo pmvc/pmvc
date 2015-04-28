@@ -2,7 +2,6 @@
 namespace PMVC;
 
 const CONTROLLER='__controller__';
-const CACHE='__cache__';
 
 /**
  * Run 

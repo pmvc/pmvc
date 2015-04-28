@@ -12,13 +12,11 @@ PMVC\plug('cache-header')->disable();
 
 $options = array(
     _ROUTING=>'routing'
-    ,_VIEW_ENGINE=>'html'
+    ,_VIEW_ENGINE=>'json'
     ,_ERROR_ENABLE_LOG=>true
     ,_ERROR_REPORTING=>E_ALL
     ,_PLUGIN=>array(
         'routing'=>null
-        ,'debug'=>null
-        ,'error-trace'=>null
     )
 );
 

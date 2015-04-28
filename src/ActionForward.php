@@ -26,32 +26,38 @@ class ActionForward extends HashMap
 	/**
 	 * @var	string
 	 */
-	var $_path;
+	private $_path;
+
 	/**
 	 * @var	string
 	 */
-	var $_type;
-        /**
-         * @var bool
-         */
-        var $useTheme;
-        /**
-         * @var string slower action 
-         */
-        var $slower;
-        /**
-         * @var object default view engine
-         */
-        var $view;
-        /**
-	 * @var	string
-	 */
-	var $clean=false;
+	private $_type;
+
         /**
         * header
         * @var array
         */
-        var $_header=array();
+        private $_header=array();
+
+        /**
+         * @var bool
+         */
+        public $useTheme;
+
+        /**
+         * @var string slower action 
+         */
+        public $slower;
+
+        /**
+         * @var object default view engine
+         */
+        public $view;
+
+        /**
+	 * @var	string
+	 */
+	public $clean=false;
 
 	/**
 	 * ActionForward
@@ -76,14 +82,16 @@ class ActionForward extends HashMap
         /**
         * get header
         */
-        function getHeader(){
+        function getHeader()
+        {
             return $this->_header;
         }
 
         /**
         * set header
         */
-        function setHeader($v){
+        function setHeader($v)
+        {
             set($this->_header,$v);
         }
 
@@ -118,8 +126,10 @@ class ActionForward extends HashMap
 	function getPath($bMerge=null)
 	{
             $path = $this->_path;
-            if(!empty($this->attribute) && $bMerge){
-                $path = plug(getOption(_ROUTING))->joinQuery($path,$this->attribute);
+            if($bMerge){
+                $attribute=$this->get();
+                unset($attribute[_CLASS]);
+                $path = plug(getOption(_ROUTING))->joinQuery($path,$attribute);
             }
             return $path;
 	}
@@ -162,7 +172,8 @@ class ActionForward extends HashMap
             }
         }
 
-        function _processView(){
+        function _processView()
+        {
             plug('view')->process();
             if(!empty($this->slower)){
                 return $this;
@@ -172,7 +183,8 @@ class ActionForward extends HashMap
         /**
          * execute ActionForward
          */
-        function go(){
+        function go()
+        {
             switch($this->getType()){
                 case 'view':
                     return $this->_processView();
