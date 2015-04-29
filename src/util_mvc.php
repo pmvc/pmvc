@@ -8,9 +8,12 @@ function &getC(){
     return option('get',CONTROLLER); 
 }
 
-
 function getAppName(){
     return option('get',RUN_APP); 
+}
+
+function getAction(){
+    return option('get',RUN_ACTION); 
 }
 
 function getAppFolder(){

@@ -311,11 +311,23 @@ function n($v,$type=null){
 /**
  * plugin
  */
-function setPlugInFolder($folder,$alias=array()){
+function setPlugInFolder($folders,$alias=array()){
     if (n($alias,'array')) {
         option('set',_PLUGIN_ALIAS,$alias); 
     }
-    return option('set',_PLUGIN_FOLDER,toArray($folder));
+    return option('set',_PLUGIN_FOLDERS,toArray($folders));
+}
+
+function addPlugInFolder($folders,$alias=array()){
+    $folders = \array_merge(
+        getOption(_PLUGIN_FOLDERS),
+        toArray($folders)
+    );
+    $alias = array_merge(
+        getOption(_PLUGIN_ALIAS),
+        $alias
+    );
+    setPlugInFolder($folders,$alias);
 }
 
 /**
@@ -383,7 +395,7 @@ function plug($name,$config=null){
             $r=run(__NAMESPACE__.'\l',array($file,_INIT_CONFIG));
         } else {
             $file = $name.'.php' ;
-            $default_folders = getOption(_PLUGIN_FOLDER);
+            $default_folders = getOption(_PLUGIN_FOLDERS);
             $folders = array();
             foreach ($default_folders as $folder) {
                 $folders[] = lastSlash($folder).$name;

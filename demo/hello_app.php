@@ -2,7 +2,7 @@
 use PMVC\ActionController as mvc;
 include_once('/home/sys/web/lib/pmvc/include.php');
 
-PMVC\setPlugInFolder('/git/plugin/');
+PMVC\setPlugInFolder('/git/plugin');
 
 #cache
 PMVC\plug('cache-header')->disable();

@@ -48,6 +48,6 @@ define('_ERROR_ENABLE_LOG', '_error_enable_log_');
 /* plugin */
 define('_FILE', '_file_');
 define('_PLUGIN', '_plugin_');
-define('_PLUGIN_FOLDER', '_plugin_folder_');
+define('_PLUGIN_FOLDERS', '_plugin_folder_');
 define('_PLUGIN_ALIAS', '_plugin_alias_');
 define('_INIT_CONFIG', '_init_config_');
