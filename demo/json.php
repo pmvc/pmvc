@@ -24,6 +24,9 @@ $options = array(
 $controller = new mvc($options);
 $file = $controller->getAppFile("./hello_app");
 $r=PMVC\l($file,array('b'));
+if(!$r->var['b']){
+    die('No mappings found. File:'.__FILE__.' Line:'.__LINE__);
+}
 if( $controller->setMapping($r->var['b']->getMappings()) ){
     $a = $controller->process();
 }
