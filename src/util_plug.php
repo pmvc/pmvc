@@ -182,22 +182,22 @@ function array_merge_by_default($defaults,$settings){
  * Data access
  */
 function set(&$a,$k,$v=null){
-    if(is_array($k)){
+    if(is_array($k)){ //merge by new array
         $a = array_merge($a,$k);
     }else{
-        if(is_null($v)){
+        if(is_null($v)){ //append value when no-assign key
             $a[]=$k;
-        }else{
+        }else{ //exactly set key and value
             $a[$k] = $v;
         }
     }
 }
 
 function &get(&$a,$k=null,$default=null){
-    if(is_null($k)){
+    if(is_null($k)){ //return all
         return $a;
     }else{
-        if(is_array($k)){
+        if(is_array($k)){ //return by keys
             $r=array();
             foreach($k as $i){
                 if(array_key_exists($i,$a)){
@@ -205,23 +205,25 @@ function &get(&$a,$k=null,$default=null){
                 }
             }
             return $r;
-        } 
-        if(!isset($a[$k])){
-            $a[$k] =  $default;
         }
-        return $a[$k];
+        //return one
+        if (!isset($a[$k])) { //return default
+            return $default;
+        } else { //return exactly value 
+            return $a[$k];
+        }
     }
 }
 
 function clean(&$a,$k=null){
-    if(is_null($k)){
+    if(is_null($k)){ //clean all
         $a=null;
         unset($a);
     }else{
-        if(is_array($k)){
+        if(is_array($k)){ //replace
             $a=&$k;
         }else{
-            unset($a[$k]);
+            unset($a[$k]); //clean by key
         }
     }
 }
@@ -344,10 +346,16 @@ function call_plugIn($plugIn,$func,$params){
  */
 function unPlug($name){
     if(!$name){  return $name; }
+    rePlug($name,null);
+}
+
+/**
+ * replug
+ */
+function rePlug($name,$object){
     $objs =& getOption(PLUGIN_INSTANCE); 
-    if(isset($objs[$name])){
-        unset($objs[$name]);
-    }
+    $objs[$name]=$object;
+    return $objs[$name];
 }
 
 function getPlugInNames()
@@ -428,12 +436,40 @@ class PLUGIN extends HashMap
     /**
      * @var string
      */
-    var $name;
-    var $file;
+    public $name;
+    public $file;
+    private $alias;
+
     function getDir(){
         return dirname($this->file).'/';
     }
     function init(){ }
+    function __call($method,$args){
+        if (isset($this->alias[$method])) {
+            $r=call_user_func_array(
+                $this->alias[$method],
+                $args
+            );
+        } else {
+            $r=call_user_func_array(
+                array($this->alias[''],$method),
+                $args
+            );
+        }
+        return $r;
+    }
+    function setDefaultAlias($obj){
+        $this->setAlias('',$obj);
+    }
+    function cleanDefaultAlias(){
+        $this->cleanAlias('');
+    }
+    function setAlias($k,$v=null){
+       set($this->alias,$k,$v);
+    }
+    function cleanAlias($arr=null){
+        clean($this->alias,$arr);
+    }
     function update($observer=null,$state=null){
         if(!is_null($state) && method_exists($this,'on'.$state)){
             $r=call_user_func(
