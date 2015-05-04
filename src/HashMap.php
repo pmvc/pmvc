@@ -38,16 +38,18 @@ class HashMap extends ListIterator
         return array_keys($this->_values);
     }
 
-    function get(...$p){
-        return get($this->_values,...$p);
+    function get($k,$default=null)
+    {
+        return get($this->_values,$k,$default);
     }
 
-    function set(...$p){
-        return set($this->_values,...$p);
+    function set($k,$v=null)
+    {
+        return set($this->_values,$k,$v);
     }
 
-    function clean(...$p){
-        return clean($this->_values,...$p);
+    function clean($k=null)
+    {
+        return clean($this->_values,$k);
     }
 }
-?>

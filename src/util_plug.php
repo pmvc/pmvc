@@ -154,8 +154,9 @@ function mergeName($name,$dir=null,$type=null){
 /**
  * Array Merge
  */
-function array_merge(...$a){
+function array_merge(){
     $new = array();
+    $a = func_get_args();
     foreach($a as $i){
         if(is_null($i)) continue;
         if(!is_array($i)){
@@ -252,11 +253,13 @@ function &option($act,$k=null,$v=null){
 /**
  * misc
  */
-function d(...$params){
+function d(){
+    $params = func_get_args();
     call_plugin('debug','d',$params);
 }
 
-function log(...$params){
+function log(){
+    $params = func_get_args();
     call_plugin('error-trace','log',$params);
 }
 
@@ -267,7 +270,8 @@ function toArray($p){
     return $p;
 }
 
-function hash(...$params){
+function hash(){
+    $params = func_get_args();
     return md5(var_export($params, true));
 }
 
@@ -335,9 +339,15 @@ function addPlugInFolder($folders,$alias=array()){
 /**
  * call_plug_func 
  */
-function call_plugIn($plugIn,$func,$params){
+function call_plugIn($plugIn,$func,$args){
     if(exists($plugIn,'plugIn')){
-        return plug($plugIn)->$func(...$params);
+        return call_user_func_array(
+            array(
+                plug($plugIn),
+                $func
+            ),
+            $args
+        );
     }
 }
 
