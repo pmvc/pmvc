@@ -289,7 +289,7 @@ class ActionController
      * 
      * @return mixed 
      */
-    public function getAppFile($defaultAppFolder=null)
+    public function getAppFile($defaultAppFolder)
     {
         call_plugin(
             'observer',
@@ -324,27 +324,21 @@ class ActionController
      *
      * @param string $appName          appName
      * @param string $defaultAppFolder defaultAppFolder
-     * @param string $welcome          welcome
      * 
      * @return mixed 
      */
-    protected function processApp($appName, $defaultAppFolder=null, $welcome=false)
+    protected function processApp($appName, $defaultAppFolder)
     {
         $file = null;
-        if ($appName) {
-            $defaultAppFolder=realpath($defaultAppFolder);
-            if ($defaultAppFolder) {
-                $defaultAppFolder=lastSlash($defaultAppFolder);
-                $this->store(RUN_APP_FOLDER, $defaultAppFolder);
-                $file = $defaultAppFolder.$appName.'/index.php';
-                $file = realpath($file);
-            }
+        $defaultAppFolder=realpath($defaultAppFolder);
+        if ($defaultAppFolder) {
+            $defaultAppFolder=lastSlash($defaultAppFolder);
+            $this->store(RUN_APP_FOLDER, $defaultAppFolder);
+            $file = $defaultAppFolder.$appName.'/index.php';
+            $file = realpath($file);
         }
         if ($file) {
             return $file;
-        } elseif ($welcome) {
-            $welcome = getOption(_WELCOME_APP);
-            return $this->processApp($welcome, $defaultAppFolder);
         } else {
             return 2;
         }
