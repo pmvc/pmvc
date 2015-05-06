@@ -1,18 +1,11 @@
 <?php
 namespace PMVC;
 
-const CONTROLLER='__controller__';
-
-/**
- * Run 
- */
-const RUN_APP='__run_app__';
-const RUN_APP_FOLDER='__run_app_folder__'; 
-const RUN_ACTION='__run_action__';
 
 /**
  * Action
  */
+const CONTROLLER='__controller__';
 const ACTION_FORMS='__action_forms__';
 const ACTION_MAPPINGS='__action_mappings__';
 const ACTION_FORWARDS='__action_forwards__';
@@ -21,6 +14,9 @@ const ACTION_FORWARDS='__action_forwards__';
  * Plugin 
  */
 const PLUGIN_INSTANCE='__plugin_instance__';
+const PLUGIN_FILE='__plug_file__';
+const PLUGIN_FOLDERS='__plugin_folders__';
+const PLUGIN_ALIAS='__plugin_alias__';
 
 /**
  * System Error

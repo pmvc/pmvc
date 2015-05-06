@@ -209,10 +209,9 @@ function &get(&$a,$k=null,$default=null){
         }
         //return one
         if (!isset($a[$k])) { //return default
-            return $default;
-        } else { //return exactly value 
-            return $a[$k];
-        }
+            $a[$k]=$default;
+        } 
+        return $a[$k]; //return exactly value 
     }
 }
 
@@ -285,18 +284,18 @@ function &run($func,$args){
 }
 
 function exists($v,$type){
-    switch($type){
-    case 'function':
-        return function_exists($v);
-    case 'class':
-        return class_exists($v);
-    case 'file':
-        return realpath($v);
-    case 'plugIn':
-        $objs = &getOption(PLUGIN_INSTANCE); 
-        return !empty($objs[$v]); 
-    default:
-        return null;
+    switch(strtolower($type)){
+        case 'function':
+            return function_exists($v);
+        case 'class':
+            return class_exists($v);
+        case 'file':
+            return realpath($v);
+        case 'plugin':
+            $objs = &getOption(PLUGIN_INSTANCE); 
+            return !empty($objs[$v]); 
+        default:
+            return null;
     }
 }
 
@@ -319,18 +318,18 @@ function n($v,$type=null){
  */
 function setPlugInFolder($folders,$alias=array()){
     if (n($alias,'array')) {
-        option('set',_PLUGIN_ALIAS,$alias); 
+        option('set',PLUGIN_ALIAS,$alias); 
     }
-    return option('set',_PLUGIN_FOLDERS,toArray($folders));
+    return option('set',PLUGIN_FOLDERS,toArray($folders));
 }
 
 function addPlugInFolder($folders,$alias=array()){
     $folders = \array_merge(
-        getOption(_PLUGIN_FOLDERS),
+        getOption(PLUGIN_FOLDERS),
         toArray($folders)
     );
     $alias = array_merge(
-        getOption(_PLUGIN_ALIAS),
+        getOption(PLUGIN_ALIAS),
         $alias
     );
     setPlugInFolder($folders,$alias);
@@ -340,7 +339,7 @@ function addPlugInFolder($folders,$alias=array()){
  * call_plug_func 
  */
 function call_plugIn($plugIn,$func,$args){
-    if(exists($plugIn,'plugIn')){
+    if(exists($plugIn,'plugin')){
         return call_user_func_array(
             array(
                 plug($plugIn),
@@ -380,7 +379,7 @@ function getPlugInNames()
 function initPlugIn($arr) {
     if(is_array($arr)){
         foreach($arr as $plugIn=>$config){
-            if(!exists($plugIn,'plugIn')){
+            if(!exists($plugIn,'plugin')){
                 plug($plugIn,$config);
             }
         }
@@ -401,19 +400,19 @@ function plug($name,$config=null){
         $class = $config[_CLASS];
     }else{
         $file = null; 
-        if(!isset($config[_FILE])){
-            $alias = getOption(_PLUGIN_ALIAS);
+        if(!isset($config[PLUGIN_FILE])){
+            $alias = getOption(PLUGIN_ALIAS);
             if(isset($alias[$name])){
                 $file=$alias[$name];
             }
         }else{
-            $file=$config[_FILE];
+            $file=$config[PLUGIN_FILE];
         }
         if( !is_null($file) && realpath($file) ){
             $r=run(__NAMESPACE__.'\l',array($file,_INIT_CONFIG));
         } else {
             $file = $name.'.php' ;
-            $default_folders = getOption(_PLUGIN_FOLDERS);
+            $default_folders = getOption(PLUGIN_FOLDERS);
             $folders = array();
             foreach ($default_folders as $folder) {
                 $folders[] = lastSlash($folder).$name;

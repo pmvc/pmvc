@@ -86,6 +86,67 @@ class ActionController
         option('set', $k, $v);
     }
 
+    /**
+     * getAppFile
+     *
+     * @param string $defaultAppFolder defaultAppFolder
+     * 
+     * @return mixed 
+     */
+    public function getAppFile($defaultAppFolder)
+    {
+        call_plugin(
+            'observer',
+            'fire',
+            array(
+                'MapRequest'
+                ,true
+            )
+        );
+        $file = $this->processApp(
+            getOption(_RUN_APP),
+            $defaultAppFolder,
+            true
+        );
+        if (!is_int($file)) {
+            call_plugin(
+                'observer',
+                'fire',
+                array(
+                    'GetAppFile'
+                    ,true
+                )
+            );
+            return $file;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * processApp
+     *
+     * @param string $appName          appName
+     * @param string $defaultAppFolder defaultAppFolder
+     * 
+     * @return mixed 
+     */
+    protected function processApp($appName, $defaultAppFolder)
+    {
+        $file = null;
+        $defaultAppFolder=realpath($defaultAppFolder);
+        if ($defaultAppFolder) {
+            $defaultAppFolder=lastSlash($defaultAppFolder);
+            $this->store(_RUN_APP_FOLDER, $defaultAppFolder);
+            $file = $defaultAppFolder.$appName.'/index.php';
+            $file = realpath($file);
+        }
+        if ($file) {
+            return $file;
+        } else {
+            return 2;
+        }
+    }
 
     /**
      * Set mapping
@@ -127,13 +188,13 @@ class ActionController
      */
     private function _processMapping()
     {
-        $index = getOPtion(RUN_ACTION);
+        $index = getOPtion(_RUN_ACTION);
         if (!$this->_mappings->mappingExists($index)) {
             if ($this->_mappings->mappingExists('index')) {
                 $index = 'index';
             }
         }
-        $this->store(RUN_ACTION, $index);
+        $this->store(_RUN_ACTION, $index);
         return $index;
     }
         
@@ -281,69 +342,6 @@ class ActionController
         }
         return $actionForward->go();
     }
-
-    /**
-     * getAppFile
-     *
-     * @param string $defaultAppFolder defaultAppFolder
-     * 
-     * @return mixed 
-     */
-    public function getAppFile($defaultAppFolder)
-    {
-        call_plugin(
-            'observer',
-            'fire',
-            array(
-                'MapRequest'
-                ,true
-            )
-        );
-        $file = $this->processApp(
-            getOption(RUN_APP),
-            $defaultAppFolder,
-            true
-        );
-        if (!is_int($file)) {
-            call_plugin(
-                'observer',
-                'fire',
-                array(
-                    'GetAppFile'
-                    ,true
-                )
-            );
-            return $file;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * processApp
-     *
-     * @param string $appName          appName
-     * @param string $defaultAppFolder defaultAppFolder
-     * 
-     * @return mixed 
-     */
-    protected function processApp($appName, $defaultAppFolder)
-    {
-        $file = null;
-        $defaultAppFolder=realpath($defaultAppFolder);
-        if ($defaultAppFolder) {
-            $defaultAppFolder=lastSlash($defaultAppFolder);
-            $this->store(RUN_APP_FOLDER, $defaultAppFolder);
-            $file = $defaultAppFolder.$appName.'/index.php';
-            $file = realpath($file);
-        }
-        if ($file) {
-            return $file;
-        } else {
-            return 2;
-        }
-    }
-        
 
     /**
      * Finish off the request and take down the controller.

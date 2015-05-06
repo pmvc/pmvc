@@ -4,20 +4,20 @@ namespace PMVC;
 /**
  * PMVC
  */
-function &getC(){
+function getC(){
     return option('get',CONTROLLER); 
 }
 
 function getAppName(){
-    return option('get',RUN_APP); 
+    return option('get',_RUN_APP); 
 }
 
 function getAction(){
-    return option('get',RUN_ACTION); 
+    return option('get',_RUN_ACTION); 
 }
 
 function getAppFolder(){
-    return option('get',RUN_APP_FOLDER); 
+    return option('get',_RUN_APP_FOLDER); 
 }
 
 function u($job,$url=null){

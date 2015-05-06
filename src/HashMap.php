@@ -38,7 +38,7 @@ class HashMap extends ListIterator
         return array_keys($this->_values);
     }
 
-    function get($k,$default=null)
+    function get($k=null,$default=null)
     {
         return get($this->_values,$k,$default);
     }
