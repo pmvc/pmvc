@@ -87,13 +87,14 @@ class ActionController
     }
 
     /**
-     * getAppFile
+     * plugApp
      *
-     * @param string $defaultAppFolder defaultAppFolder
+     * @param string $parent   defaultAppFolder
+     * @param array  $appAlias appAlias
      * 
      * @return mixed 
      */
-    public function getAppFile($defaultAppFolder)
+    public function plugApp($parent,$appAlias=null)
     {
         call_plugin(
             'observer',
@@ -103,50 +104,34 @@ class ActionController
                 ,true
             )
         );
-        $file = $this->processApp(
-            getOption(_RUN_APP),
-            $defaultAppFolder,
-            true
-        );
-        if (!is_int($file)) {
-            call_plugin(
-                'observer',
-                'fire',
-                array(
-                    'GetAppFile'
-                    ,true
-                )
-            );
-            return $file;
+        $app = $this->getApp();
+        if (!empty($alias[$app])) {
+            $app = $alias[$app];
+        }
+        if (!realpath($parent)) {
+            trigger_error('No App Parent found for '.$parent);
+            return false;
         } else {
-            return null;
+            $path = lastSlash($parent).$app.'/index.php';
+        }
+        if (!realpath($path)) {
+            trigger_error('No App found for '.$path);
+            return false;
+        } else {
+            $appPlugin = plug(_RUN_APP,array(
+                _PLUGIN_FILE=>$path 
+            ));
+            $builder = $appPlugin->get(_INIT_BUILDER);
+            if(empty($builder)){
+                trigger_error('No builder found');
+                return false;
+            }
+            $this->setMapping($builder->getMappings()); 
+            $this->store(_RUN_PARENT, realpath($parent));
+            return true;
         }
     }
 
-    /**
-     * processApp
-     *
-     * @param string $appName          appName
-     * @param string $defaultAppFolder defaultAppFolder
-     * 
-     * @return mixed 
-     */
-    protected function processApp($appName, $defaultAppFolder)
-    {
-        $file = null;
-        $defaultAppFolder=realpath($defaultAppFolder);
-        if ($defaultAppFolder) {
-            $defaultAppFolder=lastSlash($defaultAppFolder);
-            $this->store(_RUN_APP_FOLDER, $defaultAppFolder);
-            $file = $defaultAppFolder.$appName.'/index.php';
-            $file = realpath($file);
-        }
-        if ($file) {
-            return $file;
-        } else {
-            return 2;
-        }
-    }
 
     /**
      * Set mapping
@@ -378,5 +363,55 @@ class ActionController
     public function getMapping()
     {
         return $this->_mappings;
+    }
+
+    /**
+     * getApp 
+     * 
+     * @return mixed 
+     */
+    public function getApp()
+    {
+        return option('get',_RUN_APP); 
+    }
+
+    /**
+     * setApp 
+     * 
+     * @return mixed 
+     */
+    public function setApp($app)
+    {
+        return $this->setOption(_RUN_APP, $app);
+    }
+
+    /**
+     * getApp 
+     * 
+     * @return string 
+     */
+    public function getAppParent()
+    {
+        return option('get',_RUN_PARENT); 
+    }
+
+    /**
+     * getApp 
+     * 
+     * @return mixed 
+     */
+    public function getAppAction()
+    {
+        return option('get',_RUN_ACTION); 
+    }
+
+    /**
+     * setAppAction
+     * 
+     * @return mixed 
+     */
+    public function setAppAction($action)
+    {
+        return $this->setOption(_RUN_ACTION, $app);
     }
 }

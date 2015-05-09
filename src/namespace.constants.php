@@ -14,7 +14,6 @@ const ACTION_FORWARDS='__action_forwards__';
  * Plugin 
  */
 const PLUGIN_INSTANCE='__plugin_instance__';
-const PLUGIN_FILE='__plug_file__';
 const PLUGIN_FOLDERS='__plugin_folders__';
 const PLUGIN_ALIAS='__plugin_alias__';
 

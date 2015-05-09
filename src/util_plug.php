@@ -400,13 +400,13 @@ function plug($name,$config=null){
         $class = $config[_CLASS];
     }else{
         $file = null; 
-        if(!isset($config[PLUGIN_FILE])){
+        if(!isset($config[_PLUGIN_FILE])){
             $alias = getOption(PLUGIN_ALIAS);
             if(isset($alias[$name])){
                 $file=$alias[$name];
             }
         }else{
-            $file=$config[PLUGIN_FILE];
+            $file=$config[_PLUGIN_FILE];
         }
         if( !is_null($file) && realpath($file) ){
             $r=run(__NAMESPACE__.'\l',array($file,_INIT_CONFIG));
@@ -419,7 +419,7 @@ function plug($name,$config=null){
             }
             $r=load($file, 'file', $folders, null, _INIT_CONFIG, true, false);
         }
-        $class = (2!==$r)?$r->var[_INIT_CONFIG][_CLASS]:false;
+        $class = (!empty($r->var[_INIT_CONFIG][_CLASS]))?$r->var[_INIT_CONFIG][_CLASS]:false;
     }
     if(class_exists($class)){
         $oPlugin = new $class();

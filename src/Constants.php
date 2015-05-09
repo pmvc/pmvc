@@ -45,9 +45,15 @@ define('_ERROR_REPORTING', '_error_reporting_');
 define('_ERROR_ENABLE_LOG', '_error_enable_log_');
 
 /**
+ * plugin
+ */
+define('_PLUGIN_FILE', '_plugin_file_');
+define('_INIT_CONFIG', '_init_config_');
+define('_INIT_BUILDER', '_init_config_');
+
+/**
  * Run 
  */
-define('_INIT_CONFIG', '_init_config_');
-define('_RUN_APP_FOLDER', '_run_app_folder_'); 
 define('_RUN_APP', '_run_app_');
 define('_RUN_ACTION', '_run_action_');
+define('_RUN_PARENT', '_run_parent_');
