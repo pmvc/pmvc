@@ -118,11 +118,14 @@ class ActionController
             trigger_error('No App found for '.$path);
             return false;
         } else {
-            $appPlugin = plug(_RUN_APP,array(
-                _PLUGIN_FILE=>$path 
-            ));
+            $appPlugin = plug(
+                _RUN_APP,
+                array(
+                    _PLUGIN_FILE=>$path 
+                )
+            );
             $builder = $appPlugin->get(_INIT_BUILDER);
-            if(empty($builder)){
+            if (empty($builder)) {
                 trigger_error('No builder found');
                 return false;
             }
@@ -372,12 +375,14 @@ class ActionController
      */
     public function getApp()
     {
-        return option('get',_RUN_APP); 
+        return option('get', _RUN_APP); 
     }
 
     /**
      * setApp 
      * 
+     * @param string $app app
+     *
      * @return mixed 
      */
     public function setApp($app)
@@ -392,7 +397,7 @@ class ActionController
      */
     public function getAppParent()
     {
-        return option('get',_RUN_PARENT); 
+        return option('get', _RUN_PARENT); 
     }
 
     /**
@@ -402,12 +407,14 @@ class ActionController
      */
     public function getAppAction()
     {
-        return option('get',_RUN_ACTION); 
+        return option('get', _RUN_ACTION); 
     }
 
     /**
      * setAppAction
      * 
+     * @param string $action action 
+     *
      * @return mixed 
      */
     public function setAppAction($action)
