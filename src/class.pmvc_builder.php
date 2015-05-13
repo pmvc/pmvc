@@ -65,7 +65,7 @@ class MappingBuilder extends Object
     {
         
         $filter =&$this->_aaMap[ACTION_FORMS][$psFormId][_FILTER][$psField]; 
-        $settings = array_merge_by_default(
+        $settings = mergeDefault(
             $this->getFilterDefault()
             ,$settings
         );
@@ -99,7 +99,7 @@ class MappingBuilder extends Object
 
     function addAction($psId,$settings)
     {
-        $settings = array_merge_by_default(
+        $settings = mergeDefault(
             $this->getActionDefault()
             ,$settings
         );
@@ -130,7 +130,7 @@ class MappingBuilder extends Object
      */
     function addForward($psId, $settings )
     {
-        $settings = array_merge_by_default(
+        $settings = mergeDefault(
             $this->getForwardDefault()
             ,$settings
         );

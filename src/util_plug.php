@@ -87,7 +87,7 @@ function find($name,$type='file',$dirs=null,$defaultDir=null,$isIncludeApp=null)
         if(!empty($defaultDir)){
             $dirs = $defaultDir;
         }else{
-            return run(__NAMESPACE__.'\includeApp',array(mergeName($name,null,$type),$isIncludeApp));
+            return run(__NAMESPACE__.'\includeApp',array(mergeName($name,null),$isIncludeApp));
         }
     }
     $dirs = splitDir($dirs);
@@ -95,10 +95,10 @@ function find($name,$type='file',$dirs=null,$defaultDir=null,$isIncludeApp=null)
         if(!(realPath($dirPath))){
             continue;
         }
-        $r = run(__NAMESPACE__.'\includeApp',array(mergeName($name,$dirPath,$type),$isIncludeApp));
+        $r = run(__NAMESPACE__.'\includeApp',array(mergeName($name,$dirPath),$isIncludeApp));
         if(!$r && 'file'!=$type){
             $lowerCase = run(__NAMESPACE__.'\lowerCaseFile',array($name,$type));
-            $r = run(__NAMESPACE__.'\includeApp',array(mergeName($lowerCase,$dirPath,$type),$isIncludeApp));
+            $r = run(__NAMESPACE__.'\includeApp',array(mergeName($lowerCase,$dirPath),$isIncludeApp));
         }
         if($r){
             return $r;
@@ -142,12 +142,9 @@ function splitDir($s){
     return  split('[;:]', $s );
 }
 
-function mergeName($name,$dir=null,$type=null){
-    if(strlen($dir)){
+function mergeName($name,$dir=null){
+    if(!empty($dir)){
         $name = lastSlash($dir).$name;
-    }
-    if(!is_null($type) && 'file'!==$type){
-        $name .= '.php';
     }
     return $name;
 }
@@ -170,7 +167,7 @@ function array_merge(){
     return $new;
 }
 
-function array_merge_by_default($defaults,$settings){
+function mergeDefault($defaults,$settings){
     foreach($defaults as $k=>$v){
         if(isset($settings[$k])){
             $defaults[$k]=$settings[$k];
