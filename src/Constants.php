@@ -32,7 +32,6 @@ define('_OPTION', '_option_');
 define('_CLEAN', '_clean_');
 
 /* mapping-forward */
-define('_USE_THEME', '_use_theme_');
 define('_SLOWER', '_slower_');
 define('_HEADER', '_header_');
 

@@ -40,11 +40,6 @@ class ActionForward extends HashMap
         private $_header=array();
 
         /**
-         * @var bool
-         */
-        public $useTheme;
-
-        /**
          * @var string slower action 
          */
         public $slower;
@@ -72,7 +67,6 @@ class ActionForward extends HashMap
             $this->setType($forward[_TYPE]);
             $this->setHeader($forward[_HEADER]);
             $this->clean = $forward[_CLEAN];
-            $this->useTheme = $forward[_USE_THEME];
             $this->slower = $forward[_SLOWER];
             if(is_array($forward[_INITIAL])){
                  $this->clean($forward[_INITIAL]);

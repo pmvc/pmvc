@@ -1,6 +1,9 @@
 <?php
 
 $b = new PMVC\MappingBuilder();
+${_INIT_CONFIG}[_CLASS] = 'NewActionName';
+${_INIT_CONFIG}[_INIT_BUILDER] = $b;
+
 $b->addAction('index', array(
     _CLASS=>'NewActionName'
     ,_FORM=>'HelloVerify'
@@ -12,7 +15,7 @@ $b->addAction('index_slower', array(
 
 
 $b->addForward('home', array(
-    _PATH=>'hello.html'
+    _PATH=>'hello'
     ,_TYPE=>'view'
     ,_USE_THEME=>true
     ,_SLOWER=>'index_slower'

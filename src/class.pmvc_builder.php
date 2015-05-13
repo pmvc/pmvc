@@ -144,11 +144,9 @@ class MappingBuilder extends Object
             ,_TYPE=>'redirect'
             ,_INITIAL=>null
             ,_CLEAN=>null
-            ,_USE_THEME=>null
             ,_HEADER=>null
             ,_SLOWER=>null
         );
     }
-
 }
 ?>
