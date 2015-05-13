@@ -14,18 +14,18 @@ function realPath($p){
 function l($name,$compacts=null,$once=true){
     static $files=array();
     $name = realpath($name);
-    if(!$name){
+    if (!$name) {
         return false;
     }
-    if(!( $once && isset($files[$name]) )){
+    if (!$once || !isset($files[$name])) {
         $files[$name]=true;
         include($name);
     }
     $o = new \stdClass();
-    if($compacts){
+    if ($compacts) {
         $o->name = $name;
         $o->var = compact($compacts);
-    }else{
+    } else {
         $o->name=$name;
     }
     return $o;
