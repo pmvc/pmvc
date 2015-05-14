@@ -98,7 +98,6 @@ class ActionForward extends HashMap
                 $type='redirect';
             } elseif ('view'==$type){
                 $this->view=plug('view');
-                $this->view->forward = $this;
             }
             $this->_type = $type;
         }
@@ -168,7 +167,9 @@ class ActionForward extends HashMap
 
         function _processView()
         {
-            plug('view')->process();
+            $this->view->folder = getOption(_TEMPLATE_DIR);
+            $this->view->path = $this->getPath();
+            $this->view->process();
             if(!empty($this->slower)){
                 return $this;
             }
