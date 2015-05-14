@@ -98,6 +98,7 @@ class ActionForward extends HashMap
                 $type='redirect';
             } elseif ('view'==$type){
                 $this->view=plug('view');
+                $this->view->forward = $this;
             }
             $this->_type = $type;
         }

@@ -2,11 +2,11 @@
 use PMVC\ActionController as mvc;
 include_once('/home/sys/web/lib/pmvc/include.php');
 
-PMVC\setPlugInFolder('/git/plugin/');
+PMVC\setPlugInFolder('/git/pmvc-plugin/');
+
 
 #cache
-PMVC\plug('cache-header')->disable();
-
+PMVC\plug('cache-header')->nocache();
 
 
 
@@ -21,13 +21,8 @@ $options = array(
 );
 
 
+
 $controller = new mvc($options);
-$file = $controller->getAppFile("./hello_app");
-$r=PMVC\l($file,array('b'));
-if(!$r->var['b']){
-    die('No mappings found. File:'.__FILE__.' Line:'.__LINE__);
-}
-if( $controller->setMapping($r->var['b']->getMappings()) ){
+if($controller->plugApp('/git/pmvc-app')){
     $a = $controller->process();
 }
-
