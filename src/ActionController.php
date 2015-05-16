@@ -303,9 +303,9 @@ class ActionController
             )
         );
         $func = $actionMapping->func;
-        if (!function_exists($func)) {
+        if (!is_callable($func)) {
             trigger_error(
-                'parse action error, function not exists: '.(string)$func,
+                'parse action error, function not exists',
                 E_USER_ERROR
             );
         }
