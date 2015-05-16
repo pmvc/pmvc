@@ -162,9 +162,9 @@ class ActionController
     {
         $index  = $this->_processMapping();
         $result = $this->execute($index);
-        $this->finish();
-        if (!empty($result->slower)) {
-            $this->execute($result->slower);
+        $this->_finish();
+        if (!empty($result->lazyOutput)) {
+            $this->execute($result->lazyOutput);
         }
         return $result;
     }
@@ -176,7 +176,7 @@ class ActionController
      */
     private function _processMapping()
     {
-        $index = getOPtion(_RUN_ACTION);
+        $index = option('get', _RUN_ACTION);
         if (!$this->_mappings->mappingExists($index)) {
             if ($this->_mappings->mappingExists('index')) {
                 $index = 'index';
@@ -241,7 +241,7 @@ class ActionController
             $actionForm =& new ActionForm();
         }
         //add request parameters
-        $this->initActionFormValue($actionForm, $actionMapping);
+        $this->_initActionFormValue($actionForm, $actionMapping);
 
         //validate the form if necesarry
         if ($actionMapping->validate) {
@@ -260,7 +260,7 @@ class ActionController
      * 
      * @return ActionForm
      */
-    public function initActionFormValue($actionForm, $actionMapping)
+    private function _initActionFormValue($actionForm, $actionMapping)
     {
         $scope =& $actionMapping->scope;
         if (!is_array($scope)) {
@@ -336,7 +336,7 @@ class ActionController
      * 
      * @return void
      */
-    public function finish()
+    private function _finish()
     {
         call_plugin(
             'observer', 
@@ -375,7 +375,7 @@ class ActionController
      */
     public function getApp()
     {
-        return option('get', _RUN_APP); 
+        return option('get', _RUN_APP);
     }
 
     /**

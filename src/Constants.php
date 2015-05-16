@@ -32,7 +32,7 @@ define('_OPTION', '_option_');
 define('_CLEAN', '_clean_');
 
 /* mapping-forward */
-define('_SLOWER', '_slower_');
+define('_LAZY_OUTPUT', '_lazy_output_');
 define('_HEADER', '_header_');
 
 /* options constant(s) */

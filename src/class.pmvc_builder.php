@@ -1,24 +1,25 @@
 <?php
 /**
- * PMVC 
+ * PMVC
  *
  * PHP version 5
  *
  * @category CategoryName
  * @package  PackageName
- * @author   Hill <hill@kimo.com> 
- * @license  http://opensource.org/licenses/MIT MIT 
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
  * @link     http://pear.php.net/package/PackageName
  */
 namespace PMVC;
+
 /**
  * PMVC MappingBuilder
  *
  * @category CategoryName
  * @package  PackageName
- * @author   Hill <hill@kimo.com> 
- * @license  http://opensource.org/licenses/MIT MIT 
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  * @link     http://pear.php.net/package/PackageName
  */
 class MappingBuilder extends Object
@@ -26,8 +27,8 @@ class MappingBuilder extends Object
     /**
      *	@var	array
      */
-    var $_aaMap = array(
-        ACTION_FORMS	    => array()
+    private $_aaMap = array(
+        ACTION_FORMS        => array()
         ,ACTION_MAPPINGS   => array()
         ,ACTION_FORWARDS   => array()
     );
@@ -37,86 +38,130 @@ class MappingBuilder extends Object
      *
      *	@return	ActionMappings
      */
-    function getMappings()
+    public function getMappings()
     {
         return (object)$this->_aaMap;
     }
 
     /**
      *  Add a form to mapping
+     *
+     * @param string $psFormId form id
+     * @param array  $settings settings
+     * 
+     * @return bool
      */
-    function addForm($psFormId, $settings=array())
+    public function addForm($psFormId, $settings=array())
     {
-        if(!isset($this->_aaMap[ACTION_FORMS][$psFormId])){
-            if(!isset($settings[_CLASS])){
+        if (!isset($this->_aaMap[ACTION_FORMS][$psFormId])) {
+            if (!isset($settings[_CLASS])) {
                 $settings[_CLASS]=$psFormId;
             }
             $this->_aaMap[ACTION_FORMS][$psFormId][_CLASS] = $settings[_CLASS];
         }
     }
-    function getFormDefault(){
+
+    /**
+     * Get Form Default
+     * 
+     * @return array
+     */
+    public function getFormDefault()
+    {
         return array(
             _CLASS=>null
-        ); 
+        );
     }
 
-
-    function addFilter($psFormId, $psField, $settings)
+    /**
+     * Add filter 
+     *
+     * @param string $psFormId form id
+     * @param string $psField  field id
+     * @param array  $settings settings
+     * 
+     * @return bool
+     */
+    public function addFilter($psFormId, $psField, $settings)
     {
-        
-        $filter =&$this->_aaMap[ACTION_FORMS][$psFormId][_FILTER][$psField]; 
+        $filter =&$this->_aaMap[ACTION_FORMS][$psFormId][_FILTER][$psField];
         $settings = mergeDefault(
-            $this->getFilterDefault()
-            ,$settings
+            $this->getFilterDefault(), $settings
         );
         $type = (isset($settings[_TYPE]))?$settings[_TYPE]:null;
         unset($settings[_TYPE]);
-        if($type){
+        if ($type) {
             $filter[$type]=$settings;
-        }else{
+        } else {
             $filter[]=$settings;
         }
         return true;
     }
 
-    function getFilterDefault(){
+    /**
+     * Get Filter Default
+     * 
+     * @return array
+     */
+    public function getFilterDefault()
+    {
         return array(
-            _FUNCTION => null 
-            ,_OPTION  => null 
+            _FUNCTION => null
+            ,_OPTION  => null
             ,_TYPE    => null
         );
     }
 
-    function addGlobalFilter($psFormId, $psField, $settings)
+    /**
+     * Add global filter 
+     *
+     * @param string $psFormId form id
+     * @param string $psField  field id
+     * @param array  $settings settings
+     * 
+     * @return bool
+     */
+    public function addGlobalFilter($psFormId, $psField, $settings)
     {
-        $settings[_TYPE]='g'; 
+        $settings[_TYPE]='g';
         return $this->addFilter(
-            $psFormId
-            ,$psField
-            ,$settings
+            $psFormId, $psField, $settings
         );
     }
 
-    function addAction($psId,$settings)
+    /**
+     * Add a Action to mapping
+     *
+     * @param string $psId     forward id
+     * @param array  $settings settings
+     * 
+     * @return bool
+     */
+    public function addAction($psId, $settings)
     {
         $settings = mergeDefault(
-            $this->getActionDefault()
-            ,$settings
+            $this->getActionDefault(), $settings
         );
-        if(!is_null($settings[_FORM])){
+        if (!is_null($settings[_FORM])) {
             $this->addForm($settings[_FORM]);
         }
         $this->_aaMap[ACTION_MAPPINGS][$psId] = $settings;
         return true;
     }
 
-    function getActionDefault(){
+    /**
+     * Get Action Default
+     * 
+     * @return array
+     */
+    public function getActionDefault()
+    {
         return array(
-            _CLASS	=> null 
-            ,_FORM	=> null 
-            ,_VALIDATE  => true 
-            ,_INPUT	=> null
-            ,_SCOPE	=> 'request' 
+            _CLASS    => null
+            ,_FORM    => null
+            ,_VALIDATE  => true
+            ,_INPUT    => null
+            ,_SCOPE    => 'request'
             ,_INITIAL   => null
             ,_TYPE      => null
             ,_FUNCTION  => null
@@ -126,27 +171,36 @@ class MappingBuilder extends Object
 
 
     /**
-     *	Add a forward to mapping
+     * Add a forward to mapping
+     *
+     * @param string $psId     forward id
+     * @param array  $settings settings
+     * 
+     * @return bool
      */
-    function addForward($psId, $settings )
+    public function addForward($psId, $settings)
     {
         $settings = mergeDefault(
-            $this->getForwardDefault()
-            ,$settings
+            $this->getForwardDefault(), $settings
         );
         $this->_aaMap[ACTION_FORWARDS][$psId] = $settings;
         return true;
     }
 
-    function getForwardDefault(){
+    /**
+     * Get forward default value
+     * 
+     * @return array
+     */
+    public function getForwardDefault()
+    {
         return array(
             _PATH=>'_DEFAULT_'
             ,_TYPE=>'redirect'
             ,_INITIAL=>null
             ,_CLEAN=>null
             ,_HEADER=>null
-            ,_SLOWER=>null
+            ,_LAZY_OUTPUT=>null
         );
     }
 }
-?>
