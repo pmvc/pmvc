@@ -51,14 +51,6 @@ class ActionMappings
     }
 
     /**
-     * if not defined class return index's class
-     */
-    function getDefaultClass()
-    {
-        return $this->_mappings->__action_mappings__['index'][_CLASS];
-    }
-
-    /**
      * Find a form
      * @access public
      * @param string $name

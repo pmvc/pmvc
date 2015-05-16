@@ -157,15 +157,14 @@ class MappingBuilder extends Object
     public function getActionDefault()
     {
         return array(
-            _CLASS    => null
-            ,_FORM    => null
-            ,_VALIDATE  => true
+            _FUNCTION  => null
+            ,_FORM     => null
+            ,_VALIDATE => true
             ,_INPUT    => null
             ,_SCOPE    => 'request'
-            ,_INITIAL   => null
-            ,_TYPE      => null
-            ,_FUNCTION  => null
-            ,_CLEAN     => null
+            ,_INITIAL  => null
+            ,_TYPE     => null
+            ,_CLEAN    => null
         );
     }
 

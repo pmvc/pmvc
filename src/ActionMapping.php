@@ -24,10 +24,6 @@ namespace PMVC;
  */
 class ActionMapping extends Object
 {
-    /**
-     * @var	string
-     */
-    public $class;
         
     /**
      * @var	string
@@ -85,11 +81,6 @@ class ActionMapping extends Object
     public function __construct(&$mapping, $name)
     {
         $this->name= $name;
-        if (isset($mapping[_CLASS])) {
-            $this->class = $mapping[_CLASS];
-        } else {
-            $this->class = getC()->_mappings->getDefaultClass();
-        }
         if (isset($mapping[_FUNCTION])) {
             $this->func = $mapping[_FUNCTION];
         } else {

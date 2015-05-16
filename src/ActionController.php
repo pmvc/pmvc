@@ -302,16 +302,15 @@ class ActionController
                 true
             )
         );
-        $class = $actionMapping->class;
         $func = $actionMapping->func;
-        if (!class_exists($class)) {
-            trigger_error('parse action error, not define class type', E_USER_ERROR);
-        }
-        if (!method_exists($class, $func)) {
-            $func = 'index';
+        if (!function_exists($func)) {
+            trigger_error(
+                'parse action error, function not exists: '.(string)$func,
+                E_USER_ERROR
+            );
         }
         return call_user_func_array(
-            array(new $class, $func),
+            $func,
             array($actionMapping, $actionForm, $this->_request)
         );
     }
