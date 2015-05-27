@@ -14,5 +14,10 @@
     "require": {
         "php": ">=5.5.0"
     },
+    "autoload": {
+        "psr-4": {
+            "PMVC\\": "src"
+        }
+    },
     "minimum-stability": "dev"
 }
