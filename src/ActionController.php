@@ -96,14 +96,6 @@ class ActionController
      */
     public function plugApp($parent,$appAlias=null)
     {
-        call_plugin(
-            'observer',
-            'fire',
-            array(
-                'MapRequest'
-                ,true
-            )
-        );
         $app = $this->getApp();
         if (!empty($alias[$app])) {
             $app = $alias[$app];
@@ -160,6 +152,14 @@ class ActionController
      */
     public function process()
     {
+        call_plugin(
+            'observer',
+            'fire',
+            array(
+                'MapRequest'
+                ,true
+            )
+        );
         $index  = $this->_processMapping();
         $result = $this->execute($index);
         $this->_finish();

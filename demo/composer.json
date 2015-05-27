@@ -1,0 +1,5 @@
+{
+    "require": {
+        "pmvc-plugin/fast-route": "dev-master"
+    }
+}

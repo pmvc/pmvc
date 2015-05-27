@@ -29,11 +29,22 @@ class Request extends HashMap
      */
     function __construct()
     {
-        if ('GET'==getenv('REQUEST_METHOD')) {
+        if ('GET'===$this->getMethod()) {
             $this->set($_GET);
         } else {
             $this->set($_POST);
         }
     }
+
+    /**
+     * Get Method
+     * 
+     * @return string
+     */
+    function getMethod()
+    {
+        return getenv('REQUEST_METHOD');
+    }
+
 }
 ?>
