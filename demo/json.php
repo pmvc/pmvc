@@ -1,9 +1,7 @@
 <?php
+include_once('../vendor/autoload.php');
+PMVC\Load::mvc();
 use PMVC\ActionController as mvc;
-include_once('/home/sys/web/lib/pmvc/include.php');
-
-PMVC\setPlugInFolder('/git/pmvc-plugin/');
-
 
 #cache
 PMVC\plug('cache-header')->nocache();

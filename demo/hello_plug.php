@@ -1,10 +1,9 @@
 <?php
-include_once('/home/sys/web/lib/pmvc/include_plug.php');
-
-PMVC\setPlugInFolder('/git/pmvc-plugin');
+include_once('../vendor/autoload.php');
+PMVC\Load::mvc();
 
 #cache
-PMVC\plug('cache-header')->nocache();
+PMVC\plug('cache_header')->nocache();
 
 
 
