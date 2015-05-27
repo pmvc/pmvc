@@ -44,7 +44,8 @@ class ActionController
         if ($options) {
             $this->setOption($options);
         }
-        $this->_request =& new Request();
+        $this->_request = new Request();
+        $this->_mappings = new ActionMappings();
     }
 
     /**
@@ -138,7 +139,7 @@ class ActionController
     public function setMapping($mappings)
     {
         if (!empty($mappings)) {
-            $this->_mappings = new ActionMappings($mappings);
+            $this->_mappings->setMappings($mappings);
             return true;
         } else {
             return false;
