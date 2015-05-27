@@ -1,9 +1,10 @@
 <?php
 include_once('src/Constants.php');
 include_once('src/namespace.constants.php');
-include_once('src/object.5.php');
-include_once('src/class.iterator.5.php');
+include_once('src/Object.php');
+include_once('src/ListIterator.php');
 include_once('src/HashMap.php');
+include_once('src/PlugIn.php');
 include_once('src/util_mvc.php');
 include_once('src/util_plug.php');
 include_once('src/Action.php');
@@ -11,6 +12,6 @@ include_once('src/ActionForm.php');
 include_once('src/ActionForward.php');
 include_once('src/ActionMapping.php');
 include_once('src/ActionMappings.php');
-include_once('src/class.pmvc_builder.php');
+include_once('src/MappingBuilder.php');
 include_once('src/Request.php');
 include_once('src/ActionController.php');
