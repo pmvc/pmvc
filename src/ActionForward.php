@@ -177,14 +177,14 @@ class ActionForward extends HashMap
      *
      * @return mixed
      */
-    public function &get($k)
+    public function get( $k=null, $default=null )
     {
         if ('view'==$this->getType()) {
             $args = func_get_args();
             $return = call_user_func_array(array($this->view,'get'), $args);
             return $return;
         } else {
-            return parent::get($k);
+            return parent::get($k, $default);
         }
     }
     /**

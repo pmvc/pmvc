@@ -237,9 +237,9 @@ class ActionController
                 );
             }
             //create and init form class
-            $actionForm =& new $class();
+            $actionForm = new $class();
         } else {
-            $actionForm =& new ActionForm();
+            $actionForm = new ActionForm();
         }
         //add request parameters
         $this->_initActionFormValue($actionForm, $actionMapping);

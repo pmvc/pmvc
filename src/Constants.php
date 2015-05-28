@@ -46,6 +46,7 @@ define('_ERROR_ENABLE_LOG', '_error_enable_log_');
 /**
  * plugin
  */
+define('_PLUGIN', '_plugin_');
 define('_PLUGIN_FILE', '_plugin_file_');
 define('_INIT_CONFIG', '_init_config_');
 define('_INIT_BUILDER', '_init_builder_');
