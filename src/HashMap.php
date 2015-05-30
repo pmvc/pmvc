@@ -1,55 +1,98 @@
 <?php
 /**
- * PMVC 
+ * PMVC
  *
  * PHP version 5
  *
  * @category CategoryName
  * @package  PackageName
- * @author   Hill <hill@kimo.com> 
- * @license  http://opensource.org/licenses/MIT MIT 
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
  * @link     http://pear.php.net/package/PackageName
  */
 namespace PMVC;
+
 /**
  * PMVC HashMap
  *
  * @category CategoryName
  * @package  PackageName
- * @author   Hill <hill@kimo.com> 
- * @license  http://opensource.org/licenses/MIT MIT 
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  * @link     http://pear.php.net/package/PackageName
  */
-class HashMap extends ListIterator 
+class HashMap extends ListIterator
 {
-    function containsKey($key)
+    /**
+     * containsKey
+     *
+     * @param string $key key 
+     *
+     * @return boolean
+     */
+    public function containsKey($key)
     {
-        return array_key_exists($key, $this->_values);
+        return array_key_exists($key, $this->values);
     }
 
-    function containsValue($value)
+    /**
+     * containsValue
+     *
+     * @param string $value value 
+     *
+     * @return boolean
+     */
+    public function containsValue($value)
     {
-        return in_array($value, $this->_values);
+        return in_array($value, $this->values);
     }
 
-    function keySet()
+    /**
+     * get array_keys 
+     *
+     * @return boolean
+     */
+    public function keySet()
     {
-        return array_keys($this->_values);
+        return array_keys($this->values);
     }
 
-    function get($k=null,$default=null)
+    /**
+     * get
+     *
+     * @param mixed $k       key
+     * @param mixed $default default value 
+     *
+     * @return mixed 
+     */
+    public function get($k=null, $default=null)
     {
-        return get($this->_values,$k,$default);
+        return get($this->values, $k, $default);
     }
 
-    function set($k,$v=null)
+    /**
+     * set 
+     *
+     * @param mixed $k key
+     * @param mixed $v value 
+     *
+     * @return bool 
+     */
+    public function set($k, $v=null)
     {
-        return set($this->_values,$k,$v);
+        return set($this->values, $k, $v);
     }
 
-    function clean($k=null)
+    /**
+     * Clean
+     *
+     * @param mixed $k key
+     *
+     * @return bool 
+     */
+    public function clean($k=null)
     {
-        return clean($this->_values,$k);
+        return clean($this->values, $k);
     }
 }

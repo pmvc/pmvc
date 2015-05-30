@@ -57,8 +57,7 @@ class PlugIn extends HashMap implements \SplObserver
     /**
      * observer update function
      *
-     * @param object $observer observer
-     * @param mixed  $state    state
+     * @param \SplSubject $subject observable
      *
      * @return mixed
      */

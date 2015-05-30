@@ -23,15 +23,19 @@ namespace PMVC;
  */
 class Object
 {
+    /**
+     * object clone 
+     *
+     * @param object $obj object 
+     *
+     * @return object
+     */
     function getClone($obj=null)
     {
-        if(is_null($obj)) $obj=$this;
-        return @clone($obj);
-    }
-
-    function equals($object)
-    {
-        return ($this === $object);
+        if (is_null($obj)) {
+            $obj=$this;
+        }
+        return clone($obj);
     }
 }
 ?>

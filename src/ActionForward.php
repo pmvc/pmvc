@@ -173,7 +173,8 @@ class ActionForward extends HashMap
     /**
      * Get
      * 
-     * @param mixed $k key
+     * @param mixed $k       key
+     * @param mixed $default default 
      *
      * @return mixed
      */
