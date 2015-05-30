@@ -459,12 +459,18 @@ trait Alias {
                 $args
             );
         } else {
-            $r=call_user_func_array(
-                array($this->_alias[''],$method),
-                $args
-            );
+            if(method_exists($this->_alias[''], $method)){
+                $r=call_user_func_array(
+                    array($this->_alias[''],$method),
+                    $args
+                );
+            }else{
+                trigger_error('Method not found: '.get_class($this).'::'.$method);
+            }
         }
-        return $r;
+        if (isset($r)) {
+            return $r;
+        }
     }
 
     /**
