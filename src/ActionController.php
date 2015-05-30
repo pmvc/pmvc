@@ -25,11 +25,13 @@ namespace PMVC;
 class ActionController
 {
     /**
-     * @var	ActionMappings
+     * Mapping
+     * @var ActionMappings
      */
      private $_mappings;
     /**
-     * @var	HttpRequestServlet
+     * Request
+     * @var HttpRequestServlet
      */
      private $_request;
 
@@ -75,7 +77,7 @@ class ActionController
     }
 
     /**
-     * store
+     * Store Option
      *
      * @param mixed $k key
      * @param mixed $v value
@@ -88,14 +90,14 @@ class ActionController
     }
 
     /**
-     * plugApp
+     * Plug App
      *
      * @param string $parent   defaultAppFolder
      * @param array  $appAlias appAlias
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
-    public function plugApp($parent,$appAlias=null)
+    public function plugApp($parent, $appAlias=null)
     {
         $app = $this->getApp();
         if (!empty($alias[$app])) {
@@ -114,7 +116,7 @@ class ActionController
             $appPlugin = plug(
                 _RUN_APP,
                 array(
-                    _PLUGIN_FILE=>$path 
+                    _PLUGIN_FILE=>$path
                 )
             );
             $builder = $appPlugin->get(_INIT_BUILDER);
@@ -122,7 +124,7 @@ class ActionController
                 trigger_error('No builder found');
                 return false;
             }
-            $this->setMapping($builder->getMappings()); 
+            $this->setMapping($builder->getMappings());
             $this->store(_RUN_PARENT, realpath($parent));
             return true;
         }
@@ -131,9 +133,9 @@ class ActionController
 
     /**
      * Set mapping
-     * 
+     *
      * @param mixed $mappings mappings
-     * 
+     *
      * @return bool
      */
     public function setMapping($mappings)
@@ -148,8 +150,8 @@ class ActionController
 
     /**
      * Process the request.
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function process()
     {
@@ -173,7 +175,7 @@ class ActionController
     /**
      * ActionMapping.
      *
-     * @return	ActionMapping
+     * @return ActionMapping
      */
     private function _processMapping()
     {
@@ -188,11 +190,11 @@ class ActionController
     }
         
     /**
-     * execute mapping
+     * Execute mapping
      *
      * @param string $index pass run action
-     * 
-     * @return	ActionMapping
+     *
+     * @return ActionMapping
      */
     public function execute($index)
     {
@@ -216,7 +218,7 @@ class ActionController
      * ActionForm.
      *
      * @param array $actionMapping actionMapping
-     * 
+     *
      * @return ActionForm
      */
     private function _processForm($actionMapping)
@@ -232,7 +234,7 @@ class ActionController
             }
             if (!class_exists($class)) {
                 trigger_error(
-                    'parse form error, not define class type', 
+                    'parse form error, not define class type',
                     E_USER_ERROR
                 );
             }
@@ -254,11 +256,11 @@ class ActionController
     }
 
     /**
-     * initActionFormValue
+     * Init Action Form Value
      *
      * @param object $actionForm    actionForm
      * @param object $actionMapping actionMapping
-     * 
+     *
      * @return ActionForm
      */
     private function _initActionFormValue($actionForm, $actionMapping)
@@ -296,7 +298,7 @@ class ActionController
     private function _processAction($actionMapping, $actionForm)
     {
         call_plugin(
-            'observer', 
+            'observer',
             'fire',
             array(
                 'B4ProcessAction',
@@ -320,8 +322,8 @@ class ActionController
      * ActionForward
      *
      * @param ActionForward $actionForward actionForward
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     private function _processForward($actionForward)
     {
@@ -333,14 +335,14 @@ class ActionController
 
     /**
      * Finish off the request and take down the controller.
-     * 
+     *
      * @return void
      */
     private function _finish()
     {
         call_plugin(
-            'observer', 
-            'fire', 
+            'observer',
+            'fire',
             array(
                 'Finish'
                 ,true
@@ -349,9 +351,9 @@ class ActionController
     }
 
     /**
-     * getRequest
-     * 
-     * @return mixed 
+     * Get Request
+     *
+     * @return mixed
      */
     public function getRequest()
     {
@@ -359,9 +361,9 @@ class ActionController
     }
 
     /**
-     * getMapping
-     * 
-     * @return mixed 
+     * Get Mapping
+     *
+     * @return mixed
      */
     public function getMapping()
     {
@@ -369,9 +371,9 @@ class ActionController
     }
 
     /**
-     * getApp 
-     * 
-     * @return mixed 
+     * GetApp
+     *
+     * @return mixed
      */
     public function getApp()
     {
@@ -379,11 +381,11 @@ class ActionController
     }
 
     /**
-     * setApp 
-     * 
+     * SetApp
+     *
      * @param string $app app
      *
-     * @return mixed 
+     * @return mixed
      */
     public function setApp($app)
     {
@@ -391,31 +393,31 @@ class ActionController
     }
 
     /**
-     * getApp 
-     * 
-     * @return string 
+     * Get App Parent
+     *
+     * @return string
      */
     public function getAppParent()
     {
-        return option('get', _RUN_PARENT); 
+        return option('get', _RUN_PARENT);
     }
 
     /**
-     * getApp 
-     * 
-     * @return mixed 
+     * Get App Action
+     *
+     * @return mixed
      */
     public function getAppAction()
     {
-        return option('get', _RUN_ACTION); 
+        return option('get', _RUN_ACTION);
     }
 
     /**
-     * setAppAction
-     * 
-     * @param string $action action 
+     * Set App Action
      *
-     * @return mixed 
+     * @param string $action action
+     *
+     * @return mixed
      */
     public function setAppAction($action)
     {

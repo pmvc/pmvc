@@ -1,36 +1,37 @@
 <?php
 /**
- * PMVC 
+ * PMVC
  *
  * PHP version 5
  *
  * @category CategoryName
  * @package  PackageName
- * @author   Hill <hill@kimo.com> 
- * @license  http://opensource.org/licenses/MIT MIT 
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
  * @link     http://pear.php.net/package/PackageName
  */
 namespace PMVC;
+
 /**
- * PMVC root object 
+ * PMVC root object
  *
  * @category CategoryName
  * @package  PackageName
- * @author   Hill <hill@kimo.com> 
- * @license  http://opensource.org/licenses/MIT MIT 
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
  * @link     http://pear.php.net/package/PackageName
  */
 class Object
 {
     /**
-     * object clone 
+     * Object clone
      *
-     * @param object $obj object 
+     * @param object $obj object
      *
      * @return object
      */
-    function getClone($obj=null)
+    public function getClone($obj=null)
     {
         if (is_null($obj)) {
             $obj=$this;
@@ -38,4 +39,3 @@ class Object
         return clone($obj);
     }
 }
-?>

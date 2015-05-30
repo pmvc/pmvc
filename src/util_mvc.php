@@ -14,7 +14,7 @@
 namespace PMVC;
 
 /**
- * get PMVC control
+ * Get PMVC control
  *
  * @return ActionController
  */
@@ -24,7 +24,7 @@ function getC()
 }
 
 /**
- * wrapper get real url
+ * Wrapper get real url
  *
  * @param string $job job
  * @param string $url url
@@ -39,7 +39,7 @@ function u($job, $url=null)
 }
 
 /**
- * transparent
+ * Transparent
  *
  * @param string $name filename 
  * @param string $app  app name

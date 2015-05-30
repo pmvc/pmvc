@@ -30,13 +30,18 @@ class PlugIn extends HashMap implements \SplObserver
      use Alias;
 
     /**
+     * Name
      * @var string
      */
     public $name;
+    /**
+     * File 
+     * @var string
+     */
     public $file;
 
     /**
-     * get dir
+     * Get dir
      *
      * @return mixed
      */
@@ -46,7 +51,7 @@ class PlugIn extends HashMap implements \SplObserver
     }
 
     /**
-     * init
+     * Init
      *
      * @return mixed
      */
@@ -55,7 +60,7 @@ class PlugIn extends HashMap implements \SplObserver
     }
 
     /**
-     * observer update function
+     * Observer update function
      *
      * @param \SplSubject $subject observable
      *

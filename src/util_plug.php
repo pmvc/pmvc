@@ -18,7 +18,7 @@ namespace PMVC;
  */
 
 /**
- * realPath
+ * RealPath
  * 
  * @param string $p parameters
  *
@@ -33,7 +33,7 @@ function realPath($p)
 }
 
 /**
- * same with include, but self manage include_once 
+ * Same with include, but self manage include_once 
  * and make global variable to local variable
  *
  * @param string  $name     file name 
@@ -64,7 +64,7 @@ function l($name, $compacts=null, $once=true)
 }
 
 /**
- * include app folder 
+ * Include app folder 
  *
  * @param string $name         file name 
  * @param string $bTransparent Transparent app folder
@@ -111,7 +111,7 @@ function load(
         return 1;
     }
     /**
-     * cache find in load case, if some case can't use cahce please use find directly
+     * Cache find in load case, if some case can't use cahce please use find directly
      */
     $file = run(
         __NAMESPACE__.'\find',
@@ -206,7 +206,7 @@ function find($name, $type='file', $dirs=null, $defaultDir=null, $isIncludeApp=n
  */
 
 /**
- * auto append last slash for dir or file 
+ * Auto append last slash for dir or file 
  *
  * @param string $s folder or file name 
  *
@@ -225,7 +225,7 @@ function lastSlash($s)
 }
 
 /**
- * change file name for Uppder case to lower case 
+ * Change file name for Uppder case to lower case 
  *
  * @param string $name file name 
  * @param string $type [class|function] 
@@ -253,7 +253,7 @@ function lowerCaseFile($name, $type='class')
 }
 
 /**
- * split folder string to arrays 
+ * Split folder string to arrays 
  *
  * @param string $s folder string 
  *
@@ -268,7 +268,7 @@ function splitDir($s)
 }
 
 /**
- * merge name 
+ * Merge name 
  *
  * @param string $name name 
  * @param string $dir  dir 
@@ -332,9 +332,9 @@ function mergeDefault($defaults, $settings)
 /**
 * Magic Set function 
 *
-* @param array &$a array 
-* @param mixed $k  key 
-* @param mixed $v  value 
+* @param array $a array 
+* @param mixed $k key 
+* @param mixed $v value 
 *
 * @return mixed 
 */
@@ -354,7 +354,7 @@ function set(&$a, $k, $v=null)
 /**
 * Magic Get function 
 *
-* @param array &$a      array 
+* @param array $a       array 
 * @param mixed $k       key 
 * @param mixed $default default 
 *
@@ -385,8 +385,8 @@ function &get(&$a, $k=null, $default=null)
 /**
 * Magic Clean function 
 *
-* @param array &$a array 
-* @param mixed $k  key 
+* @param array $a array 
+* @param mixed $k key 
 *
 * @return void 
 */
@@ -406,11 +406,11 @@ function clean(&$a, $k=null)
 
 
 /**
- * option <!-----------
+ * Option <!-----------
  */
 
 /**
-* getOption
+* Get Option
 *
 * @param mixed $k which want to get 
 *
@@ -422,7 +422,7 @@ function &getOption($k=null)
 }
 
 /**
-* global option for get/set 
+* Global option for get/set 
 *
 * @param string $act [set|get] 
 * @param mixed  $k   key 
@@ -445,11 +445,11 @@ function &option($act, $k=null, $v=null)
 }
 
 /**
- * misc <!----------
+ * Misc <!----------
  */
 
 /**
- * dump for debug 
+ * Dump for debug 
  *
  * @return vod
  */
@@ -471,7 +471,7 @@ function log()
 }
 
 /**
-* keep string and array both in array type 
+* Keep string and array both in array type 
 *
 * @param mixed $p parameters 
 *
@@ -486,7 +486,7 @@ function toArray($p)
 }
 
 /**
-* hash function 
+* Hash function 
 *
 * @return string hash result 
 */
@@ -497,7 +497,7 @@ function hash()
 }
 
 /**
-* cache function run result 
+* Cache function run result 
 *
 * @param mixed $func run function 
 * @param mixed $args parameters 
@@ -515,7 +515,7 @@ function &run($func, $args)
 }
 
 /**
-* check exists 
+* Check exists 
 *
 * @param mixed $v    value
 * @param mixed $type [array|string]
@@ -540,7 +540,7 @@ function exists($v, $type)
 }
 
 /**
-* count number
+* Count number
 *
 * @param mixed $v    value
 * @param mixed $type [array|string]
@@ -564,7 +564,7 @@ function n($v, $type=null)
  */
 
 /**
- * setPlugInFolder
+ * Set PlugIn Folder
  *
  * @param array $folders plug-in folders 
  * @param array $alias   plug-in alias 
@@ -580,7 +580,7 @@ function setPlugInFolder($folders, $alias=array())
 }
 
 /**
- * addPlugInFolder
+ * Add PlugIn Folder
  * 
  * @param array $folders plug-in folders 
  * @param array $alias   plug-in alias 
@@ -601,7 +601,7 @@ function addPlugInFolder($folders, $alias=array())
 }
 
 /**
- * call_plug_func
+ * Call Plug-In 
  * 
  * @param sring $plugIn plug-in name 
  * @param sring $func   plug-in function 
@@ -623,7 +623,7 @@ function Call_plugIn($plugIn, $func, $args)
 }
 
 /**
- * unplug
+ * Unplug
  *
  * @param sring $name plug-in name 
  *
@@ -638,7 +638,7 @@ function unPlug($name)
 }
 
 /**
- * replug
+ * Re plug
  *
  * @param sring  $name   plug-in name 
  * @param PlugIn $object plug-in plugin instance 
@@ -653,7 +653,7 @@ function rePlug($name, PlugIn $object)
 }
 
 /**
- * getPlugInNames
+ * Get PlugIn Names
  *
  * @return mixed 
  */
@@ -667,7 +667,7 @@ function getPlugInNames()
 }
 
 /**
- * plug 
+ * Init PlugIn
  *
  * @param array $arr plug-in array 
  *
@@ -685,7 +685,7 @@ function initPlugIn($arr)
 }
 
 /**
- * plug 
+ * Plug 
  *
  * @param string $name   plugin name 
  * @param array  $config plugin configs

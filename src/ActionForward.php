@@ -25,33 +25,38 @@ namespace PMVC;
 class ActionForward extends HashMap
 {
     /**
-     * @var	string
+     * Path
+     * @var string
      */
     private $_path;
 
     /**
-     * @var	string
+     * Type
+     * @var string
      */
     private $_type;
 
     /**
-     * header
+     * Header
      * @var array
      */
     private $_header=array();
 
     /**
-     * @var string lazyOutput action
+     * LazyOutput action
+     * @var string 
      */
     public $lazyOutput;
 
     /**
-     * @var object default view engine
+     * Default view engine
+     * @var object
      */
     public $view;
 
     /**
-     * @var	string
+     * Clean
+     * @var string
      */
     public $clean=false;
 
@@ -73,7 +78,7 @@ class ActionForward extends HashMap
     }
 
     /**
-     * get header
+     * Get header
      *
      * @return array header
      */
@@ -83,7 +88,7 @@ class ActionForward extends HashMap
     }
 
     /**
-     * set header
+     * Set header
      * 
      * @param array $v value
      *
@@ -95,7 +100,7 @@ class ActionForward extends HashMap
     }
 
     /**
-    * set type
+    * Set type
     *
     * @param string $type type
     *
@@ -113,7 +118,7 @@ class ActionForward extends HashMap
     }
 
     /**
-    * get type
+    * Get type
     * 
     * @return string
     */
@@ -127,7 +132,7 @@ class ActionForward extends HashMap
      *
      * @param bool $bMerge merge or not 
      * 
-     * @return	string
+     * @return string
      */
     public function getPath($bMerge=false)
     {
@@ -204,7 +209,7 @@ class ActionForward extends HashMap
     }
 
     /**
-     * execute ActionForward
+     * Execute ActionForward
      *
      * @return mixed
      */

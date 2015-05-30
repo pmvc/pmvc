@@ -25,7 +25,7 @@ namespace PMVC;
 class HashMap extends ListIterator
 {
     /**
-     * containsKey
+     * ContainsKey
      *
      * @param string $key key 
      *
@@ -37,7 +37,7 @@ class HashMap extends ListIterator
     }
 
     /**
-     * containsValue
+     * ContainsValue
      *
      * @param string $value value 
      *
@@ -49,7 +49,7 @@ class HashMap extends ListIterator
     }
 
     /**
-     * get array_keys 
+     * Get array_keys 
      *
      * @return boolean
      */
@@ -59,7 +59,7 @@ class HashMap extends ListIterator
     }
 
     /**
-     * get
+     * Get
      *
      * @param mixed $k       key
      * @param mixed $default default value 
@@ -72,7 +72,7 @@ class HashMap extends ListIterator
     }
 
     /**
-     * set 
+     * Set 
      *
      * @param mixed $k key
      * @param mixed $v value 

@@ -26,47 +26,55 @@ class ActionMapping extends Object
 {
         
     /**
-     * @var	string
+     * Func
+     * @var string
      */
     public $func;
         
     /**
-     * @var	string
+     * Form
+     * @var string
      */
     public $form;
 
     /**
+     * Validate
      * @see ActionController::_processForm
-     * @var	bool
+     * @var bool
      */
     public $validate = true;
         
     /**
+     * Set request scope , post or get
      * @see ActionController::initActionFormValue
-     * @var	string set request scope , post or get
+     * @var string
      */
     public $scope;
         
     /**
+     * Set the initial field for uri type request
      * @see ActionController::initActionFormValue
-     * @var	string set the initial field for uri type request
+     * @var string 
      */
     public $initial;
         
     /**
-     * @var string this action mapping name
+     * This action mapping name
+     * @var string 
      */
     public $name;
         
     /**
+     * To set true if don't leave request to next request
      * @see FormBack
-     * @var	bool to set true if don't leave request to next request
+     * @var bool 
      */
     public $clean;
 
     /**
+     * Type
      * @see FormBack
-     * @var	string [read|write]
+     * @var string [read|write]
      * save : to set with a insert or update db action
      * show : to set wiht a create_form or edit_form action
      */
@@ -75,8 +83,8 @@ class ActionMapping extends Object
     /**
      * ActionMapping
      *
-     * @param array  &$mapping mapping
-     * @param string $name     name
+     * @param array  $mapping mapping
+     * @param string $name    name
      */
     public function __construct(&$mapping, $name)
     {

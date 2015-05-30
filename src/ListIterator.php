@@ -27,7 +27,7 @@ class ListIterator extends Object implements \IteratorAggregate
     protected $values=array();
 
     /**
-     * getIterator
+     * GetIterator
      *
      * @return ArrayIterator
      */
@@ -37,7 +37,7 @@ class ListIterator extends Object implements \IteratorAggregate
     }
 
     /**
-     * construct
+     * Construct
      *
      * @param array $values values
      *

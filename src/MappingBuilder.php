@@ -25,7 +25,8 @@ namespace PMVC;
 class MappingBuilder extends Object
 {
     /**
-     *	@var	array
+     * Action Mapping
+     * @var array
      */
     private $_aaMap = array(
         ACTION_FORMS        => array()
@@ -34,9 +35,9 @@ class MappingBuilder extends Object
     );
 
     /**
-     *	retrieve mappings
+     * Get mappings
      *
-     *	@return	ActionMappings
+     * @return ActionMappings
      */
     public function getMappings()
     {

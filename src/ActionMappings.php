@@ -25,6 +25,7 @@ namespace PMVC;
 class ActionMappings
 {
     /**
+     * Mappings
      * @var array
      */
     private $_mappings = array();
@@ -44,11 +45,11 @@ class ActionMappings
     /**
      * Find an ActionMapping
      *
-     * @param string &$path $path
+     * @param string $path path
      *
      * @return ActionMapping
      */
-    public function &findMapping(&$path)
+    public function findMapping($path)
     {
         $mapping =& $this->_mappings->__action_mappings__[$path];
         $mappingObj = new ActionMapping($mapping, $path);

@@ -16,12 +16,12 @@ namespace PMVC;
 /**
  * Alias
  */
-trait Alias 
+trait Alias
 {
     private $_alias;
 
     /**
-     * magic call for function alias
+     * Magic call for function alias
      *
      * @param string $method method
      * @param array  $args   args
@@ -51,7 +51,7 @@ trait Alias
     }
 
     /**
-     * setDefaultAlias
+     * SetDefaultAlias
      *
      * @param object $obj class instance
      *
@@ -63,7 +63,7 @@ trait Alias
     }
 
     /**
-     * cleanDefaultAlias
+     * CleanDefaultAlias
      *
      * @return mixed
      */
@@ -73,7 +73,7 @@ trait Alias
     }
 
     /**
-     * setAlias
+     * SetAlias
      *
      * @param string $k key
      * @param mixed  $v value
@@ -86,7 +86,7 @@ trait Alias
     }
 
     /**
-     * cleanAlias
+     * CleanAlias
      *
      * @param array $arr array
      *

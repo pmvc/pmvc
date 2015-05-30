@@ -25,7 +25,7 @@ namespace PMVC;
 class Load
 {
     /**
-     * include mvc module, contain plugin 
+     * Include mvc module, contain plugin
      *
      * @return boolean
      */
@@ -36,7 +36,7 @@ class Load
     }
 
     /**
-     * include plugin only 
+     * Include plugin only
      *
      * @return boolean
      */
@@ -47,7 +47,7 @@ class Load
     }
 
     /**
-     * init plug folder 
+     * Init plug folder
      *
      * @return boolean
      */

@@ -10,7 +10,7 @@
  *
  * @category CategoryName
  * @package  PackageName
- * @author   Hill <hill@kimo.com> 
+ * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT 
  * @version  GIT: <git_id>
  * @link     http://pear.php.net/package/PackageName
@@ -44,7 +44,7 @@ define('_ERROR_REPORTING', '_error_reporting_');
 define('_ERROR_ENABLE_LOG', '_error_enable_log_');
 
 /**
- * plugin
+ * Plugin
  */
 define('_PLUGIN', '_plugin_');
 define('_PLUGIN_FILE', '_plugin_file_');
