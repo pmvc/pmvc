@@ -67,7 +67,7 @@ class ActionController
             }
         }
         call_plugin(
-            'observer',
+            'dispatcher',
             'set',
             array(
                 'setOption',
@@ -156,8 +156,8 @@ class ActionController
     public function process()
     {
         call_plugin(
-            'observer',
-            'fire',
+            'dispatcher',
+            'notify',
             array(
                 'MapRequest'
                 ,true
@@ -298,8 +298,8 @@ class ActionController
     private function _processAction($actionMapping, $actionForm)
     {
         call_plugin(
-            'observer',
-            'fire',
+            'dispatcher',
+            'notify',
             array(
                 'B4ProcessAction',
                 true
@@ -341,8 +341,8 @@ class ActionController
     private function _finish()
     {
         call_plugin(
-            'observer',
-            'fire',
+            'dispatcher',
+            'notify',
             array(
                 'Finish'
                 ,true
