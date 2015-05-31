@@ -201,7 +201,7 @@ class ActionController
         if (!$this->_mappings->mappingExists($index)) {
             trigger_error('No mappings found for index: '.$index);
         }
-        $actionMapping = &$this->_mappings->findMapping($index);
+        $actionMapping = $this->_mappings->findMapping($index);
         $actionForm = $this->_processForm($actionMapping);
         $actionForward = $this->_processAction(
             $actionMapping,
