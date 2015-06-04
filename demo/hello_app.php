@@ -14,17 +14,17 @@ $options = array(
     ,_VIEW_ENGINE=>'html'
     ,_ERROR_ENABLE_LOG=>true
     ,_ERROR_REPORTING=>E_ALL
-    ,_TEMPLATE_DIR=>'/git/pmvc/pmvc-theme/hello-theme'
+    ,_TEMPLATE_DIR=>'/git/pmvc-git/pmvc-theme/hello-theme'
     ,_PLUGIN=>array(
         'routing'=>null
         ,'debug'=>null
-        ,'error-trace'=>null
+        ,'error_trace'=>null
     )
 );
 
 
 $controller = new mvc($options);
-if($controller->plugApp('/git/pmvc/pmvc-app')){
+if($controller->plugApp('/git/pmvc-git/pmvc-app')){
     $a = $controller->process();
 }
 

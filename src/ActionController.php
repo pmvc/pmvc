@@ -99,6 +99,14 @@ class ActionController
      */
     public function plugApp($parent, $appAlias=null)
     {
+        call_plugin(
+            'dispatcher',
+            'notify',
+            array(
+                'MapRequest'
+                ,true
+            )
+        );
         $app = $this->getApp();
         if (!empty($alias[$app])) {
             $app = $alias[$app];
