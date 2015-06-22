@@ -741,11 +741,13 @@ function plug($name, $config=null)
         return $name;
     }
     $oPlugin->name=$name;
-    $config = array_merge($r->var[_INIT_CONFIG], $config);
+    if (!empty($r)) {
+        $config = array_merge($r->var[_INIT_CONFIG], $config);
+        $oPlugin->file = $r->name;
+    }
     if (!empty($config)) {
         $oPlugin->set($config);
     }
-    $oPlugin->file = $r->name;
     $oPlugin->init();
     $objs[$name]=$oPlugin;
     return $oPlugin->update();
