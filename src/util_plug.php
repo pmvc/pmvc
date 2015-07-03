@@ -45,20 +45,15 @@ function realPath($p)
 function l($name, $compacts=null, $once=true)
 {
     static $files=array();
-    $name = realpath($name);
-    if (!$name) {
-        return false;
-    }
-    if (!$once || !isset($files[$name])) {
-        $files[$name]=true;
+    $real = realpath($name);
+    if (!$once || !isset($files[$real])) {
         include $name;
+        $files[$real]=true;
     }
     $o = new \stdClass();
+    $o->name = $real;
     if ($compacts) {
-        $o->name = $name;
         $o->var = compact($compacts);
-    } else {
-        $o->name=$name;
     }
     return $o;
 }
