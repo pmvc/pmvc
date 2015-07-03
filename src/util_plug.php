@@ -439,6 +439,16 @@ function &option($act, $k=null, $v=null)
         break;
     case 'set':
         $return = set($options, $k, $v);
+        if (is_string($k)) {
+            $k = array($k=>$v);
+        }
+        if (is_array($k)) {
+            foreach ($k as $i=>$v) {
+                if (is_string($v)) {
+                    putenv($i.'='.$v);
+                }
+            }
+        }
         break;
     }
     return $return;
