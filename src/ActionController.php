@@ -97,7 +97,7 @@ class ActionController
      *
      * @return mixed
      */
-    public function plugApp($parent, $appAlias=null)
+    public function plugApp($parent=null, $appAlias=null)
     {
         call_plugin(
             'dispatcher',
@@ -107,14 +107,17 @@ class ActionController
                 ,true
             )
         );
-        $app = $this->getApp();
-        if (!empty($alias[$app])) {
-            $app = $alias[$app];
+        if (is_null($parent)) {
+            $parent = $this->getAppParent();
         }
         if (!realpath($parent)) {
             trigger_error('No App Parent found for '.$parent);
             return false;
         } else {
+            $app = $this->getApp();
+            if (!empty($alias[$app])) {
+                $app = $alias[$app];
+            }
             $path = lastSlash($parent).$app.'/index.php';
         }
         if (!realpath($path)) {
