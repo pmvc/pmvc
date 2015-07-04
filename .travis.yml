@@ -10,5 +10,6 @@ before_script:
   - composer self-update
   - composer install --prefer-source
  
-script: phpunit
-script: vendor/bin/phpcs src/ 
+script:
+  - phpunit
+  - vendor/bin/phpcs src/ 
