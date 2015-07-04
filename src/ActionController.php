@@ -118,7 +118,12 @@ class ActionController
             if (!empty($alias[$app])) {
                 $app = $alias[$app];
             }
-            $path = lastSlash($parent).$app.'/index.php';
+            $parent = lastSlash($parent);
+            $path = $parent.$app.'/index.php';
+        }
+        if (!realpath($path)) {
+            $app = getOption(_DEFAULT_APP);
+            $path = $parent.$app.'/index.php';
         }
         if (!realpath($path)) {
             trigger_error('No App found for '.$path);
@@ -136,6 +141,8 @@ class ActionController
                 return false;
             }
             $this->setMapping($builder->getMappings());
+            $this->setApp($app);
+            addPlugInFolder($parent.$app.'/plugins');
             $this->store(_RUN_PARENT, realpath($parent));
             return true;
         }
@@ -190,13 +197,13 @@ class ActionController
      */
     private function _processMapping()
     {
-        $index = option('get', _RUN_ACTION);
+        $index = $this->getAppAction();
         if (!$this->_mappings->mappingExists($index)) {
             if ($this->_mappings->mappingExists('index')) {
                 $index = 'index';
             }
         }
-        $this->store(_RUN_ACTION, $index);
+        $this->setAppAction($index);
         return $index;
     }
         
@@ -432,6 +439,6 @@ class ActionController
      */
     public function setAppAction($action)
     {
-        return $this->setOption(_RUN_ACTION, $app);
+        return $this->setOption(_RUN_ACTION, $action);
     }
 }
