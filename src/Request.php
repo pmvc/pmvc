@@ -31,9 +31,9 @@ class Request extends HashMap
     public function __construct()
     {
         if ('GET'===$this->getMethod()) {
-            $this->set($_GET);
+            set($this, $_GET);
         } else {
-            $this->set($_POST);
+            set($this, $_POST);
         }
     }
 

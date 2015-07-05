@@ -20,6 +20,8 @@ trait Alias
 {
     private $_alias;
 
+    protected $aliasForce = false;
+
     /**
      * Magic call for function alias
      *
@@ -36,13 +38,20 @@ trait Alias
                 $args
             );
         } else {
-            if (method_exists($this->_alias[''], $method)) {
+            if ($this->aliasForce 
+                || method_exists($this->_alias[''], $method)
+            ) {
                 $r=call_user_func_array(
                     array($this->_alias[''],$method),
                     $args
                 );
             } else {
-                trigger_error('Method not found: '.get_class($this).'::'.$method);
+                trigger_error(
+                    'Method not found: '.
+                    get_class($this->_alias['']).
+                    '::'.
+                    $method
+                );
             }
         }
         if (isset($r)) {

@@ -285,16 +285,16 @@ function mergeName($name, $dir=null)
  */
 function Array_merge()
 {
-    $new = array();
     $a = func_get_args();
-    foreach ($a as $i) {
-        if (is_null($i)) {
+    $new = $a[0];
+    for ($i=1,$j=count($a);$i<$j;$i++) {
+        if (is_null($a[$i])) {
             continue;
         }
-        if (!is_array($i)) {
-            $new[] = $i;
+        if (!is_array($a[$i])) {
+            $new[] = $a[$i];
         } else {
-            foreach ($i as $k=>$v) {
+            foreach ($a[$i] as $k=>$v) {
                 $new[$k]=$v;
             }
         }
@@ -706,7 +706,7 @@ function plug($name, $config=null)
     if (isset($objs[$name])) {
         $oPlugin=$objs[$name];
         if (!is_null($config)) {
-            $oPlugin->set($config);
+            set($oPlugin, $config);
         }
         return $oPlugin->update();
     }
@@ -751,7 +751,7 @@ function plug($name, $config=null)
         $oPlugin->file = $r->name;
     }
     if (!empty($config)) {
-        $oPlugin->set($config);
+        set($oPlugin, $config);
     }
     $oPlugin->init();
     $objs[$name]=$oPlugin;

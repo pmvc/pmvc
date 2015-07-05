@@ -171,7 +171,7 @@ class ActionForward extends HashMap
             $args = func_get_args();
             return call_user_func_array(array($this->view,'set'), $args);
         } else {
-            return parent::set($k, $v);
+            return $this[$k]=$v;
         }
     }
 
@@ -190,7 +190,7 @@ class ActionForward extends HashMap
             $return = call_user_func_array(array($this->view,'get'), $args);
             return $return;
         } else {
-            return parent::get($k, $default);
+            return get($this, $k, $default);
         }
     }
     /**

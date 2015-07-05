@@ -22,20 +22,8 @@ namespace PMVC;
  * @license  http://opensource.org/licenses/MIT MIT
  * @link     http://pear.php.net/package/PackageName
  */
-class HashMap extends ListIterator
+class HashMap extends ListIterator implements \ArrayAccess
 {
-    /**
-     * ContainsKey
-     *
-     * @param string $key key 
-     *
-     * @return boolean
-     */
-    public function containsKey($key)
-    {
-        return array_key_exists($key, $this->values);
-    }
-
     /**
      * ContainsValue
      *
@@ -59,6 +47,18 @@ class HashMap extends ListIterator
     }
 
     /**
+     * ContainsKey
+     *
+     * @param string $key key 
+     *
+     * @return boolean
+     */
+    public function offsetExists($key)
+    {
+        return isset($this->values[$key]);
+    }
+
+    /**
      * Get
      *
      * @param mixed $k       key
@@ -66,7 +66,7 @@ class HashMap extends ListIterator
      *
      * @return mixed 
      */
-    public function get($k=null, $default=null)
+    public function offsetGet($k=null, $default=null)
     {
         return get($this->values, $k, $default);
     }
@@ -79,7 +79,7 @@ class HashMap extends ListIterator
      *
      * @return bool 
      */
-    public function set($k, $v=null)
+    public function offsetSet($k, $v=null)
     {
         return set($this->values, $k, $v);
     }
@@ -91,7 +91,7 @@ class HashMap extends ListIterator
      *
      * @return bool 
      */
-    public function clean($k=null)
+    public function offsetUnset($k=null)
     {
         return clean($this->values, $k);
     }

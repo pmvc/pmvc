@@ -135,7 +135,7 @@ class ActionController
                     _PLUGIN_FILE=>$path
                 )
             );
-            $builder = $appPlugin->get(_INIT_BUILDER);
+            $builder = $appPlugin[_INIT_BUILDER];
             if (empty($builder)) {
                 trigger_error('No builder found');
                 return false;
@@ -288,8 +288,7 @@ class ActionController
             $scope = $this->_request->keySet();
         }
         foreach ($scope as $name) {
-            $get = $this->_request->get($name);
-            $actionForm->set($name, $get);
+            $actionForm[$name] = $this->_request[$name];
         }
     }
 
