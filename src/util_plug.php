@@ -619,7 +619,7 @@ function setPlugInFolder($folders, $alias=array())
  */
 function addPlugInFolder($folders, $alias=array())
 {
-    $folders = \array_merge(
+    $folders = array_merge(
         getOption(PLUGIN_FOLDERS),
         toArray($folders)
     );
