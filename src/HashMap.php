@@ -61,14 +61,13 @@ class HashMap extends ListIterator implements \ArrayAccess
     /**
      * Get
      *
-     * @param mixed $k       key
-     * @param mixed $default default value 
+     * @param mixed $k key
      *
      * @return mixed 
      */
-    public function offsetGet($k=null, $default=null)
+    public function &offsetGet($k=null)
     {
-        return get($this->values, $k, $default);
+        return get($this->values, $k);
     }
 
     /**

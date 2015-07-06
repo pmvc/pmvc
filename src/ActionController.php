@@ -119,11 +119,19 @@ class ActionController
                 $app = $alias[$app];
             }
             $parent = lastSlash($parent);
-            $path = $parent.$app.'/index.php';
+            $action = $this->getAppAction();
         }
-        if (!realpath($path)) {
-            $app = getOption(_DEFAULT_APP);
-            $path = $parent.$app.'/index.php';
+        $paths = array(
+            array($app,'/'.$action.'.php'),
+            array($app,'/index.php'),
+            array(getOption(_DEFAULT_APP),'/index.php')
+        );
+        foreach ($paths as $path) {
+            $app = $path[0];
+            $path = $parent.$app.$path[1];
+            if (realpath($path)) {
+                break;
+            }
         }
         if (!realpath($path)) {
             trigger_error('No App found for '.$path);

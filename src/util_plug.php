@@ -358,6 +358,11 @@ function set(&$a, $k, $v=null)
 function &get(&$a, $k=null, $default=null)
 {
     if (is_null($k)) { //return all
+        if (is_object($a)
+            && method_exists($a, 'offsetGet')
+        ) {
+            return $a->offsetGet();
+        }
         return $a;
     } else {
         if (is_array($k)) { //return by keys

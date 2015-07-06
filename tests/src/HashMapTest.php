@@ -26,6 +26,13 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
         ));
         $this->assertEquals($class,plug($plug_name)[_CLASS]);
     }
+
+    function testGetAll()
+    {
+        $arr = array('a'=>'111','b'=>'222');
+        $hash = new HashMap($arr);
+        $this->assertEquals($arr, \PMVC\get($hash));
+    }
 }
 
 class FakeHash extends HashMap
