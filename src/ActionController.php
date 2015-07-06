@@ -92,12 +92,13 @@ class ActionController
     /**
      * Plug App
      *
-     * @param string $parent   defaultAppFolder
-     * @param array  $appAlias appAlias
+     * @param string $parent      defaultAppFolder
+     * @param array  $appAlias    appAlias
+     * @param bool   $includeOnly include only 
      *
      * @return mixed
      */
-    public function plugApp($parent=null, $appAlias=null)
+    public function plugApp($parent=null, $appAlias=null, $includeOnly=false)
     {
         call_plugin(
             'dispatcher',
@@ -137,6 +138,9 @@ class ActionController
             trigger_error('No App found for '.$path);
             return false;
         } else {
+            if ($includeOnly) {
+                return l($path);
+            }
             $appPlugin = plug(
                 _RUN_APP,
                 array(
@@ -189,6 +193,9 @@ class ActionController
                 ,true
             )
         );
+        if (call_plugin('dispatcher', 'stop')) {
+            return;
+        }
         $index  = $this->_processMapping();
         $result = $this->execute($index);
         $this->_finish();

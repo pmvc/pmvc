@@ -637,7 +637,7 @@ function addPlugInFolder($folders, $alias=array())
  * 
  * @return mixed
  */
-function Call_plugIn($plugIn, $func, $args)
+function Call_plugIn($plugIn, $func, $args=array())
 {
     if (exists($plugIn, 'plugin')) {
         return call_user_func_array(

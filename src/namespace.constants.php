@@ -31,6 +31,7 @@ const PLUGIN_ALIAS='__plugin_alias__';
 /**
  * System Error
  */
+const PAUSE='__pause__';
 const ERRORS='__errors__';
 const SYSTEM_ERRORS='__system_errors__';
 const SYSTEM_LAST_ERROR='__system_last_error__';
@@ -40,3 +41,4 @@ const MY_USER_LAST_ERROR='__my_user_last_error__';
 //user_warn, user_notice
 const APP_ERRORS='__app_errors__';
 const APP_LAST_ERROR='__app_last_error__';
+
