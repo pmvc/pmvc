@@ -279,7 +279,7 @@ function mergeName($name, $dir=null)
 }
 
 /**
- * Array Merge
+ * Array Merge (The numeric key will be overwrite not append)
  *
  * @return array
  */
@@ -603,9 +603,7 @@ function n($v, $type=null)
  */
 function setPlugInFolder($folders, $alias=array())
 {
-    if (n($alias, 'array')) {
-        option('set', PLUGIN_ALIAS, $alias);
-    }
+    option('set', PLUGIN_ALIAS, $alias);
     return option('set', PLUGIN_FOLDERS, toArray($folders));
 }
 
@@ -619,11 +617,11 @@ function setPlugInFolder($folders, $alias=array())
  */
 function addPlugInFolder($folders, $alias=array())
 {
-    $folders = array_merge(
+    $folders = \array_merge(
         getOption(PLUGIN_FOLDERS),
         toArray($folders)
     );
-    $alias = array_merge(
+    $alias = \array_merge(
         getOption(PLUGIN_ALIAS),
         $alias
     );
