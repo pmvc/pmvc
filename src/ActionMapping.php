@@ -121,7 +121,7 @@ class ActionMapping extends Object
      *
      * @return mixed
      */
-    public function get($name)
+    public function offsetGet($name)
     {
         $forward = getC()->getMapping()->findForward($name);
         if ($forward) {

@@ -347,6 +347,24 @@ function set(&$a, $k, $v=null)
 }
 
 /**
+ * Check is a ArrayAccess Object
+ *
+ * @param array $obj array 
+ *
+ * @return bool
+ */
+function isArrayAccess($obj)
+{
+    if (is_object($obj)
+        && method_exists($obj, 'offsetGet')
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**
 * Magic Get function 
 *
 * @param array $a       array 
@@ -358,21 +376,23 @@ function set(&$a, $k, $v=null)
 function &get(&$a, $k=null, $default=null)
 {
     if (is_null($k)) { //return all
-        if (is_object($a)
-            && method_exists($a, 'offsetGet')
-        ) {
+        if (isArrayAccess($a)) {
             return $a->offsetGet();
         }
         return $a;
     } else {
         if (is_array($k)) { //return by keys
-            $r=array();
-            foreach ($k as $i) {
-                if (array_key_exists($i, $a)) {
-                    $r[$i]=&$a[$i];
+            if (isArrayAccess($a)) {
+                return $a->offsetGet($k);
+            } else {
+                $r=array();
+                foreach ($k as $i) {
+                    if (isset($a[$i])) {
+                        $r[$i]=&$a[$i];
+                    }
                 }
+                return $r;
             }
-            return $r;
         }
         //return one
         if (!isset($a[$k])) { //return default
