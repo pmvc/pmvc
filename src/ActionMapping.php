@@ -22,7 +22,7 @@ namespace PMVC;
  * @license  http://opensource.org/licenses/MIT MIT
  * @link     http://pear.php.net/package/PackageName
  */
-class ActionMapping extends Object
+class ActionMapping extends HashMap
 {
         
     /**
