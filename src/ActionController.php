@@ -138,6 +138,9 @@ class ActionController
             trigger_error('No App found for '.$path);
             return false;
         } else {
+            addPlugInFolder($parent.$app.'/plugins');
+            $this->setApp($app);
+            $this->store(_RUN_PARENT, realpath($parent));
             if ($includeOnly) {
                 return l($path);
             }
@@ -153,9 +156,6 @@ class ActionController
                 return false;
             }
             $this->setMapping($builder->getMappings());
-            $this->setApp($app);
-            addPlugInFolder($parent.$app.'/plugins');
-            $this->store(_RUN_PARENT, realpath($parent));
             return true;
         }
     }
