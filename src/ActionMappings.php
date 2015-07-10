@@ -51,6 +51,9 @@ class ActionMappings
      */
     public function add($mappings)
     {
+        if (empty($this->_mappings)) {
+            return $this->set($mappings);
+        }
         $this->addMappingByKey($mappings, ACTION_MAPPINGS);
         $this->addMappingByKey($mappings, ACTION_FORMS);
         $this->addMappingByKey($mappings, ACTION_FORWARDS);
