@@ -92,13 +92,12 @@ class ActionController
     /**
      * Plug App
      *
-     * @param string $parent      defaultAppFolder
-     * @param array  $appAlias    appAlias
-     * @param bool   $includeOnly include only 
+     * @param string $parent   defaultAppFolder
+     * @param array  $appAlias appAlias
      *
      * @return mixed
      */
-    public function plugApp($parent=null, $appAlias=null, $includeOnly=false)
+    public function plugApp($parent=null, $appAlias=null)
     {
         call_plugin(
             'dispatcher',
@@ -120,19 +119,11 @@ class ActionController
                 $app = $alias[$app];
             }
             $parent = lastSlash($parent);
-            $action = $this->getAppAction();
+            $path = $parent.$app.'/index.php';
         }
-        $paths = array(
-            array($app,'/'.$action.'.php'),
-            array($app,'/index.php'),
-            array(getOption(_DEFAULT_APP),'/index.php')
-        );
-        foreach ($paths as $path) {
-            $app = $path[0];
-            $path = $parent.$app.$path[1];
-            if (realpath($path)) {
-                break;
-            }
+        if (!realpath($path)) {
+            $app = getOption(_DEFAULT_APP);
+            $path = $parent.$app.'/index.php';
         }
         if (!realpath($path)) {
             trigger_error('No App found for '.$path);
@@ -141,9 +132,6 @@ class ActionController
             addPlugInFolder($parent.$app.'/plugins');
             $this->setApp($app);
             $this->store(_RUN_PARENT, realpath($parent));
-            if ($includeOnly) {
-                return l($path);
-            }
             $appPlugin = plug(
                 _RUN_APP,
                 array(
@@ -156,6 +144,11 @@ class ActionController
                 return false;
             }
             $this->setMapping($builder->getMappings());
+            $action = $this->getAppAction();
+            $action_path  = realpath($parent.$app.'/'.$action.'.php');
+            if ($action_path) {
+                l($action_path);
+            }
             return true;
         }
     }
@@ -171,11 +164,23 @@ class ActionController
     public function setMapping($mappings)
     {
         if (!empty($mappings)) {
-            $this->_mappings->setMappings($mappings);
+            $this->_mappings->set($mappings);
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Add mapping
+     *
+     * @param mixed $mappings mappings
+     *
+     * @return bool
+     */
+    public function addMapping($mappings)
+    {
+        $this->_mappings->add($mappings);
     }
 
     /**

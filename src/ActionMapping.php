@@ -91,8 +91,6 @@ class ActionMapping extends HashMap
         $this->name= $name;
         if (isset($mapping[_FUNCTION])) {
             $this->func = $mapping[_FUNCTION];
-        } else {
-            $this->func = $this->name;
         }
         if (isset($mapping[_FORM])) {
             $this->form = $mapping[_FORM];
