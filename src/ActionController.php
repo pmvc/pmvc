@@ -238,9 +238,14 @@ class ActionController
     {
         if (!$this->_mappings->mappingExists($index)) {
             trigger_error('No mappings found for index: '.$index);
+            return false;
         }
         $actionMapping = $this->_mappings->findMapping($index);
         $actionForm = $this->_processForm($actionMapping);
+        if (!$actionForm) {
+            trigger_error('Form not pass: '.$actionMapping->form);
+            return false;
+        }
         $actionForward = $this->_processAction(
             $actionMapping,
             $actionForm
