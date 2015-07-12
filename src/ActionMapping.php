@@ -35,7 +35,7 @@ class ActionMapping extends HashMap
      * Form
      * @var string
      */
-    public $form;
+    public $form = __NAMESPACE__.'ActionForm';
 
     /**
      * Validate

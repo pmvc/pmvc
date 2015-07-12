@@ -585,6 +585,9 @@ function n($v, $type=null)
         }
         return count($v);
     } else {
+        if (!is_string($v)) {
+            return false;
+        }
         return strlen($v);
     }
 }

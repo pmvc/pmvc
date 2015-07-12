@@ -267,28 +267,16 @@ class ActionController
     private function _processForm($actionMapping)
     {
         $actionForm = null;
-        $name = $actionMapping->form;
-        //verify that a form has been mapped
-        if (strlen($name)) {
-            $form =& $this->_mappings->findForm($name);
-            $class = (!$form) ? $name : $form[_CLASS];
-            if (!$class) {
-                $class = 'ActionForm';
-            }
-            if (!class_exists($class)) {
-                trigger_error(
-                    'parse form error, not define class type',
-                    E_USER_ERROR
-                );
-            }
-            //create and init form class
-            $actionForm = new $class();
-        } else {
-            $actionForm = new ActionForm();
+        $form =& $this->_mappings->findForm(
+            $actionMapping->form
+        );
+        if (!class_exists($form[_CLASS])) {
+            $form[_CLASS] = __NAMESPACE__.'\ActionForm';
         }
+        $actionForm = new $form[_CLASS]($form);
+
         //add request parameters
         $this->_initActionFormValue($actionForm, $actionMapping);
-
         //validate the form if necesarry
         if ($actionMapping->validate) {
             if (!$this->_processValidate($actionForm)) {
@@ -315,6 +303,7 @@ class ActionController
         foreach ($scope as $name) {
             $actionForm[$name] = $this->_request[$name];
         }
+        $this->setOption('ActionForm', $actionForm);
     }
 
     /**
