@@ -35,7 +35,7 @@ class ActionMapping extends HashMap
      * Form
      * @var string
      */
-    public $form = __NAMESPACE__.'ActionForm';
+    public $form;
 
     /**
      * Validate
@@ -94,6 +94,8 @@ class ActionMapping extends HashMap
         }
         if (isset($mapping[_FORM])) {
             $this->form = $mapping[_FORM];
+        } else {
+            $this->form = __NAMESPACE__.'\ActionForm';
         }
         if (isset($mapping[_VALIDATE])) {
             $this->validate = $mapping[_VALIDATE];
