@@ -304,6 +304,7 @@ function Array_merge()
 
 /**
 * Merge array with a default set 
+* If key not in default set will be ignore
 *
 * @param array $defaults default 
 * @param array $settings setting
