@@ -60,12 +60,14 @@ class ActionController
      */
     public function setOption($k, $v=null)
     {
-        $this->store($k, $v);
         if (is_array($k)) {
             if (isset($k[_PLUGIN])) {
                 initPlugIn($k[_PLUGIN]);
             }
+        } elseif (_PLUGIN===$k ) {
+            initPlugIn($v);
         }
+        $this->store($k, $v);
         call_plugin(
             'dispatcher',
             'set',
