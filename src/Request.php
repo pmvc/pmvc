@@ -24,6 +24,10 @@ namespace PMVC;
  */
 class Request extends HashMap
 {
+    /**
+     * Http method
+     */
+    protected $method;
 
     /**
      * Constructor.
@@ -38,12 +42,28 @@ class Request extends HashMap
     }
 
     /**
+     * Set Method
+     *
+     * @param string $method method
+     *
+     * @return string
+     */
+    public function setMethod($method)
+    {
+        $this->method = $method;
+    }
+
+
+    /**
      * Get Method
      *
      * @return string
      */
     public function getMethod()
     {
-        return getenv('REQUEST_METHOD');
+        if (empty($this->method)) {
+            $this->setMethod(getenv('REQUEST_METHOD'));
+        }
+        return $this->method;
     }
 }
