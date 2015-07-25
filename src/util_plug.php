@@ -323,6 +323,10 @@ function Array_merge()
 {
     $a = func_get_args();
     $new = $a[0];
+    if (!is_array($new) && !isArrayAccess($new)) {
+        trigger_error('param1 need be an array');
+        return false;
+    }
     for ($i=1,$j=count($a);$i<$j;$i++) {
         if (is_null($a[$i])) {
             continue;
@@ -407,13 +411,7 @@ function set(&$a, $k, $v=null)
  */
 function isArrayAccess($obj)
 {
-    if (is_object($obj)
-        && method_exists($obj, 'offsetGet')
-    ) {
-        return true;
-    } else {
-        return false;
-    }
+    return is_a($obj, 'ArrayAccess');
 }
 
 /**
