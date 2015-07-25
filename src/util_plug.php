@@ -220,7 +220,7 @@ function lastSlash($s)
 }
 
 /**
- * Change file name for Uppder case to lower case 
+ * Change file name from uppder case to lower case 
  *
  * @param string $name file name 
  * @param string $type [class|function] 
@@ -279,6 +279,42 @@ function mergeName($name, $dir=null)
 }
 
 /**
+* Hash function 
+*
+* @return string hash result 
+*/
+function hash()
+{
+    $params = func_get_args();
+    return md5(var_export($params, true));
+}
+
+/**
+ * Form Json
+ * 
+ * @param string $s origin string
+ *
+ * @return mixed return json_decode or origin value
+ */
+function &fromJson($s)
+{
+    if (!is_string($s) || '{' !== substr($s, 0, 1) ) {
+        return $s;
+    }
+    $json = json_decode($s);
+    if (json_last_error() === JSON_ERROR_NONE) {
+        return $json;
+    } else {
+        return $s;
+    }
+}
+
+
+/**
+ * Array Util <!---
+ */
+
+/**
  * Array Merge (The numeric key will be overwrite not append)
  *
  * @return array
@@ -319,6 +355,21 @@ function mergeDefault($defaults, $settings)
         }
     }
     return $defaults;
+}
+
+/**
+* Keep string and array both in array type 
+*
+* @param mixed $p parameters 
+*
+* @return string hash result 
+*/
+function toArray($p)
+{
+    if (!is_array($p)) {
+        $p=array($p);
+    }
+    return $p;
 }
 
 /**
@@ -501,31 +552,7 @@ function log()
     call_plugin('error-trace', 'log', $params);
 }
 
-/**
-* Keep string and array both in array type 
-*
-* @param mixed $p parameters 
-*
-* @return string hash result 
-*/
-function toArray($p)
-{
-    if (!is_array($p)) {
-        $p=array($p);
-    }
-    return $p;
-}
 
-/**
-* Hash function 
-*
-* @return string hash result 
-*/
-function hash()
-{
-    $params = func_get_args();
-    return md5(var_export($params, true));
-}
 
 /**
 * Cache function run result 
@@ -594,7 +621,7 @@ function n($v, $type=null)
 }
 
 /**
- * Plugins <-----------------------------------
+ * Plugins <!--
  */
 
 /**
