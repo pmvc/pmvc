@@ -298,7 +298,7 @@ function hash()
  */
 function &fromJson($s)
 {
-    if (!is_string($s) || '{' !== substr($s, 0, 1) ) {
+    if (!is_string($s)) {
         return $s;
     }
     $json = json_decode($s);
