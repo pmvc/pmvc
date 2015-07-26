@@ -34,10 +34,22 @@ class Request extends HashMap
      */
     public function __construct()
     {
-        if ('GET'===$this->getMethod()) {
+        $method = $this->getMethod();
+        if ('GET'===$method) {
             set($this, $_GET);
         } else {
-            set($this, $_POST);
+            $isJsonInput = ('application/json'===getenv('CONTENT_TYPE'));
+            if ($isJsonInput || 'PUT'===$method) {
+                $input = file_get_contents("php://input");
+                if ($isJsonInput) {
+                    $inputs = (array)fromJson($input);
+                } else {
+                    parse_str($input, $inputs);
+                }
+                set($this, $inputs);
+            } else {
+                set($this, $_POST);
+            }
         }
     }
 
@@ -62,7 +74,12 @@ class Request extends HashMap
     public function getMethod()
     {
         if (empty($this->method)) {
-            $this->setMethod(getenv('REQUEST_METHOD'));
+            $method = getenv('REQUEST_METHOD');
+            $cros_method = getenv('HTTP_ACCESS_CONTROL_REQUEST_METHOD');
+            if ($method === 'OPTIONS' && $cros_method) {
+                $method = $cros_method; 
+            }
+            $this->setMethod($method);
         }
         return $this->method;
     }

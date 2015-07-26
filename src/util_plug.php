@@ -547,7 +547,7 @@ function d()
 function log()
 {
     $params = func_get_args();
-    call_plugin('error-trace', 'log', $params);
+    call_plugin('error_trace', 'log', $params);
 }
 
 
