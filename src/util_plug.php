@@ -395,7 +395,9 @@ function set(&$a, $k, $v=null)
         $a = array_merge($a, $k);
     } else {
         if (is_null($v)) { //append value when no-assign key
-            $a[]=$k;
+            $a[] = $k;
+        } elseif (is_null($k)) {
+            $a[] = $v;
         } else { //exactly set key and value
             $a[$k] = $v;
         }
