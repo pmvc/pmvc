@@ -323,7 +323,7 @@ function Array_merge()
 {
     $a = func_get_args();
     $new = $a[0];
-    if (!is_array($new) && !isArrayAccess($new)) {
+    if (!isArray($new)) {
         trigger_error('param1 need be an array');
         return false;
     }
@@ -331,7 +331,7 @@ function Array_merge()
         if (is_null($a[$i])) {
             continue;
         }
-        if (!is_array($a[$i])) {
+        if (!isArray($a[$i])) {
             $new[] = $a[$i];
         } else {
             foreach ($a[$i] as $k=>$v) {
@@ -405,13 +405,25 @@ function set(&$a, $k, $v=null)
 /**
  * Check is a ArrayAccess Object
  *
- * @param array $obj array 
+ * @param mixed $obj any object
  *
  * @return bool
  */
 function isArrayAccess($obj)
 {
     return is_a($obj, 'ArrayAccess');
+}
+
+/**
+ * Check is ArrayAccess or array 
+ *
+ * @param mixed $obj any object
+ *
+ * @return bool
+ */
+function isArray($obj)
+{
+    return is_a($obj, 'ArrayAccess') || is_array($obj);
 }
 
 /**

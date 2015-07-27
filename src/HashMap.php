@@ -22,7 +22,8 @@ namespace PMVC;
  * @license  http://opensource.org/licenses/MIT MIT
  * @link     http://pear.php.net/package/PackageName
  */
-class HashMap extends ListIterator implements \ArrayAccess
+class HashMap extends ListIterator
+    implements \ArrayAccess, \Countable
 {
     /**
      * ContainsValue
@@ -76,7 +77,7 @@ class HashMap extends ListIterator implements \ArrayAccess
      * @param mixed $k key
      * @param mixed $v value 
      *
-     * @return bool 
+     * @return boolean
      */
     public function offsetSet($k, $v=null)
     {
@@ -88,10 +89,21 @@ class HashMap extends ListIterator implements \ArrayAccess
      *
      * @param mixed $k key
      *
-     * @return bool 
+     * @return boolean
      */
     public function offsetUnset($k=null)
     {
         return clean($this->values, $k);
     }
+
+    /**
+     * Count
+     *
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->values);
+    }
+
 }
