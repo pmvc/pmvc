@@ -42,6 +42,3 @@ class FakeHash extends HashMap
     }
 }
 
-class FakePlug extends PlugIn
-{
-}

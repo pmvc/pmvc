@@ -523,16 +523,6 @@ function &option($act, $k=null, $v=null)
         break;
     case 'set':
         $return = set($options, $k, $v);
-        if (is_string($k)) {
-            $k = array($k=>$v);
-        }
-        if (is_array($k)) {
-            foreach ($k as $i=>$v) {
-                if (is_string($v)) {
-                    putenv($i.'='.$v);
-                }
-            }
-        }
         break;
     }
     return $return;
@@ -711,12 +701,12 @@ function unPlug($name)
 /**
  * Re plug
  *
- * @param sring  $name   plug-in name 
- * @param PlugIn $object plug-in plugin instance 
+ * @param sring $name   plug-in name 
+ * @param mixed $object plug-in plugin instance 
  * 
  * @return mixed \PMVC\PlugIn
  */
-function rePlug($name, PlugIn $object)
+function rePlug($name, $object)
 {
     $objs =& getOption(PLUGIN_INSTANCE);
     $objs[$name]=$object;
@@ -728,7 +718,7 @@ function rePlug($name, PlugIn $object)
  *
  * @return mixed 
  */
-function getPlugInNames()
+function getPlugs()
 {
     $objs =& getOption(PLUGIN_INSTANCE);
     if (is_array($objs)) {
