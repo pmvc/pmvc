@@ -627,6 +627,23 @@ function n($v, $type=null)
  */
 
 /**
+ * Get Adapter
+ *
+ * @param string $name Adapter name 
+ *
+ * @return Adapter instance
+ */
+function getAdapter($name)
+{
+    static $adapters=array();
+    if (!isset($adapters[$name])) {
+        $adapters[$name] = new Adapter($name);
+    }
+    return $adapters[$name];
+}
+
+
+/**
  * Set PlugIn Folder
  *
  * @param array $folders plug-in folders 
@@ -802,6 +819,7 @@ function plug($name, $config=null)
         return $name;
     }
     $oPlugin[_PLUGIN] = $name;
+    $oPlugin['this'] = getAdapter($name);
     if (!empty($r)) {
         $config = array_merge($r->var[_INIT_CONFIG], $config);
         $oPlugin[_PLUGIN_FILE] = $r->name;

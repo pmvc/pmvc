@@ -33,10 +33,9 @@ class Adapter implements \ArrayAccess
      *
      * @return mixed
      */
-    public function init($name)
+    public function __construct($name)
     {
         $this->_name = $name;
-        return $this;
     }
 
     /**

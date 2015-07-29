@@ -68,9 +68,6 @@ class PlugIn extends HashMap implements \SplObserver
                 return $r;
             }
         }
-        return run(
-            array(new Adapter(),'init'),
-            array($this[_PLUGIN])
-        );
+        return $this['this'];
     }
 }
