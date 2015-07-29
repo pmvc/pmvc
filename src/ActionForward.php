@@ -112,7 +112,7 @@ class ActionForward extends HashMap
             $type='redirect';
         } elseif ('view'==$type) {
             $this->view=plug('view');
-            $this->view->forward = $this;
+            $this->view['forward'] = $this;
         }
         $this->_type = $type;
     }
@@ -200,8 +200,10 @@ class ActionForward extends HashMap
      */
     private function _processView()
     {
-        $this->view->folder = getOption(_TEMPLATE_DIR);
-        $this->view->path = $this->getPath();
+        $this->view->setThemeFolder(
+            getOption(_TEMPLATE_DIR)
+        );
+        $this->view->setThemePath($this->getPath());
         $this->view->process();
         if (!empty($this->lazyOutput)) {
             return $this;
