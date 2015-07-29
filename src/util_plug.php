@@ -801,10 +801,10 @@ function plug($name, $config=null)
         $name=false;
         return $name;
     }
-    $oPlugin->name=$name;
+    $oPlugin[_PLUGIN] = $name;
     if (!empty($r)) {
         $config = array_merge($r->var[_INIT_CONFIG], $config);
-        $oPlugin->file = $r->name;
+        $oPlugin[_PLUGIN_FILE] = $r->name;
     }
     if (!empty($config)) {
         set($oPlugin, $config);

@@ -30,24 +30,13 @@ class PlugIn extends HashMap implements \SplObserver
      use Alias;
 
     /**
-     * Name
-     * @var string
-     */
-    public $name;
-    /**
-     * File 
-     * @var string
-     */
-    public $file;
-
-    /**
      * Get dir
      *
      * @return mixed
      */
     public function getDir()
     {
-        return dirname($this->file).'/';
+        return dirname($this[_PLUGIN_FILE]).'/';
     }
 
     /**
@@ -79,6 +68,9 @@ class PlugIn extends HashMap implements \SplObserver
                 return $r;
             }
         }
-        return $this;
+        return run(
+            array(new Adapter(),'init'),
+            array($this[_PLUGIN])
+        );
     }
 }
