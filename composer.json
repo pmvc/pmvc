@@ -2,7 +2,6 @@
     "name": "pmvc/pmvc",
     "description": "The New PHP5.6 MVC framework, conatain double engine and double framework",
     "type": "library",
-    "homepage": "https://github.com/pmvc/pmvc",
     "keywords": ["pmvc", "plug", "plug-in", "framework", "mvc", "phramework"],
     "license": "MIT",
     "authors": [

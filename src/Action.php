@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     http://pear.php.net/package/PackageName
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -20,7 +20,7 @@ namespace PMVC;
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     http://pear.php.net/package/PackageName
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class Action extends PlugIn
 {
