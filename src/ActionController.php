@@ -165,12 +165,7 @@ class ActionController
      */
     public function setMapping($mappings)
     {
-        if (!empty($mappings)) {
-            $this->_mappings->set($mappings);
-            return true;
-        } else {
-            return false;
-        }
+        return $this->_mappings->set($mappings);
     }
 
     /**
@@ -182,16 +177,23 @@ class ActionController
      */
     public function addMapping($mappings)
     {
-        $this->_mappings->add($mappings);
+        return $this->_mappings->add($mappings);
     }
 
     /**
      * Process the request.
      *
+     * @param mixed $mappings mappings
+     *
      * @return mixed
      */
-    public function process()
+    public function process($mappings=null)
     {
+        if (!is_null($mappings)) {
+            if (!$this->addMapping($mappings)) {
+                return false;
+            }
+        }
         call_plugin(
             'dispatcher',
             'notify',

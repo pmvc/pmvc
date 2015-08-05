@@ -5,16 +5,13 @@ PMVC\Load::mvc();
 #cache
 PMVC\plug('cache_header')->nocache();
 
-$b = new PMVC\MappingBuilder();
-$b->addAction('index', array(
+$build = new PMVC\MappingBuilder();
+$build->addAction('index', array(
     _FUNCTION=>function(){
         return 'Hello World!';
     }
 ));
 
-$controller = new PMVC\ActionController();
-if( $controller->setMapping($b->getMappings()) ){
-    $a = $controller->process();
-    var_dump($a);
-}
+$a = (new PMVC\ActionController())->process( $build->getMappings() );
+var_dump($a);
 

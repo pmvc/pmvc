@@ -40,6 +40,11 @@ class ActionMappings
     public function set($mappings)
     {
         $this->_mappings =& $mappings;
+        if (empty($this->_mappings)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
