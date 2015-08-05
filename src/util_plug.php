@@ -53,7 +53,10 @@ function l($name, $compacts=null, $once=true)
     $o = new \stdClass();
     $o->name = $real;
     if ($compacts) {
-        $o->var = compact($compacts);
+        $o->var =call_user_func_array(
+            'compact',
+            toArray($compacts)
+        );
     }
     return $o;
 }
@@ -86,8 +89,7 @@ function includeApp($name, $bTransparent=null)
  * @param string  $name         name 
  * @param string  $type         type [file|class|function] 
  * @param mixed   $dirs         dirs 
- * @param string  $defaultDir   default folder 
- * @param string  $compacts     decide extrac files variable 
+ * @param mixed   $compacts     decide extrac files variable 
  * @param boolean $once         if incldue once 
  * @param boolean $isIncludeApp search for application folder 
  *
@@ -97,7 +99,6 @@ function load(
     $name,
     $type='file',
     $dirs=null,
-    $defaultDir=null,
     $compacts=null,
     $once=true,
     $isIncludeApp=null
@@ -114,7 +115,6 @@ function load(
             $name,
             $type,
             $dirs,
-            $defaultDir,
             $isIncludeApp
         )
     );
@@ -137,57 +137,21 @@ function load(
  * @param string  $name         name 
  * @param string  $type         type [file|class|function] 
  * @param mixed   $dirs         dirs 
- * @param string  $defaultDir   default folder 
  * @param boolean $isIncludeApp search for application folder 
  *
  * @return mixed 
  */
-function find($name, $type='file', $dirs=null, $defaultDir=null, $isIncludeApp=null)
+function find($name, $type='file', $dirs=null, $isIncludeApp=null)
 {
-    if (empty($dirs)) {
-        if (is_null($defaultDir)) {
-            switch ($type) {
-            case 'function':
-                $defaultDir = array('include/');
-                break;
-            case 'class':
-                $defaultDir = array('class/');
-                break;
-            }
-        }
-        if (!empty($defaultDir)) {
-            $dirs = $defaultDir;
-        } else {
-            return run(
-                __NAMESPACE__.'\includeApp',
-                array(
-                    mergeName($name, null),
-                    $isIncludeApp
-                )
-            );
-        }
-    }
     $dirs = splitDir($dirs);
     foreach ($dirs as $dirPath) {
         if (!(realPath($dirPath))) {
             continue;
         }
-        $r = run(
-            __NAMESPACE__.'\includeApp',
-            array(
-                mergeName($name, $dirPath),
-                $isIncludeApp
-            )
-        );
+        $r = includeApp(mergeName($name, $dirPath), $isIncludeApp);
         if (!$r && 'file'!=$type) {
             $lowerCase = run(__NAMESPACE__.'\lowerCaseFile', array($name,$type));
-            $r = run(
-                __NAMESPACE__.'\includeApp',
-                array(
-                    mergeName($lowerCase, $dirPath),
-                   $isIncludeApp
-                )
-            );
+            $r = includeApp(mergeName($lowerCase, $dirPath), $isIncludeApp);
         }
         if ($r) {
             return $r;
@@ -248,6 +212,26 @@ function lowerCaseFile($name, $type='class')
 }
 
 /**
+ * Multi explode
+ *
+ * @param mixed  $delimiters string or array 
+ * @param string $s          string 
+ *
+ * @return array
+ */
+function split($delimiters, $s)
+{
+    if (!is_string($s)) {
+        return $s;
+    }
+    if (is_string($delimiters)) {
+        $delimiters = str_split($delimiters);
+    }
+    $s = str_replace($delimiters, $delimiters[0], $s);
+    return explode($delimiters[0], $s);
+}
+
+/**
  * Split folder string to arrays 
  *
  * @param string $s folder string 
@@ -256,10 +240,7 @@ function lowerCaseFile($name, $type='class')
  */
 function splitDir($s)
 {
-    if (!is_string($s)) {
-        return $s;
-    }
-    return  split('[;:]', $s);
+    return split(';:', $s);
 }
 
 /**
@@ -496,13 +477,14 @@ function clean(&$a, $k=null)
 /**
 * Get Option
 *
-* @param mixed $k which want to get 
+* @param mixed $k       which want to get
+* @param mixed $default value or default 
 *
 * @return string hash result 
 */
-function &getOption($k=null)
+function &getOption($k=null, $default=null)
 {
-    return option('get', $k);
+    return option('get', $k, $default);
 }
 
 /**
@@ -510,7 +492,7 @@ function &getOption($k=null)
 *
 * @param string $act [set|get] 
 * @param mixed  $k   key 
-* @param mixed  $v   value 
+* @param mixed  $v   value or default 
 *
 * @return mixed 
 */
@@ -519,7 +501,7 @@ function &option($act, $k=null, $v=null)
     static $options=array();
     switch ($act) {
     case 'get':
-        $return =& get($options, $k);
+        $return =& get($options, $k, $v);
         break;
     case 'set':
         $return = set($options, $k, $v);
@@ -553,8 +535,6 @@ function log()
     $params = func_get_args();
     call_plugin('error_trace', 'log', $params);
 }
-
-
 
 /**
 * Cache function run result 
@@ -712,7 +692,11 @@ function unPlug($name)
     if (!$name) {
         return $name;
     }
-    return rePlug($name, null);
+    $objs =& getOption(PLUGIN_INSTANCE);
+    $plug = $objs[$name];
+    $objs[$name] = null;
+    unset($objs[$name]);
+    return $plug;
 }
 
 /**
@@ -754,8 +738,9 @@ function getPlugs()
 function initPlugIn($arr)
 {
     if (is_array($arr)) {
+        $objs =& getOption(PLUGIN_INSTANCE);
         foreach ($arr as $plugIn=>$config) {
-            if (!exists($plugIn, 'plugin')) {
+            if (!isset($objs[$plugIn])) {
                 plug($plugIn, $config);
             }
         }
@@ -804,7 +789,7 @@ function plug($name, $config=null)
             foreach ($default_folders as $folder) {
                 $folders[] = lastSlash($folder).$name;
             }
-            $r=load($file, 'file', $folders, null, _INIT_CONFIG, true, false);
+            $r=load($file, 'file', $folders, _INIT_CONFIG, true, false);
         }
         $class = (!empty($r->var[_INIT_CONFIG][_CLASS]))
             ? $r->var[_INIT_CONFIG][_CLASS]
