@@ -84,7 +84,6 @@ function includeApp($name, $bTransparent=null)
  * Smart Load 
  *
  * @param string  $name         name 
- * @param string  $type         type [file|class|function] 
  * @param mixed   $dirs         dirs 
  * @param mixed   $compacts     decide extrac files variable 
  * @param boolean $once         if incldue once 
@@ -94,7 +93,6 @@ function includeApp($name, $bTransparent=null)
  */
 function load(
     $name,
-    $type='file',
     $dirs=null,
     $compacts=null,
     $once=true,
@@ -110,7 +108,6 @@ function load(
         __NAMESPACE__.'\find',
         array(
             $name,
-            $type,
             $dirs,
             $isIncludeApp
         )
@@ -132,13 +129,12 @@ function load(
  * Smart find 
  *
  * @param string  $name         name 
- * @param string  $type         type [file|class|function] 
  * @param mixed   $dirs         dirs 
  * @param boolean $isIncludeApp search for application folder 
  *
  * @return mixed 
  */
-function find($name, $type='file', $dirs=null, $isIncludeApp=null)
+function find($name, $dirs=null, $isIncludeApp=null)
 {
     $dirs = splitDir($dirs);
     foreach ($dirs as $dirPath) {
@@ -146,10 +142,6 @@ function find($name, $type='file', $dirs=null, $isIncludeApp=null)
             continue;
         }
         $r = includeApp(mergeName($name, $dirPath), $isIncludeApp);
-        if (!$r && 'file'!=$type) {
-            $lowerCase = run(__NAMESPACE__.'\lowerCaseFile', array($name,$type));
-            $r = includeApp(mergeName($lowerCase, $dirPath), $isIncludeApp);
-        }
         if ($r) {
             return $r;
         }
@@ -188,7 +180,7 @@ function lastSlash($s)
  *
  * @return string 
  */
-function lowerCaseFile($name, $type='class')
+function lowerCaseFile($name, $type='')
 {
     $s = preg_split(
         "/([A-Z])/", 
@@ -204,7 +196,10 @@ function lowerCaseFile($name, $type='class')
             $k.=$s[$i];
         }
     }
-    $k = $type.'.'.strtolower($s[0]).$k;
+    if (!empty($type)) {
+        $type.='.';
+    }
+    $k = $type.strtolower($s[0]).$k;
     return $k;
 }
 
@@ -786,7 +781,7 @@ function plug($name, $config=null)
             foreach ($default_folders as $folder) {
                 $folders[] = lastSlash($folder).$name;
             }
-            $r=load($file, 'file', $folders, _INIT_CONFIG, true, false);
+            $r=load($file, $folders, _INIT_CONFIG, true, false);
         }
         $class = (!empty($r->var[_INIT_CONFIG][_CLASS]))
             ? $r->var[_INIT_CONFIG][_CLASS]
