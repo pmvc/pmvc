@@ -37,7 +37,7 @@ function realPath($p)
  * and make global variable to local variable
  *
  * @param string  $name     file name 
- * @param string  $compacts decide extrac files variable 
+ * @param array   $compacts decide extrac files variable 
  * @param boolean $once     if incldue once 
  *
  * @return mixed 
@@ -53,10 +53,7 @@ function l($name, $compacts=null, $once=true)
     $o = new \stdClass();
     $o->name = $real;
     if ($compacts) {
-        $o->var =call_user_func_array(
-            'compact',
-            toArray($compacts)
-        );
+        $o->var = compact($compacts);
     }
     return $o;
 }
@@ -145,7 +142,7 @@ function find($name, $type='file', $dirs=null, $isIncludeApp=null)
 {
     $dirs = splitDir($dirs);
     foreach ($dirs as $dirPath) {
-        if (!(realPath($dirPath))) {
+        if (!realPath($dirPath)) {
             continue;
         }
         $r = includeApp(mergeName($name, $dirPath), $isIncludeApp);
