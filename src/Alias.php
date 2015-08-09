@@ -18,7 +18,7 @@ namespace PMVC;
  */
 trait Alias
 {
-    private $_alias;
+    private $_alias = array();
 
     protected $aliasForce = false;
 
