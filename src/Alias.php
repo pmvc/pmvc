@@ -84,8 +84,8 @@ trait Alias
     /**
      * SetAlias
      *
-     * @param string $k key
-     * @param mixed  $v value
+     * @param string $k method name 
+     * @param mixed  $v alias to new method (function or class method)
      *
      * @return mixed
      */
