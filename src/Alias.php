@@ -18,7 +18,7 @@ namespace PMVC;
  */
 trait Alias
 {
-    private $_alias = array();
+    private $_aliases = array();
 
     protected $aliasForce = false;
 
@@ -32,23 +32,23 @@ trait Alias
      */
     public function __call($method, $args)
     {
-        if (isset($this->_alias[$method])) {
+        if (isset($this->_aliases[$method])) {
             $r=call_user_func_array(
-                $this->_alias[$method],
+                $this->_aliases[$method],
                 $args
             );
         } else {
             if ($this->aliasForce 
-                || method_exists($this->_alias[''], $method)
+                || method_exists($this->_aliases[''], $method)
             ) {
                 $r=call_user_func_array(
-                    array($this->_alias[''],$method),
+                    array($this->_aliases[''],$method),
                     $args
                 );
             } else {
                 trigger_error(
                     'Method not found: '.
-                    get_class($this->_alias['']).
+                    get_class($this->_aliases['']).
                     '::'.
                     $method
                 );
@@ -91,7 +91,7 @@ trait Alias
      */
     public function setAlias($k, $v=null)
     {
-        set($this->_alias, $k, $v);
+        set($this->_aliases, $k, $v);
     }
 
     /**
@@ -103,6 +103,6 @@ trait Alias
      */
     public function cleanAlias($arr=null)
     {
-        clean($this->_alias, $arr);
+        clean($this->_aliases, $arr);
     }
 }
