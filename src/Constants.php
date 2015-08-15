@@ -25,7 +25,6 @@ define('_SCOPE', '_scope_'); //action
 define('_TYPE', '_type_');
 define('_FORWARD', '_forward_');
 define('_PATH', '_path_');
-define('_FILTER', '_filter_');
 define('_FUNCTION', '_function_');
 define('_OPTION', '_option_');
 define('_CLEAN', '_clean_');

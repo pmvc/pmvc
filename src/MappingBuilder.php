@@ -75,62 +75,6 @@ class MappingBuilder extends Object
     }
 
     /**
-     * Add filter 
-     *
-     * @param string $psFormId form id
-     * @param string $psField  field id
-     * @param array  $settings settings
-     * 
-     * @return bool
-     */
-    public function addFilter($psFormId, $psField, $settings)
-    {
-        $filter =&$this->_aaMap[ACTION_FORMS][$psFormId][_FILTER][$psField];
-        $settings = mergeDefault(
-            $this->getFilterDefault(), $settings
-        );
-        $type = (isset($settings[_TYPE]))?$settings[_TYPE]:null;
-        unset($settings[_TYPE]);
-        if ($type) {
-            $filter[$type]=$settings;
-        } else {
-            $filter[]=$settings;
-        }
-        return true;
-    }
-
-    /**
-     * Get Filter Default
-     * 
-     * @return array
-     */
-    public function getFilterDefault()
-    {
-        return array(
-            _FUNCTION => null
-            ,_OPTION  => null
-            ,_TYPE    => null
-        );
-    }
-
-    /**
-     * Add global filter 
-     *
-     * @param string $psFormId form id
-     * @param string $psField  field id
-     * @param array  $settings settings
-     * 
-     * @return bool
-     */
-    public function addGlobalFilter($psFormId, $psField, $settings)
-    {
-        $settings[_TYPE]='g';
-        return $this->addFilter(
-            $psFormId, $psField, $settings
-        );
-    }
-
-    /**
      * Add a Action to mapping
      *
      * @param string $psId     forward id
