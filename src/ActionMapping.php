@@ -52,13 +52,6 @@ class ActionMapping extends HashMap
     public $scope;
         
     /**
-     * Set the initial field for uri type request
-     * @see ActionController::initActionFormValue
-     * @var string 
-     */
-    public $initial;
-        
-    /**
      * This action mapping name
      * @var string 
      */
@@ -108,9 +101,6 @@ class ActionMapping extends HashMap
         }
         if (isset($mapping[_SCOPE])) {
             $this->scope=$mapping[_SCOPE];
-        }
-        if (isset($mapping[_INITIAL])) {
-            $this->initial=$mapping[_INITIAL];
         }
     }
 

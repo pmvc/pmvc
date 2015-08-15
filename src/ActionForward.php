@@ -72,9 +72,6 @@ class ActionForward extends HashMap
         $this->setHeader($forward[_HEADER]);
         $this->clean = $forward[_CLEAN];
         $this->lazyOutput = $forward[_LAZY_OUTPUT];
-        if (is_array($forward[_INITIAL])) {
-            $this->clean($forward[_INITIAL]);
-        }
     }
 
     /**
@@ -193,6 +190,7 @@ class ActionForward extends HashMap
             return get($this, $k, $default);
         }
     }
+
     /**
      * Process View
      *

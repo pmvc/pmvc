@@ -163,7 +163,6 @@ class MappingBuilder extends Object
             ,_VALIDATE => true
             ,_INPUT    => null
             ,_SCOPE    => 'request'
-            ,_INITIAL  => null
             ,_TYPE     => null
             ,_CLEAN    => null
         );
@@ -197,7 +196,6 @@ class MappingBuilder extends Object
         return array(
             _PATH=>'_DEFAULT_'
             ,_TYPE=>'redirect'
-            ,_INITIAL=>null
             ,_CLEAN=>null
             ,_HEADER=>null
             ,_LAZY_OUTPUT=>null

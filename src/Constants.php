@@ -22,7 +22,6 @@ define('_FORM', '_form_'); //action
 define('_VALIDATE', '_validate_'); //action
 define('_INPUT', '_input_'); //action
 define('_SCOPE', '_scope_'); //action
-define('_INITIAL', '_initial_'); //(action, options)
 define('_TYPE', '_type_');
 define('_FORWARD', '_forward_');
 define('_PATH', '_path_');
