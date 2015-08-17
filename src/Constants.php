@@ -17,6 +17,9 @@
  */
 
 /* mappings constant(s) */
+if (defined('_CLASS')) {
+    return;
+}
 define('_CLASS', '_class_'); //action, plugin
 define('_FORM', '_form_'); //action
 define('_VALIDATE', '_validate_'); //action

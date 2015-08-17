@@ -16,6 +16,9 @@ namespace PMVC;
 /**
  * Action
  */
+if (defined('\PMVC\CONTROLLER')) {
+    return;
+}
 const CONTROLLER='__controller__';
 const ACTION_FORMS='__action_forms__';
 const ACTION_MAPPINGS='__action_mappings__';
