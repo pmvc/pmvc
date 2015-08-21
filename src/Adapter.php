@@ -9,18 +9,20 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
  * PMVC PlugIn Adapter
+ * It purpose let plugin's attribute can not access even it's public,
+ * if you need use it, need replace with $plug['xxx']
  *
  * @category CategoryName
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class Adapter implements \ArrayAccess
 {
@@ -29,7 +31,7 @@ class Adapter implements \ArrayAccess
     /**
      * Assign plugin name, call by cache run
      *
-     * @param string $name plugin name 
+     * @param string $name plugin name
      *
      * @return mixed
      */
@@ -46,7 +48,7 @@ class Adapter implements \ArrayAccess
      *
      * @return mixed
      */
-    public function __call($method, $args)
+    public function __call($method, $args=array())
     {
         $objs = &getOption(PLUGIN_INSTANCE);
         if (!empty($objs[$this->_name])) {
@@ -61,11 +63,21 @@ class Adapter implements \ArrayAccess
     }
 
     /**
+     * To string
+     *
+     * @return string
+     */
+    public function __tostring()
+    {
+        return $this->__call(__FUNCTION__);
+    }
+
+    /**
      * Get
      *
      * @param mixed $k key
      *
-     * @return mixed 
+     * @return mixed
      */
     public function &offsetGet($k=null)
     {
@@ -78,16 +90,16 @@ class Adapter implements \ArrayAccess
     }
 
     /**
-     * Set 
+     * Set
      *
      * @param mixed $k key
-     * @param mixed $v value 
+     * @param mixed $v value
      *
      * @return boolean
      */
     public function offsetSet($k, $v=null)
     {
-        return $this->__call('offsetSet', array($k,$v));
+        return $this->__call(__FUNCTION__, array($k,$v));
     }
 
     /**
@@ -99,19 +111,18 @@ class Adapter implements \ArrayAccess
      */
     public function offsetUnset($k=null)
     {
-        return $this->__call('offsetUnset', array($k));
+        return $this->__call(__FUNCTION__, array($k));
     }
 
     /**
      * ContainsKey
      *
-     * @param string $k key 
+     * @param string $k key
      *
      * @return boolean
      */
     public function offsetExists($k)
     {
-        return $this->__call('offsetExists', array($k));
+        return $this->__call(__FUNCTION__, array($k));
     }
-
 }
