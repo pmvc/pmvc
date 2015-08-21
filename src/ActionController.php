@@ -322,7 +322,7 @@ class ActionController
      */
     private function _processValidate($actionForm)
     {
-        return $actionForm->validate();
+        return (string)$actionForm->validate();
     }
 
     /**
