@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -20,7 +20,7 @@ namespace PMVC;
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class HashMap extends ListIterator
     implements \ArrayAccess, \Countable
@@ -28,7 +28,7 @@ class HashMap extends ListIterator
     /**
      * ContainsValue
      *
-     * @param string $value value 
+     * @param string $value value
      *
      * @return boolean
      */
@@ -38,7 +38,7 @@ class HashMap extends ListIterator
     }
 
     /**
-     * Get array_keys 
+     * Get array_keys
      *
      * @return boolean
      */
@@ -50,7 +50,7 @@ class HashMap extends ListIterator
     /**
      * ContainsKey
      *
-     * @param string $key key 
+     * @param string $key key
      *
      * @return boolean
      */
@@ -64,7 +64,7 @@ class HashMap extends ListIterator
      *
      * @param mixed $k key
      *
-     * @return mixed 
+     * @return mixed
      */
     public function &offsetGet($k=null)
     {
@@ -72,10 +72,10 @@ class HashMap extends ListIterator
     }
 
     /**
-     * Set 
+     * Set
      *
      * @param mixed $k key
-     * @param mixed $v value 
+     * @param mixed $v value
      *
      * @return boolean
      */
@@ -105,5 +105,4 @@ class HashMap extends ListIterator
     {
         return count($this->values);
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * PMVC 
+ * PMVC
  *
  * This file only use in
  * "Global Option", "Mapping Option", "Plugin Option".
@@ -11,9 +11,9 @@
  * @category CategoryName
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT 
+ * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 
 /* mappings constant(s) */
@@ -53,7 +53,7 @@ define('_INIT_CONFIG', '_init_config_');
 define('_INIT_BUILDER', '_init_builder_');
 
 /**
- * Run 
+ * Run
  */
 define('_DEFAULT_APP', '_default_app_');
 define('_DEFAULT_FORM', '_default_form_');

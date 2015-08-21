@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -20,11 +20,10 @@ namespace PMVC;
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ActionMapping extends HashMap
 {
-        
     /**
      * Func
      * @var string
@@ -53,14 +52,14 @@ class ActionMapping extends HashMap
         
     /**
      * This action mapping name
-     * @var string 
+     * @var string
      */
     public $name;
         
     /**
      * To set true if don't leave request to next request
      * @see FormBack
-     * @var bool 
+     * @var bool
      */
     public $clean;
 

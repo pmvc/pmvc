@@ -20,7 +20,7 @@ namespace PMVC;
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class PlugIn extends HashMap implements \SplObserver
 {

@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -20,7 +20,7 @@ namespace PMVC;
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ActionMappings
 {
@@ -68,7 +68,7 @@ class ActionMappings
      * Add mappings by key
      *
      * @param array  $mappings mappings
-     * @param string $key      key 
+     * @param string $key      key
      *
      * @return void
      */
@@ -112,7 +112,7 @@ class ActionMappings
      * Search for the forward
      *
      * @param string $name name
-     * 
+     *
      * @return string
      */
     public function findForward($name)

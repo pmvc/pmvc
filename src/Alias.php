@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -38,7 +38,7 @@ trait Alias
                 $args
             );
         } else {
-            if ($this->aliasForce 
+            if ($this->aliasForce
                 || method_exists($this->_aliases[''], $method)
             ) {
                 $r=call_user_func_array(
@@ -84,7 +84,7 @@ trait Alias
     /**
      * SetAlias
      *
-     * @param string $k method name 
+     * @param string $k method name
      * @param mixed  $v alias to new method (function or class method)
      *
      * @return mixed

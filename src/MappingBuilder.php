@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -20,7 +20,7 @@ namespace PMVC;
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class MappingBuilder extends Object
 {
@@ -49,7 +49,7 @@ class MappingBuilder extends Object
      *
      * @param string $psFormId form id
      * @param array  $settings settings
-     * 
+     *
      * @return bool
      */
     public function addForm($psFormId, $settings=array())
@@ -64,7 +64,7 @@ class MappingBuilder extends Object
 
     /**
      * Get Form Default
-     * 
+     *
      * @return array
      */
     public function getFormDefault()
@@ -79,7 +79,7 @@ class MappingBuilder extends Object
      *
      * @param string $psId     forward id
      * @param array  $settings settings
-     * 
+     *
      * @return bool
      */
     public function addAction($psId, $settings)
@@ -96,7 +96,7 @@ class MappingBuilder extends Object
 
     /**
      * Get Action Default
-     * 
+     *
      * @return array
      */
     public function getActionDefault()
@@ -118,7 +118,7 @@ class MappingBuilder extends Object
      *
      * @param string $psId     forward id
      * @param array  $settings settings
-     * 
+     *
      * @return bool
      */
     public function addForward($psId, $settings)
@@ -132,7 +132,7 @@ class MappingBuilder extends Object
 
     /**
      * Get forward default value
-     * 
+     *
      * @return array
      */
     public function getForwardDefault()

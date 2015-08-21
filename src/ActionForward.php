@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -20,7 +20,7 @@ namespace PMVC;
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ActionForward extends HashMap
 {
@@ -44,7 +44,7 @@ class ActionForward extends HashMap
 
     /**
      * LazyOutput action
-     * @var string 
+     * @var string
      */
     public $lazyOutput;
 
@@ -79,7 +79,7 @@ class ActionForward extends HashMap
 
     /**
      * Set header
-     * 
+     *
      * @param array $v value
      *
      * @return mixed
@@ -109,7 +109,7 @@ class ActionForward extends HashMap
 
     /**
     * Get type
-    * 
+    *
     * @return string
     */
     public function getType()
@@ -120,8 +120,8 @@ class ActionForward extends HashMap
     /**
      * Get the path of the ActionForward.
      *
-     * @param bool $bMerge merge or not 
-     * 
+     * @param bool $bMerge merge or not
+     *
      * @return string
      */
     public function getPath($bMerge=false)
@@ -152,7 +152,7 @@ class ActionForward extends HashMap
      *
      * @param string $k key
      * @param string $v value
-     * 
+     *
      * @return bool
      */
     public function set($k, $v=null)
@@ -167,13 +167,13 @@ class ActionForward extends HashMap
 
     /**
      * Get
-     * 
+     *
      * @param mixed $k       key
-     * @param mixed $default default 
+     * @param mixed $default default
      *
      * @return mixed
      */
-    public function get( $k=null, $default=null )
+    public function get($k=null, $default=null)
     {
         if ('view'==$this->getType()) {
             $args = func_get_args();

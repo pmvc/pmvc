@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -41,7 +41,7 @@ function u($job, $url=null)
 /**
  * Transparent
  *
- * @param string $name filename 
+ * @param string $name filename
  * @param string $app  app name
  *
  * @return string

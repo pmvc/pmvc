@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -20,7 +20,7 @@ namespace PMVC;
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ActionController
 {
@@ -64,7 +64,7 @@ class ActionController
             if (isset($k[_PLUGIN])) {
                 initPlugIn($k[_PLUGIN]);
             }
-        } elseif (_PLUGIN===$k ) {
+        } elseif (_PLUGIN===$k) {
             initPlugIn($v);
         }
         $this->store($k, $v);
@@ -278,7 +278,7 @@ class ActionController
             $form[_CLASS] = \PMVC\getOption(
                 _DEFAULT_FORM,
                 __NAMESPACE__.'\ActionForm'
-            ); 
+            );
         }
         $actionForm = new $form[_CLASS]($form);
 

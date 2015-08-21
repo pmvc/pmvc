@@ -19,7 +19,7 @@ namespace PMVC;
 
 /**
  * RealPath
- * 
+ *
  * @param string $p parameters
  *
  * @return string
@@ -33,14 +33,14 @@ function realPath($p)
 }
 
 /**
- * Same with include, but self manage include_once 
+ * Same with include, but self manage include_once
  * and make global variable to local variable
  *
- * @param string  $name     file name 
- * @param array   $compacts decide extrac files variable 
- * @param boolean $once     if incldue once 
+ * @param string  $name     file name
+ * @param array   $compacts decide extrac files variable
+ * @param boolean $once     if incldue once
  *
- * @return mixed 
+ * @return mixed
  */
 function l($name, $compacts=null, $once=true)
 {
@@ -59,12 +59,12 @@ function l($name, $compacts=null, $once=true)
 }
 
 /**
- * Include app folder 
+ * Include app folder
  *
- * @param string $name         file name 
+ * @param string $name         file name
  * @param string $bTransparent Transparent app folder
  *
- * @return mixed 
+ * @return mixed
  */
 function includeApp($name, $bTransparent=null)
 {
@@ -81,15 +81,15 @@ function includeApp($name, $bTransparent=null)
 }
 
 /**
- * Smart Load 
+ * Smart Load
  *
- * @param string  $name         name 
- * @param mixed   $dirs         dirs 
- * @param mixed   $compacts     decide extrac files variable 
- * @param boolean $once         if incldue once 
- * @param boolean $isIncludeApp search for application folder 
+ * @param string  $name         name
+ * @param mixed   $dirs         dirs
+ * @param mixed   $compacts     decide extrac files variable
+ * @param boolean $once         if incldue once
+ * @param boolean $isIncludeApp search for application folder
  *
- * @return mixed 
+ * @return mixed
  */
 function load(
     $name,
@@ -126,13 +126,13 @@ function load(
 
 
 /**
- * Smart find 
+ * Smart find
  *
- * @param string  $name         name 
- * @param mixed   $dirs         dirs 
- * @param boolean $isIncludeApp search for application folder 
+ * @param string  $name         name
+ * @param mixed   $dirs         dirs
+ * @param boolean $isIncludeApp search for application folder
  *
- * @return mixed 
+ * @return mixed
  */
 function find($name, $dirs=null, $isIncludeApp=null)
 {
@@ -154,11 +154,11 @@ function find($name, $dirs=null, $isIncludeApp=null)
  */
 
 /**
- * Auto append last slash for dir or file 
+ * Auto append last slash for dir or file
  *
- * @param string $s folder or file name 
+ * @param string $s folder or file name
  *
- * @return string 
+ * @return string
  */
 function lastSlash($s)
 {
@@ -173,19 +173,19 @@ function lastSlash($s)
 }
 
 /**
- * Change file name from uppder case to lower case 
+ * Change file name from uppder case to lower case
  *
- * @param string $name file name 
- * @param string $type [class|function] 
+ * @param string $name file name
+ * @param string $type [class|function]
  *
- * @return string 
+ * @return string
  */
 function lowerCaseFile($name, $type='')
 {
     $s = preg_split(
-        "/([A-Z])/", 
-        $name, 
-        -1, 
+        "/([A-Z])/",
+        $name,
+        -1,
         PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY
     );
     $k = '';
@@ -206,8 +206,8 @@ function lowerCaseFile($name, $type='')
 /**
  * Multi explode
  *
- * @param mixed  $delimiters string or array 
- * @param string $s          string 
+ * @param mixed  $delimiters string or array
+ * @param string $s          string
  *
  * @return array
  */
@@ -224,11 +224,11 @@ function split($delimiters, $s)
 }
 
 /**
- * Split folder string to arrays 
+ * Split folder string to arrays
  *
- * @param string $s folder string 
+ * @param string $s folder string
  *
- * @return array 
+ * @return array
  */
 function splitDir($s)
 {
@@ -236,12 +236,12 @@ function splitDir($s)
 }
 
 /**
- * Merge name 
+ * Merge name
  *
- * @param string $name name 
- * @param string $dir  dir 
+ * @param string $name name
+ * @param string $dir  dir
  *
- * @return string 
+ * @return string
  */
 function mergeName($name, $dir=null)
 {
@@ -252,9 +252,9 @@ function mergeName($name, $dir=null)
 }
 
 /**
-* Hash function 
+* Hash function
 *
-* @return string hash result 
+* @return string hash result
 */
 function hash()
 {
@@ -264,7 +264,7 @@ function hash()
 
 /**
  * Form Json
- * 
+ *
  * @param string $s origin string
  *
  * @return mixed return json_decode or origin value
@@ -300,7 +300,7 @@ function Array_merge()
         trigger_error('param1 need be an array');
         return false;
     }
-    for ($i=1,$j=count($a);$i<$j;$i++) {
+    for ($i=1, $j=count($a);$i<$j;$i++) {
         if (is_null($a[$i])) {
             continue;
         }
@@ -316,13 +316,13 @@ function Array_merge()
 }
 
 /**
-* Merge array with a default set 
+* Merge array with a default set
 * If key not in default set will be ignore
 *
-* @param array $defaults default 
+* @param array $defaults default
 * @param array $settings setting
 *
-* @return array 
+* @return array
 */
 function mergeDefault($defaults, $settings)
 {
@@ -335,11 +335,11 @@ function mergeDefault($defaults, $settings)
 }
 
 /**
-* Keep string and array both in array type 
+* Keep string and array both in array type
 *
-* @param mixed $p parameters 
+* @param mixed $p parameters
 *
-* @return string hash result 
+* @return string hash result
 */
 function toArray($p)
 {
@@ -354,13 +354,13 @@ function toArray($p)
  */
 
 /**
-* Magic Set function 
+* Magic Set function
 *
-* @param array $a array 
-* @param mixed $k key 
-* @param mixed $v value 
+* @param array $a array
+* @param mixed $k key
+* @param mixed $v value
 *
-* @return mixed 
+* @return mixed
 */
 function set(&$a, $k, $v=null)
 {
@@ -390,7 +390,7 @@ function isArrayAccess($obj)
 }
 
 /**
- * Check is ArrayAccess or array 
+ * Check is ArrayAccess or array
  *
  * @param mixed $obj any object
  *
@@ -402,13 +402,13 @@ function isArray($obj)
 }
 
 /**
-* Magic Get function 
+* Magic Get function
 *
-* @param array $a       array 
-* @param mixed $k       key 
-* @param mixed $default default 
+* @param array $a       array
+* @param mixed $k       key
+* @param mixed $default default
 *
-* @return mixed 
+* @return mixed
 */
 function &get(&$a, $k=null, $default=null)
 {
@@ -440,12 +440,12 @@ function &get(&$a, $k=null, $default=null)
 }
 
 /**
-* Magic Clean function 
+* Magic Clean function
 *
-* @param array $a array 
-* @param mixed $k key 
+* @param array $a array
+* @param mixed $k key
 *
-* @return void 
+* @return void
 */
 function clean(&$a, $k=null)
 {
@@ -470,9 +470,9 @@ function clean(&$a, $k=null)
 * Get Option
 *
 * @param mixed $k       which want to get
-* @param mixed $default value or default 
+* @param mixed $default value or default
 *
-* @return string hash result 
+* @return string hash result
 */
 function &getOption($k=null, $default=null)
 {
@@ -480,13 +480,13 @@ function &getOption($k=null, $default=null)
 }
 
 /**
-* Global option for get/set 
+* Global option for get/set
 *
-* @param string $act [set|get] 
-* @param mixed  $k   key 
-* @param mixed  $v   value or default 
+* @param string $act [set|get]
+* @param mixed  $k   key
+* @param mixed  $v   value or default
 *
-* @return mixed 
+* @return mixed
 */
 function &option($act, $k=null, $v=null)
 {
@@ -507,7 +507,7 @@ function &option($act, $k=null, $v=null)
  */
 
 /**
- * Dump for debug 
+ * Dump for debug
  *
  * @return vod
  */
@@ -529,12 +529,12 @@ function log()
 }
 
 /**
-* Cache function run result 
+* Cache function run result
 *
-* @param mixed $func run function 
-* @param mixed $args parameters 
+* @param mixed $func run function
+* @param mixed $args parameters
 *
-* @return boolean 
+* @return boolean
 */
 function &run($func, $args)
 {
@@ -547,12 +547,12 @@ function &run($func, $args)
 }
 
 /**
-* Check exists 
+* Check exists
 *
 * @param mixed $v    value
 * @param mixed $type [array|string]
 *
-* @return boolean 
+* @return boolean
 */
 function exists($v, $type)
 {
@@ -601,7 +601,7 @@ function n($v, $type=null)
 /**
  * Get Adapter
  *
- * @param string $name Adapter name 
+ * @param string $name Adapter name
  *
  * @return Adapter instance
  */
@@ -618,8 +618,8 @@ function getAdapter($name)
 /**
  * Set PlugIn Folder
  *
- * @param array $folders plug-in folders 
- * @param array $alias   plug-in alias 
+ * @param array $folders plug-in folders
+ * @param array $alias   plug-in alias
  *
  * @return mixed
  */
@@ -631,10 +631,10 @@ function setPlugInFolder($folders, $alias=array())
 
 /**
  * Add PlugIn Folder
- * 
- * @param array $folders plug-in folders 
- * @param array $alias   plug-in alias 
- * 
+ *
+ * @param array $folders plug-in folders
+ * @param array $alias   plug-in alias
+ *
  * @return mixed
  */
 function addPlugInFolder($folders, $alias=array())
@@ -651,12 +651,12 @@ function addPlugInFolder($folders, $alias=array())
 }
 
 /**
- * Call Plug-In 
- * 
- * @param sring $plugIn plug-in name 
- * @param sring $func   plug-in function 
- * @param sring $args   plug-in function parameters 
- * 
+ * Call Plug-In
+ *
+ * @param sring $plugIn plug-in name
+ * @param sring $func   plug-in function
+ * @param sring $args   plug-in function parameters
+ *
  * @return mixed
  */
 function Call_plugIn($plugIn, $func, $args=array())
@@ -675,7 +675,7 @@ function Call_plugIn($plugIn, $func, $args=array())
 /**
  * Unplug
  *
- * @param sring $name plug-in name 
+ * @param sring $name plug-in name
  *
  * @return mixed \PMVC\PlugIn
  */
@@ -694,9 +694,9 @@ function unPlug($name)
 /**
  * Re plug
  *
- * @param sring $name   plug-in name 
- * @param mixed $object plug-in plugin instance 
- * 
+ * @param sring $name   plug-in name
+ * @param mixed $object plug-in plugin instance
+ *
  * @return mixed \PMVC\PlugIn
  */
 function rePlug($name, $object)
@@ -709,7 +709,7 @@ function rePlug($name, $object)
 /**
  * Get PlugIn Names
  *
- * @return mixed 
+ * @return mixed
  */
 function getPlugs()
 {
@@ -723,9 +723,9 @@ function getPlugs()
 /**
  * Init PlugIn
  *
- * @param array $arr plug-in array 
+ * @param array $arr plug-in array
  *
- * @return void 
+ * @return void
  */
 function initPlugIn($arr)
 {
@@ -740,9 +740,9 @@ function initPlugIn($arr)
 }
 
 /**
- * Plug 
+ * Plug
  *
- * @param string $name   plugin name 
+ * @param string $name   plugin name
  * @param array  $config plugin configs
  *
  * @return mixed
@@ -808,4 +808,3 @@ function plug($name, $config=null)
     $objs[$name]=$oPlugin;
     return $oPlugin->update();
 }
-

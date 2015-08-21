@@ -1,29 +1,29 @@
 <?php
 /**
- * PMVC 
+ * PMVC
  *
  * PHP version 5
  *
  * @category CategoryName
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT 
+ * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
+
 /**
  * PMVC ActionForm
  *
  * @category CategoryName
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT 
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @license  http://opensource.org/licenses/MIT MIT
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ActionForm extends HashMap
 {
-
     /**
      * Option
      */
@@ -45,12 +45,11 @@ class ActionForm extends HashMap
 
     /**
      * Validate
-     * 
-     * @return mixed 
+     *
+     * @return mixed
      */
     public function validate()
     {
         return true;
     }
 }
-?>

@@ -9,7 +9,7 @@
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
  * @version  GIT: <git_id>
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -20,7 +20,7 @@ namespace PMVC;
  * @package  PackageName
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
- * @link     https://packagist.org/packages/pmvc/pmvc 
+ * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class Request extends HashMap
 {
@@ -77,7 +77,7 @@ class Request extends HashMap
             $method = getenv('REQUEST_METHOD');
             $cros_method = getenv('HTTP_ACCESS_CONTROL_REQUEST_METHOD');
             if ($method === 'OPTIONS' && $cros_method) {
-                $method = $cros_method; 
+                $method = $cros_method;
             }
             $this->setMethod($method);
         }
