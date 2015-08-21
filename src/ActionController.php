@@ -275,7 +275,10 @@ class ActionController
             $actionMapping->form
         );
         if (!class_exists($form[_CLASS])) {
-            $form[_CLASS] = __NAMESPACE__.'\ActionForm';
+            $form[_CLASS] = \PMVC\getOption(
+                _DEFAULT_FORM,
+                __NAMESPACE__.'\ActionForm'
+            ); 
         }
         $actionForm = new $form[_CLASS]($form);
 
@@ -307,7 +310,7 @@ class ActionController
         foreach ($scope as $name) {
             $actionForm[$name] = $this->_request[$name];
         }
-        $this->setOption('ActionForm', $actionForm);
+        $this->setOption(_RUN_FORM, $actionForm);
     }
 
     /**
@@ -362,9 +365,6 @@ class ActionController
      */
     private function _processForward($actionForward)
     {
-        if ($actionForward->clean) {
-            $actionForward->clean();
-        }
         return $actionForward->go();
     }
 

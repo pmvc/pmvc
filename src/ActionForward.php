@@ -55,12 +55,6 @@ class ActionForward extends HashMap
     public $view;
 
     /**
-     * Clean
-     * @var string
-     */
-    public $clean=false;
-
-    /**
      * ActionForward
      *
      * @param array $forward forward
@@ -70,7 +64,6 @@ class ActionForward extends HashMap
         $this->setPath($forward[_PATH]);
         $this->setType($forward[_TYPE]);
         $this->setHeader($forward[_HEADER]);
-        $this->clean = $forward[_CLEAN];
         $this->lazyOutput = $forward[_LAZY_OUTPUT];
     }
 
