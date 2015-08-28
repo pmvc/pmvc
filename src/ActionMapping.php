@@ -104,6 +104,18 @@ class ActionMapping extends HashMap
     }
 
     /**
+     * Check ActionForwards exists 
+     *
+     * @param array $name name
+     *
+     * @return mixed
+     */
+    public function offsetExists($name)
+    {
+        return getC()->getMapping()->findForward($name);
+    }
+
+    /**
      * Get ActionForwards from ActionMapping
      *
      * @param array $name name
