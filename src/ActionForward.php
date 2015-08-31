@@ -213,9 +213,12 @@ class ActionForward extends HashMap
             return $this->_processView();
             break;
         case 'action':
+            break;
         case 'redirect':
-        default:
             $path = $this->getPath();
+            header("Refresh: 0; url=$path");
+            break;
+        default:
             break;
         }
     }

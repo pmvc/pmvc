@@ -23,7 +23,7 @@ namespace PMVC;
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class HashMap extends ListIterator
-    implements \ArrayAccess, \Countable
+    implements \ArrayAccess
 {
     /**
      * ContainsValue
@@ -72,6 +72,18 @@ class HashMap extends ListIterator
     }
 
     /**
+     * Get
+     *
+     * @param mixed $k key
+     *
+     * @return mixed
+     */
+    public function &__get($k=null)
+    {
+        return $this->offsetGet($k);
+    }
+
+    /**
      * Set
      *
      * @param mixed $k key
@@ -85,24 +97,15 @@ class HashMap extends ListIterator
     }
 
     /**
-     * Clean
+     * Set
      *
      * @param mixed $k key
+     * @param mixed $v value
      *
      * @return boolean
      */
-    public function offsetUnset($k=null)
+    public function __set($k, $v=null)
     {
-        return clean($this->values, $k);
-    }
-
-    /**
-     * Count
-     *
-     * @return int
-     */
-    public function count()
-    {
-        return count($this->values);
+        return $this->offsetSet($k, $v);
     }
 }

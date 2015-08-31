@@ -450,11 +450,19 @@ function &get(&$a, $k=null, $default=null)
 function clean(&$a, $k=null)
 {
     if (is_null($k)) { //clean all
-        $a=null;
-        unset($a);
+        if (isArrayAccess($a)) {
+            $a->offsetUnset(null);
+        } else {
+            $a=null;
+            unset($a);
+        }
     } else {
         if (is_array($k)) { //replace
-            $a=&$k;
+            if (isArrayAccess($a)) {
+                $a->offsetUnset($k);
+            } else {
+                $a=$k;
+            }
         } else {
             unset($a[$k]); //clean by key
         }
