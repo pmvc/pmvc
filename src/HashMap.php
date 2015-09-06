@@ -15,6 +15,8 @@ namespace PMVC;
 
 /**
  * PMVC HashMap
+ * What is overloading?
+ * http://php.net/manual/en/language.oop5.overloading.php
  *
  * @category CategoryName
  * @package  PackageName
@@ -80,7 +82,7 @@ class HashMap extends ListIterator
      */
     public function &__get($k=null)
     {
-        return $this->offsetGet($k);
+        return $this[$k];
     }
 
     /**
@@ -106,6 +108,6 @@ class HashMap extends ListIterator
      */
     public function __set($k, $v=null)
     {
-        return $this->offsetSet($k, $v);
+        return $this[$k]=$v;
     }
 }
