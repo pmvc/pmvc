@@ -82,7 +82,7 @@ class HashMap extends ListIterator
      */
     public function &__get($k=null)
     {
-        return $this[$k];
+        return get($this->values, $k);
     }
 
     /**
@@ -108,6 +108,6 @@ class HashMap extends ListIterator
      */
     public function __set($k, $v=null)
     {
-        return $this[$k]=$v;
+        return set($this->values, $k, $v);
     }
 }
