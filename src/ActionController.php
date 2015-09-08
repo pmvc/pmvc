@@ -247,13 +247,20 @@ class ActionController
         $actionMapping = $this->_mappings->findMapping($index);
         $actionForm = $this->_processForm($actionMapping);
         if (!$actionForm) {
-            trigger_error('Form not pass: '.$actionMapping->form);
-            return false;
+            $actionForward = $actionMapping['error'];
+            $Errors = getOption(ERRORS);
+            $actionForward->set(
+                array(
+                    'error'=>$Errors[MY_USER_LAST_ERROR],
+                    'input'=>$actionMapping->input
+                )
+            );
+        } else {
+            $actionForward = $this->_processAction(
+                $actionMapping,
+                $actionForm
+            );
         }
-        $actionForward = $this->_processAction(
-            $actionMapping,
-            $actionForm
-        );
         if (is_object($actionForward)) {
             return $this->_processForward($actionForward);
         } else {

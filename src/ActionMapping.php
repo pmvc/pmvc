@@ -64,13 +64,11 @@ class ActionMapping extends HashMap
     public $clean;
 
     /**
-     * Type
-     * @see FormBack
-     * @var string [read|write]
-     * save : to set with a insert or update db action
-     * show : to set wiht a create_form or edit_form action
+     * Input
+     * When ActionForm validate fail, this is an option to redirect back
+     * @var string url
      */
-    public $type;
+    public $input;
 
     /**
      * ActionMapping
@@ -93,18 +91,18 @@ class ActionMapping extends HashMap
             $this->validate = $mapping[_VALIDATE];
         }
         if (isset($mapping[_CLEAN])) {
-            $this->clean=$mapping[_CLEAN];
+            $this->clean = $mapping[_CLEAN];
         }
-        if (isset($mapping[_TYPE])) {
-            $this->type=$mapping[_TYPE];
+        if (isset($mapping[_INPUT])) {
+            $this->input = $mapping[_INPUT];
         }
         if (isset($mapping[_SCOPE])) {
-            $this->scope=$mapping[_SCOPE];
+            $this->scope = $mapping[_SCOPE];
         }
     }
 
     /**
-     * Check ActionForwards exists 
+     * Check ActionForwards exists
      *
      * @param array $name name
      *
