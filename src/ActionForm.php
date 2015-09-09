@@ -27,7 +27,7 @@ class ActionForm extends HashMap
     /**
      * Option
      */
-     public $options;
+    public $options;
 
     /**
      * Construct
