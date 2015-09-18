@@ -64,13 +64,6 @@ class ActionMapping extends HashMap
     public $clean;
 
     /**
-     * Input
-     * When ActionForm validate fail, this is an option to redirect back
-     * @var string url
-     */
-    public $input;
-
-    /**
      * ActionMapping
      *
      * @param array  $mapping mapping
@@ -92,9 +85,6 @@ class ActionMapping extends HashMap
         }
         if (isset($mapping[_CLEAN])) {
             $this->clean = $mapping[_CLEAN];
-        }
-        if (isset($mapping[_INPUT])) {
-            $this->input = $mapping[_INPUT];
         }
         if (isset($mapping[_SCOPE])) {
             $this->scope = $mapping[_SCOPE];

@@ -105,7 +105,6 @@ class MappingBuilder extends Object
             _FUNCTION  => null
             ,_FORM     => null
             ,_VALIDATE => true
-            ,_INPUT    => null
             ,_SCOPE    => 'request'
             ,_CLEAN    => null
         );

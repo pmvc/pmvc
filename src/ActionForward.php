@@ -130,7 +130,8 @@ class ActionForward extends HashMap
         if ($bMerge) {
             $attribute=$this->get();
             unset($attribute[_CLASS]);
-            $path = plug(getOption(_ROUTING))->joinQuery($path, $attribute);
+            $query = http_build_query($attribute);
+            $path = $this->_path. '?'. $query;
         }
         return $path;
     }
@@ -215,7 +216,7 @@ class ActionForward extends HashMap
         case 'action':
             break;
         case 'redirect':
-            $path = $this->getPath();
+            $path = $this->getPath(true);
             header("Refresh: 0; url=$path");
             break;
         default:

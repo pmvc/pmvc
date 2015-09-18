@@ -251,8 +251,8 @@ class ActionController
             $Errors = getOption(ERRORS);
             $actionForward->set(
                 array(
-                    'error'=>$Errors[MY_USER_LAST_ERROR],
-                    'input'=>$actionMapping->input
+                    'errors'=>$Errors[USER_ERRORS],
+                    'last'=>$Errors[USER_LAST_ERROR]
                 )
             );
         } else {

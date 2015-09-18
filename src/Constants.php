@@ -23,7 +23,6 @@ if (defined('_CLASS')) {
 define('_CLASS', '_class_'); //action, plugin
 define('_FORM', '_form_'); //action
 define('_VALIDATE', '_validate_'); //action
-define('_INPUT', '_input_'); //action
 define('_SCOPE', '_scope_'); //action
 define('_TYPE', '_type_');
 define('_FORWARD', '_forward_');
