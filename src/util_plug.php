@@ -350,6 +350,30 @@ function toArray($p)
 }
 
 /**
+ * Check is a ArrayAccess Object
+ *
+ * @param mixed $obj any object
+ *
+ * @return bool
+ */
+function isArrayAccess($obj)
+{
+    return is_a($obj, 'ArrayAccess');
+}
+
+/**
+ * Check is ArrayAccess or array
+ *
+ * @param mixed $obj any object
+ *
+ * @return bool
+ */
+function isArray($obj)
+{
+    return is_a($obj, 'ArrayAccess') || is_array($obj);
+}
+
+/**
  * Data access <!---
  */
 
@@ -375,30 +399,6 @@ function set(&$a, $k, $v=null)
             $a[$k] = $v;
         }
     }
-}
-
-/**
- * Check is a ArrayAccess Object
- *
- * @param mixed $obj any object
- *
- * @return bool
- */
-function isArrayAccess($obj)
-{
-    return is_a($obj, 'ArrayAccess');
-}
-
-/**
- * Check is ArrayAccess or array
- *
- * @param mixed $obj any object
- *
- * @return bool
- */
-function isArray($obj)
-{
-    return is_a($obj, 'ArrayAccess') || is_array($obj);
 }
 
 /**
