@@ -246,6 +246,7 @@ class ActionController
         }
         $actionMapping = $this->_mappings->findMapping($index);
         $actionForm = $this->_processForm($actionMapping);
+        $this->setOption(_RUN_FORM, $actionForm);
         if (!$actionForm) {
             $actionForward = $actionMapping['error'];
             $Errors = getOption(ERRORS);
@@ -282,7 +283,11 @@ class ActionController
             $actionMapping->form
         );
         if (!class_exists($form[_CLASS])) {
-            $form[_CLASS] = \PMVC\getOption(
+            $run_form = getOption(_RUN_FORM);
+            if (!empty($run_form)) {
+                return $run_form; 
+            }
+            $form[_CLASS] = getOption(
                 _DEFAULT_FORM,
                 __NAMESPACE__.'\ActionForm'
             );
@@ -317,7 +322,6 @@ class ActionController
         foreach ($scope as $name) {
             $actionForm[$name] = $this->_request[$name];
         }
-        $this->setOption(_RUN_FORM, $actionForm);
     }
 
     /**
