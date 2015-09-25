@@ -52,4 +52,17 @@ class ActionForm extends HashMap
     {
         return true;
     }
+
+    /**
+     * Get
+     *
+     * @param mixed $k key
+     *
+     * @return \PMVC\Object 
+     */
+    public function &__get($k=null)
+    {
+        $obj = new \PMVC\Object($this->values[$k]); 
+        return $obj;
+    }
 }

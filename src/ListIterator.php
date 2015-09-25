@@ -25,18 +25,6 @@ namespace PMVC;
 class ListIterator extends Object
     implements \IteratorAggregate, \Countable
 {
-    protected $values=array();
-
-    /**
-     * GetIterator
-     *
-     * @return ArrayIterator
-     */
-    public function getIterator()
-    {
-        return new \ArrayIterator($this->values);
-    }
-
     /**
      * Construct
      *
@@ -61,6 +49,16 @@ class ListIterator extends Object
     public function offsetUnset($k=null)
     {
         return clean($this->values, $k);
+    }
+
+    /**
+     * GetIterator
+     *
+     * @return ArrayIterator
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->values);
     }
 
     /**

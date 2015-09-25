@@ -24,18 +24,27 @@ namespace PMVC;
  */
 class Object
 {
+    protected $values = array();
+
     /**
-     * Object clone
+     * Construct
      *
-     * @param object $obj object
-     *
-     * @return object
+     * @param array $values values
      */
-    public function getClone($obj=null)
+    public function __construct(&$values=array())
     {
-        if (is_null($obj)) {
-            $obj=$this;
-        }
-        return clone($obj);
+        $this->values =& $values;
     }
+
+    /**
+     * Clled when a script tries to call an object as a function.
+     * available since PHP 5.3.0.
+     * 
+     * @return mixed 
+     */
+    public function &__invoke()
+    {
+        return $this->values;
+    }
+
 }
