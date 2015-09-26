@@ -4,8 +4,13 @@
 [![License](https://poser.pugx.org/pmvc/pmvc/license)](https://packagist.org/packages/pmvc/pmvc)
 [![Total Downloads](https://poser.pugx.org/pmvc/pmvc/downloads)](https://packagist.org/packages/pmvc/pmvc) 
 
-# PMVC
+PMVC
 ===============
+
+## How to Use?
+https://github.com/pmvc/pmvc/wiki
+
+## PMVC Family
    * Core Library
       * https://github.com/pmvc/pmvc
    * PMVC Plug-ins
