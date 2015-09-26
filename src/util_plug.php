@@ -798,7 +798,12 @@ function plug($name, $config=null)
     if (class_exists($class)) {
         $oPlugin = new $class();
     } else {
-        trigger_error('plugIn '.$name.': class not found ('.$class.')');
+        if (!$class) {
+            $error = 'plugin '. $name. ' not found'; 
+        } else {
+            $error = 'plugIn '.$name.': class not found ('.$class.')';
+        }
+        trigger_error($error);
         unset($objs[$name]);
         $name=false;
         return $name;
