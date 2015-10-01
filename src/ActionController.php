@@ -113,8 +113,7 @@ class ActionController
             $parent = $this->getAppParent();
         }
         if (!realpath($parent)) {
-            trigger_error('No App Parent found for '.$parent);
-            return false;
+            return trigger_error('No App Parent found for '.$parent, E_USER_WARNING);
         } else {
             $app = $this->getApp();
             if (!empty($alias[$app])) {
@@ -128,8 +127,7 @@ class ActionController
             $path = $parent.$app.'/index.php';
         }
         if (!realpath($path)) {
-            trigger_error('No App found for '.$path);
-            return false;
+            return trigger_error('No App found for '.$path, E_USER_WARNING);
         } else {
             addPlugInFolder($parent.$app.'/plugins');
             $this->setApp($app);
@@ -142,8 +140,7 @@ class ActionController
             );
             $builder = $appPlugin[_INIT_BUILDER];
             if (empty($builder)) {
-                trigger_error('No builder found');
-                return false;
+                return trigger_error('No builder found', E_USER_WARNING);
             }
             $this->setMapping($builder->getMappings());
             $action = $this->getAppAction();
@@ -241,20 +238,20 @@ class ActionController
     public function execute($index)
     {
         if (!$this->_mappings->mappingExists($index)) {
-            trigger_error('No mappings found for index: '.$index);
-            return false;
+            return trigger_error(
+                'No mappings found for index: '.$index,
+                E_USER_WARNING
+            );
         }
         $actionMapping = $this->_mappings->findMapping($index);
         $actionForm = $this->_processForm($actionMapping);
         $this->setOption(_RUN_FORM, $actionForm);
         if (!$actionForm) {
-            $actionForward = $actionMapping['error'];
             $Errors = getOption(ERRORS);
-            $actionForward->set(
-                array(
-                    'errors'=>$Errors[USER_ERRORS],
-                    'last'=>$Errors[USER_LAST_ERROR]
-                )
+            $actionForward = $this->getErrorForward(
+                $actionMapping,
+                $Errors[USER_ERRORS],
+                $Errors[USER_LAST_ERROR]
             );
         } else {
             $actionForward = $this->_processAction(
@@ -270,9 +267,30 @@ class ActionController
     }
 
     /**
+     * Init Error Action Forward 
+     *
+     * @param ActionMapping $actionMapping actionMapping
+     * @param array         $errors        all errors
+     * @param string        $last          last error 
+     *
+     * @return ActionForward
+     */
+    public function getErrorForward($actionMapping, $errors=null, $last=null)
+    {
+        $actionForward = $actionMapping['error'];
+        $actionForward->set(
+            array(
+                'errors'=>$errors,
+                'last'=>$last
+            )
+        );
+        return $actionForward;
+    }
+
+    /**
      * ActionForm.
      *
-     * @param array $actionMapping actionMapping
+     * @param ActionMapping $actionMapping actionMapping
      *
      * @return ActionForm
      */
@@ -308,8 +326,8 @@ class ActionController
     /**
      * Init Action Form Value
      *
-     * @param object $actionForm    actionForm
-     * @param object $actionMapping actionMapping
+     * @param ActionForm    $actionForm    actionForm
+     * @param ActionMapping $actionMapping actionMapping
      *
      * @return ActionForm
      */
@@ -356,11 +374,10 @@ class ActionController
         );
         $func = $actionMapping->func;
         if (!is_callable($func)) {
-            trigger_error(
-                'parse action error, function not exists. '.
-                print_r($func, true)
+            return trigger_error(
+                'parse action error, function not exists. '
+                .print_r($func, true), E_USER_WARNING
             );
-            return false;
         }
         return call_user_func_array(
             $func,
