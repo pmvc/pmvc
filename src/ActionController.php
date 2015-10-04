@@ -113,7 +113,10 @@ class ActionController
             $parent = $this->getAppParent();
         }
         if (!realpath($parent)) {
-            return trigger_error('No App Parent found for '.$parent, E_USER_WARNING);
+            return !trigger_error(
+                'No App Parent found for '.$parent,
+                E_USER_WARNING
+            );
         } else {
             $app = $this->getApp();
             if (!empty($alias[$app])) {
@@ -127,7 +130,7 @@ class ActionController
             $path = $parent.$app.'/index.php';
         }
         if (!realpath($path)) {
-            return trigger_error('No App found for '.$path, E_USER_WARNING);
+            return !trigger_error('No App found for '.$path, E_USER_WARNING);
         } else {
             addPlugInFolder($parent.$app.'/plugins');
             $this->setApp($app);
@@ -140,7 +143,7 @@ class ActionController
             );
             $builder = $appPlugin[_INIT_BUILDER];
             if (empty($builder)) {
-                return trigger_error('No builder found', E_USER_WARNING);
+                return !trigger_error('No builder found', E_USER_WARNING);
             }
             $this->setMapping($builder->getMappings());
             $action = $this->getAppAction();
@@ -238,7 +241,7 @@ class ActionController
     public function execute($index)
     {
         if (!$this->_mappings->mappingExists($index)) {
-            return trigger_error(
+            return !trigger_error(
                 'No mappings found for index: '.$index,
                 E_USER_WARNING
             );
@@ -377,9 +380,10 @@ class ActionController
         );
         $func = $actionMapping->func;
         if (!is_callable($func)) {
-            return trigger_error(
-                'parse action error, function not exists. '
-                .print_r($func, true), E_USER_WARNING
+            return !trigger_error(
+                'parse action error, function not exists. '.
+                print_r($func, true),
+                E_USER_WARNING
             );
         }
         return call_user_func_array(

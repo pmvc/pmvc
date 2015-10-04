@@ -116,7 +116,7 @@ class ActionMapping extends HashMap
         if ($forward) {
             return new ActionForward($forward);
         } else {
-            return trigger_error(
+            return !trigger_error(
                 'Forward key: {'.$name.'} not exists',
                 E_USER_WARNING
             );
