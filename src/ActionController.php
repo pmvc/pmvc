@@ -278,6 +278,9 @@ class ActionController
     public function getErrorForward($actionMapping, $errors=null, $last=null)
     {
         $actionForward = $actionMapping['error'];
+        if (!$actionForward) {
+            return $actionForward;
+        }
         $actionForward->set(
             array(
                 'errors'=>$errors,
