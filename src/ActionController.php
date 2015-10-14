@@ -207,10 +207,10 @@ class ActionController
         }
         $index  = $this->_processMapping();
         $result = $this->execute($index);
-        $this->_finish();
         if (!empty($result->lazyOutput)) {
             $this->execute($result->lazyOutput);
         }
+        $this->_finish();
         return $result;
     }
 
@@ -252,7 +252,6 @@ class ActionController
         if (!$actionForm) {
             $Errors = getOption(ERRORS);
             $actionForward = $this->getErrorForward(
-                $actionMapping,
                 $Errors[USER_ERRORS],
                 $Errors[USER_LAST_ERROR]
             );
@@ -262,25 +261,20 @@ class ActionController
                 $actionForm
             );
         }
-        if (is_object($actionForward)) {
-            return $this->_processForward($actionForward);
-        } else {
-            return $actionForward;
-        }
+        return $this->processForward($actionForward);
     }
 
     /**
      * Init Error Action Forward 
      *
-     * @param ActionMapping $actionMapping actionMapping
-     * @param array         $errors        all errors
-     * @param string        $last          last error 
+     * @param array  $errors all errors
+     * @param string $last   last error 
      *
      * @return ActionForward
      */
-    public function getErrorForward($actionMapping, $errors=null, $last=null)
+    public function getErrorForward($errors=null, $last=null)
     {
-        $actionForward = $actionMapping['error'];
+        $actionForward = $this->_mappings->findForward('error');
         if (!$actionForward) {
             return $actionForward;
         }
@@ -399,9 +393,13 @@ class ActionController
      *
      * @return mixed
      */
-    private function _processForward($actionForward)
+    public function processForward($actionForward)
     {
-        return $actionForward->go();
+        if (is_object($actionForward)) {
+            return $actionForward->go();
+        } else {
+            return $actionForward;
+        }
     }
 
     /**
