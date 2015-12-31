@@ -105,7 +105,7 @@ class ActionController
             'dispatcher',
             'notify',
             array(
-                Event\MapRequest
+                Event\MAP_REQUEST
                 ,true
             )
         );
@@ -198,7 +198,7 @@ class ActionController
             'dispatcher',
             'notify',
             array(
-                Event\MapRequest
+                Event\MAP_REQUEST
                 ,true
             )
         );
@@ -368,7 +368,7 @@ class ActionController
             'dispatcher',
             'notify',
             array(
-                Event\B4ProcessAction,
+                Event\B4_PROCESS_ACTION,
                 true
             )
         );
@@ -413,7 +413,7 @@ class ActionController
             'dispatcher',
             'notify',
             array(
-                Event\Finsh 
+                Event\FINSH
                 ,true
             )
         );
