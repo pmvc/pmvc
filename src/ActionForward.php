@@ -232,6 +232,14 @@ class ActionForward extends HashMap
      */
     private function _processView()
     {
+        call_plugin(
+            'dispatcher',
+            'notify',
+            array(
+                Event\B4_PROCESS_VIEW
+                ,true
+            )
+        );
         $this->view->setThemeFolder(
             getOption(_TEMPLATE_DIR)
         );
