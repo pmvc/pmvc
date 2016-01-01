@@ -12,8 +12,8 @@
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC\Event;
-const MAP_REQUEST = '__map_request__';
-const B4_PROCESS_ACTION = '__b4_process_action__';
-const B4_PROCESS_VIEW = '__b4_process_view__';
-const FINSH = '__finsh__';
-const SET_CONFIG = '__set_config__';
+const MAP_REQUEST = 'MapRequest';
+const B4_PROCESS_ACTION = 'B4ProcessAction';
+const B4_PROCESS_VIEW = 'B4ProcessView';
+const FINSH = 'Finsh';
+const SET_CONFIG = 'SetConfig';
