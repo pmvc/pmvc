@@ -274,7 +274,8 @@ function &fromJson($s)
     if (!is_string($s)) {
         return $s;
     }
-    $json = json_decode($s);
+    $args = func_get_args();
+    $json = call_user_func_array('json_decode', $args);
     if (json_last_error() === JSON_ERROR_NONE) {
         return $json;
     } else {
