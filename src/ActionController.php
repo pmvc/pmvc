@@ -395,7 +395,7 @@ class ActionController
      */
     public function processForward($actionForward)
     {
-        if (is_object($actionForward)) {
+        if (is_callable(array($actionForward,'go'))) {
             return $actionForward->go();
         } else {
             return $actionForward;
