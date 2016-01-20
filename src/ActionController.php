@@ -155,7 +155,6 @@ class ActionController
         }
     }
 
-
     /**
      * Set mapping
      *
@@ -250,11 +249,7 @@ class ActionController
         $actionForm = $this->_processForm($actionMapping);
         $this->setOption(_RUN_FORM, $actionForm);
         if (!$actionForm) {
-            $Errors = getOption(ERRORS);
-            $actionForward = $this->getErrorForward(
-                $Errors[USER_ERRORS],
-                $Errors[USER_LAST_ERROR]
-            );
+            $actionForward = $this->getErrorForward();
         } else {
             $actionForward = $this->_processAction(
                 $actionMapping,
@@ -267,24 +262,22 @@ class ActionController
     /**
      * Init Error Action Forward 
      *
-     * @param array  $errors all errors
-     * @param string $last   last error 
-     *
      * @return ActionForward
      */
-    public function getErrorForward($errors=null, $last=null)
+    public function getErrorForward()
     {
-        $actionForward = $this->_mappings->findForward('error');
-        if (!$actionForward) {
-            return $actionForward;
+        $errorForward = $this->_mappings->findForward('error');
+        if (!$errorForward) {
+            return $errorForward;
         }
-        $actionForward->set(
+        $AllErrors = getOption(ERRORS);
+        $errorForward->set(
             array(
-                'errors'=>$errors,
-                'last'=>$last
+                'errors'=>$AllErrors[USER_ERRORS],
+                'lastError'=>$AllErrors[USER_LAST_ERROR]
             )
         );
-        return $actionForward;
+        return $errorForward;
     }
 
     /**

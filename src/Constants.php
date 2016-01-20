@@ -29,7 +29,6 @@ define('_FORWARD', '_forward_');
 define('_PATH', '_path_');
 define('_FUNCTION', '_function_');
 define('_OPTION', '_option_');
-define('_CLEAN', '_clean_');
 
 /* mapping-forward */
 define('_LAZY_OUTPUT', '_lazy_output_');

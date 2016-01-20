@@ -106,7 +106,6 @@ class MappingBuilder
             ,_FORM     => null
             ,_VALIDATE => true
             ,_SCOPE    => 'request'
-            ,_CLEAN    => null
         );
     }
 
@@ -138,7 +137,6 @@ class MappingBuilder
         return array(
             _PATH=>'_DEFAULT_'
             ,_TYPE=>'redirect'
-            ,_CLEAN=>null
             ,_HEADER=>null
             ,_LAZY_OUTPUT=>null
         );

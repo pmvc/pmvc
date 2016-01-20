@@ -57,13 +57,6 @@ class ActionMapping extends HashMap
     public $name;
         
     /**
-     * To set true if don't leave request to next request
-     * @see FormBack
-     * @var bool
-     */
-    public $clean;
-
-    /**
      * ActionMapping
      *
      * @param array  $mapping mapping
@@ -82,9 +75,6 @@ class ActionMapping extends HashMap
         }
         if (isset($mapping[_VALIDATE])) {
             $this->validate = $mapping[_VALIDATE];
-        }
-        if (isset($mapping[_CLEAN])) {
-            $this->clean = $mapping[_CLEAN];
         }
         if (isset($mapping[_SCOPE])) {
             $this->scope = $mapping[_SCOPE];
