@@ -26,6 +26,7 @@ class ActionMappings
 {
     /**
      * Mappings
+     *
      * @var array
      */
     private $_mappings = array();

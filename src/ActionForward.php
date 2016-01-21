@@ -26,30 +26,35 @@ class ActionForward extends HashMap
 {
     /**
      * Path
+     *
      * @var string
      */
     private $_path;
 
     /**
      * Type
+     *
      * @var string
      */
     private $_type;
 
     /**
      * Header
+     *
      * @var array
      */
     private $_header=array();
 
     /**
      * LazyOutput action
+     *
      * @var string
      */
     public $lazyOutput;
 
     /**
      * Default view engine
+     *
      * @var object
      */
     public $view;

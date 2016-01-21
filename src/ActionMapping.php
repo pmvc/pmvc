@@ -26,18 +26,21 @@ class ActionMapping extends HashMap
 {
     /**
      * Func
+     *
      * @var string
      */
     public $func;
         
     /**
      * Form
+     *
      * @var string
      */
     public $form;
 
     /**
      * Validate
+     *
      * @see ActionController::_processForm
      * @var bool
      */
@@ -45,6 +48,7 @@ class ActionMapping extends HashMap
         
     /**
      * Set request scope , post or get
+     *
      * @see ActionController::initActionFormValue
      * @var string
      */
@@ -52,6 +56,7 @@ class ActionMapping extends HashMap
         
     /**
      * This action mapping name
+     *
      * @var string
      */
     public $name;

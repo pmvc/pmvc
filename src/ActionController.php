@@ -26,11 +26,13 @@ class ActionController
 {
     /**
      * Mapping
+     *
      * @var ActionMappings
      */
     private $_mappings;
     /**
      * Request
+     *
      * @var HttpRequestServlet
      */
     private $_request;

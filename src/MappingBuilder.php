@@ -26,6 +26,7 @@ class MappingBuilder
 {
     /**
      * Action Mapping
+     *
      * @var array
      */
     private $_aaMap = array(
