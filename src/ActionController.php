@@ -266,6 +266,14 @@ class ActionController
      */
     public function getErrorForward()
     {
+        call_plugin(
+            'dispatcher',
+            'notify',
+            array(
+                Event\B4_PROCESS_ERROR
+                ,true
+            )
+        );
         $errorForward = $this->_mappings->findForward('error');
         if (!$errorForward) {
             return $errorForward;
@@ -388,6 +396,14 @@ class ActionController
      */
     public function processForward($actionForward)
     {
+        call_plugin(
+            'dispatcher',
+            'notify',
+            array(
+                Event\B4_PROCESS_FORWARD
+                ,true
+            )
+        );
         if (is_callable(array($actionForward,'go'))) {
             return $actionForward->go();
         } else {
