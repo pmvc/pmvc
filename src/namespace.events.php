@@ -12,6 +12,11 @@
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC\Event;
+
+if (defined('\PMVC\Event\MAP_REQUEST')) {
+    return;
+}
+
 const MAP_REQUEST       = 'MapRequest';
 const B4_PROCESS_ERROR  = 'B4ProcessError';
 const B4_PROCESS_FORWARD= 'B4ProcessForward';
