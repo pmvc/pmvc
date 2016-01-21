@@ -90,7 +90,7 @@ class ActionMapping extends HashMap
      */
     public function offsetExists($name)
     {
-        return getC()->getMapping()->findForward($name);
+        return getC()->getMapping()->forwardExists($name);
     }
 
     /**
@@ -102,14 +102,6 @@ class ActionMapping extends HashMap
      */
     public function offsetGet($name)
     {
-        $forward = getC()->getMapping()->findForward($name);
-        if ($forward) {
-            return new ActionForward($forward);
-        } else {
-            return !trigger_error(
-                'Forward key: {'.$name.'} not exists',
-                E_USER_WARNING
-            );
-        }
+        return getC()->getForward($name);
     }
 }

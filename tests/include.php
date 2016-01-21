@@ -1,4 +1,5 @@
 <?php
 namespace PMVC;
-include(__DIR__.'/../include.php');
+require __DIR__.'/../include.php';
 l(__DIR__.'/resources/FakePlug.php');
+l(__DIR__.'/resources/FakeView.php');

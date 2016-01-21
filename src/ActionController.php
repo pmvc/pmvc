@@ -259,34 +259,6 @@ class ActionController
         return $this->processForward($actionForward);
     }
 
-    /**
-     * Init Error Action Forward 
-     *
-     * @return ActionForward
-     */
-    public function getErrorForward()
-    {
-        call_plugin(
-            'dispatcher',
-            'notify',
-            array(
-                Event\B4_PROCESS_ERROR
-                ,true
-            )
-        );
-        $errorForward = $this->_mappings->findForward('error');
-        if (!$errorForward) {
-            return $errorForward;
-        }
-        $AllErrors = getOption(ERRORS);
-        $errorForward->set(
-            array(
-                'errors'=>$AllErrors[USER_ERRORS],
-                'lastError'=>$AllErrors[USER_LAST_ERROR]
-            )
-        );
-        return $errorForward;
-    }
 
     /**
      * ActionForm.
@@ -426,6 +398,55 @@ class ActionController
                 ,true
             )
         );
+    }
+
+    /**
+     * Init Error Action Forward 
+     *
+     * @return ActionForward
+     */
+    public function getErrorForward()
+    {
+        call_plugin(
+            'dispatcher',
+            'notify',
+            array(
+                Event\B4_PROCESS_ERROR
+                ,true
+            )
+        );
+        if (!$this->_mappings->forwardExists('error')) {
+            return $forwardOption;
+        }
+        $errorForward = $this->getForward('error'); 
+        $AllErrors = getOption(ERRORS);
+        $errorForward->set(
+            array(
+                'errors'=>$AllErrors[USER_ERRORS],
+                'lastError'=>$AllErrors[USER_LAST_ERROR]
+            )
+        );
+        return $errorForward;
+    }
+
+    /**
+     * Get Forward 
+     *
+     * @param array $name forward name 
+     *
+     * @return ActionForward
+     */
+    public function getForward($name)
+    {
+        $forward = $this->_mappings->findForward($name);
+        if ($forward) {
+            return new ActionForward($forward);
+        } else {
+            return !trigger_error(
+                'Forward key: {'.$name.'} not exists',
+                E_USER_WARNING
+            );
+        }
     }
 
     /**

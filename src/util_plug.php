@@ -298,8 +298,7 @@ function Array_merge()
     $a = func_get_args();
     $new = $a[0];
     if (!isArray($new)) {
-        trigger_error('param1 need be an array');
-        return false;
+        return !trigger_error('param1 need be an array');
     }
     for ($i=1, $j=count($a);$i<$j;$i++) {
         if (is_null($a[$i])) {

@@ -121,7 +121,19 @@ class ActionMappings
     }
 
     /**
-     * Check to see if a action exists.
+     * Check if forward exists.
+     *
+     * @param string $name name
+     *
+     * @return boolean
+     */
+    public function forwardExists($name)
+    {
+        return isset($this->_mappings->{ACTION_FORWARDS}[$name]);
+    }
+
+    /**
+     * Check if action exists.
      *
      * @param string $name name
      *

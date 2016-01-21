@@ -244,9 +244,11 @@ class ActionForward extends HashMap
             getOption(_TEMPLATE_DIR)
         );
         $this->view->setThemePath($this->getPath());
-        $this->view->process();
+        $output = $this->view->process();
         if (!empty($this->lazyOutput)) {
             return $this;
+        } else {
+            return $output;
         }
     }
 

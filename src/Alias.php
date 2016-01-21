@@ -37,7 +37,7 @@ trait Alias
                 $this->_aliases[$method],
                 $args
             );
-        } else {
+        } elseif (isset($this->_aliases[''])) {
             if ($this->aliasForce
                 || method_exists($this->_aliases[''], $method)
             ) {
@@ -46,13 +46,20 @@ trait Alias
                     $args
                 );
             } else {
-                trigger_error(
+                return !trigger_error(
                     'Method not found: '.
                     get_class($this->_aliases['']).
                     '::'.
                     $method
                 );
             }
+        } else {
+            return !trigger_error(
+                'Method not found: '.
+                get_class($this).
+                '::'.
+                $method
+            );
         }
         if (isset($r)) {
             return $r;
