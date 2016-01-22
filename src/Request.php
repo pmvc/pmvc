@@ -12,6 +12,7 @@
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
+use SplFixedArray;
 
 /**
  * PMVC Request
@@ -37,6 +38,7 @@ class Request extends HashMap
         $method = $this->getMethod();
         if ('GET'===$method) {
             set($this, $_GET);
+            $inputs =& $_GET;
         } else {
             $isJsonInput = ('application/json'===getenv('CONTENT_TYPE'));
             if ($isJsonInput || 'PUT'===$method) {
@@ -46,10 +48,14 @@ class Request extends HashMap
                 } else {
                     parse_str($input, $inputs);
                 }
-                set($this, $inputs);
             } else {
-                set($this, $_POST);
+                $inputs =& $_POSt;
             }
+        }
+        $c = count($this->values);
+        if ($c) {
+            $this->values = new SplFixedArray($c);
+            set($this, $inputs);
         }
     }
 
@@ -64,7 +70,6 @@ class Request extends HashMap
     {
         $this->method = $method;
     }
-
 
     /**
      * Get Method

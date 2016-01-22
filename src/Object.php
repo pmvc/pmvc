@@ -24,7 +24,7 @@ namespace PMVC;
  */
 class Object
 {
-    protected $values = array();
+    protected $values;
 
     /**
      * Construct

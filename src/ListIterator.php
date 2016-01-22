@@ -34,6 +34,7 @@ class ListIterator extends Object
      */
     public function __construct($values=null)
     {
+        $this->values = array();
         if (is_array($values)) {
             $this->offsetUnset($values);
         }

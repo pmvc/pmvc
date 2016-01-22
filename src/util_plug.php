@@ -388,15 +388,17 @@ function isArray($obj)
 */
 function set(&$a, $k, $v=null)
 {
-    if (is_array($k)) { //merge by new array
-        $a = array_merge($a, $k);
+    if (isArray($k)) { //merge by new array
+        return $a = array_merge($a, $k);
     } else {
-        if (is_null($v)) { //append value when no-assign key
-            $a[] = $k;
+        if (is_null($k) && is_null($v)) {
+            return false;
+        } elseif (is_null($v)) { //append value when no-assign key
+            return $a[] = $k;
         } elseif (is_null($k)) {
-            $a[] = $v;
+            return $a[] = $v;
         } else { //exactly set key and value
-            $a[$k] = $v;
+            return $a[$k] = $v;
         }
     }
 }
@@ -435,7 +437,12 @@ function &get(&$a, $k=null, $default=null)
         if (!isset($a[$k])) { //return default
             $a[$k]=$default;
         }
-        return $a[$k]; //return exactly value
+        if (isArrayAccess($a)) {
+            $v = $a->offsetGet($k);
+            return $v;
+        } else {
+            return $a[$k]; //return exactly value
+        }
     }
 }
 

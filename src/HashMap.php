@@ -46,7 +46,17 @@ class HashMap extends ListIterator
      */
     public function keySet()
     {
-        return array_keys($this->values);
+        $c = count($this->values);
+        if (!$c) {
+            return array();
+        }
+        $arr = new \SplFixedArray($c);
+        $i = 0;
+        foreach ($this->values as $k=>$v) {
+            $arr[$i] = $k;
+            $i++;
+        }
+        return $arr;
     }
 
     /**
