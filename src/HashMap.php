@@ -12,6 +12,7 @@
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
+use SplObjectStorage;
 
 /**
  * PMVC HashMap
@@ -27,16 +28,28 @@ namespace PMVC;
 class HashMap extends ListIterator
     implements \ArrayAccess
 {
+    protected $keys = array();
+
     /**
-     * ContainsValue
+     * ContainsKey
      *
-     * @param string $value value
+     * @param string $k key
      *
      * @return boolean
      */
-    public function containsValue($value)
+    public function offsetExists($k)
     {
-        return in_array($value, $this->values);
+        return isset($this->keys[$k]);
+    }
+
+    /**
+     * Get Initial State 
+     *
+     * @return array 
+     */
+    protected function getInitialState()
+    {
+        return new SplObjectStorage();
     }
 
     /**
@@ -46,53 +59,7 @@ class HashMap extends ListIterator
      */
     public function keySet()
     {
-        $c = count($this->values);
-        if (!$c) {
-            return array();
-        }
-        $arr = new \SplFixedArray($c);
-        $i = 0;
-        foreach ($this->values as $k=>$v) {
-            $arr[$i] = $k;
-            $i++;
-        }
-        return $arr;
-    }
-
-    /**
-     * ContainsKey
-     *
-     * @param string $key key
-     *
-     * @return boolean
-     */
-    public function offsetExists($key)
-    {
-        return isset($this->values[$key]);
-    }
-
-    /**
-     * Get
-     *
-     * @param mixed $k key
-     *
-     * @return mixed
-     */
-    public function &offsetGet($k=null)
-    {
-        return get($this->values, $k);
-    }
-
-    /**
-     * Get
-     *
-     * @param mixed $k key
-     *
-     * @return mixed
-     */
-    public function &__get($k=null)
-    {
-        return get($this->values, $k);
+        return $this->keys;
     }
 
     /**
@@ -103,9 +70,13 @@ class HashMap extends ListIterator
      *
      * @return boolean
      */
-    public function offsetSet($k, $v=null)
+    public function offsetSet($k, $v)
     {
-        return set($this->values, $k, $v);
+        if (!isset($this->keys[$k])) {
+            $this->keys[$k] = new \StdClass;
+        }
+        return $this->state[$this->keys[$k]]
+            = new Object($v);
     }
 
     /**
@@ -118,6 +89,61 @@ class HashMap extends ListIterator
      */
     public function __set($k, $v=null)
     {
-        return set($this->values, $k, $v);
+        return $this->offsetSet($k, $v);
+    }
+
+    /**
+     * Clean
+     *
+     * @param mixed $k key
+     *
+     * @return boolean
+     */
+    public function offsetUnset($k=null)
+    {
+        $key = $this->keys[$k];
+        unset($this->state[$key]);
+        unset($this->keys[$k]);
+    }
+
+    /**
+     * Get 
+     *
+     * @param mixed $k key
+     *
+     * @return boolean
+     */
+    public function &offsetGet($k=null)
+    {
+        if (is_null($k)) {
+            $val = array();
+            foreach ($this->keys as $k=>$v) {
+                $val[$k] = $this->state[$v]();
+            }
+        } else {
+            if (isset($this->keys[$k])) {
+                $val = $this->state[$this->keys[$k]]();
+            } else {
+                $val = null;
+            }
+        }
+        return $val;
+    }
+
+    /**
+     * Get
+     *
+     * @param mixed $k key
+     *
+     * @return mixed
+     */
+    public function &__get($k=null)
+    {
+        if (isset($this->keys[$k])) {
+            $val =  $this->state[$this->keys[$k]]; 
+        } else {
+            $val = null;
+        }
+        return $val;
     }
 }

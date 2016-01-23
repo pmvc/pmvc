@@ -464,12 +464,8 @@ function clean(&$a, $k=null)
             unset($a);
         }
     } else {
-        if (is_array($k)) { //replace
-            if (isArrayAccess($a)) {
-                $a->offsetUnset($k);
-            } else {
-                $a=$k;
-            }
+        if (isArray($k)) { //replace
+            set($a, $k);
         } else {
             unset($a[$k]); //clean by key
         }

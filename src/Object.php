@@ -24,16 +24,16 @@ namespace PMVC;
  */
 class Object
 {
-    protected $values;
+    protected $state;
 
     /**
      * Construct
      *
-     * @param array $values values
+     * @param array $state $state 
      */
-    public function __construct(&$values=array())
+    public function __construct(&$state=null)
     {
-        $this->values =& $values;
+        $this->state =& $state;
     }
 
     /**
@@ -44,7 +44,6 @@ class Object
      */
     public function &__invoke()
     {
-        return $this->values;
+        return $this->state;
     }
-
 }

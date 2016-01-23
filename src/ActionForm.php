@@ -24,24 +24,6 @@ namespace PMVC;
  */
 class ActionForm extends HashMap
 {
-    /**
-     * Option
-     */
-    public $options;
-
-    /**
-     * Construct
-     *
-     * @param array $options values
-     *
-     * @return ArrayIterator
-     */
-    public function __construct($options=array())
-    {
-        if (is_array($options)) {
-            $this->options = &$options;
-        }
-    }
 
     /**
      * Validate
@@ -53,16 +35,4 @@ class ActionForm extends HashMap
         return true;
     }
 
-    /**
-     * Get
-     *
-     * @param mixed $k key
-     *
-     * @return \PMVC\Object 
-     */
-    public function &__get($k=null)
-    {
-        $obj = new \PMVC\Object($this->values[$k]); 
-        return $obj;
-    }
 }

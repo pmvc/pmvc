@@ -81,12 +81,8 @@ class Adapter implements \ArrayAccess
      */
     public function &offsetGet($k=null)
     {
-        $objs = &getOption(PLUGIN_INSTANCE);
-        $return = false;
-        if (!empty($objs[$this->_name])) {
-            $return =& $objs[$this->_name][$k];
-        }
-        return $return;
+        $val = $this->__call(__FUNCTION__, array($k));
+        return $val;
     }
 
     /**

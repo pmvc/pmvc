@@ -12,6 +12,9 @@
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
+use ArrayIterator;
+use IteratorAggregate;
+use Countable;
 
 /**
  * ListIterator
@@ -23,33 +26,31 @@ namespace PMVC;
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ListIterator extends Object
-    implements \IteratorAggregate, \Countable
+    implements IteratorAggregate, Countable
 {
     /**
      * Construct
      *
-     * @param array $values values
+     * @param array $state state 
      *
      * @return ArrayIterator
      */
-    public function __construct($values=null)
+    public function __construct($state=null)
     {
-        $this->values = array();
-        if (is_array($values)) {
-            $this->offsetUnset($values);
+        $this->state = $this->getInitialState();
+        if (!empty($state)) {
+            set($this, $state);
         }
     }
 
     /**
-     * Clean
+     * Get Initial State 
      *
-     * @param mixed $k key
-     *
-     * @return boolean
+     * @return array 
      */
-    public function offsetUnset($k=null)
+    protected function getInitialState()
     {
-        return clean($this->values, $k);
+        return array();
     }
 
     /**
@@ -59,7 +60,7 @@ class ListIterator extends Object
      */
     public function getIterator()
     {
-        return new \ArrayIterator($this->values);
+        return new ArrayIterator($this->state);
     }
 
     /**
@@ -69,6 +70,6 @@ class ListIterator extends Object
      */
     public function count()
     {
-        return count($this->values);
+        return count($this->state);
     }
 }
