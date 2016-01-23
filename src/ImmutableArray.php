@@ -69,6 +69,10 @@ class ImmutableArray extends HashMap
     public function offsetSet($k, $v)
     {
         if (!isset($this->keys[$k])) {
+            if ($this->size>=$this->max) {
+                $this->max = $this->size+1;
+                $this->state->setSize($this->max);
+            }
             $this->keys[$k] = $this->size;
             $this->size++;
         }
