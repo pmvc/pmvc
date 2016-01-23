@@ -107,6 +107,6 @@ class ActionMapping extends HashMap
      */
     public function offsetGet($name)
     {
-        return getC()->getForward($name);
+        return getC()->getMapping()->findForward($name);
     }
 }
