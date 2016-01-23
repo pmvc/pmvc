@@ -420,7 +420,7 @@ class ActionController
         if (!$this->_mappings->forwardExists('error')) {
             return $forwardOption;
         }
-        $errorForward = $this->getForward('error'); 
+        $errorForward = $this->_mappings->findForward('error'); 
         $AllErrors = getOption(ERRORS);
         $errorForward->set(
             array(
@@ -429,26 +429,6 @@ class ActionController
             )
         );
         return $errorForward;
-    }
-
-    /**
-     * Get Forward 
-     *
-     * @param array $name forward name 
-     *
-     * @return ActionForward
-     */
-    public function getForward($name)
-    {
-        $forward = $this->_mappings->findForward($name);
-        if ($forward) {
-            return new ActionForward($forward);
-        } else {
-            return !trigger_error(
-                'Forward key: {'.$name.'} not exists',
-                E_USER_WARNING
-            );
-        }
     }
 
     /**

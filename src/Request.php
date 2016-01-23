@@ -22,7 +22,7 @@ namespace PMVC;
  * @license  http://opensource.org/licenses/MIT MIT
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
-class Request extends HashMap
+class Request extends ImmutableArray
 {
     /**
      * Http method

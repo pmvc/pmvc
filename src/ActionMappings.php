@@ -29,7 +29,7 @@ class ActionMappings
      *
      * @var array
      */
-    private $_mappings = array();
+    private $_mappings;
 
     /**
      * Set mappings
@@ -40,7 +40,7 @@ class ActionMappings
      */
     public function set($mappings)
     {
-        $this->_mappings =& $mappings;
+        $this->_mappings =$mappings;
         if (empty($this->_mappings)) {
             return false;
         } else {
@@ -118,7 +118,15 @@ class ActionMappings
      */
     public function findForward($name)
     {
-        return get($this->_mappings->{ACTION_FORWARDS}, $name);
+        $forward = get($this->_mappings->{ACTION_FORWARDS}, $name);
+        if ($forward) {
+            return new ActionForward($forward);
+        } else {
+            return !trigger_error(
+                'Forward key: {'.$name.'} not exists',
+                E_USER_WARNING
+            );
+        }
     }
 
     /**

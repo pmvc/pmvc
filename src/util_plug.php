@@ -393,10 +393,10 @@ function set(&$a, $k, $v=null)
     } else {
         if (is_null($k) && is_null($v)) {
             return false;
-        } elseif (is_null($v)) { //append value when no-assign key
-            return $a[] = $k;
-        } elseif (is_null($k)) {
+        } elseif (is_null($k)) { //append value when no-assign key
             return $a[] = $v;
+        } elseif (!is_string($k)) { //append key when key is not a string
+            return $a[] = $k;
         } else { //exactly set key and value
             return $a[$k] = $v;
         }
@@ -435,7 +435,7 @@ function &get(&$a, $k=null, $default=null)
         }
         //return one
         if (!isset($a[$k])) { //return default
-            $a[$k]=$default;
+            set($a, $k, $default);
         }
         if (isArrayAccess($a)) {
             $v = $a->offsetGet($k);
@@ -501,7 +501,10 @@ function &getOption($k=null, $default=null)
 */
 function &option($act, $k=null, $v=null)
 {
-    static $options=array();
+    static $options=null;
+    if (is_null($options)) {
+        $options = new HashMap();
+    }
     switch ($act) {
     case 'get':
         $return =& get($options, $k, $v);
@@ -547,9 +550,12 @@ function log()
 *
 * @return boolean
 */
-function &run($func, $args)
+function run($func, $args)
 {
-    static $cache=array();
+    static $cache = null;
+    if (is_null($cache)) {
+        $cache=new HashMap();
+    }
     $hash = hash($func, $args);
     if (!isset($cache[$hash])) {
         $cache[$hash] = call_user_func_array($func, $args);
@@ -618,7 +624,10 @@ function n($v, $type=null)
  */
 function getAdapter($name)
 {
-    static $adapters=array();
+    static $adapters=null;
+    if (is_null($adapters)) {
+        $adapters=new HashMap();
+    }
     if (!isset($adapters[$name])) {
         $adapters[$name] = new Adapter($name);
     }
@@ -760,9 +769,6 @@ function initPlugIn($arr)
  */
 function plug($name, $config=null)
 {
-    if (!$name) {
-        return $name;
-    }
     $objs =& getOption(PLUGIN_INSTANCE);
     if (isset($objs[$name])) {
         $oPlugin=$objs[$name];
@@ -770,6 +776,10 @@ function plug($name, $config=null)
             set($oPlugin, $config);
         }
         return $oPlugin->update();
+    }
+    if (is_null($objs)) {
+        $objs = new HashMap();
+        option('set', PLUGIN_INSTANCE, $objs);
     }
     if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
         $class = $config[_CLASS];
@@ -787,7 +797,7 @@ function plug($name, $config=null)
             $r=run(__NAMESPACE__.'\l', array($file,_INIT_CONFIG));
         } else {
             $file = $name.'.php' ;
-            $default_folders = getOption(PLUGIN_FOLDERS);
+            $default_folders = getOption(PLUGIN_FOLDERS, array());
             $folders = array();
             foreach ($default_folders as $folder) {
                 $folders[] = lastSlash($folder).$name;
