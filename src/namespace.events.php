@@ -22,5 +22,5 @@ const B4_PROCESS_ERROR  = 'B4ProcessError';
 const B4_PROCESS_FORWARD= 'B4ProcessForward';
 const B4_PROCESS_ACTION = 'B4ProcessAction';
 const B4_PROCESS_VIEW   = 'B4ProcessView';
-const FINSH             = 'Finsh';
+const FINISH            = 'Finish';
 const SET_CONFIG        = 'SetConfig';

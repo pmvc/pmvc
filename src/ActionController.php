@@ -396,7 +396,7 @@ class ActionController
             'dispatcher',
             'notify',
             array(
-                Event\FINSH
+                Event\FINISH
                 ,true
             )
         );
