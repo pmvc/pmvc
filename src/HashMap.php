@@ -12,7 +12,6 @@
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
-use SplObjectStorage;
 
 /**
  * PMVC HashMap
@@ -28,7 +27,15 @@ use SplObjectStorage;
 class HashMap extends ListIterator
     implements \ArrayAccess
 {
-    protected $keys = array();
+    /**
+     * Get array_keys
+     *
+     * @return boolean
+     */
+    public function keySet()
+    {
+        return array_keys($this->state);
+    }
 
     /**
      * ContainsKey
@@ -39,27 +46,32 @@ class HashMap extends ListIterator
      */
     public function offsetExists($k)
     {
-        return isset($this->keys[$k]);
+        return isset($this->state[$k]);
     }
 
     /**
-     * Get Initial State 
+     * Get 
      *
-     * @return array 
-     */
-    protected function getInitialState()
-    {
-        return new SplObjectStorage();
-    }
-
-    /**
-     * Get array_keys
+     * @param mixed $k key
      *
      * @return boolean
      */
-    public function keySet()
+    public function &offsetGet($k=null)
     {
-        return $this->keys;
+        return get($this->state, $k);
+    }
+
+    /**
+     * Get
+     *
+     * @param mixed $k key
+     *
+     * @return mixed
+     */
+    public function &__get($k=null)
+    {
+        $val = new Object($this->state[$k]);
+        return $val;
     }
 
     /**
@@ -72,11 +84,7 @@ class HashMap extends ListIterator
      */
     public function offsetSet($k, $v)
     {
-        if (!isset($this->keys[$k])) {
-            $this->keys[$k] = new \StdClass;
-        }
-        return $this->state[$this->keys[$k]]
-            = new Object($v);
+        return $this->state[$k] = $v;
     }
 
     /**
@@ -101,49 +109,7 @@ class HashMap extends ListIterator
      */
     public function offsetUnset($k=null)
     {
-        $key = $this->keys[$k];
-        unset($this->state[$key]);
-        unset($this->keys[$k]);
+        return clean($this->state, $k);
     }
 
-    /**
-     * Get 
-     *
-     * @param mixed $k key
-     *
-     * @return boolean
-     */
-    public function &offsetGet($k=null)
-    {
-        if (is_null($k)) {
-            $val = array();
-            foreach ($this->keys as $k=>$v) {
-                $val[$k] = $this->state[$v]();
-            }
-        } else {
-            if (isset($this->keys[$k])) {
-                $val = $this->state[$this->keys[$k]]();
-            } else {
-                $val = null;
-            }
-        }
-        return $val;
-    }
-
-    /**
-     * Get
-     *
-     * @param mixed $k key
-     *
-     * @return mixed
-     */
-    public function &__get($k=null)
-    {
-        if (isset($this->keys[$k])) {
-            $val =  $this->state[$this->keys[$k]]; 
-        } else {
-            $val = null;
-        }
-        return $val;
-    }
 }

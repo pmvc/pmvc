@@ -44,7 +44,7 @@ function realPath($p)
  */
 function l($name, $compacts=null, $once=true)
 {
-    static $files=array();
+    static $files = array();
     $real = realpath($name);
     if (!$once || !isset($files[$real])) {
         include $name;
@@ -283,7 +283,6 @@ function &fromJson($s)
     }
 }
 
-
 /**
  * Array Util <!---
  */
@@ -370,35 +369,36 @@ function isArrayAccess($obj)
  */
 function isArray($obj)
 {
-    return is_a($obj, 'ArrayAccess') || is_array($obj);
+    return isArrayAccess($obj) || is_array($obj);
 }
+
 
 /**
  * Data access <!---
  */
 
 /**
-* Magic Set function
+* Magic Clean function
 *
 * @param array $a array
 * @param mixed $k key
-* @param mixed $v value
 *
-* @return mixed
+* @return void
 */
-function set(&$a, $k, $v=null)
+function clean(&$a, $k=null)
 {
-    if (isArray($k)) { //merge by new array
-        return $a = array_merge($a, $k);
+    if (is_null($k)) { //clean all
+        if (isArrayAccess($a)) {
+            $a->offsetUnset(null);
+        } else {
+            $a=null;
+            unset($a);
+        }
     } else {
-        if (is_null($k) && is_null($v)) {
-            return false;
-        } elseif (is_null($k)) { //append value when no-assign key
-            return $a[] = $v;
-        } elseif (!is_string($k)) { //append key when key is not a string
-            return $a[] = $k;
-        } else { //exactly set key and value
-            return $a[$k] = $v;
+        if (isArray($k)) { //replace
+            set($a, $k);
+        } else {
+            unset($a[$k]); //clean by key
         }
     }
 }
@@ -447,31 +447,30 @@ function &get(&$a, $k=null, $default=null)
 }
 
 /**
-* Magic Clean function
+* Magic Set function
 *
 * @param array $a array
 * @param mixed $k key
+* @param mixed $v value
 *
-* @return void
+* @return mixed
 */
-function clean(&$a, $k=null)
+function set(&$a, $k, $v=null)
 {
-    if (is_null($k)) { //clean all
-        if (isArrayAccess($a)) {
-            $a->offsetUnset(null);
-        } else {
-            $a=null;
-            unset($a);
-        }
+    if (isArray($k)) { //merge by new array
+        return $a = array_merge($a, $k);
     } else {
-        if (isArray($k)) { //replace
-            set($a, $k);
-        } else {
-            unset($a[$k]); //clean by key
+        if (is_null($k) && is_null($v)) {
+            return false;
+        } elseif (is_null($k)) { //append value when no-assign key
+            return $a[] = $v;
+        } elseif (!is_string($k)) { //append key when key is not a string
+            return $a[] = $k;
+        } else { //exactly set key and value
+            return $a[$k] = $v;
         }
     }
 }
-
 
 /**
  * Option <!-----------
@@ -501,10 +500,7 @@ function &getOption($k=null, $default=null)
 */
 function &option($act, $k=null, $v=null)
 {
-    static $options=null;
-    if (is_null($options)) {
-        $options = new HashMap();
-    }
+    static $options = array();
     switch ($act) {
     case 'get':
         $return =& get($options, $k, $v);
@@ -552,10 +548,7 @@ function log()
 */
 function run($func, $args)
 {
-    static $cache = null;
-    if (is_null($cache)) {
-        $cache=new HashMap();
-    }
+    static $cache = array();
     $hash = hash($func, $args);
     if (!isset($cache[$hash])) {
         $cache[$hash] = call_user_func_array($func, $args);
@@ -624,10 +617,7 @@ function n($v, $type=null)
  */
 function getAdapter($name)
 {
-    static $adapters=null;
-    if (is_null($adapters)) {
-        $adapters=new HashMap();
-    }
+    static $adapters = array();
     if (!isset($adapters[$name])) {
         $adapters[$name] = new Adapter($name);
     }
@@ -777,10 +767,6 @@ function plug($name, $config=null)
         }
         return $oPlugin->update();
     }
-    if (is_null($objs)) {
-        $objs = new HashMap();
-        option('set', PLUGIN_INSTANCE, $objs);
-    }
     if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
         $class = $config[_CLASS];
     } else {
@@ -817,7 +803,6 @@ function plug($name, $config=null)
             $error = 'plugIn '.$name.': class not found ('.$class.')';
         }
         trigger_error($error);
-        unset($objs[$name]);
         $name=false;
         return $name;
     }
@@ -831,6 +816,10 @@ function plug($name, $config=null)
         set($oPlugin, $config);
     }
     $oPlugin->init();
+    if (is_null($objs)) {
+        $objs = array();
+        option('set', PLUGIN_INSTANCE, $objs);
+    }
     $objs[$name]=$oPlugin;
     return $oPlugin->update();
 }
