@@ -418,7 +418,7 @@ class ActionController
             )
         );
         if (!$this->_mappings->forwardExists('error')) {
-            return $forwardOption;
+            return false;
         }
         $errorForward = $this->_mappings->findForward('error'); 
         $AllErrors = getOption(ERRORS);
