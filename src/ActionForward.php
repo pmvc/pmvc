@@ -203,11 +203,17 @@ class ActionForward extends HashMap
      */
     public function set($k, $v=null)
     {
-        if ('view'==$this->getType()) {
+        if ('view'===$this->getType()) {
             $args = func_get_args();
-            return call_user_func_array(array($this->view,'set'), $args);
+            return call_user_func_array(
+                array(
+                    $this->view,
+                    'set'
+                ),
+                $args
+            );
         } else {
-            return $this[$k]=$v;
+            return set($this, $k, $v);
         }
     }
 
