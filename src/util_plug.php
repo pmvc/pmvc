@@ -389,16 +389,25 @@ function clean(&$a, $k=null)
 {
     if (is_null($k)) { //clean all
         if (isArrayAccess($a)) {
-            $a->offsetUnset(null);
+            return $a->offsetUnset(null);
         } else {
             $a=null;
             unset($a);
+            return;
         }
     } else {
         if (isArray($k)) { //replace
-            set($a, $k);
+            if (isArrayAccess($a)) {
+                foreach ($k as $k1=>$v1) {
+                    $a->offsetSet($k1, $v1);
+                }
+                return true;
+            } else {
+                return $a=$k;
+            }
         } else {
             unset($a[$k]); //clean by key
+            return;
         }
     }
 }
