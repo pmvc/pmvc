@@ -46,11 +46,18 @@ class ActionForward extends HashMap
     private $_header=array();
 
     /**
-     * LazyOutput action
+     * Forward result 
      *
      * @var string
      */
-    public $lazyOutput;
+    public $result;
+
+    /**
+     * Lazyoutput action
+     *
+     * @var string
+     */
+    public $action;
 
     /**
      * Default view engine
@@ -69,7 +76,19 @@ class ActionForward extends HashMap
         $this->setPath($forward[_PATH]);
         $this->setType($forward[_TYPE]);
         $this->setHeader($forward[_HEADER]);
-        $this->lazyOutput = $forward[_LAZY_OUTPUT];
+        $this->action = $forward[_ACTION];
+    }
+
+    /**
+     * Set header
+     *
+     * @param array $v value
+     *
+     * @return mixed
+     */
+    public function cleanHeader($v)
+    {
+        return clean($this->_header, $v);
     }
 
     /**
@@ -77,7 +96,7 @@ class ActionForward extends HashMap
      *
      * @return array header
      */
-    public function getHeader()
+    public function &getHeader()
     {
         return $this->_header;
     }
@@ -91,7 +110,10 @@ class ActionForward extends HashMap
      */
     public function setHeader($v)
     {
-        return set($this->_header, $v);
+        if (empty($v)) {
+            return;
+        }
+        return set($this->_header, toArray($v));
     }
 
     /**
@@ -237,6 +259,19 @@ class ActionForward extends HashMap
     }
 
     /**
+     * Process Header 
+     *
+     * @return $this
+     */
+    private function _processHeader()
+    {
+        $headers = $this->getHeader();
+        foreach ($headers as $h) {
+            header($h);
+        }
+    }
+
+    /**
      * Process View
      *
      * @return $this
@@ -255,12 +290,7 @@ class ActionForward extends HashMap
             getOption(_TEMPLATE_DIR)
         );
         $this->view->setThemePath($this->getPath());
-        $output = $this->view->process();
-        if (!empty($this->lazyOutput)) {
-            return $this;
-        } else {
-            return $output;
-        }
+        $this->result = $this->view->process();
     }
 
     /**
@@ -272,16 +302,18 @@ class ActionForward extends HashMap
     {
         switch ($this->getType()) {
         case 'view':
-            return $this->_processView();
-            break;
-        case 'action':
+            $this->_processHeader();
+            $this->_processView();
             break;
         case 'redirect':
             $path = $this->getPath(true);
-            header("Location: $path");
+            $this->setHeader("Location: $path");
+            $this->_processHeader();
             break;
+        case 'action':
         default:
             break;
         }
+        return $this;
     }
 }

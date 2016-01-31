@@ -36,6 +36,12 @@ class ActionController
      * @var HttpRequestServlet
      */
     private $_request;
+    /**
+     * Results 
+     *
+     * @var ActionMappings
+     */
+    public $results;
 
     /**
      * ActionController construct with the options.
@@ -188,7 +194,7 @@ class ActionController
      *
      * @return mixed
      */
-    public function process($mappings=null)
+    public function __invoke($mappings=null)
     {
         if (!is_null($mappings)) {
             if (!$this->addMapping($mappings)) {
@@ -206,13 +212,21 @@ class ActionController
         if (call_plugin('dispatcher', 'stop')) {
             return;
         }
-        $index  = $this->_processMapping();
-        $result = $this->execute($index);
-        if (!empty($result->lazyOutput)) {
-            $this->execute($result->lazyOutput);
+        $forward = (object)array(
+            'action' => $this->_processMapping()
+        ); 
+        while (
+            isset($forward->action) && 
+            $forward = $this->execute($forward->action)
+        ) {
+            if (isset($forward->result)) {
+                $this->results[] = $forward->result;
+            } else {
+                $this->results[] = $forward; 
+            }
         }
         $this->_finish();
-        return $result;
+        return $this->results;
     }
 
     /**

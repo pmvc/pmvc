@@ -139,7 +139,7 @@ class MappingBuilder
             _PATH=>'_DEFAULT_'
             ,_TYPE=>'redirect'
             ,_HEADER=>null
-            ,_LAZY_OUTPUT=>null
+            ,_ACTION=>null
         );
     }
 }

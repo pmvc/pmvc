@@ -12,9 +12,9 @@ class HelloTest extends PHPUnit_Framework_TestCase
             }
             )
         );
-
-        $result = (new PMVC\ActionController())->process($b->getMappings());
-        $this->assertEquals($test_str, $result);
+        $mvc = new PMVC\ActionController();
+        $result = $mvc($b->getMappings());
+        $this->assertEquals($test_str, $result[0]);
     }
 }
 

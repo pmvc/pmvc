@@ -31,7 +31,7 @@ define('_FUNCTION', '_function_');
 define('_OPTION', '_option_');
 
 /* mapping-forward */
-define('_LAZY_OUTPUT', '_lazy_output_');
+define('_ACTION', '_action_');
 define('_HEADER', '_header_');
 
 /* options constant(s) */
