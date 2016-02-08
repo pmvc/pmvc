@@ -286,6 +286,17 @@ function &fromJson($s)
 /**
  * Array Util <!---
  */
+function isContain($haystack,$needle)
+{
+    if(
+        $haystack === $needle
+        || isset($haystack[$needle])
+    ){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 /**
  * Array Merge (The numeric key will be overwrite not append)

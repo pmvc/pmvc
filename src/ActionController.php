@@ -68,14 +68,10 @@ class ActionController
      */
     public function setOption($k, $v=null)
     {
-        if (is_array($k)) {
-            if (isset($k[_PLUGIN])) {
-                initPlugIn($k[_PLUGIN]);
-            }
-        } elseif (_PLUGIN===$k) {
-            initPlugIn($v);
-        }
         $this->store($k, $v);
+        if (isContain($k, _PLUGIN)) {
+            initPlugIn(getOption(_PLUGIN));
+        }
         call_plugin(
             'dispatcher',
             'set',
@@ -142,7 +138,10 @@ class ActionController
         } else {
             addPlugInFolder($parent.$app.'/plugins');
             $this->setApp($app);
-            $this->store(_RUN_PARENT, realpath($parent));
+            $this->setOption (
+                _RUN_PARENT,
+                realpath($parent)
+            );
             $appPlugin = plug(
                 _RUN_APP,
                 array(
