@@ -138,7 +138,7 @@ class ActionController
         } else {
             addPlugInFolder($parent.$app.'/plugins');
             $this->setApp($app);
-            $this->setOption (
+            $this->setOption(
                 _RUN_PARENT,
                 realpath($parent)
             );

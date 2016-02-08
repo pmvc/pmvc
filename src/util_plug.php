@@ -286,14 +286,22 @@ function &fromJson($s)
 /**
  * Array Util <!---
  */
+
+/**
+ * Check an array or string equal one value 
+ * 
+ * @param mixed  $haystack search on array or string 
+ * @param string $needle   search keyword
+ *
+ * @return array
+ */
 function isContain($haystack,$needle)
 {
-    if(
-        $haystack === $needle
+    if ($haystack === $needle
         || isset($haystack[$needle])
-    ){
+    ) {
         return true;
-    }else{
+    } else {
         return false;
     }
 }
