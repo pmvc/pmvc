@@ -46,7 +46,8 @@ trait Alias
                     'Method not found: '.
                     get_class($this).
                     '::'.
-                    $method
+                    $method.
+                    '()'
                 );
             }
         }
