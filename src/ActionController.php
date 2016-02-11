@@ -152,7 +152,7 @@ class ActionController
             if (empty($builder)) {
                 return !trigger_error('No builder found', E_USER_WARNING);
             }
-            $this->setMapping($builder->getMappings());
+            $this->setMapping($builder());
             $action = $this->getAppAction();
             $action_path  = realpath($parent.$app.'/'.$action.'.php');
             if ($action_path) {
