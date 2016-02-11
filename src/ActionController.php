@@ -189,17 +189,16 @@ class ActionController
     /**
      * Process the request.
      *
-     * @param mixed $mappings mappings
+     * @param MappingBuilder $builder Get mappings
      *
      * @return mixed
      */
-    public function __invoke($mappings=null)
+    public function __invoke(MappingBuilder $builder=null)
     {
-        if (!is_null($mappings)) {
-            if (!$this->addMapping($mappings)) {
-                return false;
-            }
+        if (!is_null($builder)) {
+            $this->addMapping($builder());
         }
+
         call_plugin(
             'dispatcher',
             'notify',

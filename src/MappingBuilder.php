@@ -40,7 +40,7 @@ class MappingBuilder
      *
      * @return ActionMappings
      */
-    public function getMappings()
+    public function __invoke()
     {
         return (object)$this->_aaMap;
     }
@@ -85,14 +85,21 @@ class MappingBuilder
      */
     public function addAction($psId, $settings)
     {
-        $settings = mergeDefault(
-            $this->getActionDefault(), $settings
+        if (is_callable($settings)) {
+            $settings = array(
+                _FUNCTION=>$settings
+            );
+        }
+        $settings = new HashMap(
+            mergeDefault(
+                $this->getActionDefault(), $settings
+            )
         );
         if (!is_null($settings[_FORM])) {
             $this->addForm($settings[_FORM]);
         }
         $this->_aaMap[ACTION_MAPPINGS][$psId] = $settings;
-        return true;
+        return $settings;
     }
 
     /**

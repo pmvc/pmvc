@@ -31,7 +31,7 @@ class ActionControllerTest extends PHPUnit_Framework_TestCase
                     (object)array()
                 )
             );
-        $mvc($b->getMappings());
+        $mvc($b);
     }
 
     function testProcessError()
@@ -64,7 +64,7 @@ class ActionControllerTest extends PHPUnit_Framework_TestCase
             _CLASS=> '\PMVC\FakeView'
             )
         );
-        $error = $mvc($b->getMappings());
+        $error = $mvc($b);
         $this->assertEquals(
             $options[\PMVC\ERRORS][\PMVC\USER_ERRORS],
             $error[0]->v['errors']
