@@ -7,7 +7,7 @@
 PMVC
 ===============
 
-## How to Use?
+## Getting Started
 https://github.com/pmvc/pmvc/wiki
 
 ## PMVC Family
