@@ -369,7 +369,7 @@ class ActionController
         }
         return call_user_func_array(
             $func,
-            array($actionMapping, $actionForm, $this->_request)
+            array($actionMapping, $actionForm)
         );
     }
 
