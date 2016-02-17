@@ -7,13 +7,12 @@ class DefaultFormTest extends PHPUnit_Framework_TestCase
         $b = new PMVC\MappingBuilder();
         $b->addAction(
             'index', array(
-            _FUNCTION=>function () use ($test_str) {
-                return $test_str;
-            },
-            _FORM=>'myForm'
+                _FUNCTION=>function () use ($test_str) {
+                    return $test_str;
+                },
+                _FORM=>'myForm'
             )
         );
-
         $option = array(
             _DEFAULT_FORM=> 'FakeDefaultForm'
         );

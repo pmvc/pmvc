@@ -198,7 +198,6 @@ class ActionController
         if (!is_null($builder)) {
             $this->addMapping($builder());
         }
-
         call_plugin(
             'dispatcher',
             'notify',
@@ -211,7 +210,7 @@ class ActionController
             return;
         }
         $forward = (object)array(
-            'action' => $this->_processMapping()
+            'action' => $this->getAppAction()
         ); 
         while (
             isset($forward->action) && 
@@ -228,23 +227,6 @@ class ActionController
     }
 
     /**
-     * ActionMapping.
-     *
-     * @return ActionMapping
-     */
-    private function _processMapping()
-    {
-        $index = $this->getAppAction();
-        if (!$this->_mappings->mappingExists($index)) {
-            if ($this->_mappings->mappingExists('index')) {
-                $index = 'index';
-            }
-        }
-        $this->setAppAction($index);
-        return $index;
-    }
-        
-    /**
      * Execute mapping
      *
      * @param string $index pass run action
@@ -253,13 +235,7 @@ class ActionController
      */
     public function execute($index)
     {
-        if (!$this->_mappings->mappingExists($index)) {
-            return !trigger_error(
-                'No mappings found for index: '.$index,
-                E_USER_WARNING
-            );
-        }
-        $actionMapping = $this->_mappings->findMapping($index);
+        $actionMapping = $this->_processMapping($index);
         $actionForm = $this->_processForm($actionMapping);
         $this->setOption(_RUN_FORM, $actionForm);
         if (!$actionForm) {
@@ -273,6 +249,29 @@ class ActionController
         return $this->processForward($actionForward);
     }
 
+    /**
+     * ActionMapping.
+     *
+     * @param string $index mapping or action index 
+     *
+     * @return ActionMapping
+     */
+    private function _processMapping($index)
+    {
+        $m = $this->_mappings;
+        if (!$m->mappingExists($index)) {
+            if ($this->_mappings->mappingExists('index')) {
+                $index = 'index';
+            }
+        }
+        if (!$m->mappingExists($index)) {
+            return !trigger_error(
+                'No mappings found for index: '.$index,
+                E_USER_WARNING
+            );
+        }
+        return $m->findMapping($index);
+    }
 
     /**
      * ActionForm.
@@ -502,7 +501,7 @@ class ActionController
      */
     public function getAppAction()
     {
-        return option('get', _RUN_ACTION);
+        return option('get', _RUN_ACTION, '');
     }
 
     /**
