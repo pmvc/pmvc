@@ -48,12 +48,17 @@ function l($name, $compacts=null, $once=true)
     $real = realpath($name);
     if (!$once || !isset($files[$real])) {
         include $name;
-        $files[$real]=true;
+        $files[$real] = false;
     }
     $o = new \stdClass();
     $o->name = $real;
     if ($compacts) {
-        $o->var = compact($compacts);
+        if (!empty($files[$real])) {
+            $o->var =& $files[$real];
+        } else {
+            $o->var = compact($compacts);
+            $files[$real] =& $o->var;
+        }
     }
     return $o;
 }

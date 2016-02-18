@@ -22,15 +22,15 @@ trait Alias
     private $_aliasFunctions;
 
     /**
-     * Magic call for function alias
+     * Custom is_callable for Alias 
      *
      * @param string $method method
-     * @param array  $args   args
      *
      * @return mixed
      */
-    public function __call($method, $args)
+    public function isCallAble($method)
     {
+        $func = false;
         if (!$this->_aliasFunctions) {
             $this->_aliasFunctions = $this->initAliasFunction();           
         }
@@ -40,6 +40,20 @@ trait Alias
                 break;
             }
         }
+        return $func;
+    }
+
+    /**
+     * Magic call for function alias
+     *
+     * @param string $method method
+     * @param array  $args   args
+     *
+     * @return mixed
+     */
+    public function __call($method, $args)
+    {
+        $func = $this->isCallAble($method);
         if (empty($func)) {
             return !trigger_error(
                 'Method not found: '.
@@ -190,7 +204,7 @@ class AliasSrcFile implements AliasInterface
         if (!is_callable(array($self,'getDir'))) {
             return false;
         }
-        $path = $self->getDir().'src/call_'.$method.'.php';
+        $path = $self->getDir().'src/_'.$method.'.php';
         if (!realpath($path)) {
             return false;
         }

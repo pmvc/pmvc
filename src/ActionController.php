@@ -152,6 +152,10 @@ class ActionController
             if (empty($builder)) {
                 return !trigger_error('No builder found', E_USER_WARNING);
             }
+            $action = $this->getAppAction();  
+            if ($appPlugin->isCallAble($action)) {
+                $appPlugin->{$action}();
+            }
             return $this->setMapping($builder());
         }
     }
