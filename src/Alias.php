@@ -18,7 +18,8 @@ namespace PMVC;
  */
 trait Alias
 {
-    private $_aliases = array();
+    public $defaultAlias;
+    private $_aliasFunctions;
 
     /**
      * Magic call for function alias
@@ -30,33 +31,43 @@ trait Alias
      */
     public function __call($method, $args)
     {
-        if (isset($this->_aliases[$method])) {
-            $func = $this->_aliases[$method];
-        } elseif (isset($this->_aliases[''])) {
-            $func = array($this->_aliases[''],$method);
-            if (!is_callable($func)) {
-                $func = false; 
-            }
-        } 
-        if (empty($func)) {
-            if (is_callable($this[$method])) {
-                $func = $this[$method];
-            } else {
-                return !trigger_error(
-                    'Method not found: '.
-                    get_class($this).
-                    '::'.
-                    $method.
-                    '()'
-                );
+        if (!$this->_aliasFunctions) {
+            $this->_aliasFunctions = $this->initAliasFunction();           
+        }
+        foreach ($this->_aliasFunctions as $alias) {
+            $func = $alias->get($this, $method);
+            if (!empty($func)) {
+                break;
             }
         }
-        if (!empty($func)) {
+        if (empty($func)) {
+            return !trigger_error(
+                'Method not found: '.
+                get_class($this).
+                '::'.
+                $method.
+                '()'
+            );
+        } else {
             return call_user_func_array(
                 $func,
                 $args
             );
         }
+    }
+
+    /**
+     * Init Alias 
+     *
+     * @return array 
+     */
+    public function initAliasFunction()
+    {
+        return array(
+            'a'=> new AliasClassConfig(),
+            'b'=> new AliasDefaultClass(),
+            'c'=> new AliasSrcFile()
+        );
     }
 
     /**
@@ -68,41 +79,134 @@ trait Alias
      */
     public function setDefaultAlias($obj)
     {
-        $this->setAlias('', $obj);
+        $this->defaultAlias = $obj;
     }
+}
 
+/**
+ * Alias Interface 
+ * 
+ * @category Alias
+ * @package  PMVC
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
+ * @link     https://packagist.org/packages/pmvc/pmvc
+ */
+interface AliasInterface
+{
     /**
-     * CleanDefaultAlias
+     * Get alias function
+     *
+     * @param object $self   Same with object $this
+     * @param string $method Call which funciton 
      *
      * @return mixed
      */
-    public function cleanDefaultAlias()
-    {
-        $this->cleanAlias('');
-    }
+    public function get($self, $method);
+}
 
+/**
+ * Alias config
+ * 
+ * @category Alias
+ * @package  PMVC
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
+ * @link     https://packagist.org/packages/pmvc/pmvc
+ */
+class AliasClassConfig implements AliasInterface
+{
     /**
-     * SetAlias
+     * Get alias function
      *
-     * @param string $k method name
-     * @param mixed  $v alias to new method (function or class method)
+     * @param object $self   Same with object $this
+     * @param string $method Call which funciton 
      *
      * @return mixed
      */
-    public function setAlias($k, $v=null)
+    public function get($self, $method)
     {
-        set($this->_aliases, $k, $v);
+        $func = false;
+        if (is_callable($self[$method])) {
+            $func = $self[$method];
+        }
+        return $func;
     }
+}
 
+/**
+ * Alias default class 
+ * 
+ * @category Alias
+ * @package  PMVC
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
+ * @link     https://packagist.org/packages/pmvc/pmvc
+ */
+class AliasDefaultClass implements AliasInterface
+{
     /**
-     * CleanAlias
+     * Get alias function
      *
-     * @param array $arr array
+     * @param object $self   Same with object $this
+     * @param string $method Call which funciton 
      *
      * @return mixed
      */
-    public function cleanAlias($arr=null)
+    public function get($self, $method)
     {
-        clean($this->_aliases, $arr);
+        $func = false;
+        if (isset($self->defaultAlias)) {
+            $func = array($self->defaultAlias,$method);
+        }
+        if (!is_callable($func)) {
+            $func = false; 
+        }
+        return $func;
+    }
+}
+
+/**
+ * Alias xxx/src/call_xxx.php
+ * 
+ * @category Alias
+ * @package  PMVC
+ * @author   Hill <hill@kimo.com>
+ * @license  http://opensource.org/licenses/MIT MIT
+ * @link     https://packagist.org/packages/pmvc/pmvc
+ */
+class AliasSrcFile implements AliasInterface
+{
+    /**
+     * Get alias function
+     *
+     * @param object $self   Same with object $this
+     * @param string $method Call which funciton 
+     *
+     * @return mixed
+     */
+    public function get($self, $method)
+    {
+        if (!is_callable(array($self,'getDir'))) {
+            return false;
+        }
+        $path = $self->getDir().'src/call_'.$method.'.php';
+        if (!realpath($path)) {
+            return false;
+        }
+        $r = l($path, _INIT_CONFIG);
+        if (!isset($r->var[_INIT_CONFIG][_CLASS])) {
+            return !trigger_error('Not defined default Class');
+        } else {
+            $class = $r->var[_INIT_CONFIG][_CLASS]; 
+            $func = new $class;
+        }
+        if (!is_callable($func)) {
+            return !trigger_error('Not implement __invoke function');
+        }
+        if (!isset($self[$method])) {
+            $self[$method] = $func;
+        }
+        return $func;
     }
 }
