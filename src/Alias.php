@@ -181,7 +181,7 @@ class AliasDefaultClass implements AliasInterface
 }
 
 /**
- * Alias xxx/src/call_xxx.php
+ * Alias ./src/_xxx.php
  * 
  * @category Alias
  * @package  PMVC
