@@ -607,7 +607,7 @@ function exists($v, $type)
     case 'file':
         return realpath($v);
     case 'plugin':
-        $objs = &getOption(PLUGIN_INSTANCE);
+        $objs = getOption(PLUGIN_INSTANCE);
         return !empty($objs[$v]);
     default:
         return null;
@@ -727,7 +727,7 @@ function unPlug($name)
     if (!$name) {
         return $name;
     }
-    $objs =& getOption(PLUGIN_INSTANCE);
+    $objs = getOption(PLUGIN_INSTANCE);
     $plug = $objs[$name];
     $objs[$name] = null;
     unset($objs[$name]);
@@ -744,7 +744,7 @@ function unPlug($name)
  */
 function rePlug($name, $object)
 {
-    $objs =& getOption(PLUGIN_INSTANCE);
+    $objs = getOption(PLUGIN_INSTANCE);
     $objs[$name]=$object;
     return $objs[$name];
 }
@@ -756,11 +756,8 @@ function rePlug($name, $object)
  */
 function getPlugs()
 {
-    $objs =& getOption(PLUGIN_INSTANCE);
-    if (is_array($objs)) {
-        return array_keys($objs);
-    }
-    return array();
+    $objs = getOption(PLUGIN_INSTANCE);
+    return $objs->keyset();
 }
 
 /**
@@ -773,7 +770,7 @@ function getPlugs()
 function initPlugIn($arr)
 {
     if (is_array($arr)) {
-        $objs =& getOption(PLUGIN_INSTANCE);
+        $objs = getOption(PLUGIN_INSTANCE);
         foreach ($arr as $plugIn=>$config) {
             if (!isset($objs[$plugIn])) {
                 plug($plugIn, $config);
@@ -792,7 +789,7 @@ function initPlugIn($arr)
  */
 function plug($name, $config=null)
 {
-    $objs =& getOption(PLUGIN_INSTANCE);
+    $objs = getOption(PLUGIN_INSTANCE);
     if (isset($objs[$name])) {
         $oPlugin=$objs[$name];
         if (!is_null($config)) {
@@ -848,11 +845,15 @@ function plug($name, $config=null)
     if (!empty($config)) {
         set($oPlugin, $config);
     }
-    $oPlugin->init();
     if (is_null($objs)) {
-        $objs = array();
-        option('set', PLUGIN_INSTANCE, $objs);
+        option( 
+            'set',
+            PLUGIN_INSTANCE,
+            new HashMap(array($name=>$oPlugin))
+        );
+    } else {
+        $objs[$name]=$oPlugin;
     }
-    $objs[$name]=$oPlugin;
+    $oPlugin->init();
     return $oPlugin->update();
 }

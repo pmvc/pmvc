@@ -50,6 +50,18 @@ class HashMap extends ListIterator
     }
 
     /**
+     * ContainsKey
+     *
+     * @param string $k key
+     *
+     * @return boolean
+     */
+    public function __isset($k)
+    {
+        return $this->offsetExists($k);
+    }
+
+    /**
      * Get 
      *
      * @param mixed $k key
@@ -112,4 +124,15 @@ class HashMap extends ListIterator
         return clean($this->state, $k);
     }
 
+    /**
+     * Clean
+     *
+     * @param mixed $k key
+     *
+     * @return boolean
+     */
+    public function __unset($k=null)
+    {
+        return $this->offsetUnset($k, $v);
+    }
 }
