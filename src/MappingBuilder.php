@@ -112,7 +112,7 @@ class MappingBuilder
     public function getActionDefault()
     {
         return [
-            _FUNCTION => null, _FORM => null, _VALIDATE => true, _SCOPE => 'request'
+            _FUNCTION => null, _FORM => null, _VALIDATE => true, _SCOPE => 'request',
         ];
     }
 
@@ -142,10 +142,10 @@ class MappingBuilder
     public function getForwardDefault()
     {
         return [
-            _PATH => '_DEFAULT_',
-            _TYPE => 'redirect',
+            _PATH   => '_DEFAULT_',
+            _TYPE   => 'redirect',
             _HEADER => null,
-            _ACTION => null
+            _ACTION => null,
         ];
     }
 }
