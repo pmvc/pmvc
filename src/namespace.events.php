@@ -5,13 +5,14 @@
  * PHP version 5
  *
  * @category CategoryName
+ * @package  PMVC
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @version  GIT: <git_id>
+ * @version GIT: <git_id>
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC\Event;
 

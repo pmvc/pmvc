@@ -6,12 +6,12 @@
  *
  * @category CategoryName
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @version  GIT: <git_id>
+ * @version GIT: <git_id>
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -24,10 +24,10 @@ use IteratorAggregate;
  *
  * @category CategoryName
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 class ListIterator extends Object implements IteratorAggregate, Countable
 {

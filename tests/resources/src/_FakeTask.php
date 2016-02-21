@@ -4,7 +4,7 @@ namespace PMVC\UnitTest\Task;
 
 use PMVC;
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\fake_task';
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\_FakeTask';
 
 class _FakeTask
 {

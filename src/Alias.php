@@ -6,12 +6,12 @@
  *
  * @category CategoryName
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @version  GIT: <git_id>
+ * @version GIT: <git_id>
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -105,10 +105,10 @@ trait Alias
  * 
  * @category Alias
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 interface AliasInterface
 {
@@ -128,10 +128,10 @@ interface AliasInterface
  * 
  * @category Alias
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 class AliasClassConfig implements AliasInterface
 {
@@ -159,10 +159,10 @@ class AliasClassConfig implements AliasInterface
  * 
  * @category Alias
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 class AliasDefaultClass implements AliasInterface
 {
@@ -193,10 +193,10 @@ class AliasDefaultClass implements AliasInterface
  * 
  * @category Alias
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 class AliasSrcFile implements AliasInterface
 {
@@ -222,6 +222,9 @@ class AliasSrcFile implements AliasInterface
             return !trigger_error('Not defined default Class');
         } else {
             $class = $r->var[_INIT_CONFIG][_CLASS];
+            if (!class_exists($class)) {
+                return !trigger_error('Default Class not exits. ['.$class.']');
+            }
             $func = new $class();
         }
         if (!is_callable($func)) {

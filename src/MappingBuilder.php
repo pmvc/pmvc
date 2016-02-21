@@ -6,12 +6,12 @@
  *
  * @category CategoryName
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @version  GIT: <git_id>
+ * @version GIT: <git_id>
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
@@ -20,10 +20,10 @@ namespace PMVC;
  *
  * @category CategoryName
  *
- * @author   Hill <hill@kimo.com>
- * @license  http://opensource.org/licenses/MIT MIT
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
  *
- * @link     https://packagist.org/packages/pmvc/pmvc
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 class MappingBuilder
 {
@@ -112,7 +112,7 @@ class MappingBuilder
     public function getActionDefault()
     {
         return [
-            _FUNCTION  => null, _FORM     => null, _VALIDATE => true, _SCOPE    => 'request',
+            _FUNCTION => null, _FORM => null, _VALIDATE => true, _SCOPE => 'request'
         ];
     }
 
@@ -142,7 +142,10 @@ class MappingBuilder
     public function getForwardDefault()
     {
         return [
-            _PATH => '_DEFAULT_', _TYPE => 'redirect', _HEADER => null, _ACTION => null,
+            _PATH => '_DEFAULT_',
+            _TYPE => 'redirect',
+            _HEADER => null,
+            _ACTION => null
         ];
     }
 }
