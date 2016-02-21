@@ -1,82 +1,83 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * PMVC MappingBuilder
+ * PMVC MappingBuilder.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class MappingBuilder
 {
     /**
-     * Action Mapping
+     * Action Mapping.
      *
      * @var array
      */
-    private $_aaMap = array(
-        ACTION_FORMS        => array()
-        ,ACTION_MAPPINGS   => array()
-        ,ACTION_FORWARDS   => array()
-    );
+    private $_aaMap = [
+        ACTION_FORMS        => [], ACTION_MAPPINGS   => [], ACTION_FORWARDS   => [],
+    ];
 
     /**
-     * Get mappings
+     * Get mappings.
      *
      * @return ActionMappings
      */
     public function __invoke()
     {
-        return (object)$this->_aaMap;
+        return (object) $this->_aaMap;
     }
 
     /**
-     *  Add a form to mapping
+     *  Add a form to mapping.
      *
      * @param string $psFormId form id
      * @param array  $settings settings
      *
      * @return bool
      */
-    public function addForm($psFormId, $settings=array())
+    public function addForm($psFormId, $settings = [])
     {
         if (!isset($this->_aaMap[ACTION_FORMS][$psFormId])) {
             if (!isset($settings[_CLASS])) {
-                $settings[_CLASS]=$psFormId;
+                $settings[_CLASS] = $psFormId;
             }
             $this->_aaMap[ACTION_FORMS][$psFormId][_CLASS] = $settings[_CLASS];
         }
     }
 
     /**
-     * Get Form Default
+     * Get Form Default.
      *
      * @return array
      */
     public function getFormDefault()
     {
-        return array(
-            _CLASS=>null
-        );
+        return [
+            _CLASS => null,
+        ];
     }
 
     /**
-     * Add a Action to mapping
+     * Add a Action to mapping.
      *
      * @param string $psId     forward id
      * @param array  $settings settings
@@ -86,9 +87,9 @@ class MappingBuilder
     public function addAction($psId, $settings)
     {
         if (is_callable($settings)) {
-            $settings = array(
-                _FUNCTION=>$settings
-            );
+            $settings = [
+                _FUNCTION => $settings,
+            ];
         }
         $settings = new HashMap(
             mergeDefault(
@@ -99,27 +100,24 @@ class MappingBuilder
             $this->addForm($settings[_FORM]);
         }
         $this->_aaMap[ACTION_MAPPINGS][$psId] = $settings;
+
         return $settings;
     }
 
     /**
-     * Get Action Default
+     * Get Action Default.
      *
      * @return array
      */
     public function getActionDefault()
     {
-        return array(
-            _FUNCTION  => null
-            ,_FORM     => null
-            ,_VALIDATE => true
-            ,_SCOPE    => 'request'
-        );
+        return [
+            _FUNCTION  => null, _FORM     => null, _VALIDATE => true, _SCOPE    => 'request',
+        ];
     }
 
-
     /**
-     * Add a forward to mapping
+     * Add a forward to mapping.
      *
      * @param string $psId     forward id
      * @param array  $settings settings
@@ -132,21 +130,19 @@ class MappingBuilder
             $this->getForwardDefault(), $settings
         );
         $this->_aaMap[ACTION_FORWARDS][$psId] = $settings;
+
         return true;
     }
 
     /**
-     * Get forward default value
+     * Get forward default value.
      *
      * @return array
      */
     public function getForwardDefault()
     {
-        return array(
-            _PATH=>'_DEFAULT_'
-            ,_TYPE=>'redirect'
-            ,_HEADER=>null
-            ,_ACTION=>null
-        );
+        return [
+            _PATH => '_DEFAULT_', _TYPE => 'redirect', _HEADER => null, _ACTION => null,
+        ];
     }
 }

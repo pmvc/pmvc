@@ -1,6 +1,6 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * This file only use in
  * "Global Option", "Mapping Option", "Plugin Option".
@@ -9,10 +9,12 @@
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 
@@ -42,7 +44,7 @@ define('_TEMPLATE_DIR', '_template_dir_');
 define('_ERROR_REPORTING', '_error_reporting_');
 define('_ERROR_ENABLE_LOG', '_error_enable_log_');
 
-/**
+/*
  * Plugin
  */
 define('_PLUGIN', '_plugin_');
@@ -50,7 +52,7 @@ define('_PLUGIN_FILE', '_plugin_file_');
 define('_INIT_CONFIG', '_init_config_');
 define('_INIT_BUILDER', '_init_builder_');
 
-/**
+/*
  * Run
  */
 define('_DEFAULT_APP', '_default_app_');

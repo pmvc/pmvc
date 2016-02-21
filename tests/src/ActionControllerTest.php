@@ -3,66 +3,66 @@
 
 class ActionControllerTest extends PHPUnit_Framework_TestCase
 {
-    function testConstruct()
+    public function testConstruct()
     {
-        $a = array(
-            'xxx'=>'yyy'
-        );
-        $mvc = new PMVC\ActionController($a); 
+        $a = [
+            'xxx' => 'yyy',
+        ];
+        $mvc = new PMVC\ActionController($a);
         $this->assertEquals('yyy', PMVC\getOption('xxx'));
     }
 
-    function testProcess()
+    public function testProcess()
     {
         $b = new PMVC\MappingBuilder();
         $b->addAction(
-            'index', array(
-            _CLASS=>'FakeClass'
-            )
+            'index', [
+            _CLASS => 'FakeClass',
+            ]
         );
-        $mvc = $this->getMock('\PMVC\ActionController', array('execute'), array(array()));
+        $mvc = $this->getMock('\PMVC\ActionController', ['execute'], [[]]);
         $mvc->expects($this->exactly(2))
             ->method('execute')
             ->will(
                 $this->onConsecutiveCalls(
-                    (object)array(
-                    'action'=>'index'
-                    ),
-                    (object)array()
+                    (object) [
+                    'action' => 'index',
+                    ],
+                    (object) []
                 )
             );
         $mvc($b);
     }
 
-    function testProcessError()
+    public function testProcessError()
     {
         $b = new PMVC\MappingBuilder();
         $b->addAction(
             'index',
-            array(
-                _CLASS=>'FakeClass',
-                _FORM=>'FakeFailForm'
-            )
+            [
+                _CLASS => 'FakeClass',
+                _FORM  => 'FakeFailForm',
+            ]
         );
         $b->addForward(
-            'error', 
-            array(
-                _PATH=>'hello',
-                _TYPE=>'view'
-            )
+            'error',
+            [
+                _PATH => 'hello',
+                _TYPE => 'view',
+            ]
         );
-        $options = array(
-            \PMVC\ERRORS=>array(
-                \PMVC\USER_ERRORS=> 'erros',
-                \PMVC\USER_LAST_ERROR=> 'last'
-            ),
-            _RUN_ACTION=>'index'
-        );
-        $mvc = new PMVC\ActionController($options); 
+        $options = [
+            \PMVC\ERRORS => [
+                \PMVC\USER_ERRORS     => 'erros',
+                \PMVC\USER_LAST_ERROR => 'last',
+            ],
+            _RUN_ACTION => 'index',
+        ];
+        $mvc = new PMVC\ActionController($options);
         $view = \PMVC\plug(
-            'view', array(
-            _CLASS=> '\PMVC\FakeView'
-            )
+            'view', [
+            _CLASS => '\PMVC\FakeView',
+            ]
         );
         $error = $mvc($b);
         $this->assertEquals(
@@ -78,9 +78,10 @@ class ActionControllerTest extends PHPUnit_Framework_TestCase
 
 class FakeClass extends PMVC\Action
 {
-    function index($m, $f) 
+    public function index($m, $f)
     {
         $go = $m->get('home');
+
         return $go;
     }
 }
@@ -92,4 +93,3 @@ class FakeFailForm extends PMVC\ActionForm
         return false;
     }
 }
-

@@ -1,24 +1,26 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * File <--------------
+ * File <--------------.
  */
 
 /**
- * RealPath
+ * RealPath.
  *
  * @param string $p parameters
  *
@@ -29,22 +31,23 @@ function realPath($p)
     if (!$p) {
         return false;
     }
-    return run('\realpath', array($p));
+
+    return run('\realpath', [$p]);
 }
 
 /**
  * Same with include, but self manage include_once
- * and make global variable to local variable
+ * and make global variable to local variable.
  *
- * @param string  $name     file name
- * @param array   $compacts decide extrac files variable
- * @param boolean $once     if incldue once
+ * @param string $name     file name
+ * @param array  $compacts decide extrac files variable
+ * @param bool   $once     if incldue once
  *
  * @return mixed
  */
-function l($name, $compacts=null, $once=true)
+function l($name, $compacts = null, $once = true)
 {
-    static $files = array();
+    static $files = [];
     $real = realpath($name);
     if (!$once || !isset($files[$real])) {
         include $name;
@@ -54,29 +57,30 @@ function l($name, $compacts=null, $once=true)
     $o->name = $real;
     if ($compacts) {
         if (!empty($files[$real])) {
-            $o->var =& $files[$real];
+            $o->var = &$files[$real];
         } else {
             $o->var = compact($compacts);
-            $files[$real] =& $o->var;
+            $files[$real] = &$o->var;
         }
     }
+
     return $o;
 }
 
 /**
- * Include app folder
+ * Include app folder.
  *
  * @param string $name         file name
  * @param string $bTransparent Transparent app folder
  *
  * @return mixed
  */
-function includeApp($name, $bTransparent=null)
+function includeApp($name, $bTransparent = null)
 {
     if (!$bTransparent) {
         return realpath($name);
     }
-    $transparent = run(__NAMESPACE__.'\transparent', array($name));
+    $transparent = run(__NAMESPACE__.'\transparent', [$name]);
     $transparent = realpath($transparent);
     if ($transparent) {
         return $transparent;
@@ -86,64 +90,64 @@ function includeApp($name, $bTransparent=null)
 }
 
 /**
- * Smart Load
+ * Smart Load.
  *
- * @param string  $name         name
- * @param mixed   $dirs         dirs
- * @param mixed   $compacts     decide extrac files variable
- * @param boolean $once         if incldue once
- * @param boolean $isIncludeApp search for application folder
+ * @param string $name         name
+ * @param mixed  $dirs         dirs
+ * @param mixed  $compacts     decide extrac files variable
+ * @param bool   $once         if incldue once
+ * @param bool   $isIncludeApp search for application folder
  *
  * @return mixed
  */
 function load(
     $name,
-    $dirs=null,
-    $compacts=null,
-    $once=true,
-    $isIncludeApp=null
+    $dirs = null,
+    $compacts = null,
+    $once = true,
+    $isIncludeApp = null
 ) {
     if (empty($name)) {
         return 1;
     }
-    /**
+    /*
      * Cache find in load case, if some case can't use cahce please use find directly
      */
     $file = run(
         __NAMESPACE__.'\find',
-        array(
+        [
             $name,
             $dirs,
-            $isIncludeApp
-        )
+            $isIncludeApp,
+        ]
     );
     if ($file) {
         if ($once) {
-            $r=run(__NAMESPACE__.'\l', array($file,$compacts));
+            $r = run(__NAMESPACE__.'\l', [$file, $compacts]);
         } else {
-            $r=l($file, $compacts, $once);
+            $r = l($file, $compacts, $once);
         }
+
         return $r;
     } else {
         return 2;
     }
 }
 
-
 /**
- * Smart find
+ * Smart find.
  *
- * @param string  $name         name
- * @param mixed   $dirs         dirs
- * @param boolean $isIncludeApp search for application folder
+ * @param string $name         name
+ * @param mixed  $dirs         dirs
+ * @param bool   $isIncludeApp search for application folder
  *
  * @return mixed
  */
-function find($name, $dirs=null, $isIncludeApp=null)
+function find($name, $dirs = null, $isIncludeApp = null)
 {
     $dirs = splitDir($dirs);
     foreach ($dirs as $dirPath) {
-        if (!realPath($dirPath)) {
+        if (!realpath($dirPath)) {
             continue;
         }
         $r = includeApp(mergeName($name, $dirPath), $isIncludeApp);
@@ -151,15 +155,16 @@ function find($name, $dirs=null, $isIncludeApp=null)
             return $r;
         }
     }
+
     return false;
 }
 
 /**
- * String Util (Path or Folder parse) <!---
+ * String Util (Path or Folder parse) <!---.
  */
 
 /**
- * Auto append last slash for dir or file
+ * Auto append last slash for dir or file.
  *
  * @param string $s folder or file name
  *
@@ -170,7 +175,8 @@ function lastSlash($s)
     $s = str_replace('\\', '/', $s);
     $c = strlen($s);
     if ($c) {
-        $s.=($s[$c-1]!='/')?'/':'';
+        $s .= ($s[$c - 1] != '/') ? '/' : '';
+
         return $s;
     } else {
         return '';
@@ -178,38 +184,39 @@ function lastSlash($s)
 }
 
 /**
- * Change file name from uppder case to lower case
+ * Change file name from uppder case to lower case.
  *
  * @param string $name file name
  * @param string $type [class|function]
  *
  * @return string
  */
-function lowerCaseFile($name, $type='')
+function lowerCaseFile($name, $type = '')
 {
     $s = preg_split(
-        "/([A-Z])/",
+        '/([A-Z])/',
         $name,
         -1,
-        PREG_SPLIT_DELIM_CAPTURE|PREG_SPLIT_NO_EMPTY
+        PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
     );
     $k = '';
-    for ($i=1, $j=count($s);$i<$j;$i++) {
+    for ($i = 1, $j = count($s); $i < $j; $i++) {
         if (preg_match('/[A-Z]/', $s[$i])) {
-            $k.='_'.strtolower($s[$i]);
+            $k .= '_'.strtolower($s[$i]);
         } else {
-            $k.=$s[$i];
+            $k .= $s[$i];
         }
     }
     if (!empty($type)) {
-        $type.='.';
+        $type .= '.';
     }
     $k = $type.strtolower($s[0]).$k;
+
     return $k;
 }
 
 /**
- * Multi explode
+ * Multi explode.
  *
  * @param mixed  $delimiters string or array
  * @param string $s          string
@@ -225,11 +232,12 @@ function split($delimiters, $s)
         $delimiters = str_split($delimiters);
     }
     $s = str_replace($delimiters, $delimiters[0], $s);
+
     return explode($delimiters[0], $s);
 }
 
 /**
- * Split folder string to arrays
+ * Split folder string to arrays.
  *
  * @param string $s folder string
  *
@@ -241,34 +249,36 @@ function splitDir($s)
 }
 
 /**
- * Merge name
+ * Merge name.
  *
  * @param string $name name
  * @param string $dir  dir
  *
  * @return string
  */
-function mergeName($name, $dir=null)
+function mergeName($name, $dir = null)
 {
     if (!empty($dir)) {
         $name = lastSlash($dir).$name;
     }
+
     return $name;
 }
 
 /**
-* Hash function
-*
-* @return string hash result
-*/
+ * Hash function.
+ *
+ * @return string hash result
+ */
 function hash()
 {
     $params = func_get_args();
+
     return md5(var_export($params, true));
 }
 
 /**
- * Form Json
+ * Form Json.
  *
  * @param string $s origin string
  *
@@ -289,18 +299,18 @@ function &fromJson($s)
 }
 
 /**
- * Array Util <!---
+ * Array Util <!---.
  */
 
 /**
- * Check an array or string equal one value 
+ * Check an array or string equal one value.
  * 
  * @param mixed  $haystack search on array or string 
  * @param string $needle   search keyword
  *
  * @return array
  */
-function isContain($haystack,$needle)
+function isContain($haystack, $needle)
 {
     if ($haystack === $needle
         || isset($haystack[$needle])
@@ -312,7 +322,7 @@ function isContain($haystack,$needle)
 }
 
 /**
- * Array Merge (The numeric key will be overwrite not append)
+ * Array Merge (The numeric key will be overwrite not append).
  *
  * @return array
  */
@@ -323,57 +333,60 @@ function Array_merge()
     if (!isArray($new)) {
         return !trigger_error('param1 need be an array');
     }
-    for ($i=1, $j=count($a);$i<$j;$i++) {
+    for ($i = 1, $j = count($a); $i < $j; $i++) {
         if (is_null($a[$i])) {
             continue;
         }
         if (!isArray($a[$i])) {
             $new[] = $a[$i];
         } else {
-            foreach ($a[$i] as $k=>$v) {
-                $new[$k]=$v;
+            foreach ($a[$i] as $k => $v) {
+                $new[$k] = $v;
             }
         }
     }
+
     return $new;
 }
 
 /**
-* Merge array with a default set
-* If key not in default set will be ignore
-*
-* @param array $defaults default
-* @param array $settings setting
-*
-* @return array
-*/
+ * Merge array with a default set
+ * If key not in default set will be ignore.
+ *
+ * @param array $defaults default
+ * @param array $settings setting
+ *
+ * @return array
+ */
 function mergeDefault($defaults, $settings)
 {
-    foreach ($defaults as $k=>$v) {
+    foreach ($defaults as $k => $v) {
         if (isset($settings[$k])) {
-            $defaults[$k]=$settings[$k];
+            $defaults[$k] = $settings[$k];
         }
     }
+
     return $defaults;
 }
 
 /**
-* Keep string and array both in array type
-*
-* @param mixed $p parameters
-*
-* @return string hash result
-*/
+ * Keep string and array both in array type.
+ *
+ * @param mixed $p parameters
+ *
+ * @return string hash result
+ */
 function toArray($p)
 {
     if (!is_array($p)) {
-        $p=array($p);
+        $p = [$p];
     }
+
     return $p;
 }
 
 /**
- * Check is a ArrayAccess Object
+ * Check is a ArrayAccess Object.
  *
  * @param mixed $obj any object
  *
@@ -385,7 +398,7 @@ function isArrayAccess($obj)
 }
 
 /**
- * Check is ArrayAccess or array
+ * Check is ArrayAccess or array.
  *
  * @param mixed $obj any object
  *
@@ -396,38 +409,39 @@ function isArray($obj)
     return isArrayAccess($obj) || is_array($obj);
 }
 
-
 /**
- * Data access <!---
+ * Data access <!---.
  */
 
 /**
-* Magic Clean function
-*
-* @param array $a array
-* @param mixed $k key
-*
-* @return void
-*/
-function clean(&$a, $k=null)
+ * Magic Clean function.
+ *
+ * @param array $a array
+ * @param mixed $k key
+ *
+ * @return void
+ */
+function clean(&$a, $k = null)
 {
     if (is_null($k)) { //clean all
         if (isArrayAccess($a)) {
             return $a->offsetUnset(null);
         } else {
-            $a=null;
+            $a = null;
             unset($a);
+
             return;
         }
     } else {
         if (isArray($k)) { //replace
             if (isArrayAccess($a)) {
-                foreach ($k as $k1=>$v1) {
+                foreach ($k as $k1 => $v1) {
                     $a->offsetSet($k1, $v1);
                 }
+
                 return true;
             } else {
-                return $a=$k;
+                return $a = $k;
             }
         } else {
             unset($a[$k]); //clean by key
@@ -437,32 +451,34 @@ function clean(&$a, $k=null)
 }
 
 /**
-* Magic Get function
-*
-* @param array $a       array
-* @param mixed $k       key
-* @param mixed $default default
-*
-* @return mixed
-*/
-function &get(&$a, $k=null, $default=null)
+ * Magic Get function.
+ *
+ * @param array $a       array
+ * @param mixed $k       key
+ * @param mixed $default default
+ *
+ * @return mixed
+ */
+function &get(&$a, $k = null, $default = null)
 {
     if (is_null($k)) { //return all
         if (isArrayAccess($a)) {
             return $a->offsetGet();
         }
+
         return $a;
     } else {
         if (is_array($k)) { //return by keys
             if (isArrayAccess($a)) {
                 return $a->offsetGet($k);
             } else {
-                $r=array();
+                $r = [];
                 foreach ($k as $i) {
                     if (isset($a[$i])) {
-                        $r[$i]=&$a[$i];
+                        $r[$i] = &$a[$i];
                     }
                 }
+
                 return $r;
             }
         }
@@ -472,6 +488,7 @@ function &get(&$a, $k=null, $default=null)
         }
         if (isArrayAccess($a)) {
             $v = $a->offsetGet($k);
+
             return $v;
         } else {
             return $a[$k]; //return exactly value
@@ -480,15 +497,15 @@ function &get(&$a, $k=null, $default=null)
 }
 
 /**
-* Magic Set function
-*
-* @param array $a array
-* @param mixed $k key
-* @param mixed $v value
-*
-* @return mixed
-*/
-function set(&$a, $k, $v=null)
+ * Magic Set function.
+ *
+ * @param array $a array
+ * @param mixed $k key
+ * @param mixed $v value
+ *
+ * @return mixed
+ */
+function set(&$a, $k, $v = null)
 {
     if (isArray($k)) { //merge by new array
         return $a = array_merge($a, $k);
@@ -506,51 +523,52 @@ function set(&$a, $k, $v=null)
 }
 
 /**
- * Option <!-----------
+ * Option <!-----------.
  */
 
 /**
-* Get Option
-*
-* @param mixed $k       which want to get
-* @param mixed $default value or default
-*
-* @return string hash result
-*/
-function &getOption($k=null, $default=null)
+ * Get Option.
+ *
+ * @param mixed $k       which want to get
+ * @param mixed $default value or default
+ *
+ * @return string hash result
+ */
+function &getOption($k = null, $default = null)
 {
     return option('get', $k, $default);
 }
 
 /**
-* Global option for get/set
-*
-* @param string $act [set|get]
-* @param mixed  $k   key
-* @param mixed  $v   value or default
-*
-* @return mixed
-*/
-function &option($act, $k=null, $v=null)
+ * Global option for get/set.
+ *
+ * @param string $act [set|get]
+ * @param mixed  $k   key
+ * @param mixed  $v   value or default
+ *
+ * @return mixed
+ */
+function &option($act, $k = null, $v = null)
 {
-    static $options = array();
+    static $options = [];
     switch ($act) {
     case 'get':
-        $return =& get($options, $k, $v);
+        $return = &get($options, $k, $v);
         break;
     case 'set':
         $return = set($options, $k, $v);
         break;
     }
+
     return $return;
 }
 
 /**
- * Misc <!----------
+ * Misc <!----------.
  */
 
 /**
- * Dump for debug
+ * Dump for debug.
  *
  * @return vod
  */
@@ -561,7 +579,7 @@ function d()
 }
 
 /**
- * Log for debug
+ * Log for debug.
  *
  * @return vod
  */
@@ -572,31 +590,32 @@ function log()
 }
 
 /**
-* Cache function run result
-*
-* @param mixed $func run function
-* @param mixed $args parameters
-*
-* @return boolean
-*/
+ * Cache function run result.
+ *
+ * @param mixed $func run function
+ * @param mixed $args parameters
+ *
+ * @return bool
+ */
 function run($func, $args)
 {
-    static $cache = array();
+    static $cache = [];
     $hash = hash($func, $args);
     if (!isset($cache[$hash])) {
         $cache[$hash] = call_user_func_array($func, $args);
     }
+
     return $cache[$hash];
 }
 
 /**
-* Check exists
-*
-* @param mixed $v    value
-* @param mixed $type [array|string]
-*
-* @return boolean
-*/
+ * Check exists.
+ *
+ * @param mixed $v    value
+ * @param mixed $type [array|string]
+ *
+ * @return bool
+ */
 function exists($v, $type)
 {
     switch (strtolower($type)) {
@@ -608,41 +627,44 @@ function exists($v, $type)
         return realpath($v);
     case 'plugin':
         $objs = getOption(PLUGIN_INSTANCE);
+
         return !empty($objs[$v]);
     default:
-        return null;
+        return;
     }
 }
 
 /**
-* Count number
-*
-* @param mixed $v    value
-* @param mixed $type [array|string]
-*
-* @return mixed
-*/
-function n($v, $type=null)
+ * Count number.
+ *
+ * @param mixed $v    value
+ * @param mixed $type [array|string]
+ *
+ * @return mixed
+ */
+function n($v, $type = null)
 {
     if (is_array($v)) {
-        if (!is_null($type) && 'array'!=$type) {
+        if (!is_null($type) && 'array' != $type) {
             return false;
         }
+
         return count($v);
     } else {
         if (!is_string($v)) {
             return false;
         }
+
         return strlen($v);
     }
 }
 
 /**
- * Plugins <!--
+ * Plugins <!--.
  */
 
 /**
- * Get Adapter
+ * Get Adapter.
  *
  * @param string $name Adapter name
  *
@@ -650,37 +672,38 @@ function n($v, $type=null)
  */
 function getAdapter($name)
 {
-    static $adapters = array();
+    static $adapters = [];
     if (!isset($adapters[$name])) {
         $adapters[$name] = new Adapter($name);
     }
+
     return $adapters[$name];
 }
 
-
 /**
- * Set PlugIn Folder
+ * Set PlugIn Folder.
  *
  * @param array $folders plug-in folders
  * @param array $alias   plug-in alias
  *
  * @return mixed
  */
-function setPlugInFolder($folders, $alias=array())
+function setPlugInFolder($folders, $alias = [])
 {
     option('set', PLUGIN_ALIAS, $alias);
+
     return option('set', PLUGIN_FOLDERS, toArray($folders));
 }
 
 /**
- * Add PlugIn Folder
+ * Add PlugIn Folder.
  *
  * @param array $folders plug-in folders
  * @param array $alias   plug-in alias
  *
  * @return mixed
  */
-function addPlugInFolder($folders, $alias=array())
+function addPlugInFolder($folders, $alias = [])
 {
     $folders = \array_merge(
         toArray(getOption(PLUGIN_FOLDERS)),
@@ -694,7 +717,7 @@ function addPlugInFolder($folders, $alias=array())
 }
 
 /**
- * Call Plug-In
+ * Call Plug-In.
  *
  * @param sring $plugIn plug-in name
  * @param sring $func   plug-in function
@@ -702,21 +725,21 @@ function addPlugInFolder($folders, $alias=array())
  *
  * @return mixed
  */
-function Call_plugIn($plugIn, $func, $args=array())
+function Call_plugIn($plugIn, $func, $args = [])
 {
     if (exists($plugIn, 'plugin')) {
         return call_user_func_array(
-            array(
+            [
                 plug($plugIn),
-                $func
-            ),
+                $func,
+            ],
             $args
         );
     }
 }
 
 /**
- * Unplug
+ * Unplug.
  *
  * @param sring $name plug-in name
  *
@@ -731,11 +754,12 @@ function unPlug($name)
     $plug = $objs[$name];
     $objs[$name] = null;
     unset($objs[$name]);
+
     return $plug;
 }
 
 /**
- * Re plug
+ * Re plug.
  *
  * @param sring $name   plug-in name
  * @param mixed $object plug-in plugin instance
@@ -745,23 +769,25 @@ function unPlug($name)
 function rePlug($name, $object)
 {
     $objs = getOption(PLUGIN_INSTANCE);
-    $objs[$name]=$object;
+    $objs[$name] = $object;
+
     return $objs[$name];
 }
 
 /**
- * Get PlugIn Names
+ * Get PlugIn Names.
  *
  * @return mixed
  */
 function getPlugs()
 {
     $objs = getOption(PLUGIN_INSTANCE);
+
     return $objs->keyset();
 }
 
 /**
- * Init PlugIn
+ * Init PlugIn.
  *
  * @param array $arr plug-in array
  *
@@ -771,7 +797,7 @@ function initPlugIn($arr)
 {
     if (is_array($arr)) {
         $objs = getOption(PLUGIN_INSTANCE);
-        foreach ($arr as $plugIn=>$config) {
+        foreach ($arr as $plugIn => $config) {
             if (!isset($objs[$plugIn])) {
                 plug($plugIn, $config);
             }
@@ -780,21 +806,22 @@ function initPlugIn($arr)
 }
 
 /**
- * Plug
+ * Plug.
  *
  * @param string $name   plugin name
  * @param array  $config plugin configs
  *
  * @return mixed
  */
-function plug($name, $config=null)
+function plug($name, $config = null)
 {
     $objs = getOption(PLUGIN_INSTANCE);
     if (isset($objs[$name])) {
-        $oPlugin=$objs[$name];
+        $oPlugin = $objs[$name];
         if (!is_null($config)) {
             set($oPlugin, $config);
         }
+
         return $oPlugin->update();
     }
     if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
@@ -804,36 +831,37 @@ function plug($name, $config=null)
         if (!isset($config[_PLUGIN_FILE])) {
             $alias = getOption(PLUGIN_ALIAS);
             if (isset($alias[$name])) {
-                $file=$alias[$name];
+                $file = $alias[$name];
             }
         } else {
-            $file=$config[_PLUGIN_FILE];
+            $file = $config[_PLUGIN_FILE];
         }
         if (!is_null($file) && realpath($file)) {
-            $r=run(__NAMESPACE__.'\l', array($file,_INIT_CONFIG));
+            $r = run(__NAMESPACE__.'\l', [$file, _INIT_CONFIG]);
         } else {
-            $file = $name.'.php' ;
-            $default_folders = getOption(PLUGIN_FOLDERS, array());
-            $folders = array();
+            $file = $name.'.php';
+            $default_folders = getOption(PLUGIN_FOLDERS, []);
+            $folders = [];
             foreach ($default_folders as $folder) {
                 $folders[] = lastSlash($folder).$name;
             }
-            $r=load($file, $folders, _INIT_CONFIG, true, false);
+            $r = load($file, $folders, _INIT_CONFIG, true, false);
         }
         $class = (!empty($r->var[_INIT_CONFIG][_CLASS]))
             ? $r->var[_INIT_CONFIG][_CLASS]
-            :false;
+            : false;
     }
     if (class_exists($class)) {
         $oPlugin = new $class();
     } else {
         if (!$class) {
-            $error = 'plugin '. $name. ' not found'; 
+            $error = 'plugin '.$name.' not found';
         } else {
             $error = 'plugIn '.$name.': class not found ('.$class.')';
         }
         trigger_error($error);
-        $name=false;
+        $name = false;
+
         return $name;
     }
     $oPlugin[_PLUGIN] = $name;
@@ -846,14 +874,15 @@ function plug($name, $config=null)
         set($oPlugin, $config);
     }
     if (is_null($objs)) {
-        option( 
+        option(
             'set',
             PLUGIN_INSTANCE,
-            new HashMap(array($name=>$oPlugin))
+            new HashMap([$name => $oPlugin])
         );
     } else {
-        $objs[$name]=$oPlugin;
+        $objs[$name] = $oPlugin;
     }
     $oPlugin->init();
+
     return $oPlugin->update();
 }

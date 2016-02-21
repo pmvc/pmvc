@@ -1,36 +1,39 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * PMVC PlugIn
+ * PMVC PlugIn.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class PlugIn extends HashMap implements \SplObserver
 {
-    /**
+    /*
      * Alias
      */
      use Alias;
 
     /**
-     * Get dir
+     * Get dir.
      *
      * @return mixed
      */
@@ -40,7 +43,7 @@ class PlugIn extends HashMap implements \SplObserver
     }
 
     /**
-     * Init
+     * Init.
      *
      * @return mixed
      */
@@ -49,25 +52,27 @@ class PlugIn extends HashMap implements \SplObserver
     }
 
     /**
-     * Observer update function
+     * Observer update function.
      *
      * @param \SplSubject $subject observable
      *
      * @return mixed
      */
-    public function update(\SplSubject $subject=null)
+    public function update(\SplSubject $subject = null)
     {
         if ($subject) {
             $state = $subject->getName();
             if (method_exists($this, 'on'.$state)) {
-                $r=call_user_func(
-                    array($this, 'on'.$state),
+                $r = call_user_func(
+                    [$this, 'on'.$state],
                     $subject,
                     $state
                 );
+
                 return $r;
             }
         }
+
         return $this['this'];
     }
 }

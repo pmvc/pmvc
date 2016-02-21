@@ -1,75 +1,80 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * PMVC ActionMapping
+ * PMVC ActionMapping.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ActionMapping extends HashMap
 {
     /**
-     * Func
+     * Func.
      *
      * @var string
      */
     public $func;
-        
+
     /**
-     * Form
+     * Form.
      *
      * @var string
      */
     public $form;
 
     /**
-     * Validate
+     * Validate.
      *
      * @see ActionController::_processForm
+     *
      * @var bool
      */
     public $validate = true;
-        
+
     /**
-     * Set request scope , post or get
+     * Set request scope , post or get.
      *
      * @see ActionController::initActionFormValue
+     *
      * @var string
      */
     public $scope;
-        
+
     /**
-     * This action mapping name
+     * This action mapping name.
      *
      * @var string
      */
     public $name;
-        
+
     /**
-     * ActionMapping
+     * ActionMapping.
      *
      * @param array  $mapping mapping
      * @param string $name    name
      */
     public function __construct(&$mapping, $name)
     {
-        $this->name= $name;
+        $this->name = $name;
         if (isset($mapping[_FUNCTION])) {
             $this->func = $mapping[_FUNCTION];
         }
@@ -87,7 +92,7 @@ class ActionMapping extends HashMap
     }
 
     /**
-     * Check ActionForwards exists
+     * Check ActionForwards exists.
      *
      * @param array $name name
      *
@@ -99,7 +104,7 @@ class ActionMapping extends HashMap
     }
 
     /**
-     * Get ActionForwards from ActionMapping
+     * Get ActionForwards from ActionMapping.
      *
      * @param array $name name
      *

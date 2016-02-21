@@ -1,73 +1,76 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * PMVC ActionForward
+ * PMVC ActionForward.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ActionForward extends HashMap
 {
     /**
-     * Path
+     * Path.
      *
      * @var string
      */
     private $_path;
 
     /**
-     * Type
+     * Type.
      *
      * @var string
      */
     private $_type;
 
     /**
-     * Header
+     * Header.
      *
      * @var array
      */
-    private $_header=array();
+    private $_header = [];
 
     /**
-     * Forward result 
+     * Forward result.
      *
      * @var string
      */
     public $result;
 
     /**
-     * Lazyoutput action
+     * Lazyoutput action.
      *
      * @var string
      */
     public $action;
 
     /**
-     * Default view engine
+     * Default view engine.
      *
      * @var object
      */
     public $view;
 
     /**
-     * ActionForward
+     * ActionForward.
      *
      * @param array $forward forward
      */
@@ -80,7 +83,7 @@ class ActionForward extends HashMap
     }
 
     /**
-     * Set header
+     * Set header.
      *
      * @param array $v value
      *
@@ -92,7 +95,7 @@ class ActionForward extends HashMap
     }
 
     /**
-     * Get header
+     * Get header.
      *
      * @return array header
      */
@@ -102,7 +105,7 @@ class ActionForward extends HashMap
     }
 
     /**
-     * Set header
+     * Set header.
      *
      * @param array $v value
      *
@@ -113,32 +116,33 @@ class ActionForward extends HashMap
         if (empty($v)) {
             return;
         }
+
         return set($this->_header, toArray($v));
     }
 
     /**
-    * Set type
-    *
-    * @param string $type type
-    *
-    * @return void
-    */
-    public function setType($type=null)
+     * Set type.
+     *
+     * @param string $type type
+     *
+     * @return void
+     */
+    public function setType($type = null)
     {
         if (is_null($type)) {
-            $type='redirect';
-        } elseif ('view'==$type) {
-            $this->view=plug('view');
+            $type = 'redirect';
+        } elseif ('view' == $type) {
+            $this->view = plug('view');
             $this->view['forward'] = $this;
         }
         $this->_type = $type;
     }
 
     /**
-    * Get type
-    *
-    * @return string
-    */
+     * Get type.
+     *
+     * @return string
+     */
     public function getType()
     {
         return $this->_type;
@@ -151,21 +155,22 @@ class ActionForward extends HashMap
      *
      * @return string
      */
-    public function getPath($bMerge=false)
+    public function getPath($bMerge = false)
     {
         $path = $this->_path;
         if ($bMerge) {
             $queryArray = $this->get();
             $path = $this->buildCommand(
-                $path, 
+                $path,
                 $queryArray
             );
         }
+
         return $path;
     }
 
     /**
-     * Build URL from parse_url
+     * Build URL from parse_url.
      *
      * @param string $url    default url 
      * @param array  $params url overwrite params 
@@ -177,10 +182,10 @@ class ActionForward extends HashMap
         return call_plugin(
             getOption(_ROUTING),
             __FUNCTION__,
-            array(
+            [
                 $url,
-                $params
-            )
+                $params,
+            ]
         );
     }
 
@@ -197,22 +202,23 @@ class ActionForward extends HashMap
     }
 
     /**
-     * Set ActionFored key and value
+     * Set ActionFored key and value.
      *
      * @param string $k key
      * @param string $v value
      *
      * @return bool
      */
-    public function set($k, $v=null)
+    public function set($k, $v = null)
     {
-        if ('view'===$this->getType()) {
+        if ('view' === $this->getType()) {
             $args = func_get_args();
+
             return call_user_func_array(
-                array(
+                [
                     $this->view,
-                    'set'
-                ),
+                    'set',
+                ],
                 $args
             );
         } else {
@@ -221,18 +227,19 @@ class ActionForward extends HashMap
     }
 
     /**
-     * Get
+     * Get.
      *
      * @param mixed $k       key
      * @param mixed $default default
      *
      * @return mixed
      */
-    public function get($k=null, $default=null)
+    public function get($k = null, $default = null)
     {
-        if ('view'==$this->getType()) {
+        if ('view' == $this->getType()) {
             $args = func_get_args();
-            $return = call_user_func_array(array($this->view,'get'), $args);
+            $return = call_user_func_array([$this->view, 'get'], $args);
+
             return $return;
         } else {
             return get($this, $k, $default);
@@ -240,24 +247,25 @@ class ActionForward extends HashMap
     }
 
     /**
-     * Process Header 
+     * Process Header.
      *
      * @return $this
      */
     private function _processHeader()
     {
         $headers = $this->getHeader();
+
         return call_plugin(
             getOption(_ROUTING),
             'processHeader',
-            array(
-                $this->getHeader()
-            )
+            [
+                $this->getHeader(),
+            ]
         );
     }
 
     /**
-     * Process View
+     * Process View.
      *
      * @return $this
      */
@@ -266,10 +274,9 @@ class ActionForward extends HashMap
         call_plugin(
             'dispatcher',
             'notify',
-            array(
-                Event\B4_PROCESS_VIEW
-                ,true
-            )
+            [
+                Event\B4_PROCESS_VIEW, true,
+            ]
         );
         $this->view->setThemeFolder(
             getOption(_TEMPLATE_DIR)
@@ -279,7 +286,7 @@ class ActionForward extends HashMap
     }
 
     /**
-     * Execute ActionForward
+     * Execute ActionForward.
      *
      * @return mixed
      */
@@ -296,15 +303,16 @@ class ActionForward extends HashMap
             call_plugin(
                 getOption(_ROUTING),
                 'go',
-                array(
-                    $path 
-                )
+                [
+                    $path,
+                ]
             );
             break;
         case 'action':
         default:
             break;
         }
+
         return $this;
     }
 }
