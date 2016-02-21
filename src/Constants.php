@@ -39,7 +39,7 @@ define('_ACTION', '_action_');
 define('_HEADER', '_header_');
 
 /* options constant(s) */
-define('_ROUTING', '_routing_');
+define('_ROUTER', '_router_');
 define('_VIEW_ENGINE', '_view_engine_');
 define('_TEMPLATE_DIR', '_template_dir_');
 // Error

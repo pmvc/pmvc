@@ -9,4 +9,5 @@ include_once 'src/ActionMapping.php';
 include_once 'src/ActionMappings.php';
 include_once 'src/MappingBuilder.php';
 include_once 'src/Request.php';
+include_once 'src/RouterInterface.php';
 include_once 'src/ActionController.php';

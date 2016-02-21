@@ -8,7 +8,7 @@ use PMVC\ActionController as mvc;
 PMVC\plug('cache-header')->nocache();
 
 $options = [
-    _ROUTING => 'routing', _VIEW_ENGINE => 'json', _ERROR_ENABLE_LOG => true, _ERROR_REPORTING => E_ALL, _PLUGIN => [
+    _ROUTER => 'app_action_router', _VIEW_ENGINE => 'json', _ERROR_ENABLE_LOG => true, _ERROR_REPORTING => E_ALL, _PLUGIN => [
         'routing' => null,
     ],
 ];
