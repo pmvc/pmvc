@@ -6,6 +6,8 @@
  *
  * @category CategoryName
  *
+ * @package PMVC
+ *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT
  *
@@ -105,6 +107,8 @@ trait Alias
  * 
  * @category Alias
  *
+ * @package PMVC
+ *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT
  *
@@ -127,6 +131,8 @@ interface AliasInterface
  * Alias config.
  * 
  * @category Alias
+ *
+ * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT
@@ -158,6 +164,8 @@ class AliasClassConfig implements AliasInterface
  * Alias default class.
  * 
  * @category Alias
+ *
+ * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT
@@ -192,6 +200,8 @@ class AliasDefaultClass implements AliasInterface
  * Alias ./src/_xxx.php.
  * 
  * @category Alias
+ *
+ * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT

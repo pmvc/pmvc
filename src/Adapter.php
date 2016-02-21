@@ -6,6 +6,8 @@
  *
  * @category CategoryName
  *
+ * @package PMVC
+ *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT
  *
@@ -21,6 +23,8 @@ namespace PMVC;
  * if you need use it, need replace with $plug['xxx'].
  *
  * @category CategoryName
+ *
+ * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT

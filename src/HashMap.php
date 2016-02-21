@@ -6,6 +6,8 @@
  *
  * @category CategoryName
  *
+ * @package PMVC
+ *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT
  *
@@ -21,6 +23,8 @@ namespace PMVC;
  * http://php.net/manual/en/language.oop5.overloading.php.
  *
  * @category CategoryName
+ *
+ * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT

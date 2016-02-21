@@ -6,6 +6,8 @@
  *
  * @category CategoryName
  *
+ * @package PMVC
+ *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT
  *
@@ -19,6 +21,8 @@ namespace PMVC;
  * PMVC ActionMappings.
  *
  * @category CategoryName
+ *
+ * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT

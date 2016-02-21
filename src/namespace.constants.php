@@ -6,6 +6,8 @@
  *
  * @category CategoryName
  *
+ * @package PMVC
+ *
  * @author  Hill <hill@kimo.com>
  * @license http://opensource.org/licenses/MIT MIT
  *
