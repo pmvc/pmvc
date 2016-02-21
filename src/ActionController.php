@@ -117,8 +117,8 @@ class ActionController
             );
         } else {
             $app = $this->getApp();
-            if (!empty($alias[$app])) {
-                $app = $alias[$app];
+            if (!empty($appAlias[$app])) {
+                $app = $appAlias[$app];
             }
             $parent = lastSlash($parent);
             $path = $parent.$app.'/index.php';
