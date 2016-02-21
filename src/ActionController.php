@@ -323,6 +323,7 @@ class ActionController
     private function _initActionFormValue($actionForm, $actionMapping)
     {
         $scope = &$actionMapping->scope;
+        $this->setOption(_SCOPE, $actionMapping);
         if (!is_array($scope)) {
             $scope = $this->_request->keySet();
         }
