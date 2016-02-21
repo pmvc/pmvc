@@ -1,20 +1,22 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * Get PMVC control
+ * Get PMVC control.
  *
  * @return ActionController
  */
@@ -24,29 +26,29 @@ function getC()
 }
 
 /**
- * Wrapper get real url
+ * Wrapper get real url.
  *
  * @param string $job job
  * @param string $url url
  *
  * @return mixed
  */
-function u($job, $url=null)
+function u($job, $url = null)
 {
     return call_plugin(
-        'url', 'actionToUrl', array($job,$url)
+        'url', 'actionToUrl', [$job, $url]
     );
 }
 
 /**
- * Transparent
+ * Transparent.
  *
  * @param string $name filename
  * @param string $app  app name
  *
  * @return string
  */
-function transparent($name, $app=null)
+function transparent($name, $app = null)
 {
     if (is_null($app)) {
         $app = getC()->getApp();

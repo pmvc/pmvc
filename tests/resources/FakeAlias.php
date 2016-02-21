@@ -1,12 +1,15 @@
 <?php
+
 namespace PMVC;
+
 class FakeAlias extends PlugIn
 {
-    function init ()
+    public function init()
     {
-        $this->setDefaultAlias(new FakeObject);
+        $this->setDefaultAlias(new FakeObject());
     }
-    function getDir()
+
+    public function getDir()
     {
         return __DIR__.'/';
     }
@@ -14,12 +17,12 @@ class FakeAlias extends PlugIn
 
 class FakeObject
 {
-    function a()
+    public function a()
     {
         option('set', 'a', 1);
     }
 
-    function b()
+    public function b()
     {
         echo 'b';
     }
@@ -27,7 +30,7 @@ class FakeObject
 
 class FakeInvoke
 {
-    function __invoke()
+    public function __invoke()
     {
         option('set', 'c', 1);
     }

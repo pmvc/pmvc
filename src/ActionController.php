@@ -1,37 +1,40 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * PMVC Action
+ * PMVC Action.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ActionController
 {
     /**
-     * Mapping
+     * Mapping.
      *
      * @var ActionMappings
      */
     private $_mappings;
     /**
-     * Request
+     * Request.
      *
      * @var HttpRequestServlet
      */
@@ -42,7 +45,7 @@ class ActionController
      *
      * @param array $options options
      */
-    public function __construct($options=null)
+    public function __construct($options = null)
     {
         $this->store(CONTROLLER, $this);
         if ($options) {
@@ -53,14 +56,14 @@ class ActionController
     }
 
     /**
-     * Set option (Will trigger Event)
+     * Set option (Will trigger Event).
      *
      * @param mixed $k key
      * @param mixed $v value
      *
      * @return void
      */
-    public function setOption($k, $v=null)
+    public function setOption($k, $v = null)
     {
         $this->store($k, $v);
         if (isContain($k, _PLUGIN)) {
@@ -69,43 +72,42 @@ class ActionController
         call_plugin(
             'dispatcher',
             'set',
-            array(
+            [
                 'setOption',
-                $k
-            )
+                $k,
+            ]
         );
     }
 
     /**
-     * Store Option (Will not trigger Event)
+     * Store Option (Will not trigger Event).
      *
      * @param mixed $k key
      * @param mixed $v value
      *
      * @return void
      */
-    public function store($k, $v=null)
+    public function store($k, $v = null)
     {
         option('set', $k, $v);
     }
 
     /**
-     * Plug App
+     * Plug App.
      *
      * @param string $parent   defaultAppFolder
      * @param array  $appAlias appAlias
      *
      * @return mixed
      */
-    public function plugApp($parent=null, $appAlias=null)
+    public function plugApp($parent = null, $appAlias = null)
     {
         call_plugin(
             'dispatcher',
             'notify',
-            array(
-                Event\MAP_REQUEST
-                ,true
-            )
+            [
+                Event\MAP_REQUEST, true,
+            ]
         );
         if (is_null($parent)) {
             $parent = $this->getAppParent();
@@ -138,24 +140,25 @@ class ActionController
             );
             $appPlugin = plug(
                 _RUN_APP,
-                array(
-                    _PLUGIN_FILE=>$path
-                )
+                [
+                    _PLUGIN_FILE => $path,
+                ]
             );
             $builder = $appPlugin[_INIT_BUILDER];
             if (empty($builder)) {
                 return !trigger_error('No builder found', E_USER_WARNING);
             }
-            $action = $this->getAppAction();  
+            $action = $this->getAppAction();
             if ($appPlugin->isCallAble($action)) {
                 $appPlugin->{$action}();
             }
+
             return $this->setMapping($builder());
         }
     }
 
     /**
-     * Set mapping
+     * Set mapping.
      *
      * @param mixed $mappings mappings
      *
@@ -167,7 +170,7 @@ class ActionController
     }
 
     /**
-     * Add mapping
+     * Add mapping.
      *
      * @param mixed $mappings mappings
      *
@@ -185,7 +188,7 @@ class ActionController
      *
      * @return mixed
      */
-    public function __invoke(MappingBuilder $builder=null)
+    public function __invoke(MappingBuilder $builder = null)
     {
         if (!is_null($builder)) {
             $this->addMapping($builder());
@@ -193,34 +196,34 @@ class ActionController
         call_plugin(
             'dispatcher',
             'notify',
-            array(
-                Event\MAP_REQUEST
-                ,true
-            )
+            [
+                Event\MAP_REQUEST, true,
+            ]
         );
         if (call_plugin('dispatcher', 'stop')) {
             return;
         }
-        $forward = (object)array(
-            'action' => $this->getAppAction()
-        );
-        $results = array();
+        $forward = (object) [
+            'action' => $this->getAppAction(),
+        ];
+        $results = [];
         while (
-            isset($forward->action) && 
+            isset($forward->action) &&
             $forward = $this->execute($forward->action)
         ) {
             if (isset($forward->result)) {
                 $results[] = $forward->result;
             } else {
-                $results[] = $forward; 
+                $results[] = $forward;
             }
         }
         $this->_finish();
+
         return $results;
     }
 
     /**
-     * Execute mapping
+     * Execute mapping.
      *
      * @param string $index pass run action
      *
@@ -239,6 +242,7 @@ class ActionController
                 $actionForm
             );
         }
+
         return $this->processForward($actionForward);
     }
 
@@ -263,6 +267,7 @@ class ActionController
                 E_USER_WARNING
             );
         }
+
         return $m->findMapping($index);
     }
 
@@ -276,13 +281,13 @@ class ActionController
     private function _processForm($actionMapping)
     {
         $actionForm = null;
-        $form =& $this->_mappings->findForm(
+        $form = &$this->_mappings->findForm(
             $actionMapping->form
         );
         if (!class_exists($form[_CLASS])) {
             $run_form = getOption(_RUN_FORM);
             if (!empty($run_form)) {
-                return $run_form; 
+                return $run_form;
             }
             $form[_CLASS] = getOption(
                 _DEFAULT_FORM,
@@ -296,14 +301,15 @@ class ActionController
         //validate the form if necesarry
         if ($actionMapping->validate) {
             if (!$this->_processValidate($actionForm)) {
-                $actionForm=false;
+                $actionForm = false;
             }
         }
+
         return $actionForm;
     }
 
     /**
-     * Init Action Form Value
+     * Init Action Form Value.
      *
      * @param ActionForm    $actionForm    actionForm
      * @param ActionMapping $actionMapping actionMapping
@@ -312,7 +318,7 @@ class ActionController
      */
     private function _initActionFormValue($actionForm, $actionMapping)
     {
-        $scope =& $actionMapping->scope;
+        $scope = &$actionMapping->scope;
         if (!is_array($scope)) {
             $scope = $this->_request->keySet();
         }
@@ -330,15 +336,15 @@ class ActionController
      *
      * @param ActionForm $actionForm actionForm
      *
-     * @return boolean
+     * @return bool
      */
     private function _processValidate($actionForm)
     {
-        return (string)$actionForm->validate();
+        return (string) $actionForm->validate();
     }
 
     /**
-     * Action for this request
+     * Action for this request.
      *
      * @param ActionMapping $actionMapping actionMapping
      * @param ActionForm    $actionForm    actionForm
@@ -350,10 +356,10 @@ class ActionController
         call_plugin(
             'dispatcher',
             'notify',
-            array(
+            [
                 Event\B4_PROCESS_ACTION,
-                true
-            )
+                true,
+            ]
         );
         $func = $actionMapping->func;
         if (!is_callable($func)) {
@@ -363,14 +369,15 @@ class ActionController
                 E_USER_WARNING
             );
         }
+
         return call_user_func_array(
             $func,
-            array($actionMapping, $actionForm)
+            [$actionMapping, $actionForm]
         );
     }
 
     /**
-     * ActionForward
+     * ActionForward.
      *
      * @param ActionForward $actionForward actionForward
      *
@@ -381,12 +388,11 @@ class ActionController
         call_plugin(
             'dispatcher',
             'notify',
-            array(
-                Event\B4_PROCESS_FORWARD
-                ,true
-            )
+            [
+                Event\B4_PROCESS_FORWARD, true,
+            ]
         );
-        if (is_callable(array($actionForward,'go'))) {
+        if (is_callable([$actionForward, 'go'])) {
             return $actionForward->go();
         } else {
             return $actionForward;
@@ -403,15 +409,14 @@ class ActionController
         call_plugin(
             'dispatcher',
             'notify',
-            array(
-                Event\FINISH
-                ,true
-            )
+            [
+                Event\FINISH, true,
+            ]
         );
     }
 
     /**
-     * Init Error Action Forward 
+     * Init Error Action Forward.
      *
      * @return ActionForward
      */
@@ -420,27 +425,27 @@ class ActionController
         call_plugin(
             'dispatcher',
             'notify',
-            array(
-                Event\B4_PROCESS_ERROR
-                ,true
-            )
+            [
+                Event\B4_PROCESS_ERROR, true,
+            ]
         );
         if (!$this->_mappings->forwardExists('error')) {
             return false;
         }
-        $errorForward = $this->_mappings->findForward('error'); 
+        $errorForward = $this->_mappings->findForward('error');
         $AllErrors = getOption(ERRORS);
         $errorForward->set(
-            array(
-                'errors'=>$AllErrors[USER_ERRORS],
-                'lastError'=>$AllErrors[USER_LAST_ERROR]
-            )
+            [
+                'errors'    => $AllErrors[USER_ERRORS],
+                'lastError' => $AllErrors[USER_LAST_ERROR],
+            ]
         );
+
         return $errorForward;
     }
 
     /**
-     * Get Request
+     * Get Request.
      *
      * @return mixed
      */
@@ -450,7 +455,7 @@ class ActionController
     }
 
     /**
-     * Get Mapping
+     * Get Mapping.
      *
      * @return mixed
      */
@@ -460,7 +465,7 @@ class ActionController
     }
 
     /**
-     * GetApp
+     * GetApp.
      *
      * @return mixed
      */
@@ -470,7 +475,7 @@ class ActionController
     }
 
     /**
-     * SetApp
+     * SetApp.
      *
      * @param string $app app
      *
@@ -482,7 +487,7 @@ class ActionController
     }
 
     /**
-     * Get App Parent
+     * Get App Parent.
      *
      * @return string
      */
@@ -492,7 +497,7 @@ class ActionController
     }
 
     /**
-     * Get App Action
+     * Get App Action.
      *
      * @return mixed
      */
@@ -502,7 +507,7 @@ class ActionController
     }
 
     /**
-     * Set App Action
+     * Set App Action.
      *
      * @param string $action action
      *

@@ -1,14 +1,16 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
@@ -16,12 +18,13 @@ namespace PMVC;
 /**
  * PMVC PlugIn Adapter
  * It purpose let plugin's attribute can not access even it's public,
- * if you need use it, need replace with $plug['xxx']
+ * if you need use it, need replace with $plug['xxx'].
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class Adapter implements \ArrayAccess
@@ -29,7 +32,7 @@ class Adapter implements \ArrayAccess
     private $_name;
 
     /**
-     * Assign plugin name, call by cache run
+     * Assign plugin name, call by cache run.
      *
      * @param string $name plugin name
      *
@@ -41,29 +44,29 @@ class Adapter implements \ArrayAccess
     }
 
     /**
-     * Magic call for function alias
+     * Magic call for function alias.
      *
      * @param string $method method
      * @param array  $args   args
      *
      * @return mixed
      */
-    public function __call($method, $args=array())
+    public function __call($method, $args = [])
     {
         $objs = &getOption(PLUGIN_INSTANCE);
         if (!empty($objs[$this->_name])) {
             return call_user_func_array(
-                array(
+                [
                     $objs[$this->_name],
-                    $method
-                ),
+                    $method,
+                ],
                 $args
             );
         }
     }
 
     /**
-     * To string
+     * To string.
      *
      * @return string
      */
@@ -73,52 +76,53 @@ class Adapter implements \ArrayAccess
     }
 
     /**
-     * Get
+     * Get.
      *
      * @param mixed $k key
      *
      * @return mixed
      */
-    public function &offsetGet($k=null)
+    public function &offsetGet($k = null)
     {
-        $val = $this->__call(__FUNCTION__, array($k));
+        $val = $this->__call(__FUNCTION__, [$k]);
+
         return $val;
     }
 
     /**
-     * Set
+     * Set.
      *
      * @param mixed $k key
      * @param mixed $v value
      *
-     * @return boolean
+     * @return bool
      */
-    public function offsetSet($k, $v=null)
+    public function offsetSet($k, $v = null)
     {
-        return $this->__call(__FUNCTION__, array($k,$v));
+        return $this->__call(__FUNCTION__, [$k, $v]);
     }
 
     /**
-     * Clean
+     * Clean.
      *
      * @param mixed $k key
      *
-     * @return boolean
+     * @return bool
      */
-    public function offsetUnset($k=null)
+    public function offsetUnset($k = null)
     {
-        return $this->__call(__FUNCTION__, array($k));
+        return $this->__call(__FUNCTION__, [$k]);
     }
 
     /**
-     * ContainsKey
+     * ContainsKey.
      *
      * @param string $k key
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($k)
     {
-        return $this->__call(__FUNCTION__, array($k));
+        return $this->__call(__FUNCTION__, [$k]);
     }
 }

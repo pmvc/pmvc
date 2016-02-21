@@ -1,33 +1,36 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * PMVC Action
+ * PMVC Action.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class Load
 {
     /**
-     * Include mvc module, contain plugin
+     * Include mvc module, contain plugin.
      *
-     * @return boolean
+     * @return bool
      */
     public static function mvc()
     {
@@ -36,9 +39,9 @@ class Load
     }
 
     /**
-     * Include plugin only
+     * Include plugin only.
      *
-     * @return boolean
+     * @return bool
      */
     public static function plug()
     {
@@ -47,9 +50,9 @@ class Load
     }
 
     /**
-     * Init plug folder
+     * Init plug folder.
      *
-     * @return boolean
+     * @return bool
      */
     public static function initPlugInFolder()
     {

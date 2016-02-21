@@ -1,36 +1,39 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * PMVC Request
+ * PMVC Request.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class Request extends HashMap
 {
     /**
-     * Request method
+     * Request method.
      */
     protected $method;
 
     /**
-     * Set Method
+     * Set Method.
      *
      * @param string $method method
      *
@@ -42,7 +45,7 @@ class Request extends HashMap
     }
 
     /**
-     * Get Method
+     * Get Method.
      *
      * @return string
      */

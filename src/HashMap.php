@@ -1,14 +1,16 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
@@ -16,21 +18,21 @@ namespace PMVC;
 /**
  * PMVC HashMap
  * What is overloading?
- * http://php.net/manual/en/language.oop5.overloading.php
+ * http://php.net/manual/en/language.oop5.overloading.php.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
-class HashMap extends ListIterator
-    implements \ArrayAccess
+class HashMap extends ListIterator implements \ArrayAccess
 {
     /**
-     * Get array_keys
+     * Get array_keys.
      *
-     * @return boolean
+     * @return bool
      */
     public function keySet()
     {
@@ -38,11 +40,11 @@ class HashMap extends ListIterator
     }
 
     /**
-     * ContainsKey
+     * ContainsKey.
      *
      * @param string $k key
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetExists($k)
     {
@@ -50,11 +52,11 @@ class HashMap extends ListIterator
     }
 
     /**
-     * ContainsKey
+     * ContainsKey.
      *
      * @param string $k key
      *
-     * @return boolean
+     * @return bool
      */
     public function __isset($k)
     {
@@ -62,37 +64,38 @@ class HashMap extends ListIterator
     }
 
     /**
-     * Get 
+     * Get.
      *
      * @param mixed $k key
      *
-     * @return boolean
+     * @return bool
      */
-    public function &offsetGet($k=null)
+    public function &offsetGet($k = null)
     {
         return get($this->state, $k);
     }
 
     /**
-     * Get
+     * Get.
      *
      * @param mixed $k key
      *
      * @return mixed
      */
-    public function &__get($k=null)
+    public function &__get($k = null)
     {
         $val = new Object($this->state[$k]);
+
         return $val;
     }
 
     /**
-     * Set
+     * Set.
      *
      * @param mixed $k key
      * @param mixed $v value
      *
-     * @return boolean
+     * @return bool
      */
     public function offsetSet($k, $v)
     {
@@ -100,38 +103,38 @@ class HashMap extends ListIterator
     }
 
     /**
-     * Set
+     * Set.
      *
      * @param mixed $k key
      * @param mixed $v value
      *
-     * @return boolean
+     * @return bool
      */
-    public function __set($k, $v=null)
+    public function __set($k, $v = null)
     {
         return $this->offsetSet($k, $v);
     }
 
     /**
-     * Clean
+     * Clean.
      *
      * @param mixed $k key
      *
-     * @return boolean
+     * @return bool
      */
-    public function offsetUnset($k=null)
+    public function offsetUnset($k = null)
     {
         return clean($this->state, $k);
     }
 
     /**
-     * Clean
+     * Clean.
      *
      * @param mixed $k key
      *
-     * @return boolean
+     * @return bool
      */
-    public function __unset($k=null)
+    public function __unset($k = null)
     {
         return $this->offsetUnset($k, $v);
     }

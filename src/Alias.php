@@ -1,20 +1,22 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * Alias
+ * Alias.
  */
 trait Alias
 {
@@ -22,7 +24,7 @@ trait Alias
     private $_aliasFunctions;
 
     /**
-     * Custom is_callable for Alias 
+     * Custom is_callable for Alias.
      *
      * @param string $method method
      *
@@ -32,7 +34,7 @@ trait Alias
     {
         $func = false;
         if (!$this->_aliasFunctions) {
-            $this->_aliasFunctions = $this->initAliasFunction();           
+            $this->_aliasFunctions = $this->initAliasFunction();
         }
         foreach ($this->_aliasFunctions as $alias) {
             $func = $alias->get($this, $method);
@@ -40,11 +42,12 @@ trait Alias
                 break;
             }
         }
+
         return $func;
     }
 
     /**
-     * Magic call for function alias
+     * Magic call for function alias.
      *
      * @param string $method method
      * @param array  $args   args
@@ -71,21 +74,21 @@ trait Alias
     }
 
     /**
-     * Init Alias 
+     * Init Alias.
      *
-     * @return array 
+     * @return array
      */
     public function initAliasFunction()
     {
-        return array(
-            'a'=> new AliasClassConfig(),
-            'b'=> new AliasDefaultClass(),
-            'c'=> new AliasSrcFile()
-        );
+        return [
+            'a' => new AliasClassConfig(),
+            'b' => new AliasDefaultClass(),
+            'c' => new AliasSrcFile(),
+        ];
     }
 
     /**
-     * SetDefaultAlias
+     * SetDefaultAlias.
      *
      * @param object $obj class instance
      *
@@ -98,18 +101,19 @@ trait Alias
 }
 
 /**
- * Alias Interface 
+ * Alias Interface.
  * 
  * @category Alias
- * @package  PMVC
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 interface AliasInterface
 {
     /**
-     * Get alias function
+     * Get alias function.
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton 
@@ -120,18 +124,19 @@ interface AliasInterface
 }
 
 /**
- * Alias config
+ * Alias config.
  * 
  * @category Alias
- * @package  PMVC
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class AliasClassConfig implements AliasInterface
 {
     /**
-     * Get alias function
+     * Get alias function.
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton 
@@ -144,23 +149,25 @@ class AliasClassConfig implements AliasInterface
         if (is_callable($self[$method])) {
             $func = $self[$method];
         }
+
         return $func;
     }
 }
 
 /**
- * Alias default class 
+ * Alias default class.
  * 
  * @category Alias
- * @package  PMVC
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class AliasDefaultClass implements AliasInterface
 {
     /**
-     * Get alias function
+     * Get alias function.
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton 
@@ -171,28 +178,30 @@ class AliasDefaultClass implements AliasInterface
     {
         $func = false;
         if (isset($self->defaultAlias)) {
-            $func = array($self->defaultAlias,$method);
+            $func = [$self->defaultAlias, $method];
         }
         if (!is_callable($func)) {
-            $func = false; 
+            $func = false;
         }
+
         return $func;
     }
 }
 
 /**
- * Alias ./src/_xxx.php
+ * Alias ./src/_xxx.php.
  * 
  * @category Alias
- * @package  PMVC
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class AliasSrcFile implements AliasInterface
 {
     /**
-     * Get alias function
+     * Get alias function.
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton 
@@ -201,7 +210,7 @@ class AliasSrcFile implements AliasInterface
      */
     public function get($self, $method)
     {
-        if (!is_callable(array($self,'getDir'))) {
+        if (!is_callable([$self, 'getDir'])) {
             return false;
         }
         $path = $self->getDir().'src/_'.$method.'.php';
@@ -212,8 +221,8 @@ class AliasSrcFile implements AliasInterface
         if (!isset($r->var[_INIT_CONFIG][_CLASS])) {
             return !trigger_error('Not defined default Class');
         } else {
-            $class = $r->var[_INIT_CONFIG][_CLASS]; 
-            $func = new $class;
+            $class = $r->var[_INIT_CONFIG][_CLASS];
+            $func = new $class();
         }
         if (!is_callable($func)) {
             return !trigger_error('Not implement __invoke function');
@@ -221,6 +230,7 @@ class AliasSrcFile implements AliasInterface
         if (!isset($self[$method])) {
             $self[$method] = $func;
         }
+
         return $func;
     }
 }

@@ -1,12 +1,15 @@
 <?php
+
 namespace PMVC\UnitTest\Task;
+
 use PMVC;
+
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\fake_task';
 
-class fake_task
+class _FakeTask
 {
-    function __invoke()
+    public function __invoke()
     {
-        PMVC\option('set','d',1);
+        PMVC\option('set', 'd', 1);
     }
 }

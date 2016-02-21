@@ -1,14 +1,16 @@
 <?php
+
 namespace PMVC;
+
 class HashMapTest extends \PHPUnit_Framework_TestCase
 {
-    function testHashMap()
+    public function testHashMap()
     {
         $hash = new HashMap();
         $this->assertEquals('PMVC\HashMap', get_class($hash));
     }
 
-    function testThis()
+    public function testThis()
     {
         $hash = new FakeHash();
         $key = 'aaa';
@@ -17,74 +19,74 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $hash[$key]);
     }
 
-    function testRef()
+    public function testRef()
     {
         $hash = new HashMap();
         $hash['abc'] = 123;
         $abc = $hash->abc;
-        $abc_1 =& $abc();
+        $abc_1 = &$abc();
         $new_value = 456;
         $abc_1 = $new_value;
         $this->assertEquals($new_value, $hash['abc']);
     }
 
-    function testPlug()
+    public function testPlug()
     {
         $class = __NAMESPACE__.'\FakePlug';
         $plug_name = 'fake_plug';
         $plug = plug(
-            $plug_name, array(
-            _CLASS=>$class
-            )
+            $plug_name, [
+            _CLASS => $class,
+            ]
         );
         $this->assertEquals($class, plug($plug_name)[_CLASS]);
     }
 
-    function testGetAll()
+    public function testGetAll()
     {
-        $arr = array('a'=>'111','b'=>'222');
+        $arr = ['a' => '111', 'b' => '222'];
         $hash = new HashMap($arr);
         $this->assertEquals($arr, \PMVC\get($hash));
     }
 
-    function testKeyset()
+    public function testKeyset()
     {
-        $arr = array('a'=>'111');
+        $arr = ['a' => '111'];
         $hash = new HashMap($arr);
-        $this->assertEquals(array('a'),$hash->keySet());
+        $this->assertEquals(['a'], $hash->keySet());
     }
 
-    function testOffsetExists()
+    public function testOffsetExists()
     {
-        $arr = array('a'=>'111');
+        $arr = ['a' => '111'];
         $hash = new HashMap($arr);
         $this->assertTrue(isset($hash['a']));
         $this->assertFalse(isset($hash['b']));
     }
 
-    function testOffsetGet()
+    public function testOffsetGet()
     {
-        $arr = array('a'=>'111');
+        $arr = ['a' => '111'];
         $hash = new HashMap($arr);
-        $this->assertEquals($arr['a'],$hash['a']);
+        $this->assertEquals($arr['a'], $hash['a']);
         $a = $hash->a;
-        $this->assertEquals($arr['a'],$a());
+        $this->assertEquals($arr['a'], $a());
     }
 
-    function testOffsetSet()
+    public function testOffsetSet()
     {
         $hash = new HashMap();
         $new_value = '111';
         $hash['a'] = $new_value;
         $newb_value = '222';
         $hash->b = $newb_value;
-        $this->assertEquals($new_value,$hash['a']);
-        $this->assertEquals($newb_value,$hash['b']);
+        $this->assertEquals($new_value, $hash['a']);
+        $this->assertEquals($newb_value, $hash['b']);
     }
 
-    function testOffsetUnset()
+    public function testOffsetUnset()
     {
-        $arr = array('a'=>'111','b'=>'222');
+        $arr = ['a' => '111', 'b' => '222'];
         $hash = new HashMap($arr);
         $this->assertTrue(isset($hash['a']));
         unset($hash['a']);
@@ -97,9 +99,8 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
 
 class FakeHash extends HashMap
 {
-    public function mySet($k,$v)
+    public function mySet($k, $v)
     {
-        $this[$k]=$v;
+        $this[$k] = $v;
     }
 }
-

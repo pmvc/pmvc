@@ -1,41 +1,44 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
+
 use ArrayIterator;
-use IteratorAggregate;
 use Countable;
+use IteratorAggregate;
 
 /**
- * ListIterator
+ * ListIterator.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
-class ListIterator extends Object
-    implements IteratorAggregate, Countable
+class ListIterator extends Object implements IteratorAggregate, Countable
 {
     /**
-     * Construct
+     * Construct.
      *
      * @param array $state state 
      *
      * @return ArrayIterator
      */
-    public function __construct($state=null)
+    public function __construct($state = null)
     {
         $this->state = $this->getInitialState();
         if (!empty($state)) {
@@ -44,17 +47,17 @@ class ListIterator extends Object
     }
 
     /**
-     * Get Initial State 
+     * Get Initial State.
      *
-     * @return array 
+     * @return array
      */
     protected function getInitialState()
     {
-        return array();
+        return [];
     }
 
     /**
-     * GetIterator
+     * GetIterator.
      *
      * @return ArrayIterator
      */
@@ -64,7 +67,7 @@ class ListIterator extends Object
     }
 
     /**
-     * Count
+     * Count.
      *
      * @return int
      */

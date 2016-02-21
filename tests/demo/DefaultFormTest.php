@@ -1,21 +1,22 @@
 <?php
+
 class DefaultFormTest extends PHPUnit_Framework_TestCase
 {
-    function testDefaultForm()
+    public function testDefaultForm()
     {
-        $test_str='Hello World!';
+        $test_str = 'Hello World!';
         $b = new PMVC\MappingBuilder();
         $b->addAction(
-            'index', array(
-                _FUNCTION=>function () use ($test_str) {
+            'index', [
+                _FUNCTION => function () use ($test_str) {
                     return $test_str;
                 },
-                _FORM=>'myForm'
-            )
+                _FORM => 'myForm',
+            ]
         );
-        $option = array(
-            _DEFAULT_FORM=> 'FakeDefaultForm'
-        );
+        $option = [
+            _DEFAULT_FORM => 'FakeDefaultForm',
+        ];
         $mvc = new PMVC\ActionController($option);
         $result = $mvc($b);
         $this->assertEquals($test_str, $result[0]);
@@ -28,6 +29,7 @@ class FakeDefaultForm extends \PMVC\ActionForm
     public function validate()
     {
         \PMVC\option('set', 'fakeDefaultForm', 'aaa');
+
         return true;
     }
 }

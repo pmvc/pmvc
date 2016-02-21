@@ -1,38 +1,41 @@
 <?php
 /**
- * PMVC
+ * PMVC.
  *
  * PHP version 5
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @version  GIT: <git_id>
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
 
 /**
- * PMVC ActionMappings
+ * PMVC ActionMappings.
  *
  * @category CategoryName
- * @package  PackageName
+ *
  * @author   Hill <hill@kimo.com>
  * @license  http://opensource.org/licenses/MIT MIT
+ *
  * @link     https://packagist.org/packages/pmvc/pmvc
  */
 class ActionMappings
 {
     /**
-     * Mappings
+     * Mappings.
      *
      * @var array
      */
     private $_mappings;
 
     /**
-     * Set mappings
+     * Set mappings.
      *
      * @param array $mappings mappings
      *
@@ -40,7 +43,7 @@ class ActionMappings
      */
     public function set($mappings)
     {
-        $this->_mappings =$mappings;
+        $this->_mappings = $mappings;
         if (empty($this->_mappings)) {
             return false;
         } else {
@@ -49,7 +52,7 @@ class ActionMappings
     }
 
     /**
-     * Add mappings
+     * Add mappings.
      *
      * @param array $mappings mappings
      *
@@ -66,7 +69,7 @@ class ActionMappings
     }
 
     /**
-     * Add mappings by key
+     * Add mappings by key.
      *
      * @param array  $mappings mappings
      * @param string $key      key
@@ -84,7 +87,7 @@ class ActionMappings
     }
 
     /**
-     * Find an ActionMapping
+     * Find an ActionMapping.
      *
      * @param string $path path
      *
@@ -92,13 +95,14 @@ class ActionMappings
      */
     public function findMapping($path)
     {
-        $mapping =& $this->_mappings->{ACTION_MAPPINGS}[$path];
+        $mapping = &$this->_mappings->{ACTION_MAPPINGS}[$path];
         $mappingObj = new ActionMapping($mapping, $path);
+
         return $mappingObj;
     }
 
     /**
-     * Find a form
+     * Find a form.
      *
      * @param string $name name
      *
@@ -110,7 +114,7 @@ class ActionMappings
     }
 
     /**
-     * Search for the forward
+     * Search for the forward.
      *
      * @param string $name name
      *
@@ -134,7 +138,7 @@ class ActionMappings
      *
      * @param string $name name
      *
-     * @return boolean
+     * @return bool
      */
     public function forwardExists($name)
     {
@@ -146,7 +150,7 @@ class ActionMappings
      *
      * @param string $name name
      *
-     * @return boolean
+     * @return bool
      */
     public function mappingExists($name)
     {
