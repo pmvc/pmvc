@@ -36,12 +36,6 @@ class ActionController
      * @var HttpRequestServlet
      */
     private $_request;
-    /**
-     * Results 
-     *
-     * @var ActionMappings
-     */
-    public $results;
 
     /**
      * ActionController construct with the options.
@@ -59,7 +53,7 @@ class ActionController
     }
 
     /**
-     * Set option
+     * Set option (Will trigger Event)
      *
      * @param mixed $k key
      * @param mixed $v value
@@ -83,7 +77,7 @@ class ActionController
     }
 
     /**
-     * Store Option
+     * Store Option (Will not trigger Event)
      *
      * @param mixed $k key
      * @param mixed $v value
@@ -209,19 +203,20 @@ class ActionController
         }
         $forward = (object)array(
             'action' => $this->getAppAction()
-        ); 
+        );
+        $results = array();
         while (
             isset($forward->action) && 
             $forward = $this->execute($forward->action)
         ) {
             if (isset($forward->result)) {
-                $this->results[] = $forward->result;
+                $results[] = $forward->result;
             } else {
-                $this->results[] = $forward; 
+                $results[] = $forward; 
             }
         }
         $this->_finish();
-        return $this->results;
+        return $results;
     }
 
     /**
@@ -322,7 +317,11 @@ class ActionController
             $scope = $this->_request->keySet();
         }
         foreach ($scope as $name) {
-            $actionForm[$name] = $this->_request[$name];
+            if (is_array($name)) {
+                $actionForm[$name[1]] = $this->_request[$name[0]];
+            } else {
+                $actionForm[$name] = $this->_request[$name];
+            }
         }
     }
 

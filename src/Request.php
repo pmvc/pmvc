@@ -25,33 +25,9 @@ namespace PMVC;
 class Request extends HashMap
 {
     /**
-     * Http method
+     * Request method
      */
     protected $method;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $method = $this->getMethod();
-        if ('GET'===$method) {
-            $inputs =& $_GET;
-        } else {
-            $isJsonInput = ('application/json'===getenv('CONTENT_TYPE'));
-            if ($isJsonInput || 'PUT'===$method) {
-                $input = file_get_contents("php://input");
-                if ($isJsonInput) {
-                    $inputs = (array)fromJson($input);
-                } else {
-                    parse_str($input, $inputs);
-                }
-            } else {
-                $inputs =& $_POST;
-            }
-        }
-        parent::__construct($inputs);
-    }
 
     /**
      * Set Method
@@ -72,14 +48,6 @@ class Request extends HashMap
      */
     public function getMethod()
     {
-        if (empty($this->method)) {
-            $method = getenv('REQUEST_METHOD');
-            $cros_method = getenv('HTTP_ACCESS_CONTROL_REQUEST_METHOD');
-            if ($method === 'OPTIONS' && $cros_method) {
-                $method = $cros_method;
-            }
-            $this->setMethod($method);
-        }
         return $this->method;
     }
 }

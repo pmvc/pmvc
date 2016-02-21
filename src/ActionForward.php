@@ -158,9 +158,7 @@ class ActionForward extends HashMap
             $queryArray = $this->get();
             $path = $this->buildCommand(
                 $path, 
-                array(
-                    'query' => $queryArray
-                )
+                $queryArray
             );
         }
         return $path;
@@ -176,31 +174,14 @@ class ActionForward extends HashMap
      */
     public function buildCommand($url, $params)
     {
-        $parsed_url = parse_url($url);
-        if (!empty($params['query'])) {
-            if (!empty($parsed_url['query'])) {
-                parse_str($parsed_url['query'], $parsed_query);
-                $parsed_url = array_merge($parsed_url, $params);
-            } else {
-                $parsed_query = array();
-            }
-            $parsed_url['query'] = http_build_query(
-                array_merge(
-                    $parsed_query,
-                    $params['query']
-                )
-            );
-        }
-        $scheme   = isset($parsed_url['scheme']) ? $parsed_url['scheme'].'://' : ''; 
-        $host     = isset($parsed_url['host']) ? $parsed_url['host'] : ''; 
-        $port     = isset($parsed_url['port']) ? ':' . $parsed_url['port'] : ''; 
-        $user     = isset($parsed_url['user']) ? $parsed_url['user'] : ''; 
-        $pass     = isset($parsed_url['pass']) ? ':' . $parsed_url['pass']  : ''; 
-        $pass     = ($user || $pass) ? "$pass@" : ''; 
-        $path     = isset($parsed_url['path']) ? $parsed_url['path'] : ''; 
-        $query    = isset($parsed_url['query']) ? '?' . $parsed_url['query'] : ''; 
-        $fragment = isset($parsed_url['fragment'])?'#'. $parsed_url['fragment']: ''; 
-        return "$scheme$user$pass$host$port$path$query$fragment"; 
+        return call_plugin(
+            getOption(_ROUTING),
+            __FUNCTION__,
+            array(
+                $url,
+                $params
+            )
+        );
     }
 
     /**
@@ -266,9 +247,13 @@ class ActionForward extends HashMap
     private function _processHeader()
     {
         $headers = $this->getHeader();
-        foreach ($headers as $h) {
-            header($h);
-        }
+        return call_plugin(
+            getOption(_ROUTING),
+            'processHeader',
+            array(
+                $this->getHeader()
+            )
+        );
     }
 
     /**
@@ -306,9 +291,15 @@ class ActionForward extends HashMap
             $this->_processView();
             break;
         case 'redirect':
-            $path = $this->getPath(true);
-            $this->setHeader("Location: $path");
             $this->_processHeader();
+            $path = $this->getPath(true);
+            call_plugin(
+                getOption(_ROUTING),
+                'go',
+                array(
+                    $path 
+                )
+            );
             break;
         case 'action':
         default:
