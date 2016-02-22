@@ -99,12 +99,13 @@ class ActionController
     /**
      * Plug App.
      *
-     * @param string $parent   defaultAppFolder
-     * @param array  $appAlias appAlias
+     * @param string $parent    defaultAppFolder
+     * @param array  $appAlias  appAlias
+     * @param string $indexFile index.php 
      *
      * @return mixed
      */
-    public function plugApp($parent = null, $appAlias = null)
+    public function plugApp($parent = null, $appAlias = null, $indexFile = 'index')
     {
         call_plugin(
             'dispatcher',
@@ -127,11 +128,11 @@ class ActionController
                 $app = $appAlias[$app];
             }
             $parent = lastSlash($parent);
-            $path = $parent.$app.'/index.php';
+            $path = $parent.$app.'/'.$indexFile.'.php';
         }
         if (!realpath($path)) {
             $app = getOption(_DEFAULT_APP);
-            $path = $parent.$app.'/index.php';
+            $path = $parent.$app.'/'.$indexFile.'.php';
         }
         if (!realpath($path)) {
             return !trigger_error('No App found for '.$path, E_USER_WARNING);
@@ -151,10 +152,6 @@ class ActionController
             $builder = $appPlugin[_INIT_BUILDER];
             if (empty($builder)) {
                 return !trigger_error('No builder found', E_USER_WARNING);
-            }
-            $action = $this->getAppAction();
-            if ($appPlugin->isCallAble($action)) {
-                $appPlugin->{$action}();
             }
 
             return $this->setMapping($builder());
