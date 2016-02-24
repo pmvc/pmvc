@@ -853,6 +853,9 @@ function plug($name, $config = null)
             ? $r->var[_INIT_CONFIG][_CLASS]
             : false;
     }
+    if (!empty($config[\PMVC\PAUSE])) {
+        return; //for inclue only purpose
+    }
     if (class_exists($class)) {
         $oPlugin = new $class();
     } else {

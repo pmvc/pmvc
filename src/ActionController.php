@@ -202,6 +202,7 @@ class ActionController
             ]
         );
         if (call_plugin('dispatcher', 'stop')) {
+            // Stop for authentication plugin verify failed
             return;
         }
         $forward = (object) [
