@@ -296,7 +296,7 @@ class ActionController
                 __NAMESPACE__.'\ActionForm'
             );
         }
-        $actionForm = new $form[_CLASS]($form);
+        $actionForm = new $form[_CLASS]();
 
         //add request parameters
         $this->_initActionFormValue($actionForm, $actionMapping);
