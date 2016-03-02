@@ -83,9 +83,9 @@ trait Alias
     public function initAliasFunction()
     {
         return [
-            'a' => new AliasClassConfig(),
-            'b' => new AliasDefaultClass(),
-            'c' => new AliasSrcFile(),
+            'aliasClassConfig' => new AliasClassConfig(),
+            'aliasDefaultClass' => new AliasDefaultClass(),
+            'aliasSrcFile' => new AliasSrcFile(),
         ];
     }
 
