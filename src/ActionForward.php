@@ -176,8 +176,8 @@ class ActionForward extends HashMap
     /**
      * Build URL from parse_url.
      *
-     * @param string $url    default url 
-     * @param array  $params url overwrite params 
+     * @param string $url    default url
+     * @param array  $params url overwrite params
      *
      * @return string
      */

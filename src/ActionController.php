@@ -101,7 +101,7 @@ class ActionController
      *
      * @param string $parent    defaultAppFolder
      * @param array  $appAlias  appAlias
-     * @param string $indexFile index.php 
+     * @param string $indexFile index.php
      *
      * @return mixed
      */
@@ -251,7 +251,7 @@ class ActionController
     /**
      * ActionMapping.
      *
-     * @param string $index mapping or action index 
+     * @param string $index mapping or action index
      *
      * @return ActionMapping
      */

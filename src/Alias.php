@@ -104,7 +104,7 @@ trait Alias
 
 /**
  * Alias Interface.
- * 
+ *
  * @category Alias
  *
  * @package PMVC
@@ -120,7 +120,7 @@ interface AliasInterface
      * Get alias function.
      *
      * @param object $self   Same with object $this
-     * @param string $method Call which funciton 
+     * @param string $method Call which funciton
      *
      * @return mixed
      */
@@ -129,7 +129,7 @@ interface AliasInterface
 
 /**
  * Alias config.
- * 
+ *
  * @category Alias
  *
  * @package PMVC
@@ -145,7 +145,7 @@ class AliasClassConfig implements AliasInterface
      * Get alias function.
      *
      * @param object $self   Same with object $this
-     * @param string $method Call which funciton 
+     * @param string $method Call which funciton
      *
      * @return mixed
      */
@@ -162,7 +162,7 @@ class AliasClassConfig implements AliasInterface
 
 /**
  * Alias default class.
- * 
+ *
  * @category Alias
  *
  * @package PMVC
@@ -178,7 +178,7 @@ class AliasDefaultClass implements AliasInterface
      * Get alias function.
      *
      * @param object $self   Same with object $this
-     * @param string $method Call which funciton 
+     * @param string $method Call which funciton
      *
      * @return mixed
      */
@@ -198,7 +198,7 @@ class AliasDefaultClass implements AliasInterface
 
 /**
  * Alias ./src/_xxx.php.
- * 
+ *
  * @category Alias
  *
  * @package PMVC
@@ -214,7 +214,7 @@ class AliasSrcFile implements AliasInterface
      * Get alias function.
      *
      * @param object $self   Same with object $this
-     * @param string $method Call which funciton 
+     * @param string $method Call which funciton
      *
      * @return mixed
      */
