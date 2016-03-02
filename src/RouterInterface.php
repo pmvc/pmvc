@@ -19,7 +19,7 @@ namespace PMVC;
 
 /**
  * Router Interface.
- * 
+ *
  * @category Default
  *
  * @package PMVC
@@ -33,19 +33,19 @@ interface RouterInterface
 {
     /**
      * Build command.
-     * 
+     *
      * @param string $path   path
      * @param array  $params params
-     * 
+     *
      * @return void
      */
     public function buildCommand($path, $params);
 
     /**
      * Process Header.
-     * 
+     *
      * @param array $headers headers
-     * 
+     *
      * @return void
      */
     public function processHeader($headers);
@@ -54,7 +54,7 @@ interface RouterInterface
      * Execute another program.
      *
      * @param string $path path
-     * 
+     *
      * @return mixed
      */
     public function go($path);

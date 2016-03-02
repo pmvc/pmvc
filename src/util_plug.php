@@ -306,8 +306,8 @@ function &fromJson($s)
 
 /**
  * Check an array or string equal one value.
- * 
- * @param mixed  $haystack search on array or string 
+ *
+ * @param mixed  $haystack search on array or string
  * @param string $needle   search keyword
  *
  * @return array

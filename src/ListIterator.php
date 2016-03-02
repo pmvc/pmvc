@@ -38,7 +38,7 @@ class ListIterator extends Object implements IteratorAggregate, Countable
     /**
      * Construct.
      *
-     * @param array $state state 
+     * @param array $state state
      *
      * @return ArrayIterator
      */
