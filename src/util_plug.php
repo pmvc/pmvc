@@ -412,6 +412,35 @@ function isArray($obj)
 }
 
 /**
+ * Safe get multi layer array value. 
+ *
+ * @param mixed $arr     array 
+ * @param mixed $path    array's path 
+ * @param mixed $default if value not exists, return default value 
+ *
+ * @return bool
+ */
+function value($arr, $path, $default)
+{
+    if (!isArray($arr)) {
+        return !trigger_error('Target is not array');
+    }
+    if (!isArray($path)) {
+        return !trigger_error('Path is not array');
+    }
+    $a =& $arr;
+    foreach ($path as $p) {
+        if (isset($a[$p])) {
+            $a =& $a[$p];
+        } else {
+            return $default;
+        }
+    }
+    return $a;
+}
+
+
+/**
  * Data access <!---.
  */
 

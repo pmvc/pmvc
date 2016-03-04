@@ -28,4 +28,26 @@ class UtilPlugTest extends \PHPUnit_Framework_TestCase
         $actual = splitDir($winDir);
         $this->assertEquals($expected, $actual);
     }
+
+    public function testGetValue()
+    {   
+        $expected = 'd';
+        $arr = [
+            'a'=>[
+                'b'=>[
+                    'c'=>'d'
+                ]
+            ]
+        ];
+        $actual = value($arr,['a','b','c'],null);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testGetDefaultValue()
+    {   
+        $expected = 'xxx';
+        $arr = [ ]; 
+        $actual = value($arr,['a','b','c'],$expected);
+        $this->assertEquals($expected, $actual);
+    }
 }
