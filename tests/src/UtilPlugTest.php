@@ -30,24 +30,24 @@ class UtilPlugTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testGetValue()
-    {   
+    {
         $expected = 'd';
         $arr = [
-            'a'=>[
-                'b'=>[
-                    'c'=>'d'
-                ]
-            ]
+            'a' => [
+                'b' => [
+                    'c' => 'd',
+                ],
+            ],
         ];
-        $actual = value($arr,['a','b','c'],null);
+        $actual = value($arr, ['a', 'b', 'c'], null);
         $this->assertEquals($expected, $actual);
     }
 
     public function testGetDefaultValue()
-    {   
+    {
         $expected = 'xxx';
-        $arr = [ ]; 
-        $actual = value($arr,['a','b','c'],$expected);
+        $arr = [ ];
+        $actual = value($arr, ['a', 'b', 'c'], $expected);
         $this->assertEquals($expected, $actual);
     }
 }
