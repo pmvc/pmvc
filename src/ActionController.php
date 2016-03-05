@@ -191,8 +191,9 @@ class ActionController
      */
     public function __invoke(MappingBuilder $builder = null)
     {
-        if (!is_null($builder)) {
-            $this->addMapping($builder());
+        if (call_plugin('dispatcher', 'stop')) {
+            // Stop for authentication plugin verify failed
+            return;
         }
         call_plugin(
             'dispatcher',
@@ -201,9 +202,8 @@ class ActionController
                 Event\MAP_REQUEST, true,
             ]
         );
-        if (call_plugin('dispatcher', 'stop')) {
-            // Stop for authentication plugin verify failed
-            return;
+        if (!is_null($builder)) {
+            $this->addMapping($builder());
         }
         $forward = (object) [
             'action' => $this->getAppAction(),
