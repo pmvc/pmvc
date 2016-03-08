@@ -37,7 +37,9 @@ class MappingBuilder
      * @var array
      */
     private $_aaMap = [
-        ACTION_FORMS        => [], ACTION_MAPPINGS   => [], ACTION_FORWARDS   => [],
+        ACTION_FORMS    => [],
+        ACTION_MAPPINGS => [],
+        ACTION_FORWARDS => [],
     ];
 
     /**
@@ -116,7 +118,10 @@ class MappingBuilder
     public function getActionDefault()
     {
         return [
-            _FUNCTION => null, _FORM => null, _VALIDATE => true, _SCOPE => 'request',
+            _FUNCTION => null,
+            _FORM     => null,
+            _VALIDATE => true,
+            _SCOPE    => 'request',
         ];
     }
 
