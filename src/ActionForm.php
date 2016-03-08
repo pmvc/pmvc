@@ -32,6 +32,16 @@ namespace PMVC;
 class ActionForm extends HashMap
 {
     /**
+     * Invoke
+     *
+     * @return this
+     */
+    public function &__invoke()
+    {
+        return $this;
+    }
+
+    /**
      * Validate.
      *
      * @return mixed
