@@ -287,7 +287,7 @@ class ActionController
             $actionMapping->form
         );
         if (is_callable($form[_CLASS])) {
-            $actionForm = call_user_func($form[_CLASS]); 
+            $actionForm = call_user_func($form[_CLASS]);
         } else {
             if (!class_exists($form[_CLASS])) {
                 $run_form = getOption(_RUN_FORM);
