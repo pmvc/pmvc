@@ -44,11 +44,15 @@ trait Alias
                 break;
             }
         }
-        if (!$func && is_callable('parent::isCallable')) {
-            return parent::isCallable($method);
-        } else {
-            return $func;
+        if (!$func) {
+            if (isset($this['parent'])) {
+                $parent = $this['parent'];
+                if (is_callable([$parent,'isCallable'])) {
+                    $func = $parent->isCallable($method);
+                }
+            }
         }
+        return $func;
     }
 
     /**

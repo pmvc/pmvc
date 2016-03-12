@@ -820,16 +820,20 @@ function getPlugs()
 /**
  * Init PlugIn.
  *
- * @param array $arr plug-in array
+ * @param array $arr   plug-in array
+ * @param bool  $pause for includ file only 
  *
  * @return void
  */
-function initPlugIn($arr)
+function initPlugIn($arr, $pause=false)
 {
     if (is_array($arr)) {
         $objs = getOption(PLUGIN_INSTANCE);
         foreach ($arr as $plugIn => $config) {
             if (!isset($objs[$plugIn])) {
+                if ($pause) {
+                    $config[PAUSE] = true;
+                }
                 plug($plugIn, $config);
             }
         }
