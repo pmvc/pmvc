@@ -32,7 +32,7 @@ namespace PMVC;
 class ActionForm extends HashMap
 {
     /**
-     * Invoke
+     * Invoke.
      *
      * @return this
      */
