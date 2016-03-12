@@ -47,11 +47,12 @@ trait Alias
         if (!$func) {
             if (isset($this['parent'])) {
                 $parent = $this['parent'];
-                if (is_callable([$parent,'isCallable'])) {
+                if (is_callable([$parent, 'isCallable'])) {
                     $func = $parent->isCallable($method);
                 }
             }
         }
+
         return $func;
     }
 
