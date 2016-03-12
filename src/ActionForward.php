@@ -81,7 +81,7 @@ class ActionForward extends HashMap
     public function __construct($forward)
     {
         $this->setPath($forward[_PATH]);
-        $this->setType($forward[_TYPE]);
+        $this->_setType($forward[_TYPE]);
         $this->setHeader($forward[_HEADER]);
         $this->action = $forward[_ACTION];
     }
@@ -131,7 +131,7 @@ class ActionForward extends HashMap
      *
      * @return void
      */
-    public function setType($type = null)
+    private function _setType($type = null)
     {
         if (is_null($type)) {
             $type = 'redirect';
@@ -163,10 +163,9 @@ class ActionForward extends HashMap
     {
         $path = $this->_path;
         if ($bMerge) {
-            $queryArray = $this->get();
             $path = $this->buildCommand(
                 $path,
-                $queryArray
+                $this->get()
             );
         }
 
