@@ -32,7 +32,7 @@ trait Alias
      *
      * @return mixed
      */
-    public function isCallAble($method)
+    public function isCallable($method)
     {
         $func = false;
         if (!$this->_aliasFunctions) {
@@ -44,8 +44,11 @@ trait Alias
                 break;
             }
         }
-
-        return $func;
+        if (!$func && is_callable('parent::isCallable')) {
+            return parent::isCallable($method);
+        } else {
+            return $func;
+        }
     }
 
     /**
@@ -58,7 +61,7 @@ trait Alias
      */
     public function __call($method, $args)
     {
-        $func = $this->isCallAble($method);
+        $func = $this->isCallable($method);
         if (empty($func)) {
             return !trigger_error(
                 'Method not found: '.
