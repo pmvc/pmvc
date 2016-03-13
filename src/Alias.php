@@ -29,26 +29,33 @@ trait Alias
      * Custom is_callable for Alias.
      *
      * @param string $method method
+     * @param object $run    caller
      *
      * @return mixed
      */
-    public function isCallable($method)
+    public function isCallable($method, $run = null )
     {
         $func = false;
         if (!$this->_aliasFunctions) {
             $this->_aliasFunctions = $this->initAliasFunction();
         }
+        if (is_null($run) && !empty($this['this'])) {
+            $run = $this['this'];
+        }
         foreach ($this->_aliasFunctions as $alias) {
-            $func = $alias->get($this, $method);
+            $func = $alias->get($this, $method, $run);
             if (!empty($func)) {
                 break;
             }
         }
         if (!$func) {
-            if (isset($this['parent'])) {
+            if (isset($this['parent'])
+                && isset($this[_PLUGIN])
+                && $this['parent']!==$this[_PLUGIN]
+            ) {
                 $parent = $this['parent'];
                 if (is_callable([$parent, 'isCallable'])) {
-                    $func = $parent->isCallable($method);
+                    $func = $parent->isCallable($method, $run);
                 }
             }
         }
@@ -91,9 +98,9 @@ trait Alias
     public function initAliasFunction()
     {
         return [
-            'aliasClassConfig'  => new AliasClassConfig(),
-            'aliasDefaultClass' => new AliasDefaultClass(),
-            'aliasSrcFile'      => new AliasSrcFile(),
+            'aliasClassConfig'  => AliasClassConfig::getInstance(),
+            'aliasDefaultClass' => AliasDefaultClass::getInstance(),
+            'aliasSrcFile'      => AliasSrcFile::getInstance(),
         ];
     }
 
@@ -111,7 +118,7 @@ trait Alias
 }
 
 /**
- * Alias Interface.
+ * Abstract Alias Class.
  *
  * @category Alias
  *
@@ -122,17 +129,33 @@ trait Alias
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-interface AliasInterface
+abstract class AbstractAlias
 {
     /**
      * Get alias function.
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
+     * @param object $run    Caller 
      *
      * @return mixed
      */
-    public function get($self, $method);
+    abstract public function get($self, $method, $run);
+
+    /**
+     * Get Instance.
+     *
+     * @return object 
+     */
+    public static function getInstance()
+    {
+        static $self;
+        if (empty($self)) {
+            $class = get_called_class();
+            $self = new $class(); 
+        }
+        return $self;
+    }
 }
 
 /**
@@ -147,17 +170,18 @@ interface AliasInterface
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class AliasClassConfig implements AliasInterface
+class AliasClassConfig extends AbstractAlias
 {
     /**
      * Get alias function.
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
+     * @param object $run    Caller 
      *
      * @return mixed
      */
-    public function get($self, $method)
+    public function get($self, $method, $run)
     {
         $func = false;
         if (is_callable($self[$method])) {
@@ -180,17 +204,18 @@ class AliasClassConfig implements AliasInterface
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class AliasDefaultClass implements AliasInterface
+class AliasDefaultClass extends AbstractAlias
 {
     /**
      * Get alias function.
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
+     * @param object $run    Caller 
      *
      * @return mixed
      */
-    public function get($self, $method)
+    public function get($self, $method, $run)
     {
         $func = false;
         if (isset($self->defaultAlias)) {
@@ -216,17 +241,18 @@ class AliasDefaultClass implements AliasInterface
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class AliasSrcFile implements AliasInterface
+class AliasSrcFile extends AbstractAlias
 {
     /**
      * Get alias function.
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
+     * @param object $run    Caller 
      *
      * @return mixed
      */
-    public function get($self, $method)
+    public function get($self, $method, $run)
     {
         if (!is_callable([$self, 'getDir'])) {
             return false;
@@ -243,7 +269,7 @@ class AliasSrcFile implements AliasInterface
             if (!class_exists($class)) {
                 return !trigger_error('Default Class not exits. ['.$class.']');
             }
-            $func = new $class();
+            $func = new $class($run);
         }
         if (!is_callable($func)) {
             return !trigger_error('Not implement __invoke function');
