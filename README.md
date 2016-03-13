@@ -22,4 +22,4 @@ https://github.com/pmvc/pmvc/wiki
       * https://github.com/pmvc-theme
 
 ##  HHVM Support
-[![HHVM Status](http://hhvm.h4cc.de/badge/pmvc-plugin/ssdb.svg)](http://hhvm.h4cc.de/package/pmvc-plugin/ssdb)
+[![HHVM Status](http://hhvm.h4cc.de/badge/pmvc/pmvc.svg)](http://hhvm.h4cc.de/package/pmvc/pmvc)
