@@ -236,8 +236,12 @@ class ActionController
         $actionMapping = $this->_processMapping($index);
         $actionForm = $this->_processForm($actionMapping);
         $this->setOption(_RUN_FORM, $actionForm);
-        if (!$actionForm) {
-            $actionForward = $this->getErrorForward();
+        //validate the form if necesarry
+        if ($actionMapping->validate) {
+            $errorForward = $this->_processValidate($actionForm);
+        }
+        if ($errorForward) {
+            $actionForward = $errorForward;
         } else {
             $actionForward = $this->_processAction(
                 $actionMapping,
@@ -304,12 +308,6 @@ class ActionController
 
         //add request parameters
         $this->_initActionFormValue($actionForm, $actionMapping);
-        //validate the form if necesarry
-        if ($actionMapping->validate) {
-            if (!$this->_processValidate($actionForm)) {
-                $actionForm = false;
-            }
-        }
 
         return $actionForm;
     }
@@ -343,11 +341,16 @@ class ActionController
      *
      * @param ActionForm $actionForm actionForm
      *
-     * @return bool
+     * @return bool if good to go return false else return true to block.
      */
     private function _processValidate($actionForm)
     {
-        return (string) $actionForm->validate();
+        $isValid = (string) $actionForm->validate();
+        $error = $this->getErrorForward();
+        if ($error) {
+            return $error;
+        }
+        return !$isValid;
     }
 
     /**
@@ -407,7 +410,7 @@ class ActionController
     }
 
     /**
-     * Finish off the request and take down the controller.
+     * Finish request and take down the controller.
      *
      * @return void
      */
@@ -420,6 +423,10 @@ class ActionController
                 Event\FINISH, true,
             ]
         );
+        $errorForward = $this->getErrorForward();
+        if ($errorForward) {
+            $this->processForward($errorForward);
+        }
     }
 
     /**
@@ -429,6 +436,10 @@ class ActionController
      */
     public function getErrorForward()
     {
+        $AllErrors = getOption(ERRORS);
+        if (empty($AllErrors[USER_LAST_ERROR])) {
+            return false;
+        }
         call_plugin(
             'dispatcher',
             'notify',
@@ -440,7 +451,6 @@ class ActionController
             return false;
         }
         $errorForward = $this->_mappings->findForward('error');
-        $AllErrors = getOption(ERRORS);
         $errorForward->set(
             [
                 'errors'    => $AllErrors[USER_ERRORS],
