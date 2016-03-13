@@ -33,7 +33,7 @@ trait Alias
      *
      * @return mixed
      */
-    public function isCallable($method, $run = null )
+    public function isCallable($method, $run = null)
     {
         $func = false;
         if (!$this->_aliasFunctions) {
@@ -51,7 +51,7 @@ trait Alias
         if (!$func) {
             if (isset($this['parent'])
                 && isset($this[_PLUGIN])
-                && $this['parent']!==$this[_PLUGIN]
+                && $this['parent'] !== $this[_PLUGIN]
             ) {
                 $parent = $this['parent'];
                 if (is_callable([$parent, 'isCallable'])) {
@@ -136,7 +136,7 @@ abstract class AbstractAlias
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
-     * @param object $run    Caller 
+     * @param object $run    Caller
      *
      * @return mixed
      */
@@ -145,15 +145,16 @@ abstract class AbstractAlias
     /**
      * Get Instance.
      *
-     * @return object 
+     * @return object
      */
     public static function getInstance()
     {
         static $self;
         if (empty($self)) {
             $class = get_called_class();
-            $self = new $class(); 
+            $self = new $class();
         }
+
         return $self;
     }
 }
@@ -177,7 +178,7 @@ class AliasClassConfig extends AbstractAlias
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
-     * @param object $run    Caller 
+     * @param object $run    Caller
      *
      * @return mixed
      */
@@ -211,7 +212,7 @@ class AliasDefaultClass extends AbstractAlias
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
-     * @param object $run    Caller 
+     * @param object $run    Caller
      *
      * @return mixed
      */
@@ -248,7 +249,7 @@ class AliasSrcFile extends AbstractAlias
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
-     * @param object $run    Caller 
+     * @param object $run    Caller
      *
      * @return mixed
      */
