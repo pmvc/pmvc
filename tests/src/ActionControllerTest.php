@@ -5,11 +5,8 @@ class ActionControllerTest extends PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
-        $a = [
-            'xxx' => 'yyy',
-        ];
-        $mvc = new PMVC\ActionController($a);
-        $this->assertEquals('yyy', PMVC\getOption('xxx'));
+        $mvc = \PMVC\getC();
+        $this->assertTrue(is_a($mvc,'\PMVC\ActionController'));
     }
 
     public function testProcess()
@@ -58,7 +55,8 @@ class ActionControllerTest extends PHPUnit_Framework_TestCase
             ],
             _RUN_ACTION => 'index',
         ];
-        $mvc = new PMVC\ActionController($options);
+        $mvc = PMVC\getC();
+        $mvc->setOption($options);
         $view = \PMVC\plug(
             'view', [
             _CLASS => '\PMVC\FakeView',

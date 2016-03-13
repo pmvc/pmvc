@@ -20,10 +20,9 @@ namespace PMVC;
 /*
  * Action
  */
-if (defined('\PMVC\CONTROLLER')) {
+if (defined('\PMVC\ACTION_FORMS')) {
     return;
 }
-const CONTROLLER = '__controller__';
 const ACTION_FORMS = '__action_forms__';
 const ACTION_MAPPINGS = '__action_mappings__';
 const ACTION_FORWARDS = '__action_forwards__';

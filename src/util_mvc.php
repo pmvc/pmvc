@@ -24,7 +24,11 @@ namespace PMVC;
  */
 function getC()
 {
-    return option('get', CONTROLLER);
+    static $c;
+    if (empty($c)) {
+        $c = new ActionController(); 
+    }
+    return $c;
 }
 
 /**

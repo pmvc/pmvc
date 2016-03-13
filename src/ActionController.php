@@ -46,17 +46,11 @@ class ActionController
 
     /**
      * ActionController construct with the options.
-     *
-     * @param array $options options
      */
-    public function __construct($options = null)
+    public function __construct()
     {
-        $this->store(CONTROLLER, $this);
         $this->_request = new Request();
         $this->_mappings = new ActionMappings();
-        if ($options) {
-            $this->setOption($options);
-        }
     }
 
     /**
