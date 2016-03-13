@@ -26,8 +26,9 @@ function getC()
 {
     static $c;
     if (empty($c)) {
-        $c = new ActionController(); 
+        $c = new ActionController();
     }
+
     return $c;
 }
 
