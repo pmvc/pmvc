@@ -821,11 +821,11 @@ function getPlugs()
  * Init PlugIn.
  *
  * @param array $arr   plug-in array
- * @param bool  $pause for includ file only 
+ * @param bool  $pause for includ file only
  *
  * @return void
  */
-function initPlugIn($arr, $pause=false)
+function initPlugIn($arr, $pause = false)
 {
     if (is_array($arr)) {
         $objs = getOption(PLUGIN_INSTANCE);
