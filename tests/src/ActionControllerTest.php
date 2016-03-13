@@ -6,7 +6,7 @@ class ActionControllerTest extends PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         $mvc = \PMVC\getC();
-        $this->assertTrue(is_a($mvc,'\PMVC\ActionController'));
+        $this->assertTrue(is_a($mvc, '\PMVC\ActionController'));
     }
 
     public function testProcess()
