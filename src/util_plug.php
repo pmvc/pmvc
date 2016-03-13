@@ -774,7 +774,7 @@ function Call_plugIn($plugIn, $func, $args = [])
  *
  * @param sring $name plug-in name
  *
- * @return mixed \PMVC\PlugIn
+ * @return mixed PlugIn
  */
 function unPlug($name)
 {
@@ -795,7 +795,7 @@ function unPlug($name)
  * @param sring $name   plug-in name
  * @param mixed $object plug-in plugin instance
  *
- * @return mixed \PMVC\PlugIn
+ * @return mixed PlugIn
  */
 function rePlug($name, $object)
 {
@@ -886,7 +886,7 @@ function plug($name, $config = null)
             ? $r->var[_INIT_CONFIG][_CLASS]
             : false;
     }
-    if (!empty($config[\PMVC\PAUSE])) {
+    if (!empty($config[PAUSE])) {
         return; //for inclue only purpose
     }
     if (class_exists($class)) {

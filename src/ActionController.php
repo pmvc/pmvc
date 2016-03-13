@@ -350,6 +350,7 @@ class ActionController
         if ($error) {
             return $error;
         }
+
         return !$isValid;
     }
 
