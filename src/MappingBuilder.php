@@ -66,20 +66,8 @@ class MappingBuilder
             if (!isset($settings[_CLASS])) {
                 $settings[_CLASS] = $psFormId;
             }
-            $this->_aaMap[ACTION_FORMS][$psFormId][_CLASS] = $settings[_CLASS];
+            $this->_aaMap[ACTION_FORMS][$psFormId] = $settings;
         }
-    }
-
-    /**
-     * Get Form Default.
-     *
-     * @return array
-     */
-    public function getFormDefault()
-    {
-        return [
-            _CLASS => null,
-        ];
     }
 
     /**

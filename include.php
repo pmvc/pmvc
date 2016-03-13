@@ -1,13 +1,13 @@
 <?php
 
 include 'include_plug.php';
-include_once 'src/util_mvc.php';
-include_once 'src/Action.php';
-include_once 'src/ActionForm.php';
-include_once 'src/ActionForward.php';
-include_once 'src/ActionMapping.php';
-include_once 'src/ActionMappings.php';
-include_once 'src/MappingBuilder.php';
-include_once 'src/Request.php';
-include_once 'src/RouterInterface.php';
-include_once 'src/ActionController.php';
+include 'src/util_mvc.php';
+include 'src/Action.php';
+include 'src/ActionForm.php';
+include 'src/ActionForward.php';
+include 'src/ActionMapping.php';
+include 'src/ActionMappings.php';
+include 'src/MappingBuilder.php';
+include 'src/Request.php';
+include 'src/RouterInterface.php';
+include 'src/ActionController.php';
