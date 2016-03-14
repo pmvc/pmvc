@@ -39,8 +39,8 @@ trait Alias
         if (!$this->_aliasFunctions) {
             $this->_aliasFunctions = $this->initAliasFunction();
         }
-        if (is_null($run) && !empty($this['this'])) {
-            $run = $this['this'];
+        if (is_null($run)) {
+            $run = $this['this'] ?: $this;
         }
         foreach ($this->_aliasFunctions as $alias) {
             $func = $alias->get($this, $method, $run);
@@ -49,12 +49,11 @@ trait Alias
             }
         }
         if (!$func) {
-            if (isset($this['parent'])
-                && isset($this[_PLUGIN])
-                && $this['parent'] !== $this[_PLUGIN]
-            ) {
+            if (isset($this['parent'])) {
                 $parent = $this['parent'];
-                if (is_callable([$parent, 'isCallable'])) {
+                if ($parent !== $this['this']
+                    && is_callable([$parent, 'isCallable'])
+                ) {
                     $func = $parent->isCallable($method, $run);
                 }
             }
