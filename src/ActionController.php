@@ -396,6 +396,7 @@ class ActionController
         );
         if (call_plugin('dispatcher', 'stop')) {
             unset($actionForward->action);
+
             return;
         }
         if (is_callable([$actionForward, 'go'])) {
