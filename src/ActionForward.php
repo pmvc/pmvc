@@ -278,6 +278,7 @@ class ActionForward extends HashMap
             getOption(_TEMPLATE_DIR)
         );
         $this->view->setThemePath($this->getPath());
+
         return $this->view->process();
     }
 
@@ -291,10 +292,12 @@ class ActionForward extends HashMap
         switch ($this->getType()) {
         case 'view':
             $this->_processHeader();
+
             return $this->_processView();
         case 'redirect':
             $this->_processHeader();
             $path = $this->getPath(true);
+
             return call_plugin(
                 getOption(_ROUTER),
                 'go',
