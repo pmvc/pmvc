@@ -207,11 +207,7 @@ class ActionController
             isset($forward->action) &&
             $forward = $this->execute($forward->action)
         ) {
-            if (isset($forward->result)) {
-                $results[] = $forward->result;
-            } else {
-                $results[] = $forward;
-            }
+            $results[] = $this->processForward($forward);
         }
         $this->_finish();
 
@@ -234,7 +230,7 @@ class ActionController
         if ($actionMapping->validate) {
             $errorForward = $this->_processValidate($actionForm);
         }
-        if ($errorForward) {
+        if (!empty($errorForward)) {
             $actionForward = $errorForward;
         } else {
             $actionForward = $this->_processAction(
@@ -243,7 +239,7 @@ class ActionController
             );
         }
 
-        return $this->processForward($actionForward);
+        return $actionForward;
     }
 
     /**
@@ -394,9 +390,14 @@ class ActionController
             'dispatcher',
             'notify',
             [
-                Event\B4_PROCESS_FORWARD, true,
+                Event\B4_PROCESS_FORWARD,
+                true,
             ]
         );
+        if (call_plugin('dispatcher', 'stop')) {
+            unset($actionForward->action);
+            return;
+        }
         if (is_callable([$actionForward, 'go'])) {
             return $actionForward->go();
         } else {
@@ -415,7 +416,8 @@ class ActionController
             'dispatcher',
             'notify',
             [
-                Event\FINISH, true,
+                Event\FINISH,
+                true,
             ]
         );
         $errorForward = $this->getErrorForward();

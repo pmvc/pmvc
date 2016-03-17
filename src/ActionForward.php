@@ -53,13 +53,6 @@ class ActionForward extends HashMap
     private $_header = [];
 
     /**
-     * Forward result.
-     *
-     * @var string
-     */
-    public $result;
-
-    /**
      * Lazyoutput action.
      *
      * @var string
@@ -285,7 +278,7 @@ class ActionForward extends HashMap
             getOption(_TEMPLATE_DIR)
         );
         $this->view->setThemePath($this->getPath());
-        $this->result = $this->view->process();
+        return $this->view->process();
     }
 
     /**
@@ -298,24 +291,20 @@ class ActionForward extends HashMap
         switch ($this->getType()) {
         case 'view':
             $this->_processHeader();
-            $this->_processView();
-            break;
+            return $this->_processView();
         case 'redirect':
             $this->_processHeader();
             $path = $this->getPath(true);
-            call_plugin(
+            return call_plugin(
                 getOption(_ROUTER),
                 'go',
                 [
                     $path,
                 ]
             );
-            break;
         case 'action':
         default:
-            break;
+            return $this;
         }
-
-        return $this;
     }
 }
