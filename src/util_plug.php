@@ -166,6 +166,23 @@ function find($name, $dirs = null, $isIncludeApp = null)
  */
 
 /**
+ * Merge name.
+ *
+ * @param string $name name
+ * @param string $dir  dir
+ *
+ * @return string
+ */
+function mergeName($name, $dir = null)
+{
+    if (!empty($dir)) {
+        $name = lastSlash($dir).$name;
+    }
+
+    return $name;
+}
+
+/**
  * Auto append last slash for dir or file.
  *
  * @param string $s folder or file name
@@ -251,23 +268,6 @@ function splitDir($s)
 }
 
 /**
- * Merge name.
- *
- * @param string $name name
- * @param string $dir  dir
- *
- * @return string
- */
-function mergeName($name, $dir = null)
-{
-    if (!empty($dir)) {
-        $name = lastSlash($dir).$name;
-    }
-
-    return $name;
-}
-
-/**
  * Hash function.
  *
  * @return string hash result
@@ -328,7 +328,7 @@ function isContain($haystack, $needle)
  *
  * @return array
  */
-function Array_merge()
+function arrayMerge()
 {
     $a = func_get_args();
     $new = $a[0];
@@ -539,7 +539,7 @@ function &get(&$a, $k = null, $default = null)
 function set(&$a, $k, $v = null)
 {
     if (isArray($k)) { //merge by new array
-        return $a = array_merge($a, $k);
+        return $a = arrayMerge($a, $k);
     } else {
         if (is_null($k) && is_null($v)) {
             return false;
@@ -606,7 +606,7 @@ function &option($act, $k = null, $v = null)
 function d()
 {
     $params = func_get_args();
-    call_plugin('debug', 'd', $params);
+    callPlugin('debug', 'd', $params);
 }
 
 /**
@@ -617,7 +617,7 @@ function d()
 function log()
 {
     $params = func_get_args();
-    call_plugin('error_trace', 'log', $params);
+    callPlugin('error_trace', 'log', $params);
 }
 
 /**
@@ -756,7 +756,7 @@ function addPlugInFolder($folders, $alias = [])
  *
  * @return mixed
  */
-function Call_plugIn($plugIn, $func, $args = [])
+function callPlugin($plugIn, $func, $args = [])
 {
     if (exists($plugIn, 'plugin')) {
         return call_user_func_array(
@@ -905,7 +905,7 @@ function plug($name, $config = null)
     $oPlugin[_PLUGIN] = $name;
     $oPlugin['this'] = getAdapter($name);
     if (!empty($r)) {
-        $config = array_merge($r->var[_INIT_CONFIG], $config);
+        $config = arrayMerge($r->var[_INIT_CONFIG], $config);
         $oPlugin[_PLUGIN_FILE] = $r->name;
     }
     if (!empty($config)) {

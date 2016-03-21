@@ -33,21 +33,6 @@ function getC()
 }
 
 /**
- * Wrapper get real url.
- *
- * @param string $job job
- * @param string $url url
- *
- * @return mixed
- */
-function u($job, $url = null)
-{
-    return call_plugin(
-        'url', 'actionToUrl', [$job, $url]
-    );
-}
-
-/**
  * Transparent.
  *
  * @param string $name filename

@@ -67,7 +67,7 @@ class ActionController
         if (isContain($k, _PLUGIN)) {
             initPlugIn(getOption(_PLUGIN));
         }
-        call_plugin(
+        callPlugin(
             'dispatcher',
             'set',
             [
@@ -101,7 +101,7 @@ class ActionController
      */
     public function plugApp($parent = null, $appAlias = null, $indexFile = 'index')
     {
-        call_plugin(
+        callPlugin(
             'dispatcher',
             'notify',
             [
@@ -185,11 +185,11 @@ class ActionController
      */
     public function __invoke(MappingBuilder $builder = null)
     {
-        if (call_plugin('dispatcher', 'stop')) {
+        if (callPlugin('dispatcher', 'stop')) {
             // Stop for authentication plugin verify failed
             return;
         }
-        call_plugin(
+        callPlugin(
             'dispatcher',
             'notify',
             [
@@ -354,7 +354,7 @@ class ActionController
      */
     private function _processAction($actionMapping, $actionForm)
     {
-        call_plugin(
+        callPlugin(
             'dispatcher',
             'notify',
             [
@@ -386,7 +386,7 @@ class ActionController
      */
     public function processForward($actionForward)
     {
-        call_plugin(
+        callPlugin(
             'dispatcher',
             'notify',
             [
@@ -394,7 +394,7 @@ class ActionController
                 true,
             ]
         );
-        if (call_plugin('dispatcher', 'stop')) {
+        if (callPlugin('dispatcher', 'stop')) {
             unset($actionForward->action);
 
             return;
@@ -413,7 +413,7 @@ class ActionController
      */
     private function _finish()
     {
-        call_plugin(
+        callPlugin(
             'dispatcher',
             'notify',
             [
@@ -438,7 +438,7 @@ class ActionController
         if (empty($AllErrors[USER_LAST_ERROR])) {
             return false;
         }
-        call_plugin(
+        callPlugin(
             'dispatcher',
             'notify',
             [

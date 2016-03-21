@@ -175,7 +175,7 @@ class ActionForward extends HashMap
      */
     public function buildCommand($url, $params)
     {
-        return call_plugin(
+        return callPlugin(
             getOption(_ROUTER),
             __FUNCTION__,
             [
@@ -251,7 +251,7 @@ class ActionForward extends HashMap
     {
         $headers = $this->getHeader();
 
-        return call_plugin(
+        return callPlugin(
             getOption(_ROUTER),
             'processHeader',
             [
@@ -267,7 +267,7 @@ class ActionForward extends HashMap
      */
     private function _processView()
     {
-        call_plugin(
+        callPlugin(
             'dispatcher',
             'notify',
             [
@@ -298,7 +298,7 @@ class ActionForward extends HashMap
             $this->_processHeader();
             $path = $this->getPath(true);
 
-            return call_plugin(
+            return callPlugin(
                 getOption(_ROUTER),
                 'go',
                 [
