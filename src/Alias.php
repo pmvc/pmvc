@@ -28,22 +28,22 @@ trait Alias
     /**
      * Custom is_callable for Alias.
      *
-     * @param string $method method
-     * @param object $run    caller
+     * @param string $method Method
+     * @param object $caller Caller
      *
      * @return mixed
      */
-    public function isCallable($method, $run = null)
+    public function isCallable($method, $caller = null)
     {
         $func = false;
         if (!$this->_aliasFunctions) {
             $this->_aliasFunctions = $this->initAliasFunction();
         }
-        if (is_null($run)) {
-            $run = $this['this'] ?: $this;
+        if (is_null($caller)) {
+            $caller = $this['this'] ?: $this;
         }
         foreach ($this->_aliasFunctions as $alias) {
-            $func = $alias->get($this, $method, $run);
+            $func = $alias->get($this, $method, $caller);
             if (!empty($func)) {
                 break;
             }
@@ -54,7 +54,7 @@ trait Alias
                 if ($parent !== $this['this']
                     && is_callable([$parent, 'isCallable'])
                 ) {
-                    $func = $parent->isCallable($method, $run);
+                    $func = $parent->isCallable($method, $caller);
                 }
             }
         }
@@ -135,11 +135,11 @@ abstract class AbstractAlias
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
-     * @param object $run    Caller
+     * @param object $caller Caller
      *
      * @return mixed
      */
-    abstract public function get($self, $method, $run);
+    abstract public function get($self, $method, $caller);
 
     /**
      * Get Instance.
@@ -177,11 +177,11 @@ class AliasClassConfig extends AbstractAlias
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
-     * @param object $run    Caller
+     * @param object $caller Caller
      *
      * @return mixed
      */
-    public function get($self, $method, $run)
+    public function get($self, $method, $caller)
     {
         $func = false;
         if (is_callable($self[$method])) {
@@ -211,11 +211,11 @@ class AliasDefaultClass extends AbstractAlias
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
-     * @param object $run    Caller
+     * @param object $caller Caller
      *
      * @return mixed
      */
-    public function get($self, $method, $run)
+    public function get($self, $method, $caller)
     {
         $func = false;
         if (isset($self->defaultAlias)) {
@@ -248,11 +248,11 @@ class AliasSrcFile extends AbstractAlias
      *
      * @param object $self   Same with object $this
      * @param string $method Call which funciton
-     * @param object $run    Caller
+     * @param object $caller Caller
      *
      * @return mixed
      */
-    public function get($self, $method, $run)
+    public function get($self, $method, $caller)
     {
         if (!is_callable([$self, 'getDir'])) {
             return false;
@@ -269,7 +269,8 @@ class AliasSrcFile extends AbstractAlias
             if (!class_exists($class)) {
                 return !trigger_error('Default Class not exits. ['.$class.']');
             }
-            $func = new $class($run);
+            $func = new $class($caller);
+            $func->caller = $caller;
         }
         if (!is_callable($func)) {
             return !trigger_error('Not implement __invoke function');
