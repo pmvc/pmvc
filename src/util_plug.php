@@ -152,7 +152,7 @@ function find($name, $dirs = null, $isIncludeApp = null)
         if (!realpath($dirPath)) {
             continue;
         }
-        $r = includeApp(mergeName($name, $dirPath), $isIncludeApp);
+        $r = includeApp(mergeFileName($name, $dirPath), $isIncludeApp);
         if ($r) {
             return $r;
         }
@@ -173,7 +173,7 @@ function find($name, $dirs = null, $isIncludeApp = null)
  *
  * @return string
  */
-function mergeName($name, $dir = null)
+function mergeFileName($name, $dir = null)
 {
     if (!empty($dir)) {
         $name = lastSlash($dir).$name;
@@ -200,38 +200,6 @@ function lastSlash($s)
     } else {
         return '';
     }
-}
-
-/**
- * Change file name from uppder case to lower case.
- *
- * @param string $name file name
- * @param string $type [class|function]
- *
- * @return string
- */
-function lowerCaseFile($name, $type = '')
-{
-    $s = preg_split(
-        '/([A-Z])/',
-        $name,
-        -1,
-        PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
-    );
-    $k = '';
-    for ($i = 1, $j = count($s); $i < $j; $i++) {
-        if (preg_match('/[A-Z]/', $s[$i])) {
-            $k .= '_'.strtolower($s[$i]);
-        } else {
-            $k .= $s[$i];
-        }
-    }
-    if (!empty($type)) {
-        $type .= '.';
-    }
-    $k = $type.strtolower($s[0]).$k;
-
-    return $k;
 }
 
 /**
@@ -665,30 +633,6 @@ function exists($v, $type)
     }
 }
 
-/**
- * Count number.
- *
- * @param mixed $v    value
- * @param mixed $type [array|string]
- *
- * @return mixed
- */
-function n($v, $type = null)
-{
-    if (is_array($v)) {
-        if (!is_null($type) && 'array' != $type) {
-            return false;
-        }
-
-        return count($v);
-    } else {
-        if (!is_string($v)) {
-            return false;
-        }
-
-        return strlen($v);
-    }
-}
 
 /**
  * Plugins <!--.
