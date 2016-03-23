@@ -113,7 +113,7 @@ class ActionController
         }
         if (!realpath($parent)) {
             return !trigger_error(
-                'No App Parent found for '.$parent,
+                'No App Parent found for ['.$parent.']',
                 E_USER_WARNING
             );
         } else {
