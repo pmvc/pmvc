@@ -278,6 +278,10 @@ class ActionForward extends HashMap
             getOption(_TEMPLATE_DIR)
         );
         $this->view->setThemePath($this->getPath());
+        if (isset($this->view['headers'])) {
+            $this->setHeader($this->view['headers']);
+        }
+        $this->_processHeader();
 
         return $this->view->process();
     }
@@ -291,8 +295,6 @@ class ActionForward extends HashMap
     {
         switch ($this->getType()) {
         case 'view':
-            $this->_processHeader();
-
             return $this->_processView();
         case 'redirect':
             $this->_processHeader();
