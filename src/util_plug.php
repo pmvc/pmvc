@@ -633,7 +633,6 @@ function exists($v, $type)
     }
 }
 
-
 /**
  * Plugins <!--.
  */

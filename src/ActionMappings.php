@@ -131,7 +131,7 @@ class ActionMappings
             return new ActionForward($forward);
         } else {
             return !trigger_error(
-                'Forward key: {'.$name.'} not exists',
+                'ActionForward not found: {'.$name.'} not exists',
                 E_USER_WARNING
             );
         }
