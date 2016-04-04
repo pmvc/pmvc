@@ -57,3 +57,29 @@ function transparent($name, $app = null)
         return $name;
     }
 }
+
+/**
+ * Set App Folder.
+ *
+ * @param array $folders folders
+ * @param array $alias   alias
+ *
+ * @return mixed
+ */
+function setAppFolder($folders, $alias = [])
+{
+    return folders(_RUN_APP, $folders, $alias, true);
+}
+
+/**
+ * Add App Folder.
+ *
+ * @param array $folders folders
+ * @param array $alias   alias
+ *
+ * @return mixed
+ */
+function addAppFolder($folders, $alias = [])
+{
+    return folders(_RUN_APP, $folders, $alias);
+}

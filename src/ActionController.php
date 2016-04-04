@@ -99,7 +99,7 @@ class ActionController
      *
      * @return mixed
      */
-    public function plugApp($parent = null, $appAlias = null, $indexFile = 'index')
+    public function plugApp($parent = null, $appAlias = [], $indexFile = 'index')
     {
         callPlugin(
             'dispatcher',
@@ -111,38 +111,50 @@ class ActionController
         if (is_null($parent)) {
             $parent = $this->getAppParent();
         }
-        if (!realpath($parent)) {
+        $folders = \PMVC\addAppFolder($parent, $appAlias);
+        $alias = $folders['alias'];
+        $parents = $folders['folders'];
+        $app = $this->getApp();
+        $path = $this->getAppFile(
+            $parents,
+            $app,
+            $indexFile,
+            $alias
+        );
+        if (!$path) {
+            $app = getOption(_DEFAULT_APP);
+            $path = $this->getAppFile(
+                $parents,
+                $app,
+                $indexFile,
+                $alias
+            );
+        }
+        if (!$path) {
             return !trigger_error(
-                'No App Parent found for ['.$parent.']',
-                E_USER_WARNING
+                'No App found for '.var_export(
+                    [ 
+                    $parents,
+                    $app,
+                    $indexFile,
+                    $alias
+                    ], true
+                ), E_USER_WARNING
             );
         } else {
-            $app = $this->getApp();
-            if (!empty($appAlias[$app])) {
-                $app = $appAlias[$app];
-            }
-            $parent = lastSlash($parent);
-            $path = $parent.$app.'/'.$indexFile.'.php';
-        }
-        if (!realpath($path)) {
-            $app = getOption(_DEFAULT_APP);
-            $path = $parent.$app.'/'.$indexFile.'.php';
-        }
-        if (!realpath($path)) {
-            return !trigger_error('No App found for '.$path, E_USER_WARNING);
-        } else {
-            addPlugInFolder($parent.$app.'/plugins');
-            $this->setApp($app);
+            $parent = realpath(dirname(dirname($path)));
             $this->setOption(
                 _RUN_PARENT,
-                realpath($parent)
+                $parent
             );
+            $this->setApp($app);
             $appPlugin = plug(
                 _RUN_APP,
                 [
                     _PLUGIN_FILE => $path,
                 ]
             );
+            addPlugInFolder($parent.'/'.$app.'/plugins');
             $builder = $appPlugin[_INIT_BUILDER];
             if (empty($builder)) {
                 return !trigger_error('No builder found', E_USER_WARNING);
@@ -150,6 +162,25 @@ class ActionController
 
             return $this->setMapping($builder());
         }
+    }
+
+    /**
+     * Plug App.
+     *
+     * @param string $parents   Multiple app folder
+     * @param array  $app       app name 
+     * @param string $indexFile index.php
+     * @param string $alias     alias 
+     *
+     * @return mixed
+     */
+    function getAppFile($parents, $app, $indexFile, $alias)
+    {
+        if (!empty($alias[$app])) {
+            $app = $alias[$app];
+        }
+        $file = $app.'/'.$indexFile.'.php';
+        return find($file, $parents);
     }
 
     /**

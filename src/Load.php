@@ -40,6 +40,7 @@ class Load
     {
         include __DIR__.'/../include.php';
         self::initPlugInFolder();
+        setAppFolder(__DIR__.'/../../../pmvc-app');
     }
 
     /**

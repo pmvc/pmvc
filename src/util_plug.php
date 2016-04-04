@@ -49,21 +49,29 @@ function realPath($p)
  */
 function l($name, $compacts = null, $once = true)
 {
-    static $files = [];
-    $real = realpath($name);
-    if (!$once || !isset($files[$real])) {
-        include $name;
-        $files[$real] = false;
+    $real = realPath($name);
+    if ($once) {
+        return run(__NAMESPACE__.'\_l', [$real, $compacts]);
+    } else {
+        return _l($real, $compacts);
     }
+}
+
+/**
+ * Private funciton for l
+ *
+ * @param string $name     file name
+ * @param array  $compacts decide extrac files variable
+ *
+ * @return mixed
+ */
+function _l($name, $compacts = null)
+{
+    include $name;
     $o = new \stdClass();
-    $o->name = $real;
+    $o->name = $name;
     if ($compacts) {
-        if (!empty($files[$real])) {
-            $o->var = &$files[$real];
-        } else {
-            $o->var = compact($compacts);
-            $files[$real] = &$o->var;
-        }
+        $o->var = compact($compacts);
     }
 
     return $o;
@@ -124,11 +132,7 @@ function load(
         ]
     );
     if ($file) {
-        if ($once) {
-            $r = run(__NAMESPACE__.'\l', [$file, $compacts]);
-        } else {
-            $r = l($file, $compacts, $once);
-        }
+        $r = l($file, $compacts, $once);
 
         return $r;
     } else {
@@ -159,6 +163,39 @@ function find($name, $dirs = null, $isIncludeApp = null)
     }
 
     return false;
+}
+
+/**
+ * Folder store.
+ *
+ * @param string $type    Folder's group
+ * @param string $folders Which folder need store
+ * @param string $alias   Which alias need store
+ * @param string $clean   Reset folder by type
+ * 
+ * @return mixed
+ */
+function folders($type, $folders = null, $alias = [], $clean = null)
+{
+    static $_folders = [];
+    static $_alias = [];
+    if (!isset($_folders[$type]) || $clean) {
+        $_folders[$type] = [];
+        $_alias[$type] = [];
+    }
+    $_folders[$type] = \array_merge(
+        $_folders[$type],
+        toArray($folders)
+    );
+    $_alias[$type] = \array_merge(
+        $_alias[$type],
+        $alias 
+    );
+
+    return [
+       'folders' => $_folders[$type],
+       'alias' => $_alias[$type]
+    ];
 }
 
 /**
@@ -664,9 +701,7 @@ function getAdapter($name)
  */
 function setPlugInFolder($folders, $alias = [])
 {
-    option('set', PLUGIN_ALIAS, $alias);
-
-    return option('set', PLUGIN_FOLDERS, toArray($folders));
+    return folders(_PLUGIN, $folders, $alias, true);
 }
 
 /**
@@ -679,15 +714,7 @@ function setPlugInFolder($folders, $alias = [])
  */
 function addPlugInFolder($folders, $alias = [])
 {
-    $folders = \array_merge(
-        toArray(getOption(PLUGIN_FOLDERS)),
-        toArray($folders)
-    );
-    $alias = \array_merge(
-        toArray(getOption(PLUGIN_ALIAS)),
-        $alias
-    );
-    setPlugInFolder($folders, $alias);
+    return folders(_PLUGIN, $folders, $alias);
 }
 
 /**
@@ -806,8 +833,9 @@ function plug($name, $config = null)
         $class = $config[_CLASS];
     } else {
         $file = null;
+        $folders = folders(_PLUGIN);
         if (!isset($config[_PLUGIN_FILE])) {
-            $alias = getOption(PLUGIN_ALIAS);
+            $alias = $folders['alias'];
             if (isset($alias[$name])) {
                 $file = $alias[$name];
             }
@@ -817,13 +845,8 @@ function plug($name, $config = null)
         if (!is_null($file) && realpath($file)) {
             $r = run(__NAMESPACE__.'\l', [$file, _INIT_CONFIG]);
         } else {
-            $file = $name.'.php';
-            $default_folders = getOption(PLUGIN_FOLDERS, []);
-            $folders = [];
-            foreach ($default_folders as $folder) {
-                $folders[] = lastSlash($folder).$name;
-            }
-            $r = load($file, $folders, _INIT_CONFIG, true, false);
+            $file = $name.'/'.$name.'.php';
+            $r = load($file, $folders['folders'], _INIT_CONFIG, true, false);
         }
         $class = (!empty($r->var[_INIT_CONFIG][_CLASS]))
             ? $r->var[_INIT_CONFIG][_CLASS]
