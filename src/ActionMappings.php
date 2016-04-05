@@ -88,6 +88,8 @@ class ActionMappings
                 $mappings->{$key}
             );
         }
+
+        return $this->_mappings->{$key};
     }
 
     /**

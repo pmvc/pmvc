@@ -169,13 +169,13 @@ function find($name, $dirs = null, $isIncludeApp = null)
  * Folder store.
  *
  * @param string $type    Folder's group
- * @param string $folders Which folder need store
- * @param string $alias   Which alias need store
- * @param string $clean   Reset folder by type
+ * @param array  $folders Which folder need store
+ * @param array  $alias   Which alias need store
+ * @param bool   $clean   Reset folder by type
  * 
  * @return mixed
  */
-function folders($type, $folders = null, $alias = [], $clean = null)
+function folders($type, $folders = [], $alias = [], $clean = null)
 {
     static $_folders = [];
     static $_alias = [];

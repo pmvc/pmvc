@@ -93,13 +93,13 @@ class ActionController
     /**
      * Plug App.
      *
-     * @param string $parent    defaultAppFolder
+     * @param array  $parent    defaultAppFolder
      * @param array  $appAlias  appAlias
      * @param string $indexFile index.php
      *
      * @return mixed
      */
-    public function plugApp($parent = null, $appAlias = [], $indexFile = 'index')
+    public function plugApp($parent = [], $appAlias = [], $indexFile = 'index')
     {
         callPlugin(
             'dispatcher',
