@@ -36,7 +36,7 @@ class Object
     /**
      * Construct.
      *
-     * @param array $state $state
+     * @param array $state state
      */
     public function __construct(&$state = null)
     {
@@ -47,10 +47,16 @@ class Object
      * Clled when a script tries to call an object as a function.
      * available since PHP 5.3.0.
      *
+     * @param array $state state
+     *
      * @return mixed
      */
-    public function &__invoke()
+    public function &__invoke($state = null)
     {
+        if (!is_null($state)) {
+            $this->state = $state;
+        }
+
         return $this->state;
     }
 }

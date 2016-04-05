@@ -499,7 +499,9 @@ function &get(&$a, $k = null, $default = null)
 {
     if (is_null($k)) { //return all
         if (isArrayAccess($a)) {
-            return $a->offsetGet();
+            $r = $a->offsetGet();
+
+            return $r;
         }
 
         return $a;
@@ -543,18 +545,14 @@ function &get(&$a, $k = null, $default = null)
  */
 function set(&$a, $k, $v = null)
 {
-    if (isArray($k)) { //merge by new array
-        return $a = arrayMerge($a, $k);
+    if (is_null($k) && is_null($v)) {
+        return false;
+    } elseif (isArray($k)) {
+        return $a = arrayMerge($a, $k);//merge by new array
+    } elseif (is_null($k)) {
+        return $a[] = $v; //append value when no-assign key
     } else {
-        if (is_null($k) && is_null($v)) {
-            return false;
-        } elseif (is_null($k)) { //append value when no-assign key
-            return $a[] = $v;
-        } elseif (!is_string($k)) { //append key when key is not a string
-            return $a[] = $k;
-        } else { //exactly set key and value
-            return $a[$k] = $v;
-        }
+        return $a[$k] = $v; //exactly set key and value
     }
 }
 

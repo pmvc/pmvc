@@ -86,7 +86,7 @@ class HashMap extends ListIterator implements \ArrayAccess
      *
      * @return mixed
      */
-    public function &__get($k = null)
+    public function __get($k = null)
     {
         $val = new Object($this->state[$k]);
 
@@ -103,7 +103,7 @@ class HashMap extends ListIterator implements \ArrayAccess
      */
     public function offsetSet($k, $v)
     {
-        return $this->state[$k] = $v;
+        return set($this->state, $k, $v);
     }
 
     /**

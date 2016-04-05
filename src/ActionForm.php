@@ -32,11 +32,13 @@ namespace PMVC;
 class ActionForm extends HashMap
 {
     /**
-     * Invoke.
+     * Let ActionForm coule be a separate file unser src.
+     *
+     * @param array $state state
      *
      * @return this
      */
-    public function &__invoke()
+    public function &__invoke($state = null)
     {
         return $this;
     }
