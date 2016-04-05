@@ -133,11 +133,11 @@ class ActionController
         if (!$path) {
             return !trigger_error(
                 'No App found for '.var_export(
-                    [ 
+                    [
                     'Parent' => $parents,
-                    'App'    => [$this->getApp(),$app],
+                    'App'    => [$this->getApp(), $app],
                     'Index'  => $indexFile,
-                    'Alias'  => $alias
+                    'Alias'  => $alias,
                     ],
                     true
                 ), E_USER_WARNING
@@ -169,9 +169,9 @@ class ActionController
      * Plug App.
      *
      * @param string $parents   Multiple app folder
-     * @param array  $app       app name 
+     * @param array  $app       app name
      * @param string $indexFile index.php
-     * @param string $alias     alias 
+     * @param string $alias     alias
      *
      * @return mixed
      */
@@ -181,6 +181,7 @@ class ActionController
             $app = $alias[$app];
         }
         $file = $app.'/'.$indexFile.'.php';
+
         return find($file, $parents);
     }
 
