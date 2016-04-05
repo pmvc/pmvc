@@ -72,7 +72,6 @@ class ActionControllerTest extends PHPUnit_Framework_TestCase
             $error[0]->v['lastError']
         );
     }
-
 }
 
 class FakeClass extends PMVC\Action
