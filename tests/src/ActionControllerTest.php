@@ -73,10 +73,6 @@ class ActionControllerTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testPlugApp()
-    {
-
-    }
 }
 
 class FakeClass extends PMVC\Action

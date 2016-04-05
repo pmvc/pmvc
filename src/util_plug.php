@@ -193,7 +193,7 @@ function folders($type, $folders = null, $alias = [], $clean = null)
     );
 
     return [
-       'folders' => $_folders[$type],
+       'folders' => array_reverse($_folders[$type]),
        'alias' => $_alias[$type]
     ];
 }
@@ -338,7 +338,7 @@ function arrayMerge()
     $a = func_get_args();
     $new = $a[0];
     if (!isArray($new)) {
-        return !trigger_error('param1 need be an array');
+        return !trigger_error('Param1 need be an array. '.var_export($new, true));
     }
     for ($i = 1, $j = count($a); $i < $j; $i++) {
         if (is_null($a[$i])) {

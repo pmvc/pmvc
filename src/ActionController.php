@@ -115,7 +115,7 @@ class ActionController
         $alias = $folders['alias'];
         $parents = $folders['folders'];
         $app = $this->getApp();
-        $path = $this->getAppFile(
+        $path = $this->_getAppFile(
             $parents,
             $app,
             $indexFile,
@@ -123,7 +123,7 @@ class ActionController
         );
         if (!$path) {
             $app = getOption(_DEFAULT_APP);
-            $path = $this->getAppFile(
+            $path = $this->_getAppFile(
                 $parents,
                 $app,
                 $indexFile,
@@ -134,11 +134,12 @@ class ActionController
             return !trigger_error(
                 'No App found for '.var_export(
                     [ 
-                    $parents,
-                    $app,
-                    $indexFile,
-                    $alias
-                    ], true
+                    'Parent' => $parents,
+                    'App'    => [$this->getApp(),$app],
+                    'Index'  => $indexFile,
+                    'Alias'  => $alias
+                    ],
+                    true
                 ), E_USER_WARNING
             );
         } else {
@@ -174,7 +175,7 @@ class ActionController
      *
      * @return mixed
      */
-    function getAppFile($parents, $app, $indexFile, $alias)
+    private function _getAppFile($parents, $app, $indexFile, $alias)
     {
         if (!empty($alias[$app])) {
             $app = $alias[$app];
