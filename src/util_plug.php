@@ -172,7 +172,7 @@ function find($name, $dirs = null, $isIncludeApp = null)
  * @param array  $folders Which folder need store
  * @param array  $alias   Which alias need store
  * @param bool   $clean   Reset folder by type
- * 
+ *
  * @return mixed
  */
 function folders($type, $folders = [], $alias = [], $clean = null)

@@ -108,7 +108,7 @@ class ActionController
                 Event\MAP_REQUEST, true,
             ]
         );
-        if (is_null($parent)) {
+        if (empty($parent)) {
             $parent = $this->getAppParent();
         }
         $folders = \PMVC\addAppFolder($parent, $appAlias);
