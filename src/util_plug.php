@@ -49,7 +49,7 @@ function realPath($p)
  */
 function l($name, $compacts = null, $once = true)
 {
-    $real = realPath($name);
+    $real = realpath($name);
     if ($once) {
         return run(__NAMESPACE__.'\_l', [$real, $compacts]);
     } else {
@@ -58,7 +58,7 @@ function l($name, $compacts = null, $once = true)
 }
 
 /**
- * Private funciton for l
+ * Private funciton for l.
  *
  * @param string $name     file name
  * @param array  $compacts decide extrac files variable
@@ -172,7 +172,7 @@ function find($name, $dirs = null, $isIncludeApp = null)
  * @param string $folders Which folder need store
  * @param string $alias   Which alias need store
  * @param string $clean   Reset folder by type
- * 
+ *
  * @return mixed
  */
 function folders($type, $folders = null, $alias = [], $clean = null)
@@ -189,12 +189,12 @@ function folders($type, $folders = null, $alias = [], $clean = null)
     );
     $_alias[$type] = \array_merge(
         $_alias[$type],
-        $alias 
+        $alias
     );
 
     return [
        'folders' => array_reverse($_folders[$type]),
-       'alias' => $_alias[$type]
+       'alias'   => $_alias[$type],
     ];
 }
 

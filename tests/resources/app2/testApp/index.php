@@ -8,8 +8,8 @@ ${_INIT_CONFIG} = [
 
 class FakeAction extends \PMVC\Action
 {
-    function init()
+    public function init()
     {
-        \PMVC\getC()->store('test','app2');
+        \PMVC\getC()->store('test', 'app2');
     }
 }
