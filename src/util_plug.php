@@ -548,7 +548,7 @@ function set(&$a, $k, $v = null)
     if (is_null($k) && is_null($v)) {
         return false;
     } elseif (isArray($k)) {
-        return $a = arrayMerge($a, $k);//merge by new array
+        return $a = arrayMerge($a, $k); //merge by new array
     } elseif (is_null($k)) {
         return $a[] = $v; //append value when no-assign key
     } else {
