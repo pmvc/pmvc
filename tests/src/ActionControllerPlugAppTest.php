@@ -10,6 +10,7 @@ class ActionControllerPlugAppTest extends PHPUnit_Framework_TestCase
     {
         folders(_RUN_APP, [], [], true);
         $this->resources = __dir__.'/../resources/';
+        unPlug(_RUN_APP);
     }
 
     public function testStore()

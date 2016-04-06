@@ -66,6 +66,7 @@ class ActionController
         $this->store($k, $v);
         if (isContain($k, _PLUGIN)) {
             initPlugIn(getOption(_PLUGIN));
+            $this->store(_PLUGIN, null);
         }
         callPlugin(
             'dispatcher',
@@ -159,9 +160,10 @@ class ActionController
             $builder = $appPlugin[_INIT_BUILDER];
             if (empty($builder)) {
                 return !trigger_error('No builder found', E_USER_WARNING);
+            } else {
+                unset($appPlugin[_INIT_BUILDER]);
+                return $this->setMapping($builder());
             }
-
-            return $this->setMapping($builder());
         }
     }
 
