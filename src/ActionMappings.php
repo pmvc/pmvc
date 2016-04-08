@@ -78,7 +78,7 @@ class ActionMappings
      * @param array  $mappings mappings
      * @param string $key      key
      *
-     * @return array keys 
+     * @return array keys
      */
     public function addByKey($mappings, $key)
     {

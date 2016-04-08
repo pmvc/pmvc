@@ -162,6 +162,7 @@ class ActionController
                 return !trigger_error('No builder found', E_USER_WARNING);
             } else {
                 unset($appPlugin[_INIT_BUILDER]);
+
                 return $this->setMapping($builder());
             }
         }
