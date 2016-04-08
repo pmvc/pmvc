@@ -311,25 +311,15 @@ class ActionController
      */
     private function _processForm($actionMapping)
     {
-        $actionForm = null;
-        $form = &$this->_mappings->findForm(
+        if (empty($actionMapping->form)) {
+            $actionForm = getOption(_RUN_FORM);
+            if (!empty($actionForm)) {
+                return $actionForm;
+            }
+        }
+        $actionForm = $this->_mappings->findForm(
             $actionMapping->form
         );
-        if (is_callable($form[_CLASS])) {
-            $actionForm = call_user_func($form[_CLASS]);
-        } else {
-            if (!class_exists($form[_CLASS])) {
-                $run_form = getOption(_RUN_FORM);
-                if (!empty($run_form)) {
-                    return $run_form;
-                }
-                $form[_CLASS] = getOption(
-                    _DEFAULT_FORM,
-                    __NAMESPACE__.'\ActionForm'
-                );
-            }
-            $actionForm = new $form[_CLASS]();
-        }
 
         //add request parameters
         $this->_initActionFormValue($actionForm, $actionMapping);

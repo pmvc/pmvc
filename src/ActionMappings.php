@@ -43,7 +43,7 @@ class ActionMappings
      *
      * @param array $mappings mappings
      *
-     * @return void
+     * @return bool
      */
     public function set($mappings)
     {
@@ -67,9 +67,9 @@ class ActionMappings
         if (empty($this->_mappings)) {
             return $this->set($mappings);
         }
-        $this->addMappingByKey($mappings, ACTION_MAPPINGS);
-        $this->addMappingByKey($mappings, ACTION_FORMS);
-        $this->addMappingByKey($mappings, ACTION_FORWARDS);
+        $this->addByKey($mappings, ACTION_MAPPINGS);
+        $this->addByKey($mappings, ACTION_FORMS);
+        $this->addByKey($mappings, ACTION_FORWARDS);
     }
 
     /**
@@ -78,9 +78,9 @@ class ActionMappings
      * @param array  $mappings mappings
      * @param string $key      key
      *
-     * @return void
+     * @return array keys 
      */
-    public function addMappingByKey($mappings, $key)
+    public function addByKey($mappings, $key)
     {
         if (!empty($mappings->{$key})) {
             $this->_mappings->{$key} = arrayMerge(
@@ -95,14 +95,14 @@ class ActionMappings
     /**
      * Find an ActionMapping.
      *
-     * @param string $path path
+     * @param string $name ActionMapping name
      *
      * @return ActionMapping
      */
-    public function findMapping($path)
+    public function findMapping($name)
     {
-        $mapping = &$this->_mappings->{ACTION_MAPPINGS}[$path];
-        $mappingObj = new ActionMapping($mapping, $path);
+        $mapping = &$this->_mappings->{ACTION_MAPPINGS}[$name];
+        $mappingObj = new ActionMapping($mapping, $name);
 
         return $mappingObj;
     }
@@ -112,19 +112,32 @@ class ActionMappings
      *
      * @param string $name name
      *
-     * @return array
+     * @return ActionForm
      */
-    public function &findForm($name)
+    public function findForm($name)
     {
-        return get($this->_mappings->{ACTION_FORMS}, $name);
+        $form = &$this->_mappings->{ACTION_FORMS}[$name];
+        if (is_callable($form[_CLASS])) {
+            $actionForm = call_user_func($form[_CLASS]);
+        } else {
+            if (!class_exists($form[_CLASS])) {
+                $form[_CLASS] = getOption(
+                    _DEFAULT_FORM,
+                    __NAMESPACE__.'\ActionForm'
+                );
+            }
+            $actionForm = new $form[_CLASS]();
+        }
+
+        return $actionForm;
     }
 
     /**
-     * Search for the forward.
+     * Search for forward.
      *
      * @param string $name name
      *
-     * @return string
+     * @return ActionForward
      */
     public function findForward($name)
     {
