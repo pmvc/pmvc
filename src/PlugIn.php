@@ -65,13 +65,11 @@ class PlugIn extends HashMap implements \SplObserver
     public function update(\SplSubject $subject = null)
     {
         if ($subject) {
-            $state = $subject->getName();
-            if (method_exists($this, 'on'.$state)) {
-                $r = call_user_func(
-                    [$this, 'on'.$state],
-                    $subject,
-                    $state
-                );
+            $state = 'on'.$subject->getName();
+            if (method_exists($this, $state) 
+                || $this->isCallable($state)
+            ) {
+                $r = $this->{$state}();
 
                 return $r;
             }
