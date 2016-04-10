@@ -66,7 +66,7 @@ class PlugIn extends HashMap implements \SplObserver
     {
         if ($subject) {
             $state = 'on'.$subject->getName();
-            if (method_exists($this, $state) 
+            if (method_exists($this, $state)
                 || $this->isCallable($state)
             ) {
                 $r = $this->{$state}();

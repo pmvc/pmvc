@@ -48,11 +48,8 @@ class ActionMappings
     public function set($mappings)
     {
         $this->_mappings = $mappings;
-        if (empty($this->_mappings)) {
-            return false;
-        } else {
-            return true;
-        }
+
+        return empty($this->_mappings);
     }
 
     /**
@@ -70,6 +67,8 @@ class ActionMappings
         $this->addByKey($mappings, ACTION_MAPPINGS);
         $this->addByKey($mappings, ACTION_FORMS);
         $this->addByKey($mappings, ACTION_FORWARDS);
+
+        return empty($this->_mappings);
     }
 
     /**

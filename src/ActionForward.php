@@ -245,7 +245,7 @@ class ActionForward extends HashMap
                 Event\B4_PROCESS_VIEW, true,
             ]
         );
-        
+
         $view = plug('view');
         $view['forward'] = $this;
         $view->setThemeFolder(
@@ -257,6 +257,7 @@ class ActionForward extends HashMap
         }
         $this->_processHeader();
         $view->set(get($this));
+
         return $view->process();
     }
 

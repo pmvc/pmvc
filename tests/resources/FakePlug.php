@@ -4,8 +4,8 @@ namespace PMVC;
 
 class FakePlug extends PlugIn
 {
-    function onTest()
+    public function onTest()
     {
-        \PMVC\option('set','test','ontest');
+        \PMVC\option('set', 'test', 'ontest');
     }
 }

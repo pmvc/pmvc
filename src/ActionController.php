@@ -163,7 +163,7 @@ class ActionController
             } else {
                 unset($appPlugin[_INIT_BUILDER]);
 
-                return $this->setMapping($builder());
+                return $this->addMapping($builder());
             }
         }
     }
@@ -189,7 +189,7 @@ class ActionController
     }
 
     /**
-     * Set mapping.
+     * Reset mapping.
      *
      * @param mixed $mappings mappings
      *
