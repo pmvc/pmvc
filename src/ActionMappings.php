@@ -49,7 +49,7 @@ class ActionMappings
     {
         $this->_mappings = $mappings;
 
-        return empty($this->_mappings);
+        return !empty($this->_mappings);
     }
 
     /**
@@ -68,7 +68,7 @@ class ActionMappings
         $this->addByKey($mappings, ACTION_FORMS);
         $this->addByKey($mappings, ACTION_FORWARDS);
 
-        return empty($this->_mappings);
+        return !empty($this->_mappings);
     }
 
     /**

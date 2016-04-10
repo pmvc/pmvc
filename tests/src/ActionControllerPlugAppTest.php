@@ -38,7 +38,8 @@ class ActionControllerPlugAppTest extends PHPUnit_Framework_TestCase
         ];
         $mvc = getC();
         $mvc->store(_RUN_APP, 'testApp');
-        $mvc->plugApp($folders);
+        $result = $mvc->plugApp($folders);
+        $this->assertTrue($result);
         $this->assertEquals(
             'app2',
             getOption('test')
