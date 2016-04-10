@@ -60,13 +60,6 @@ class ActionForward extends HashMap
     public $action;
 
     /**
-     * Default view engine.
-     *
-     * @var object
-     */
-    public $view;
-
-    /**
      * ActionForward.
      *
      * @param array $forward forward
@@ -128,9 +121,6 @@ class ActionForward extends HashMap
     {
         if (is_null($type)) {
             $type = 'redirect';
-        } elseif ('view' == $type) {
-            $this->view = plug('view');
-            $this->view['forward'] = $this;
         }
         $this->_type = $type;
     }
@@ -207,19 +197,7 @@ class ActionForward extends HashMap
      */
     public function set($k, $v = null)
     {
-        if ('view' === $this->getType()) {
-            $args = func_get_args();
-
-            return call_user_func_array(
-                [
-                    $this->view,
-                    'set',
-                ],
-                $args
-            );
-        } else {
-            return set($this, $k, $v);
-        }
+        return set($this, $k, $v);
     }
 
     /**
@@ -232,14 +210,7 @@ class ActionForward extends HashMap
      */
     public function get($k = null, $default = null)
     {
-        if ('view' == $this->getType()) {
-            $args = func_get_args();
-            $return = call_user_func_array([$this->view, 'get'], $args);
-
-            return $return;
-        } else {
-            return get($this, $k, $default);
-        }
+        return get($this, $k, $default);
     }
 
     /**
@@ -274,16 +245,19 @@ class ActionForward extends HashMap
                 Event\B4_PROCESS_VIEW, true,
             ]
         );
-        $this->view->setThemeFolder(
+        
+        $view = plug('view');
+        $view['forward'] = $this;
+        $view->setThemeFolder(
             getOption(_TEMPLATE_DIR)
         );
-        $this->view->setThemePath($this->getPath());
-        if (isset($this->view['headers'])) {
-            $this->setHeader($this->view['headers']);
+        $view->setThemePath($this->getPath());
+        if (isset($view['headers'])) {
+            $this->setHeader($view['headers']);
         }
         $this->_processHeader();
-
-        return $this->view->process();
+        $view->set(get($this));
+        return $view->process();
     }
 
     /**
