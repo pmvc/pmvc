@@ -7,6 +7,7 @@
 
 PMVC
 ===============
+A MVC architecture for simple unidirectional data flow.
 <img src="https://raw.githubusercontent.com/pmvc/pmvc.github.io/master/flow3.png">
 
 ## Getting Started
