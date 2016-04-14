@@ -7,6 +7,7 @@
 
 PMVC
 ===============
+<img src="https://raw.githubusercontent.com/pmvc/pmvc.github.io/master/flow.png">
 
 ## Getting Started
 https://github.com/pmvc/pmvc/wiki
