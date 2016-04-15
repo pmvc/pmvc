@@ -132,9 +132,7 @@ function load(
         ]
     );
     if ($file) {
-        $r = l($file, $compacts, $once);
-
-        return $r;
+        return l($file, $compacts, $once);
     } else {
         return 2;
     }
@@ -419,8 +417,8 @@ function isArray($obj)
 /**
  * Safe get multi layer array value.
  *
- * @param mixed $arr     array
- * @param mixed $path    array's path
+ * @param array $arr     array
+ * @param array $path    array's path
  * @param mixed $default if value not exists, return default value
  *
  * @return bool
@@ -861,10 +859,8 @@ function plug($name, $config = null)
         } else {
             $error = 'plugIn '.$name.': class not found ('.$class.')';
         }
-        trigger_error($error);
-        $name = false;
 
-        return $name;
+        return !trigger_error($error);
     }
     $oPlugin[_PLUGIN] = $name;
     $oPlugin['this'] = getAdapter($name);
