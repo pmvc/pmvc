@@ -32,25 +32,13 @@ namespace PMVC;
 class Load
 {
     /**
-     * Include mvc module, contain plugin.
-     *
-     * @return bool
-     */
-    public static function mvc()
-    {
-        include __DIR__.'/../include.php';
-        self::initPlugInFolder();
-        setAppFolder(__DIR__.'/../../../pmvc-app');
-    }
-
-    /**
      * Include plugin only.
      *
      * @return bool
      */
     public static function plug()
     {
-        include __DIR__.'/../include_plug.php';
+        include __DIR__.'/../include.php';
         self::initPlugInFolder();
     }
 

@@ -10,7 +10,7 @@ class PlugInTest extends PHPUnit_Framework_TestCase
 {
     public function setup()
     {
-        getC()->store('test', null);
+        \PMVC\option('set','test', null);
     }
 
     public function testUpdate()

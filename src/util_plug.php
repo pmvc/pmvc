@@ -16,6 +16,8 @@
  * @link https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
+const PLUGIN_INSTANCE = '__plugin_instance__';
+const PAUSE = '__pause__';
 
 /**
  * File <--------------.
@@ -50,6 +52,9 @@ function realPath($p)
 function l($name, $compacts = null, $once = true)
 {
     $real = realpath($name);
+    if (!$real) {
+        return !trigger_error('File not found. ['.$name.']');
+    }
     if ($once) {
         return run(__NAMESPACE__.'\_l', [$real, $compacts]);
     } else {
