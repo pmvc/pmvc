@@ -34,12 +34,17 @@ class Load
     /**
      * Include plugin only.
      *
+     * @param array $init Default plugins
+     *
      * @return bool
      */
-    public static function plug()
+    public static function plug( $init = [])
     {
         include __DIR__.'/../include.php';
         self::initPlugInFolder();
+        if (!empty($init)) {
+            initPlugin($init);
+        }
     }
 
     /**
