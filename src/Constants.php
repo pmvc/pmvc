@@ -32,4 +32,3 @@ define('_CLASS', '_class_'); //action, plugin
 define('_PLUGIN', '_plugin_');
 define('_PLUGIN_FILE', '_plugin_file_');
 define('_INIT_CONFIG', '_init_config_');
-
