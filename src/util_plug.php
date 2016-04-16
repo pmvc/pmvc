@@ -16,6 +16,7 @@
  * @link https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
+
 const PLUGIN_INSTANCE = '__plugin_instance__';
 const PAUSE = '__pause__';
 
