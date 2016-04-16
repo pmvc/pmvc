@@ -15,6 +15,9 @@ A simple MVC for unidirectional dataflow architecture.
 ## Getting Started
 https://github.com/pmvc/pmvc/wiki
 
+## PMVC Controller
+   * https://github.com/pmvc-plugin/controller
+
 ## PMVC Family
    * Core Library
       * https://github.com/pmvc/pmvc

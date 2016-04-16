@@ -38,7 +38,7 @@ class Load
      *
      * @return bool
      */
-    public static function plug( $init = [])
+    public static function plug($init = [])
     {
         include __DIR__.'/../include.php';
         self::initPlugInFolder();
