@@ -19,16 +19,16 @@
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-
-/* mappings constant(s) */
 if (defined('_CLASS')) {
     return;
 }
 
-/*
- * Plugin
- */
+/* Plugin */
 define('_CLASS', '_class_'); //action, plugin
 define('_PLUGIN', '_plugin_');
 define('_PLUGIN_FILE', '_plugin_file_');
 define('_INIT_CONFIG', '_init_config_');
+
+/* Error */
+define('_ERROR_REPORTING', '_error_reporting_');
+define('_ERROR_ENABLE_LOG', '_error_enable_log_');
