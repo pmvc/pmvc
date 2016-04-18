@@ -17,9 +17,6 @@
  */
 namespace PMVC;
 
-const PLUGIN_INSTANCE = '__plugin_instance__';
-const PAUSE = '__pause__';
-
 /**
  * System Error.
  */
@@ -32,6 +29,17 @@ const USER_LAST_ERROR = '__user_last_error__';
 //user_warn, user_notice
 const APP_ERRORS = '__app_errors__';
 const APP_LAST_ERROR = '__app_last_error__';
+
+/**
+ * Plugins.
+ */
+const PLUGIN_INSTANCE = '__plugin_instance__';
+const PAUSE = '__pause__';
+option(
+    'set',
+    PLUGIN_INSTANCE,
+    new HashMap()
+);
 
 /**
  * File <--------------.
@@ -844,21 +852,22 @@ function plug($name, $config = null)
 
         return $oPlugin->update();
     }
+    $folders = folders(_PLUGIN);
+    $alias = $folders['alias'];
+    if (isset($alias[$name])) {
+        $objs[$name] = plug($alias[$name]);
+
+        return $objs[$name];
+    }
     if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
         $class = $config[_CLASS];
     } else {
         $file = null;
-        $folders = folders(_PLUGIN);
-        if (!isset($config[_PLUGIN_FILE])) {
-            $alias = $folders['alias'];
-            if (isset($alias[$name])) {
-                $file = $alias[$name];
-            }
-        } else {
+        if (isset($config[_PLUGIN_FILE])) {
             $file = $config[_PLUGIN_FILE];
         }
-        if (!is_null($file) && realpath($file)) {
-            $r = run(__NAMESPACE__.'\l', [$file, _INIT_CONFIG]);
+        if (realpath($file)) {
+            $r = l($file, _INIT_CONFIG);
         } else {
             $file = $name.'/'.$name.'.php';
             $r = load($file, $folders['folders'], _INIT_CONFIG, true, false);
@@ -890,15 +899,7 @@ function plug($name, $config = null)
     if (!empty($config)) {
         set($oPlugin, $config);
     }
-    if (is_null($objs)) {
-        option(
-            'set',
-            PLUGIN_INSTANCE,
-            new HashMap([$name => $oPlugin])
-        );
-    } else {
-        $objs[$name] = $oPlugin;
-    }
+    $objs[$name] = $oPlugin;
     $oPlugin->init();
 
     return $oPlugin->update();
