@@ -488,7 +488,7 @@ function clean(&$a, $k = null)
         if (isArrayAccess($a)) {
             return $a->offsetUnset(null);
         } else {
-            $a = null;
+            $a = [];
             unset($a);
 
             return;
