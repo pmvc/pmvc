@@ -883,7 +883,10 @@ function plug($name, $config = null)
         $oPlugin = new $class();
     } else {
         if (!$class) {
-            $error = 'plugin '.$name.' not found';
+            $error = 'plugin '.$name.' not found.';
+            if (!empty($file)) {
+                $error .= ' ['.$file.']';
+            }
         } else {
             $error = 'plugIn '.$name.': class not found ('.$class.')';
         }
