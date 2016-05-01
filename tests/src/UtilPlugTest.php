@@ -56,7 +56,7 @@ class UtilPlugTest extends \PHPUnit_Framework_TestCase
      */
     public function testCleanKeepInArray()
     {
-        $arr = [1,2,3];
+        $arr = [1, 2, 3];
         \PMVC\clean($arr);
         $expected = [];
         $this->assertEquals($expected, $arr);
