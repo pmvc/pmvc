@@ -210,7 +210,7 @@ function folders($type, $folders = [], $alias = [], $clean = null)
     }
     $_folders[$type] = \array_merge(
         $_folders[$type],
-        toArray($folders)
+        $folders
     );
     $_alias[$type] = \array_merge(
         $_alias[$type],
@@ -722,7 +722,7 @@ function getAdapter($name)
  *
  * @return mixed
  */
-function setPlugInFolder($folders, $alias = [])
+function setPlugInFolders($folders, $alias = [])
 {
     return folders(_PLUGIN, $folders, $alias, true);
 }
@@ -735,7 +735,7 @@ function setPlugInFolder($folders, $alias = [])
  *
  * @return mixed
  */
-function addPlugInFolder($folders, $alias = [])
+function addPlugInFolders($folders, $alias = [])
 {
     return folders(_PLUGIN, $folders, $alias);
 }

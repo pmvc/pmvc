@@ -16,6 +16,8 @@
  * @link https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
+use SplObserver;
+use SplSubject; 
 
 /**
  * PMVC PlugIn.
@@ -29,7 +31,7 @@ namespace PMVC;
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class PlugIn extends HashMap implements \SplObserver
+class PlugIn extends HashMap implements SplObserver
 {
     /*
      * Alias
@@ -58,11 +60,11 @@ class PlugIn extends HashMap implements \SplObserver
     /**
      * Observer update function.
      *
-     * @param \SplSubject $subject observable
+     * @param SplSubject $subject observable
      *
      * @return mixed
      */
-    public function update(\SplSubject $subject = null)
+    public function update(SplSubject $subject = null)
     {
         if ($subject) {
             $state = 'on'.$subject->getName();

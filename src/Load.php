@@ -56,7 +56,7 @@ class Load
     {
         $dir = __DIR__.'/../../../pmvc-plugin';
         if (is_dir($dir)) {
-            setPlugInFolder($dir);
+            setPlugInFolders([$dir]);
         }
     }
 }
