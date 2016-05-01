@@ -1,5 +1,7 @@
 <?php
+
 namespace PMVC;
+
 use PHPUnit_Framework_TestCase;
 
 class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
@@ -11,8 +13,8 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 
     public function testAlias()
     {
-        addPlugInFolder(null, [ 
-            'abc'=>'test'
+        addPlugInFolder(null, [
+            'abc' => 'test',
         ]);
         $class = __NAMESPACE__.'\FakePlug';
         plug(
@@ -28,19 +30,19 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
     public function testPlugFile()
     {
         plug('test', [
-            _PLUGIN_FILE=>__DIR__.'/../resources/FakePlugFile.php'
-        ] ); 
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+        ]);
         $this->assertEquals('test', plug('test')[_PLUGIN]);
     }
 
     public function testIncludeOnly()
     {
         initPlugin([
-            'test'=>[
-                _PLUGIN_FILE=>__DIR__.'/../resources/FakePlugInclude.php'
-            ]
-        ],true);
+            'test' => [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugInclude.php',
+            ],
+        ], true);
         $this->assertTrue(class_exists(__NAMESPACE__.'\FakePlugInclude'), 'Class should exists');
-        $this->assertFalse(exists('test','plugin'), 'Plugin should not exists');
+        $this->assertFalse(exists('test', 'plugin'), 'Plugin should not exists');
     }
 }
