@@ -14,7 +14,6 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 
     public function testPlug()
     {
-
         $class = __NAMESPACE__.'\FakePlug';
         $plug = 'test';
         $file = __DIR__.'/../resources/FakePlugFile.php';
@@ -26,7 +25,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($plug, $test[_PLUGIN], 'check plugin name fail');
         $this->assertEquals($file, $test[_PLUGIN_FILE], 'check plugin file fail');
         $this->assertEquals(dirname($file).'/', $test->getDir(), 'test get dir');
-        plug($plug, ['new'=>1]);
+        plug($plug, ['new' => 1]);
         $this->assertEquals('1', $test['init'], 'should keep 1 for second call');
         $this->assertEquals('3', $test['update'], 'call twice for udate');
         $this->assertEquals('1', $test['new'], 'assign new value');
@@ -43,7 +42,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
     {
         addPlugInFolders([
             __DIR__.'/../resources/plugin1',
-            __DIR__.'/../resources/plugin2'
+            __DIR__.'/../resources/plugin2',
         ]);
         $test = plug('testplugin');
         $this->assertEquals('plugin2', $test['test']);
@@ -86,32 +85,32 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException PHPUnit_Framework_Error
-     * @expectedExceptionMessage plugin test not found 
+     * @expectedExceptionMessage plugin test not found
      */
     public function testPlugNotFound()
     {
-            plug('test'); 
+        plug('test');
     }
 
     /**
      * @expectedException PHPUnit_Framework_Error
-     * @expectedExceptionMessage [test/test.php] 
+     * @expectedExceptionMessage [test/test.php]
      */
     public function testPlugFileNotFound()
     {
-            plug('test', [
-                _PLUGIN_FILE=>__DIR__.'/../resources/FakePlugxxx.php'
-            ] ); 
+        plug('test', [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugxxx.php',
+            ]);
     }
 
     /**
      * @expectedException PHPUnit_Framework_Error
-     * @expectedExceptionMessage class not found 
+     * @expectedExceptionMessage class not found
      */
     public function testPlugClassNotFound()
     {
-            plug('test', [
-                _PLUGIN_FILE=>__DIR__.'/../resources/FakePlugClassNotFound.php'
-            ] ); 
+        plug('test', [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
+            ]);
     }
 }
