@@ -45,4 +45,35 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(class_exists(__NAMESPACE__.'\FakePlugInclude'), 'Class should exists');
         $this->assertFalse(exists('test', 'plugin'), 'Plugin should not exists');
     }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage plugin test not found 
+     */
+    public function testPlugNotFound()
+    {
+            plug('test'); 
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage [test/test.php] 
+     */
+    public function testPlugFileNotFound()
+    {
+            plug('test', [
+                _PLUGIN_FILE=>__DIR__.'/../resources/FakePlugxxx.php'
+            ] ); 
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage class not found 
+     */
+    public function testPlugClassNotFound()
+    {
+            plug('test', [
+                _PLUGIN_FILE=>__DIR__.'/../resources/FakePlugClassNotFound.php'
+            ] ); 
+    }
 }
