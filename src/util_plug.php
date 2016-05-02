@@ -661,6 +661,7 @@ function run($func, $args)
     static $cache = [];
     $hash = hash($func, $args);
     if (!isset($cache[$hash])) {
+        $cache[$hash] = false;
         $cache[$hash] = call_user_func_array($func, $args);
     }
 
