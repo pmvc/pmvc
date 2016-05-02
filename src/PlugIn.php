@@ -16,8 +16,9 @@
  * @link https://packagist.org/packages/pmvc/pmvc
  */
 namespace PMVC;
+
 use SplObserver;
-use SplSubject; 
+use SplSubject;
 
 /**
  * PMVC PlugIn.
