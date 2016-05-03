@@ -15,6 +15,11 @@ A simple MVC for unidirectional dataflow architecture.
 ## Getting Started
 https://github.com/pmvc/pmvc/wiki
 
+## How to use?
+```
+plug('plugin name',['plugin','config']);
+```
+
 ## MVC
 ### Controller
    * https://github.com/pmvc-plugin/controller
