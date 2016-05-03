@@ -29,6 +29,17 @@ https://github.com/pmvc/pmvc/wiki
 ### Model
    * https://github.com/pmvc-plugin
 
+## PlugIn functions
+   * getAdapter
+   * setPlugInFolders
+   * addPlugInFolders
+   * callPlugin
+   * unPlug
+   * rePlug
+   * getPlugs
+   * initPlugIn
+   * plug
+
 ## PMVC Family
    * Core Library
       * https://github.com/pmvc/pmvc
