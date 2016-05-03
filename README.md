@@ -17,7 +17,7 @@ https://github.com/pmvc/pmvc/wiki
 
 ## How to use?
 ```
-plug('plugin name',['plugin','config']);
+plug( 'plugin name', ['plugin', 'config'] );
 ```
 
 ## MVC
