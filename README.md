@@ -56,5 +56,8 @@ Plugin hello world https://github.com/pmvc-plugin/hello_world/tree/master/demo
    * PMVC Themes
       * https://github.com/pmvc-theme
 
-##  HHVM Support
+## HHVM Support
 [![HHVM Status](http://hhvm.h4cc.de/badge/pmvc/pmvc.svg)](http://hhvm.h4cc.de/package/pmvc/pmvc)
+
+## PHP Version
+![tested](http://php-eye.com/badge/pmvc/pmvc/tested.svg)
