@@ -19,8 +19,7 @@ https://github.com/pmvc/pmvc/wiki
 ```
 plug( 'plugin name', ['config'] );
 ```
-   * Plugin hello world
-      *  https://github.com/pmvc-plugin/hello_world
+Plugin hello world https://github.com/pmvc-plugin/hello_world/tree/master/demo
 
 ### PlugIn functions
    * getAdapter
