@@ -17,8 +17,18 @@ https://github.com/pmvc/pmvc/wiki
 
 ## How to use?
 ```
-plug( 'plugin name', ['plugin', 'config'] );
+plug( 'plugin name', ['config'] );
 ```
+### PlugIn functions
+   * getAdapter
+   * setPlugInFolders
+   * addPlugInFolders
+   * callPlugin
+   * unPlug
+   * rePlug
+   * getPlugs
+   * initPlugIn
+   * plug
 
 ## MVC
 ### Controller
@@ -33,17 +43,6 @@ plug( 'plugin name', ['plugin', 'config'] );
 
 ### Model
    * https://github.com/pmvc-plugin
-
-## PlugIn functions
-   * getAdapter
-   * setPlugInFolders
-   * addPlugInFolders
-   * callPlugin
-   * unPlug
-   * rePlug
-   * getPlugs
-   * initPlugIn
-   * plug
 
 ## PMVC Family
    * Core Library
