@@ -35,12 +35,13 @@ trait Alias
      */
     public function isCallable($method, $caller = null)
     {
+        $self = isArray($this) ? $this : ['this' => null];
         $func = false;
         if (!$this->_aliasFunctions) {
             $this->_aliasFunctions = $this->initAliasFunction();
         }
         if (is_null($caller)) {
-            $caller = $this['this'] ?: $this;
+            $caller = $self['this'] ?: $this;
         }
         foreach ($this->_aliasFunctions as $alias) {
             $func = $alias->get($this, $method, $caller);
@@ -49,9 +50,9 @@ trait Alias
             }
         }
         if (!$func) {
-            if (isset($this['parent'])) {
-                $parent = $this['parent'];
-                if ($parent !== $this['this']
+            if (isset($self['parent'])) {
+                $parent = $self['parent'];
+                if ($parent !== $self['this']
                     && is_callable([$parent, 'isCallable'])
                 ) {
                     $func = $parent->isCallable($method, $caller);
