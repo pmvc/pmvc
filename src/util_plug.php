@@ -42,7 +42,7 @@ option(
 );
 
 /**
- * File <--------------.
+ * File <!---.
  */
 
 /**
@@ -342,7 +342,7 @@ function &fromJson($s)
  *
  * @return array
  */
-function isContain($haystack, $needle)
+function hasKey($haystack, $needle)
 {
     if ($haystack === $needle
         || isset($haystack[$needle])
@@ -582,7 +582,7 @@ function set(&$a, $k, $v = null)
 }
 
 /**
- * Option <!-----------.
+ * Option <!---.
  */
 
 /**
@@ -623,7 +623,7 @@ function &option($act, $k = null, $v = null)
 }
 
 /**
- * Misc <!----------.
+ * Misc <!---.
  */
 
 /**
@@ -695,7 +695,7 @@ function exists($v, $type)
 }
 
 /**
- * Plugins <!--.
+ * Plugins <!---.
  */
 
 /**
