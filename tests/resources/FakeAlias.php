@@ -13,7 +13,8 @@ class FakeAlias extends PlugIn
     public function getDir()
     {
         $e = getOption('e');
-        option('set', 'e', $e+1);
+        option('set', 'e', $e + 1);
+
         return __DIR__.'/';
     }
 }
@@ -22,13 +23,13 @@ class FakeAliasChild extends FakeAlias
 {
     public function getDir()
     {
-        return null;
     }
 }
 
 class FakeAliasWithoutArrayAccess
 {
     use Alias;
+
     public function __construct()
     {
         $this->setDefaultAlias(new FakeObject());
@@ -37,7 +38,8 @@ class FakeAliasWithoutArrayAccess
     public function getDir()
     {
         $e = getOption('e');
-        option('set', 'e', $e+1);
+        option('set', 'e', $e + 1);
+
         return __DIR__.'/';
     }
 }
@@ -52,7 +54,6 @@ class FakeAliasWithoutArrayAccessChild extends FakeAliasWithoutArrayAccess
 
     public function getDir()
     {
-        return null;
     }
 }
 
