@@ -23,6 +23,7 @@ namespace PMVC;
 trait Alias
 {
     public $defaultAlias;
+    public $parentAlias;
     private $_aliasFunctions;
 
     /**
@@ -50,9 +51,9 @@ trait Alias
             }
         }
         if (!$func) {
-            if (isset($self['parent'])) {
-                $parent = $self['parent'];
-                if ($parent !== $self['this']
+            if (!empty($this->parentAlias)) {
+                $parent = $this->parentAlias;
+                if ($parent !== $caller 
                     && is_callable([$parent, 'isCallable'])
                 ) {
                     $func = $parent->isCallable($method, $caller);

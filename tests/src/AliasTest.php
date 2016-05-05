@@ -12,7 +12,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
         return [
             [plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias'])],
             [plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild'])],
-            [new FakeAliasWithoutArrayAccess()]
+            [new FakeAliasWithoutArrayAccess()],
+            [new FakeAliasWithoutArrayAccessChild()]
         ];
     }
 
@@ -50,5 +51,19 @@ class AliasTest extends PHPUnit_Framework_TestCase
         option('set', 'd', 0);
         $a->FakeTask();
         $this->assertEquals(1, getOption('d'));
+    }
+
+    /**
+     * Test file alias will cache to attribute alias.
+     * @dataProvider getAliasProvider 
+     */
+    public function testFileAliasCache($a)
+    {
+        $a->FakeTask();
+        option('set', 'd', 0);
+        option('set', 'e', 0);
+        $a->FakeTask();
+        $this->assertEquals(1, getOption('d'));
+        $this->assertEquals(0, getOption('e'));
     }
 }
