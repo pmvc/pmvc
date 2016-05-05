@@ -184,12 +184,18 @@ class AliasClassConfig extends AbstractAlias
      */
     public function get($self, $method, $caller)
     {
-        $func = false;
-        if (is_callable($self[$method])) {
+        if (isArray($self) && isset($self[$method])) {
             $func = $self[$method];
+        } elseif (isset($self->{$method})) {
+            $func = $self->{$method};
+        } else {
+            $func = false;
         }
-
-        return $func;
+        if (is_callable($func)) {
+            return $func;
+        } else {
+            return false;
+        }
     }
 }
 
@@ -276,10 +282,12 @@ class AliasSrcFile extends AbstractAlias
         if (!is_callable($func)) {
             return !trigger_error('Not implement __invoke function');
         }
-        if (!isset($self[$method])) {
+        if (isArray($self) && !isset($self[$method])) {
             $self[$method] = $func;
+        } elseif (!isset($self->{$method})) {
+            $self->{$method} = $func;
         }
-
+        
         return $func;
     }
 }

@@ -57,7 +57,7 @@ class Adapter implements \ArrayAccess
      */
     public function __call($method, $args = [])
     {
-        $objs = &getOption(PLUGIN_INSTANCE);
+        $objs = getOption(PLUGIN_INSTANCE);
         if (!empty($objs[$this->_name])) {
             return call_user_func_array(
                 [
