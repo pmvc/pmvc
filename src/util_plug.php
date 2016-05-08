@@ -354,11 +354,11 @@ function hasKey($haystack, $needle)
 }
 
 /**
- * Array Merge (The numeric key will be overwrite not append).
+ * Array Replace (The numeric key will be overwrite not append).
  *
  * @return array
  */
-function arrayMerge()
+function arrayReplace()
 {
     $a = func_get_args();
     $new = $a[0];
@@ -573,7 +573,7 @@ function set(&$a, $k, $v = null)
     if (is_null($k) && is_null($v)) {
         return false;
     } elseif (isArray($k)) {
-        return $a = arrayMerge($a, $k); //merge by new array
+        return $a = arrayReplace($a, $k); //merge by new array
     } elseif (is_null($k)) {
         return $a[] = $v; //append value when no-assign key
     } else {
@@ -897,7 +897,7 @@ function plug($name, $config = null)
     $oPlugin[_PLUGIN] = $name;
     $oPlugin['this'] = getAdapter($name);
     if (!empty($r)) {
-        $config = arrayMerge($r->var[_INIT_CONFIG], $config);
+        $config = arrayReplace($r->var[_INIT_CONFIG], $config);
         $oPlugin[_PLUGIN_FILE] = $r->name;
     }
     if (!empty($config)) {
