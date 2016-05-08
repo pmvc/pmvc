@@ -53,7 +53,7 @@ trait Alias
         if (!$func) {
             if (!empty($this->parentAlias)) {
                 $parent = $this->parentAlias;
-                if ($parent !== $caller 
+                if ($parent !== $caller
                     && is_callable([$parent, 'isCallable'])
                 ) {
                     $func = $parent->isCallable($method, $caller);
@@ -288,7 +288,7 @@ class AliasSrcFile extends AbstractAlias
         } elseif (!isset($self->{$method})) {
             $self->{$method} = $func;
         }
-        
+
         return $func;
     }
 }

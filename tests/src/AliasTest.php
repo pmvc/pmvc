@@ -6,20 +6,18 @@ use PHPUnit_Framework_TestCase;
 
 class AliasTest extends PHPUnit_Framework_TestCase
 {
-
     public function getAliasProvider()
     {
         return [
             [plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias'])],
             [plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild'])],
             [new FakeAliasWithoutArrayAccess()],
-            [new FakeAliasWithoutArrayAccessChild()]
+            [new FakeAliasWithoutArrayAccessChild()],
         ];
     }
 
-
     /**
-     * @dataProvider getAliasProvider 
+     * @dataProvider getAliasProvider
      */
     public function testDefaultAlias($a)
     {
@@ -27,9 +25,9 @@ class AliasTest extends PHPUnit_Framework_TestCase
         $a->a();
         $this->assertEquals(1, getOption('a'), 'Test for: '.get_class($a));
     }
-    
+
     /**
-     * @dataProvider getAliasProvider 
+     * @dataProvider getAliasProvider
      */
     public function testConfigAlias($a)
     {
@@ -44,7 +42,7 @@ class AliasTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider getAliasProvider 
+     * @dataProvider getAliasProvider
      */
     public function testSourceFileAlias($a)
     {
@@ -55,7 +53,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test file alias will cache to attribute alias.
-     * @dataProvider getAliasProvider 
+     *
+     * @dataProvider getAliasProvider
      */
     public function testFileAliasCache($a)
     {
