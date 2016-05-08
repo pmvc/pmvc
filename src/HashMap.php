@@ -86,7 +86,7 @@ class HashMap extends ListIterator implements \ArrayAccess
      *
      * @return mixed
      */
-    public function __get($k = null)
+    public function __get($k)
     {
         $val = new Object($this->state[$k]);
 
