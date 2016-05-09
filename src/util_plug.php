@@ -453,10 +453,10 @@ function isArray($obj)
 function value($arr, $path, $default = null)
 {
     if (!isArray($arr)) {
-        return !trigger_error('Target is not array');
+        return !trigger_error('[PMVC\value] Target is not array');
     }
     if (!isArray($path)) {
-        return !trigger_error('Path is not array');
+        return !trigger_error('[PMVC\value] Path is not array');
     }
     $a = &$arr;
     foreach ($path as $p) {
