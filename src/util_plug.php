@@ -382,26 +382,6 @@ function arrayReplace()
 }
 
 /**
- * Merge array with a default set
- * If key not in default set will be ignore.
- *
- * @param array $defaults default
- * @param array $settings setting
- *
- * @return array
- */
-function mergeDefault($defaults, $settings)
-{
-    foreach ($defaults as $k => $v) {
-        if (isset($settings[$k])) {
-            $defaults[$k] = $settings[$k];
-        }
-    }
-
-    return $defaults;
-}
-
-/**
  * Keep string and array both in array type.
  *
  * @param mixed $p parameters
