@@ -1,6 +1,6 @@
 {
     "name": "pmvc/pmvc",
-    "description": "The New PHP5.6 MVC framework, conatain double engine and double framework",
+    "description": "Pure plugin framework (PMVC7), use anything you like. No mvc, http inside.",
     "type": "library",
     "keywords": ["pmvc", "plug", "plug-in", "framework", "mvc", "phramework"],
     "license": "MIT",

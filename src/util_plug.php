@@ -105,35 +105,29 @@ function _l($name, $compacts = null)
 }
 
 /**
- * Include app folder.
+ * Prepend app folder.
  *
  * @param string $name         file name
  * @param string $bTransparent Transparent app folder
  *
  * @return mixed
  */
-function includeApp($name, $bTransparent = null)
+function prependApp($name, $bTransparent = null)
 {
-    if (!$bTransparent) {
+    if (!$bTransparent || !exists('controllder', 'plugin')) {
         return realpath($name);
     }
-    $transparent = run(__NAMESPACE__.'\transparent', [$name]);
-    $transparent = realpath($transparent);
-    if ($transparent) {
-        return $transparent;
-    } else {
-        return realpath($name);
-    }
+    return run(__NAMESPACE__.'\transparent', [$name]);
 }
 
 /**
  * Smart Load.
  *
- * @param string $name         name
- * @param mixed  $dirs         dirs
- * @param mixed  $compacts     decide extrac files variable
- * @param bool   $once         if incldue once
- * @param bool   $isIncludeApp search for application folder
+ * @param string $name        name
+ * @param mixed  $dirs        dirs
+ * @param mixed  $compacts    decide extrac files variable
+ * @param bool   $once        if incldue once
+ * @param bool   $bPrependApp search for application folder
  *
  * @return mixed
  */
@@ -142,7 +136,7 @@ function load(
     $dirs = null,
     $compacts = null,
     $once = true,
-    $isIncludeApp = null
+    $bPrependApp = null
 ) {
     if (empty($name)) {
         return 1;
@@ -155,7 +149,7 @@ function load(
         [
             $name,
             $dirs,
-            $isIncludeApp,
+            $bPrependApp,
         ]
     );
     if ($file) {
@@ -168,20 +162,20 @@ function load(
 /**
  * Smart find.
  *
- * @param string $name         name
- * @param mixed  $dirs         dirs
- * @param bool   $isIncludeApp search for application folder
+ * @param string $name        name
+ * @param mixed  $dirs        dirs
+ * @param bool   $bPrependApp search for application folder
  *
  * @return mixed
  */
-function find($name, $dirs = null, $isIncludeApp = null)
+function find($name, $dirs = null, $bPrependApp = null)
 {
     $dirs = splitDir($dirs);
     foreach ($dirs as $dirPath) {
         if (!realpath($dirPath)) {
             continue;
         }
-        $r = includeApp(mergeFileName($name, $dirPath), $isIncludeApp);
+        $r = prependApp(mergeFileName($name, $dirPath), $bPrependApp);
         if ($r) {
             return $r;
         }
