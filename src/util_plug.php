@@ -17,6 +17,10 @@
  */
 namespace PMVC;
 
+if (defined('\PMVC\ERRORS')) {
+    return;
+}
+
 /**
  * System Error.
  */
@@ -117,6 +121,7 @@ function prependApp($name, $bTransparent = null)
     if (!$bTransparent || !exists('controllder', 'plugin')) {
         return realpath($name);
     }
+
     return run(__NAMESPACE__.'\transparent', [$name]);
 }
 
