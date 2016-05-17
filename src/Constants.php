@@ -35,6 +35,3 @@ define('_ERROR_ENABLE_LOG', '_error_enable_log_');
 
 /* Debug */
 define('_VIEW_ENGINE', '_view_engine_');
-
-/* Env */
-define('_ENV_FILE', '_env_file_');
