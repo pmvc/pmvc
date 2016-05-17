@@ -17,10 +17,6 @@
  */
 namespace PMVC;
 
-if (defined('\PMVC\ERRORS')) {
-    return;
-}
-
 /**
  * System Error.
  */
@@ -199,7 +195,7 @@ function find($name, $dirs = null, $bPrependApp = null)
  *
  * @return mixed
  */
-function folders($type, $folders = [], $alias = [], $clean = null)
+function folders($type, array $folders = [], array $alias = [], $clean = null)
 {
     static $_folders = [];
     static $_alias = [];
@@ -702,7 +698,7 @@ function getAdapter($name)
  *
  * @return mixed
  */
-function setPlugInFolders($folders, $alias = [])
+function setPlugInFolders(array $folders, array $alias = [])
 {
     return folders(_PLUGIN, $folders, $alias, true);
 }
@@ -715,7 +711,7 @@ function setPlugInFolders($folders, $alias = [])
  *
  * @return mixed
  */
-function addPlugInFolders($folders, $alias = [])
+function addPlugInFolders(array $folders, array $alias = [])
 {
     return folders(_PLUGIN, $folders, $alias);
 }
@@ -807,7 +803,11 @@ function initPlugIn($arr, $pause = false)
                 if ($pause) {
                     $config[PAUSE] = true;
                 }
-                plug($plugIn, $config);
+                if (empty($config)) {
+                    plug($plugIn);
+                } else {
+                    plug($plugIn, $config);
+                }
             }
         }
     }
@@ -821,12 +821,12 @@ function initPlugIn($arr, $pause = false)
  *
  * @return mixed
  */
-function plug($name, $config = null)
+function plug($name, array $config = [])
 {
     $objs = getOption(PLUGIN_INSTANCE);
     if (isset($objs[$name])) {
         $oPlugin = $objs[$name];
-        if (!is_null($config)) {
+        if (!empty($config)) {
             set($oPlugin, $config);
         }
 

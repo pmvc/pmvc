@@ -19,9 +19,6 @@
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-if (defined('_CLASS')) {
-    return;
-}
 
 /* Plugin */
 define('_CLASS', '_class_'); //action, plugin

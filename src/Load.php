@@ -40,6 +40,9 @@ class Load
      */
     public static function plug($init = [])
     {
+        if (defined('\PMVC\ERRORS')) {
+            return;
+        }
         include __DIR__.'/../include.php';
         self::initPlugInFolder();
         if (!empty($init)) {
