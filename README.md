@@ -19,9 +19,10 @@ https://github.com/pmvc/pmvc/wiki
 ```
 plug( 'plugin name', ['config'] );
 ```
-Plugin hello world https://github.com/pmvc-plugin/hello_world/tree/master/demo
+#### Plugin hello world
+https://github.com/pmvc-plugin/hello_world/tree/master/demo
 
-### PlugIn functions
+#### PlugIn functions
    * setPlugInFolders
    * addPlugInFolders
    * callPlugin
@@ -32,17 +33,15 @@ Plugin hello world https://github.com/pmvc-plugin/hello_world/tree/master/demo
    * plug
 
 ## MVC
-### Controller
+#### Controller
    * https://github.com/pmvc-plugin/controller
-
-### View
+#### View
    * https://github.com/pmvc-plugin/?utf8=%E2%9C%93&query=view
       * view_react
       * view_html
       * view_json
       * view_cli
-
-### Model
+#### Model
    * https://github.com/pmvc-plugin
 
 ## PMVC Family
