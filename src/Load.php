@@ -34,17 +34,21 @@ class Load
     /**
      * Include plugin only.
      *
-     * @param array $init Default plugins
+     * @param array $init    Default plugins
+     * @param array $folders Extra plugin folder
      *
      * @return bool
      */
-    public static function plug($init = [])
+    public static function plug(array $init = [], array $folders = [])
     {
         if (defined('\PMVC\ERRORS')) {
             return;
         }
         include __DIR__.'/../include.php';
         self::initPlugInFolder();
+        if (!empty($folders)) {
+            addPlugInFolders($folders);
+        }
         if (!empty($init)) {
             initPlugin($init);
         }
