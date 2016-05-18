@@ -17,6 +17,8 @@
  */
 namespace PMVC;
 
+use ArrayAccess;
+
 /**
  * System Error.
  */
@@ -358,7 +360,7 @@ function arrayReplace()
     $a = func_get_args();
     $new = $a[0];
     if (!isArray($new)) {
-        return !trigger_error('Param1 need be an array. '.var_export($new, true));
+        return !trigger_error('Param1 need be an array. '.print_r($new, true));
     }
     for ($i = 1, $j = count($a); $i < $j; $i++) {
         if (is_null($a[$i])) {
@@ -401,7 +403,7 @@ function toArray($p)
  */
 function isArrayAccess($obj)
 {
-    return is_a($obj, 'ArrayAccess');
+    return $obj instanceof ArrayAccess;
 }
 
 /**
@@ -413,7 +415,7 @@ function isArrayAccess($obj)
  */
 function isArray($obj)
 {
-    return isArrayAccess($obj) || is_array($obj);
+    return  is_array($obj) || isArrayAccess($obj);
 }
 
 /**

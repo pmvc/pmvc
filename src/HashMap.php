@@ -17,6 +17,8 @@
  */
 namespace PMVC;
 
+use ArrayAccess;
+
 /**
  * PMVC HashMap
  * What is overloading?
@@ -31,7 +33,7 @@ namespace PMVC;
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class HashMap extends ListIterator implements \ArrayAccess
+class HashMap extends ListIterator implements ArrayAccess
 {
     /**
      * Get array_keys.
