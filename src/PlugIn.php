@@ -59,6 +59,18 @@ class PlugIn extends HashMap implements SplObserver
     }
 
     /**
+     * Instanceof.
+     *
+     * @param object $obj object
+     *
+     * @return bool
+     */
+    public function is($obj)
+    {
+        return $this instanceof $obj;
+    }
+
+    /**
      * Observer update function.
      *
      * @param SplSubject $subject observable

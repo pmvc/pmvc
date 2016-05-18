@@ -25,6 +25,18 @@ class PlugInTest extends PHPUnit_Framework_TestCase
         $plug->update(new fakeSplSubject());
         $this->assertEquals('ontest', getoption('test'));
     }
+
+    public function testInstanceof()
+    {
+        $class = __NAMESPACE__.'\FakePlug';
+        $plug_name = 'fake_plug';
+        $plug = plug(
+            $plug_name, [
+            _CLASS => $class,
+            ]
+        );
+        $this->assertTrue($plug->is($class));
+    }
 }
 
 class fakeSplSubject implements SplSubject
