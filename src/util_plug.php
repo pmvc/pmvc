@@ -796,23 +796,24 @@ function getPlugs()
  *
  * @return void
  */
-function initPlugIn($arr, $pause = false)
+function initPlugIn(array $arr, $pause = false)
 {
-    if (is_array($arr)) {
-        $objs = getOption(PLUGIN_INSTANCE);
-        foreach ($arr as $plugIn => $config) {
-            if (!isset($objs[$plugIn])) {
-                if ($pause) {
-                    $config[PAUSE] = true;
-                }
-                if (empty($config)) {
-                    plug($plugIn);
-                } else {
-                    plug($plugIn, $config);
-                }
+    $init = [];
+    $objs = getOption(PLUGIN_INSTANCE);
+    foreach ($arr as $plugIn => $config) {
+        if (!isset($objs[$plugIn])) {
+            if ($pause) {
+                $config[PAUSE] = true;
+            }
+            if (empty($config)) {
+                plug($plugIn);
+            } else {
+                $init[$plugIn] = plug($plugIn, $config);
             }
         }
     }
+
+    return $init;
 }
 
 /**
@@ -858,10 +859,11 @@ function plug($name, array $config = [])
             ? $r->var[_INIT_CONFIG][_CLASS]
             : false;
     }
+    $exists = class_exists($class);
     if (!empty($config[PAUSE])) {
-        return; //for inclue only purpose
+        return $exists; //for inclue only purpose
     }
-    if (class_exists($class)) {
+    if ($exists) {
         $oPlugin = new $class();
     } else {
         if (!$class) {
