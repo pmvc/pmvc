@@ -41,10 +41,7 @@ class Load
      */
     public static function plug(array $init = [], array $folders = [])
     {
-        if (defined('\PMVC\ERRORS')) {
-            return;
-        }
-        include __DIR__.'/../include.php';
+        include_once __DIR__.'/../include.php';
         self::initPlugInFolder();
         if (!empty($folders)) {
             addPlugInFolders($folders);
