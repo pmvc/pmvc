@@ -369,6 +369,9 @@ function arrayReplace()
  */
 function toArray($p)
 {
+    if (is_null($p)) {
+        return [];
+    }
     if (!is_array($p)) {
         $p = [$p];
     }
