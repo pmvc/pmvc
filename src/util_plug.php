@@ -414,14 +414,14 @@ function isArray($obj)
  */
 function value($arr, $path, $default = null)
 {
-    if (!isArray($arr)) {
-        return !trigger_error('[PMVC\value] Target is not array');
-    }
     if (!isArray($path)) {
         return !trigger_error('[PMVC\value] Path is not array');
     }
     $a = &$arr;
     foreach ($path as $p) {
+        if (!isArray($a)) {
+            $a = (array)$a;
+        }
         if (isset($a[$p])) {
             $a = &$a[$p];
         } else {
