@@ -30,9 +30,9 @@ class UtilPlugValueTest extends PHPUnit_Framework_TestCase
 
     public function testGetHashMap()
     {
-        $h = new HashMap(['a','b'=>['c'=>'d']]);
-        $actual = value($h,['b','c']);
+        $h = new HashMap(['a', 'b' => ['c' => 'd']]);
+        $actual = value($h, ['b', 'c']);
         $this->assertTrue(is_object($h));
-        $this->assertEquals('d',$actual);
+        $this->assertEquals('d', $actual);
     }
 }

@@ -420,7 +420,7 @@ function value($arr, $path, $default = null)
     $a = &$arr;
     foreach ($path as $p) {
         if (!isArray($a)) {
-            $a = (array)$a;
+            $a = (array) $a;
         }
         if (isset($a[$p])) {
             $a = &$a[$p];
