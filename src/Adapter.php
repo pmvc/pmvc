@@ -5,7 +5,6 @@
  * PHP version 5
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
@@ -23,7 +22,6 @@ namespace PMVC;
  * if you need use it, need replace with $plug['xxx'].
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>

@@ -5,7 +5,6 @@
  * PHP version 5
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
@@ -25,7 +24,6 @@ use ArrayAccess;
  * http://php.net/manual/en/language.oop5.overloading.php.
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>

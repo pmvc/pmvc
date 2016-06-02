@@ -5,7 +5,6 @@
  * PHP version 5
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
@@ -24,7 +23,6 @@ use SplSubject;
  * PMVC PlugIn.
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>

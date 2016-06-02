@@ -5,7 +5,6 @@
  * PHP version 5
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
@@ -420,7 +419,7 @@ function value($arr, $path, $default = null)
     $a = &$arr;
     foreach ($path as $p) {
         if (!isArray($a)) {
-            $a = (array)$a;
+            $a = (array) $a;
         }
         if (isset($a[$p])) {
             $a = &$a[$p];

@@ -5,7 +5,6 @@
  * PHP version 5
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
@@ -21,7 +20,6 @@ namespace PMVC;
  * PMVC root object.
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>

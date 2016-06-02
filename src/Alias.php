@@ -5,7 +5,6 @@
  * PHP version 5
  *
  * @category CategoryName
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
@@ -122,7 +121,6 @@ trait Alias
  * Abstract Alias Class.
  *
  * @category Alias
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
@@ -164,7 +162,6 @@ abstract class AbstractAlias
  * Alias config.
  *
  * @category Alias
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
@@ -204,7 +201,6 @@ class AliasClassConfig extends AbstractAlias
  * Alias default class.
  *
  * @category Alias
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
@@ -241,7 +237,6 @@ class AliasDefaultClass extends AbstractAlias
  * Alias ./src/_xxx.php.
  *
  * @category Alias
- *
  * @package PMVC
  *
  * @author  Hill <hill@kimo.com>
