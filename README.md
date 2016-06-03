@@ -20,7 +20,7 @@ https://github.com/pmvc/pmvc/wiki
 plug( 'plugin name', ['config'] );
 ```
 #### Plugin hello world
-https://github.com/pmvc-plugin/hello_world/tree/master/demo
+https://github.com/pmvc-plugin/hello_world/blob/master/hello_world.php
 
 #### PlugIn functions
    * setPlugInFolders
@@ -43,6 +43,8 @@ https://github.com/pmvc-plugin/hello_world/tree/master/demo
       * view_cli
    * Model
       * https://github.com/pmvc-plugin
+   * MVC Demo Project
+      * https://github.com/pmvc/react-pmvc
 
 ## PMVC Family
    * Core Library
