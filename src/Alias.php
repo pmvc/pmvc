@@ -24,7 +24,7 @@ trait Alias
 {
     public $defaultAlias;
     public $parentAlias;
-    private $_aliasFunctions;
+    private $_typeOfAlias;
 
     /**
      * Custom is_callable for Alias.
@@ -38,13 +38,13 @@ trait Alias
     {
         $self = isArray($this) ? $this : ['this' => null];
         $func = false;
-        if (!$this->_aliasFunctions) {
-            $this->_aliasFunctions = $this->initAliasFunction();
+        if (!$this->_typeOfAlias) {
+            $this->_typeOfAlias = $this->getTypeOfAlias();
         }
         if (is_null($caller)) {
             $caller = $self['this'] ?: $this;
         }
-        foreach ($this->_aliasFunctions as $alias) {
+        foreach ($this->_typeOfAlias as $alias) {
             $func = $alias->get($this, $method, $caller);
             if (!empty($func)) {
                 break;
@@ -92,16 +92,16 @@ trait Alias
     }
 
     /**
-     * Init Alias.
+     * Get type of alias.
      *
      * @return array
      */
-    public function initAliasFunction()
+    protected function getTypeOfAlias()
     {
         return [
-            'aliasClassConfig'  => AliasClassConfig::getInstance(),
-            'aliasDefaultClass' => AliasDefaultClass::getInstance(),
-            'aliasSrcFile'      => AliasSrcFile::getInstance(),
+            'aliasAsKey'     => AliasAsKey::getInstance(),
+            'aliasAsDefault' => AliasAsDefault::getInstance(),
+            'aliasSrcFile'   => AliasSrcFile::getInstance(),
         ];
     }
 
@@ -161,7 +161,7 @@ abstract class AbstractAlias
 }
 
 /**
- * Alias config.
+ * Alias as key, such $this['xxx'].
  *
  * @category Alias
  *
@@ -172,7 +172,7 @@ abstract class AbstractAlias
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class AliasClassConfig extends AbstractAlias
+class AliasAsKey extends AbstractAlias
 {
     /**
      * Get alias function.
@@ -201,7 +201,7 @@ class AliasClassConfig extends AbstractAlias
 }
 
 /**
- * Alias default class.
+ * Alias any not defined function to another class.
  *
  * @category Alias
  *
@@ -212,7 +212,7 @@ class AliasClassConfig extends AbstractAlias
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class AliasDefaultClass extends AbstractAlias
+class AliasAsDefault extends AbstractAlias
 {
     /**
      * Get alias function.
