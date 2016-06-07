@@ -17,6 +17,10 @@
  */
 namespace PMVC;
 
+use ArrayAccess;
+use SplObserver;
+use SplSubject;
+
 /**
  * PMVC PlugIn Adapter
  * It purpose let plugin's attribute can not access even it's public,
@@ -31,7 +35,7 @@ namespace PMVC;
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class Adapter implements \ArrayAccess
+class Adapter implements ArrayAccess, SplObserver
 {
     private $_name;
 
@@ -128,5 +132,17 @@ class Adapter implements \ArrayAccess
     public function offsetExists($k)
     {
         return $this->__call(__FUNCTION__, [$k]);
+    }
+
+    /**
+     * Observer update function.
+     *
+     * @param SplSubject $subject observable
+     *
+     * @return mixed
+     */
+    public function update(SplSubject $subject = null)
+    {
+        return $this->__call(__FUNCTION__, [$subject]);
     }
 }
