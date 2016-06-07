@@ -423,7 +423,7 @@ function value($arr, $path, $default = null)
             $a = (array) $a;
         }
         if (isset($a[$p])) {
-            $a = &$a[$p];
+            $a = $a[$p];
         } else {
             return $default;
         }
