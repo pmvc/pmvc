@@ -28,15 +28,4 @@ class UtilPlugTest extends \PHPUnit_Framework_TestCase
         $actual = splitDir($winDir);
         $this->assertEquals($expected, $actual);
     }
-
-    /**
-     * @function clean
-     */
-    public function testCleanKeepInArray()
-    {
-        $arr = [1, 2, 3];
-        \PMVC\clean($arr);
-        $expected = [];
-        $this->assertEquals($expected, $arr);
-    }
 }
