@@ -9,11 +9,11 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
      */
      public function testSetObject()
      {
-        $arr = (object)[1, 2, 3];
-        $arr1 = [];
-        \PMVC\set($arr1,$arr);
-        $expected = [1, 2, 3];
-        $this->assertEquals($expected, $arr1);
+         $arr = (object) [1, 2, 3];
+         $arr1 = [];
+         \PMVC\set($arr1, $arr);
+         $expected = [1, 2, 3];
+         $this->assertEquals($expected, $arr1);
      }
 
     /**

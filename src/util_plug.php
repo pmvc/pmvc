@@ -536,8 +536,9 @@ function set(&$a, $k, $v = null)
         return false;
     } elseif (isArray($k) || is_object($k)) {
         if (is_object($k)) {
-            $k = (array)$k;
+            $k = (array) $k;
         }
+
         return $a = arrayReplace($a, $k); //merge by new array
     } elseif (is_null($k)) {
         return $a[] = $v; //append value when no-assign key
