@@ -665,23 +665,6 @@ function exists($v, $type)
  */
 
 /**
- * Get Adapter.
- *
- * @param string $name Adapter name
- *
- * @return Adapter instance
- */
-function getAdapter($name)
-{
-    static $adapters = [];
-    if (!isset($adapters[$name])) {
-        $adapters[$name] = new Adapter($name);
-    }
-
-    return $adapters[$name];
-}
-
-/**
  * Set PlugIn Folder.
  *
  * @param array $folders plug-in folders
@@ -867,7 +850,7 @@ function plug($name, array $config = [])
         return !trigger_error($error);
     }
     $oPlugin[_PLUGIN] = $name;
-    $oPlugin['this'] = getAdapter($name);
+    $oPlugin['this'] = new Adapter($name);
     if (!empty($r)) {
         $config = arrayReplace($r->var[_INIT_CONFIG], $config);
         $oPlugin[_PLUGIN_FILE] = $r->name;
