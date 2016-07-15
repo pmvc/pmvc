@@ -595,7 +595,7 @@ function &option($act, $k = null, $v = null)
 /**
  * Dump for debug.
  *
- * @return vod
+ * @return void
  */
 function d()
 {
@@ -606,12 +606,32 @@ function d()
 /**
  * Log for debug.
  *
- * @return vod
+ * @return void
  */
 function log()
 {
     $params = func_get_args();
     callPlugin('error_trace', 'log', $params);
+}
+
+/**
+ * Develop.
+ *
+ * @return void
+ */
+function dev()
+{
+    callPlugin('dev', 'dump', func_get_args());
+}
+
+/**
+ * Is develop.
+ *
+ * @return bool
+ */
+function isDev()
+{
+    return callPlugin('dev', 'isDev', func_get_args());
 }
 
 /**
