@@ -599,8 +599,7 @@ function &option($act, $k = null, $v = null)
  */
 function d()
 {
-    $params = func_get_args();
-    callPlugin('debug', 'd', $params);
+    callPlugin('debug', 'd', func_get_args());
 }
 
 /**
@@ -610,8 +609,7 @@ function d()
  */
 function log()
 {
-    $params = func_get_args();
-    callPlugin('error_trace', 'log', $params);
+    callPlugin('error_trace', 'log', func_get_args());
 }
 
 /**
@@ -631,7 +629,7 @@ function dev()
  */
 function isDev()
 {
-    return callPlugin('dev', 'isDev', func_get_args());
+    return !empty(callPlugin('dev', 'isDev', func_get_args()));
 }
 
 /**
