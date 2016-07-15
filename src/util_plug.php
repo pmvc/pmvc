@@ -629,7 +629,12 @@ function dev()
  */
 function isDev()
 {
-    return !empty(callPlugin('dev', 'isDev', func_get_args()));
+    static $bool;
+    if (is_null($bool)) {
+        $bool = !empty(callPlugin('dev', 'isDev', func_get_args()));
+    }
+
+    return $bool;
 }
 
 /**
