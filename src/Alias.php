@@ -36,8 +36,11 @@ trait Alias
      */
     public function isCallable($method, $caller = null)
     {
-        $self = isArray($this) ? $this : ['this' => null];
+        if (method_exists($this, $method)) {
+            return [$this, $method];
+        }
         $func = false;
+        $self = isArray($this) ? $this : ['this' => null];
         if (!$this->_typeOfAlias) {
             $this->_typeOfAlias = $this->getTypeOfAlias();
         }
