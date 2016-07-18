@@ -29,10 +29,6 @@ namespace {
     define('_PLUGIN_FILE', '_plugin_file_');
     define('_INIT_CONFIG', '_init_config_');
 
-    /* Error */
-    define('_ERROR_REPORTING', '_error_reporting_');
-    define('_ERROR_ENABLE_LOG', '_error_enable_log_');
-
     /* Debug */
     define('_VIEW_ENGINE', '_view_engine_');
 }
