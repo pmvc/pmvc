@@ -410,13 +410,10 @@ function isArray($obj)
  * @param array $path    array's path
  * @param mixed $default if value not exists, return default value
  *
- * @return bool
+ * @return mixed
  */
-function value($arr, $path, $default = null)
+function value($arr, array $path, $default = null)
 {
-    if (!isArray($path)) {
-        return !trigger_error('[PMVC\value] Path is not array');
-    }
     $a = &$arr;
     foreach ($path as $p) {
         if (!isArray($a)) {
