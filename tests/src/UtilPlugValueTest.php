@@ -2,8 +2,8 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
 use PHPUnit_Framework_Error;
+use PHPUnit_Framework_TestCase;
 use TypeError;
 
 class UtilPlugValueTest extends PHPUnit_Framework_TestCase
@@ -40,20 +40,20 @@ class UtilPlugValueTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException PHPUnit_Framework_Error
-     * @expectedExceptionMessageRegExp /(Argument 2 passed to PMVC\\value\(\) must be)/ 
+     * @expectedExceptionMessageRegExp /(Argument 2 passed to PMVC\\value\(\) must be)/
      */
     public function testHandlePathIsNotArray()
     {
-       $h = ['a','b'];
-       try {
+        $h = ['a', 'b'];
+        try {
             value($h, 'not-path');
-       } catch (TypeError $e){ 
+        } catch (TypeError $e) {
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
                 $e->getFile(),
                 $e->getLine()
             );
-       }
+        }
     }
 }
