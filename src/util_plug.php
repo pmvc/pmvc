@@ -415,6 +415,9 @@ function isArray($obj)
 function value($arr, array $path, $default = null)
 {
     $a = &$arr;
+    if (!is_array($path)) {
+        return false;
+    }
     foreach ($path as $p) {
         if (!isArray($a)) {
             $a = (array) $a;
