@@ -90,6 +90,6 @@ class PlugIn extends HashMap implements SplObserver
             }
         }
 
-        return $this['this'];
+        return $this[THIS];
     }
 }

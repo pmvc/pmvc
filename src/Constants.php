@@ -52,4 +52,6 @@ namespace PMVC {
      */
     const PLUGIN_INSTANCE = '__plugin_instance__';
     const PAUSE = '__pause__';
+    const NAME = '__name__';
+    const THIS = 'this';
 }

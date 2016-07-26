@@ -867,8 +867,8 @@ function plug($name, array $config = [])
 
         return !trigger_error($error);
     }
-    $oPlugin[_PLUGIN] = $name;
-    $oPlugin['this'] = new Adapter($name);
+    $oPlugin[NAME] = $name;
+    $oPlugin[THIS] = new Adapter($name);
     if (!empty($r)) {
         $config = arrayReplace($r->var[_INIT_CONFIG], $config);
         $oPlugin[_PLUGIN_FILE] = $r->name;

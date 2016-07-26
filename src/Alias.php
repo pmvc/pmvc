@@ -40,12 +40,12 @@ trait Alias
             return [$this, $method];
         }
         $func = false;
-        $self = isArray($this) ? $this : ['this' => null];
+        $self = isArray($this) ? $this : [THIS => null];
         if (!$this->_typeOfAlias) {
             $this->_typeOfAlias = $this->getTypeOfAlias();
         }
         if (is_null($caller)) {
-            $caller = $self['this'] ?: $this;
+            $caller = $self[THIS] ?: $this;
         }
         foreach ($this->_typeOfAlias as $alias) {
             $func = $alias->get($this, $method, $caller);

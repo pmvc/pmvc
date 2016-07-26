@@ -22,7 +22,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         ]);
         $this->assertEquals('1', $test['init'], 'call once for init');
         $this->assertEquals('2', $test['update'], 'call once for update');
-        $this->assertEquals($plug, $test[_PLUGIN], 'check plugin name fail');
+        $this->assertEquals($plug, $test[NAME], 'check plugin name fail');
         $this->assertEquals($file, $test[_PLUGIN_FILE], 'check plugin file fail');
         $this->assertEquals(dirname($file).'/', $test->getDir(), 'test get dir');
         plug($plug, ['new' => 1]);
@@ -60,7 +60,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             ]
         );
         $abc = plug('abc');
-        $this->assertEquals('test', $abc[_PLUGIN]);
+        $this->assertEquals('test', $abc[NAME]);
         $this->assertEquals($class, $abc[_CLASS]);
     }
 
@@ -69,7 +69,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         plug('test', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
-        $this->assertEquals('test', plug('test')[_PLUGIN]);
+        $this->assertEquals('test', plug('test')[NAME]);
     }
 
     public function testIncludeOnly()
