@@ -20,7 +20,10 @@ https://github.com/pmvc/pmvc/wiki
 plug( 'plugin name', ['option'] );
 ```
 #### Plugin hello world
-https://github.com/pmvc-plugin/hello_world/blob/master/hello_world.php
+   * Source Code
+      * https://github.com/pmvc-plugin/hello_world/blob/master/hello_world.php
+   * Used
+      * \PMVC\plug('hello_world', ['Hello, PMVC.'])->say();
 
 #### PlugIn functions
    * setPlugInFolders
