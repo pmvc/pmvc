@@ -17,7 +17,7 @@ https://github.com/pmvc/pmvc/wiki
 
 ## How to use?
 ```
-plug( 'plugin name', ['config'] );
+plug( 'plugin name', ['option'] );
 ```
 #### Plugin hello world
 https://github.com/pmvc-plugin/hello_world/blob/master/hello_world.php
