@@ -3,7 +3,7 @@
 - [Getting Started](#getting-started)
 - [How to use?](#how-to-use)
   - [Plugin hello world](#plugin-hello-world)
-  - [PlugIn functions](#plugin-functions)
+  - [PlugIn features](#plugin-features)
 - [MVC](#mvc)
 - [PMVC Family](#pmvc-family)
 - [HHVM Support](#hhvm-support)
@@ -35,7 +35,7 @@ plug( 'plugin name', ['option'] );
    * Used
       * \PMVC\plug('hello_world', ['Hello, PMVC.'])->say();
 
-#### PlugIn functions
+#### PlugIn features
    * setPlugInFolders
    * addPlugInFolders
    * callPlugin
