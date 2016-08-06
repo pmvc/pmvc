@@ -23,8 +23,8 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('1', $test['init'], 'call once for init');
         $this->assertEquals('2', $test['update'], 'call once for update');
         $this->assertEquals($plug, $test[NAME], 'check plugin name fail');
-        $this->assertEquals($file, $test[_PLUGIN_FILE], 'check plugin file fail');
-        $this->assertEquals(dirname($file).'/', $test->getDir(), 'test get dir');
+        $this->assertEquals(realpath($file), $test[_PLUGIN_FILE], 'check plugin file fail');
+        $this->assertEquals(dirname(realpath($file)).'/', $test->getDir(), 'test get dir');
         plug($plug, ['new' => 1]);
         $this->assertEquals('1', $test['init'], 'should keep 1 for second call');
         $this->assertEquals('3', $test['update'], 'call twice for udate');

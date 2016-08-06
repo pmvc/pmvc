@@ -837,9 +837,10 @@ function plug($name, array $config = [])
     } else {
         $file = null;
         if (isset($config[_PLUGIN_FILE])) {
+            $config[_PLUGIN_FILE] = realpath($config[_PLUGIN_FILE]);
             $file = $config[_PLUGIN_FILE];
         }
-        if (realpath($file)) {
+        if ($file) {
             $r = l($file, _INIT_CONFIG);
         } else {
             $file = $name.'/'.$name.'.php';
@@ -867,15 +868,13 @@ function plug($name, array $config = [])
 
         return !trigger_error($error);
     }
-    $oPlugin[NAME] = $name;
-    $oPlugin[THIS] = new Adapter($name);
+    $config[NAME] = $name;
+    $config[THIS] = new Adapter($name);
     if (!empty($r)) {
         $config = arrayReplace($r->var[_INIT_CONFIG], $config);
-        $oPlugin[_PLUGIN_FILE] = $r->name;
+        $config[_PLUGIN_FILE] = $r->name;
     }
-    if (!empty($config)) {
-        set($oPlugin, $config);
-    }
+    set($oPlugin, $config);
     $objs[$name] = $oPlugin;
     $oPlugin->init();
 

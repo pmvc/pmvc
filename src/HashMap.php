@@ -36,9 +36,9 @@ use ArrayAccess;
 class HashMap extends ListIterator implements ArrayAccess
 {
     /**
-     * Get array_keys.
+     * Get key set.
      *
-     * @return bool
+     * @return array
      */
     public function keySet()
     {
@@ -46,7 +46,7 @@ class HashMap extends ListIterator implements ArrayAccess
     }
 
     /**
-     * ContainsKey.
+     * Contains key.
      *
      * @param string $k key
      *
@@ -58,7 +58,7 @@ class HashMap extends ListIterator implements ArrayAccess
     }
 
     /**
-     * ContainsKey.
+     * Contains key.
      *
      * @param string $k key
      *
@@ -74,7 +74,7 @@ class HashMap extends ListIterator implements ArrayAccess
      *
      * @param mixed $k key
      *
-     * @return bool
+     * @return mixed
      */
     public function &offsetGet($k = null)
     {
@@ -116,7 +116,7 @@ class HashMap extends ListIterator implements ArrayAccess
      *
      * @return bool
      */
-    public function __set($k, $v = null)
+    public function __set($k, $v)
     {
         return $this->offsetSet($k, $v);
     }
@@ -142,6 +142,6 @@ class HashMap extends ListIterator implements ArrayAccess
      */
     public function __unset($k = null)
     {
-        return $this->offsetUnset($k, $v);
+        return $this->offsetUnset($k);
     }
 }
