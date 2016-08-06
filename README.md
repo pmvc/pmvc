@@ -1,3 +1,14 @@
+## Table of Contents
+- [PMVC](#pmvc)
+- [Getting Started](#getting-started)
+- [How to use?](#how-to-use)
+  - [Plugin hello world](#plugin-hello-world)
+  - [PlugIn functions](#plugin-functions)
+- [MVC](#mvc)
+- [PMVC Family](#pmvc-family)
+- [HHVM Support](#hhvm-support)
+- [PHP Version](#php-version)
+
 <img src="https://raw.githubusercontent.com/pmvc/pmvc.github.io/master/flow5.png">
 
 PMVC
@@ -10,17 +21,6 @@ A simple MVC for unidirectional dataflow architecture.
 [![StyleCI](https://styleci.io/repos/34601083/shield)](https://styleci.io/repos/34601083)
 [![License](https://poser.pugx.org/pmvc/pmvc/license)](https://packagist.org/packages/pmvc/pmvc)
 [![Total Downloads](https://poser.pugx.org/pmvc/pmvc/downloads)](https://packagist.org/packages/pmvc/pmvc) 
-
-## Table of Contents
-- [Getting Started](#getting-started)
-- [How to use?](#how-to-use)
-  - [Plugin hello world](#plugin-hello-world)
-  - [PlugIn functions](#plugin-functions)
-- [MVC](#mvc)
-- [PMVC Family](#pmvc-family)
-- [HHVM Support](#hhvm-support)
-- [PHP Version](#php-version)
-
 
 ## Getting Started
 https://github.com/pmvc/pmvc/wiki
