@@ -13,6 +13,13 @@ A simple MVC for unidirectional dataflow architecture.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
+- [How to use?](#how-to-use)
+  - [Plugin hello world](#plugin-hello-world)
+  - [PlugIn functions](#plugin-functions)
+- [MVC](#mvc)
+- [PMVC Family](#pmvc-family)
+- [HHVM Support](#hhvm-support)
+- [PHP Version](#php-version)
 
 
 ## Getting Started
