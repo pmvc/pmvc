@@ -808,12 +808,33 @@ function initPlugIn(array $arr, $pause = false)
 }
 
 /**
+ * Plug alias.
+ *
+ * @param string $alias    Alias name.
+ * @param string $plugName Plugin name.
+ *
+ * @return PlugIn
+ */
+function _plugAlias($alias, $plugName)
+{
+    $oPlugin = plug($alias);
+    if ($oPlugin) {
+        $objs = getOption(PLUGIN_INSTANCE);
+        $objs[$plugName] = $oPlugin;
+
+        return $oPlugin;
+    } else {
+        throw new DomainException('Get alias fail. '.$plugName.'=>'.$alias);
+    }
+}
+
+/**
  * Plug.
  *
  * @param string $name   plugin name
  * @param array  $config plugin configs
  *
- * @return mixed
+ * @return PlugIn
  */
 function plug($name, array $config = [])
 {
@@ -829,14 +850,7 @@ function plug($name, array $config = [])
     $folders = folders(_PLUGIN);
     $alias = $folders['alias'];
     if (isset($alias[$name])) {
-        $oPlugin = plug($alias[$name]);
-        if ($oPlugin) {
-            $objs[$name] = $oPlugin;
-
-            return $oPlugin;
-        } else {
-            throw new DomainException('Get alias fail. '.$name.'=>'.$alias[$name]);
-        }
+        return _plugAlias($alias[$name], $name);
     }
     if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
         $class = $config[_CLASS];
