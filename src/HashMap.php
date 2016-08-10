@@ -36,6 +36,21 @@ use ArrayAccess;
 class HashMap extends ListIterator implements ArrayAccess
 {
     /**
+     * Append.
+     *
+     * @param array $arr merge array
+     *
+     * @return array
+     */
+    public function append(array $arr)
+    {
+        $this->state = array_merge_recursive(
+            $this->state,
+            $arr
+        );
+    }
+
+    /**
      * Get key set.
      *
      * @return array
