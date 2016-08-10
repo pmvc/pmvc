@@ -18,6 +18,7 @@
 namespace PMVC;
 
 use ArrayAccess;
+use DomainException;
 
 option(
     'set',
@@ -828,9 +829,14 @@ function plug($name, array $config = [])
     $folders = folders(_PLUGIN);
     $alias = $folders['alias'];
     if (isset($alias[$name])) {
-        $objs[$name] = plug($alias[$name]);
+        $oPlugin = plug($alias[$name]);
+        if ($oPlugin) {
+            $objs[$name] = $oPlugin;
 
-        return $objs[$name];
+            return $oPlugin;
+        } else {
+            throw new DomainException('Get alias fail. '.$name.'=>'.$alias[$name]);
+        }
     }
     if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
         $class = $config[_CLASS];
