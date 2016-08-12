@@ -39,6 +39,7 @@ trait Alias
         if (method_exists($this, $method)) {
             return [$this, $method];
         }
+        $method = strtolower($method);
         $func = false;
         $self = isArray($this) ? $this : [THIS => null];
         if (!$this->_typeOfAlias) {
@@ -56,7 +57,7 @@ trait Alias
         if (!$func) {
             if (!empty($this->parentAlias)) {
                 $parent = $this->parentAlias;
-                if ($parent !== $caller
+                if (spl_object_hash($parent) !== spl_object_hash($caller)
                     && is_callable([$parent, 'isCallable'])
                 ) {
                     $func = $parent->isCallable($method, $caller);
