@@ -65,4 +65,15 @@ class AliasTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, getOption('d'));
         $this->assertEquals(0, getOption('e'));
     }
+
+    /**
+     * Test parent method not exists.
+     *
+     * @expectedException PHPUnit_Framework_Error
+     */
+    public function testParentMethodNotExists()
+    {
+        $child = plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
+        $child->FakeNotExists();
+    }
 }

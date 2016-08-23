@@ -30,11 +30,10 @@ trait Alias
      * Custom is_callable for Alias.
      *
      * @param string $method Method
-     * @param object $caller Caller
      *
      * @return mixed
      */
-    public function isCallable($method, $caller = null)
+    public function isCallable($method)
     {
         if (method_exists($this, $method)) {
             return [$this, $method];
@@ -45,9 +44,7 @@ trait Alias
         if (!$this->_typeOfAlias) {
             $this->_typeOfAlias = $this->getTypeOfAlias();
         }
-        if (is_null($caller)) {
-            $caller = $self[THIS] ?: $this;
-        }
+        $caller = $self[THIS] ?: $this;
         foreach ($this->_typeOfAlias as $alias) {
             $func = $alias->get($this, $method, $caller);
             if (!empty($func)) {
@@ -60,7 +57,7 @@ trait Alias
                 if (spl_object_hash($parent) !== spl_object_hash($caller)
                     && is_callable([$parent, 'isCallable'])
                 ) {
-                    $func = $parent->isCallable($method, $caller);
+                    $func = $parent->isCallable($method);
                 }
             }
         }
