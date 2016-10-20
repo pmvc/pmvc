@@ -2,13 +2,9 @@
 /**
  * PMVC.
  *
- * This file only use in
- * "Global Option", "Mapping Option", "Plugin Option".
- * Other constant should put in namespace.constants.php
- *
  * PHP version 5
  *
- * @category CategoryName
+ * @category Core
  *
  * @package PMVC
  *

@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * @category CategoryName
+ * @category Core
  *
  * @package PMVC
  *
