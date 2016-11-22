@@ -79,8 +79,8 @@ trait Alias
         if (empty($func)) {
             return !trigger_error(
                 'Method not found: '.
-                get_class($this). '::'.
-                $method. '()'.
+                str_replace('\\\\', '\\', get_class($this)).'::'.
+                $method.'()'.
                 '. Please check alias file already use lowercase.'
             );
         } else {
