@@ -15,6 +15,7 @@
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
+
 namespace PMVC;
 
 use ArrayAccess;
@@ -801,7 +802,7 @@ function initPlugIn(array $arr, $pause = false)
     $objs = getOption(PLUGIN_INSTANCE);
     foreach ($arr as $plugIn => $config) {
         if (!isset($objs[$plugIn]) || !empty($config)) {
-            if (empty($config)) { 
+            if (empty($config)) {
                 $config = [];
             }
             if ($pause) {
