@@ -72,7 +72,6 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', plug('test')[NAME]);
     }
 
-
     /**
      * @expectedException PHPUnit_Framework_Error
      * @expectedExceptionMessage plugin test not found
