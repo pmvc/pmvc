@@ -188,11 +188,19 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
         $_folders[$type] = [];
         $_alias[$type] = [];
     }
-    $_folders[$type] = \array_merge(
-        $_folders[$type],
-        $folders
-    );
-    $_alias[$type] = \array_merge(
+    if (!empty($folders)) {
+        $_folders[$type] = array_unique(
+            array_merge(
+                $_folders[$type],
+                array_map(
+                    function ($f) {
+                        return realpath($f);
+                    }, $folders
+                )
+            )
+        );
+    }
+    $_alias[$type] = array_merge(
         $_alias[$type],
         $alias
     );
@@ -792,15 +800,14 @@ function initPlugIn(array $arr, $pause = false)
     $init = [];
     $objs = getOption(PLUGIN_INSTANCE);
     foreach ($arr as $plugIn => $config) {
-        if (!isset($objs[$plugIn])) {
+        if (!isset($objs[$plugIn]) || !empty($config)) {
+            if (empty($config)) { 
+                $config = [];
+            }
             if ($pause) {
                 $config[PAUSE] = true;
             }
-            if (empty($config)) {
-                plug($plugIn);
-            } else {
-                $init[$plugIn] = plug($plugIn, $config);
-            }
+            $init[$plugIn] = plug($plugIn, $config);
         }
     }
 

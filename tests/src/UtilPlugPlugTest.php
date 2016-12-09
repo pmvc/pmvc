@@ -72,16 +72,6 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('test', plug('test')[NAME]);
     }
 
-    public function testIncludeOnly()
-    {
-        initPlugin([
-            'test' => [
-                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugInclude.php',
-            ],
-        ], true);
-        $this->assertTrue(class_exists(__NAMESPACE__.'\FakePlugInclude'), 'Class should exists');
-        $this->assertFalse(exists('test', 'plugin'), 'Plugin should not exists');
-    }
 
     /**
      * @expectedException PHPUnit_Framework_Error
