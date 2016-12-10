@@ -241,15 +241,11 @@ function mergeFileName($name, $dir = null)
  */
 function lastSlash($s)
 {
-    $s = str_replace('\\', '/', $s);
     $c = strlen($s);
-    if ($c) {
-        $s .= ($s[$c - 1] != '/') ? '/' : '';
-
-        return $s;
-    } else {
-        return '';
+    if ($c && $s[$c - 1] !== '/') {
+        $s .= '/';
     }
+    return $s;
 }
 
 /**

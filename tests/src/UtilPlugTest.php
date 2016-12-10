@@ -2,7 +2,9 @@
 
 namespace PMVC;
 
-class UtilPlugTest extends \PHPUnit_Framework_TestCase
+use PHPUnit_Framework_TestCase;
+
+class UtilPlugTest extends PHPUnit_Framework_TestCase
 {
     public function testUnPlug()
     {
@@ -27,5 +29,17 @@ class UtilPlugTest extends \PHPUnit_Framework_TestCase
         $expected = ['aaa', 'bbb'];
         $actual = splitDir($winDir);
         $this->assertEquals($expected, $actual);
+    }
+
+    public function testHasLastSlash()
+    {
+        $a = 'xxx/';
+        $this->assertEquals($a, lastSlash($a));
+    }
+
+    public function testAppendLastSlash()
+    {
+        $a = 'xxx';
+        $this->assertEquals($a.'/', lastSlash($a));
     }
 }
