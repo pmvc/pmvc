@@ -3,7 +3,7 @@
 namespace PMVC;
 
 addPlugInFolders([
-    __DIR__.'/../resources/plugin1'
+    __DIR__.'/../resources/plugin1',
 ]);
 
 use PHPUnit_Framework_TestCase;
@@ -31,7 +31,7 @@ class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
         $plug = 'testplugin';
         $test = plug($plug);
         $plugins = initPlugin([
-            $plug=>null
+            $plug=> null,
         ]);
         $this->assertFalse(isset($plugins[$plug]));
     }
@@ -41,7 +41,7 @@ class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
         $plug = 'testplugin';
         $test = plug($plug);
         $plugins = initPlugin([
-            $plug=>[0]
+            $plug=> [0],
         ]);
         $this->assertTrue(isset($plugins[$plug]));
     }
