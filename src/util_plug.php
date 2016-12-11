@@ -768,9 +768,10 @@ function unPlug($name)
 function rePlug($name, $object)
 {
     $objs = getOption(PLUGIN_INSTANCE);
+    $plug = $objs[$name];
     $objs[$name] = $object;
 
-    return $objs[$name];
+    return $plug;
 }
 
 /**
