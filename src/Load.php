@@ -59,9 +59,6 @@ class Load
      */
     public static function initPlugInFolder()
     {
-        $dir = __DIR__.'/../../../pmvc-plugin';
-        if (is_dir($dir)) {
-            setPlugInFolders([$dir]);
-        }
+        setPlugInFolders([__DIR__.'/../../../pmvc-plugin']);
     }
 }
