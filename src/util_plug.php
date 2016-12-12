@@ -542,7 +542,7 @@ function set(&$a, $k, $v = null)
     if (is_null($k) && is_null($v)) {
         return false;
     } elseif (isArray($k) || is_object($k)) {
-        if (is_object($k)) {
+        if (!isArray($k)) {
             $k = (array) $k;
         }
 
