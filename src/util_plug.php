@@ -767,6 +767,8 @@ function unPlug($name)
  */
 function rePlug($name, $object)
 {
+    $object[NAME] = $name;
+    $object[THIS] = new Adapter($name);
     $objs = getOption(PLUGIN_INSTANCE);
     $plug = $objs[$name];
     $objs[$name] = $object;
@@ -894,14 +896,12 @@ function plug($name, array $config = [])
 
         return !trigger_error($error);
     }
-    $config[NAME] = $name;
-    $config[THIS] = new Adapter($name);
     if (!empty($r)) {
         $config = arrayReplace($r->var[_INIT_CONFIG], $config);
         $config[_PLUGIN_FILE] = $r->name;
     }
     set($oPlugin, $config);
-    $objs[$name] = $oPlugin;
+    rePlug($name, $oPlugin);
     $oPlugin->init();
 
     return $oPlugin->update();
