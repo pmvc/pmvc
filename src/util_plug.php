@@ -827,7 +827,8 @@ function plugAlias($targetPlugin, $aliasName)
 {
     $objs = getOption(PLUGIN_INSTANCE);
     if (!isset($objs[$targetPlugin])) {
-        throw new DomainException('Plug alias fail. Target: ['.
+        throw new DomainException(
+            'Plug alias fail. Target: ['.
             $targetPlugin.
             '], New Alias: ['.
             $aliasName.
