@@ -1,4 +1,1 @@
-languages:
-  PHP: true
-  exclude_paths:
-    - "tests/*"
+json_path: coveralls-upload.json
