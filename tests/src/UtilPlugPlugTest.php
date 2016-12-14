@@ -48,22 +48,6 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('plugin2', $test['test']);
     }
 
-    public function testAlias()
-    {
-        addPlugInFolders([], [
-            'abc' => 'test',
-        ]);
-        $class = __NAMESPACE__.'\FakePlug';
-        plug(
-            'test', [
-            _CLASS => $class,
-            ]
-        );
-        $abc = plug('abc');
-        $this->assertEquals('test', $abc[NAME]);
-        $this->assertEquals($class, $abc[_CLASS]);
-    }
-
     public function testPlugFile()
     {
         plug('test', [

@@ -818,22 +818,26 @@ function initPlugIn(array $arr, $pause = false)
 /**
  * Plug alias.
  *
- * @param string $alias    Alias name.
- * @param string $plugName Plugin name.
+ * @param string $targetPlugin Target plugin.
+ * @param string $aliasName    New alias name.
  *
  * @return PlugIn
  */
-function _plugAlias($alias, $plugName)
+function plugAlias($targetPlugin, $aliasName)
 {
-    $oPlugin = plug($alias);
-    if ($oPlugin) {
-        $objs = getOption(PLUGIN_INSTANCE);
-        $objs[$plugName] = $oPlugin;
-
-        return $oPlugin;
-    } else {
-        throw new DomainException('Get alias fail. '.$plugName.'=>'.$alias);
+    $objs = getOption(PLUGIN_INSTANCE);
+    if (!isset($objs[$targetPlugin])) {
+        throw new DomainException('Plug alias fail. Target: ['.
+            $targetPlugin.
+            '], New Alias: ['.
+            $aliasName.
+            ']'
+        );
     }
+    $oPlugin = $objs[$targetPlugin];
+    $objs[$aliasName] = $oPlugin;
+
+    return $oPlugin;
 }
 
 /**
@@ -858,7 +862,7 @@ function plug($name, array $config = [])
     $folders = folders(_PLUGIN);
     $alias = $folders['alias'];
     if (isset($alias[$name])) {
-        return _plugAlias($alias[$name], $name);
+        return plugAlias($alias[$name], $name);
     }
     if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
         $class = $config[_CLASS];
