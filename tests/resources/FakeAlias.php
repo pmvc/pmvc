@@ -2,6 +2,9 @@
 
 namespace PMVC;
 
+/**
+ * @codeCoverageIgnore
+ */
 class FakeAlias extends PlugIn
 {
     public function init()
@@ -26,6 +29,9 @@ class FakeAliasChild extends FakeAlias
     }
 }
 
+/**
+ * @codeCoverageIgnore
+ */
 class FakeAliasWithoutArrayAccess
 {
     use Alias;
@@ -44,6 +50,9 @@ class FakeAliasWithoutArrayAccess
     }
 }
 
+/**
+ * @codeCoverageIgnore
+ */
 class FakeAliasWithoutArrayAccessChild extends FakeAliasWithoutArrayAccess
 {
     public function __construct()
@@ -62,11 +71,6 @@ class FakeObject
     public function a()
     {
         option('set', 'a', 1);
-    }
-
-    public function b()
-    {
-        echo 'b';
     }
 }
 
