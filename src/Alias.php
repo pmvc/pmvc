@@ -41,11 +41,13 @@ trait Alias
         }
         $method = strtolower($method);
         $func = false;
-        $self = isArray($this) ? $this : [THIS => null];
         if (!$this->_typeOfAlias) {
             $this->_typeOfAlias = $this->getTypeOfAlias();
         }
-        $caller = $self[THIS] ?: $this;
+        $caller = $this;
+        if (is_a($this, '\PMVC\PlugIn')) {
+            $caller = $this[THIS];
+        }
         foreach ($this->_typeOfAlias as $alias) {
             $func = $alias->get($this, $method, $caller);
             if (!empty($func)) {
