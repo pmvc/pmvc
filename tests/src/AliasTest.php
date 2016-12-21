@@ -24,7 +24,7 @@ class AliasTest extends PHPUnit_Framework_TestCase
         option('set', 'a', 0);
         $a->a();
         $name = get_class($a);
-        if (\PMVC\value($a,[NAME])) {
+        if (\PMVC\value($a, [NAME])) {
             $name = $a[NAME];
         }
         $this->assertEquals(1, getOption('a'), 'Test for: '.$name);
@@ -65,14 +65,14 @@ class AliasTest extends PHPUnit_Framework_TestCase
         $a->FakeTask();
         option('set', 'd', 0);
         option('set', 'e', 0);
-        if (\PMVC\value($a,['parentAlias'])) {
-            $this->assertTrue(!!\PMVC\value($a,['parentAlias','faketask']));
-        } elseif (\PMVC\value($a,['faketask'])) {
-            $this->assertTrue(!!\PMVC\value($a,['faketask']));
+        if (\PMVC\value($a, ['parentAlias'])) {
+            $this->assertTrue((bool) \PMVC\value($a, ['parentAlias', 'faketask']));
+        } elseif (\PMVC\value($a, ['faketask'])) {
+            $this->assertTrue((bool) \PMVC\value($a, ['faketask']));
         } else {
             $obj = getOption(PLUGIN_INSTANCE);
             $plugin = $obj[$a[NAME]];
-            $this->assertTrue(!!\PMVC\value($plugin,['parentAlias','faketask']));
+            $this->assertTrue((bool) \PMVC\value($plugin, ['parentAlias', 'faketask']));
         }
         $a->FakeTask();
         $this->assertEquals(1, getOption('d'));
@@ -91,32 +91,31 @@ class AliasTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test caller with plugin
+     * Test caller with plugin.
      */
      public function testCallerWithPlugin()
      {
-        $pFake = \PMVC\plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
-        $pFake->faketask();
-        $this->assertTrue(is_a(
+         $pFake = \PMVC\plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
+         $pFake->faketask();
+         $this->assertTrue(is_a(
             $pFake['faketask']->caller,
             '\PMVC\Adapter'
         ));
      }
 
     /**
-     * Test caller without plugin 
+     * Test caller without plugin.
      */
      public function testCallerWithoutPlugin()
      {
-        $oAlias = new FakeAliasWithoutArrayAccess();
-        $oAlias->faketask();
-        $obj = \PMVC\value($oAlias, ['faketask', 'caller']);
-        $this->assertTrue(!is_a(
+         $oAlias = new FakeAliasWithoutArrayAccess();
+         $oAlias->faketask();
+         $obj = \PMVC\value($oAlias, ['faketask', 'caller']);
+         $this->assertTrue(!is_a(
                 $obj,
                 '\PMVC\Adapter'
             ) &&
             is_object($obj)
         );
      }
-
 }

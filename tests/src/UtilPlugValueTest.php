@@ -37,17 +37,17 @@ class UtilPlugValueTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_object($h));
         $this->assertEquals('d', $actual);
     }
-    
+
     /**
-     * Test get a->xxx
+     * Test get a->xxx.
      */
     public function testGetObjectValue()
     {
         $expected = 'd';
         $a = (object) [
-            'b'=>(object) [
-                'c'=> $expected
-            ]
+            'b'=> (object) [
+                'c'=> $expected,
+            ],
         ];
         $this->assertEquals($expected, $a->b->c);
         $this->assertEquals($expected, \PMVC\value($a, ['b', 'c']));
