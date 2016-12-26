@@ -4,6 +4,7 @@
 - [How to use?](#how-to-use)
   - [Plugin hello world](#plugin-hello-world)
   - [PlugIn features](#plugin-features)
+  - [PlugIn Generator](#plugin-generator)
 - [[M]odel [V]iew [C]ontroller](#mvc)
 - [PMVC Family](#pmvc-family)
 - [HHVM Support](#hhvm-support)
