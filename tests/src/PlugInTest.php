@@ -22,8 +22,24 @@ class PlugInTest extends PHPUnit_Framework_TestCase
             _CLASS => $class,
             ]
         );
-        $plug->update(new fakeSplSubject());
-        $this->assertEquals('ontest', getoption('test'));
+        $actual = $plug->update(new fakeSplSubject());
+        $expected = true;
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testUpdateMethodNotExists()
+    {
+        $subject = new fakeSplSubject();
+        $subject->state = 'none';
+        $class = __NAMESPACE__.'\FakePlug';
+        $plug_name = 'fake_plug';
+        $plug = plug(
+            $plug_name, [
+            _CLASS => $class,
+            ]
+        );
+        $actual = $plug->update($subject);
+        $this->assertEquals($plug[THIS], $actual);
     }
 
     public function testInstanceof()
@@ -41,6 +57,8 @@ class PlugInTest extends PHPUnit_Framework_TestCase
 
 class fakeSplSubject implements SplSubject
 {
+    public $state = 'test';
+
     public function attach(SplObserver $SplObserver)
     {
     }
@@ -55,6 +73,6 @@ class fakeSplSubject implements SplSubject
 
     public function getName()
     {
-        return 'test';
+        return $this->state;
     }
 }

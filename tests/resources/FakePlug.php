@@ -6,6 +6,6 @@ class FakePlug extends PlugIn
 {
     public function onTest()
     {
-        \PMVC\option('set', 'test', 'ontest');
+        return true;
     }
 }
