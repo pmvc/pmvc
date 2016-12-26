@@ -30,7 +30,7 @@ https://github.com/pmvc/pmvc/wiki
 ```
 plug( 'plugin name', ['option'] );
 ```
-#### Plugin Hello world
+### Plugin Hello world
    * Source Code
 ```
 <?php
@@ -49,7 +49,7 @@ class hello_world extends \PMVC\PlugIn
 \PMVC\plug('hello_world', ['Hello, PMVC.'])->say();
 ```
 
-#### PlugIn features
+### PlugIn features
    * setPlugInFolders
    * addPlugInFolders
    * callPlugin
