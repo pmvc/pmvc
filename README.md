@@ -59,6 +59,9 @@ class hello_world extends \PMVC\PlugIn
    * initPlugIn
    * plug
 
+### PlugIn Generator
+   * https://github.com/pmvc/generator-php-pmvc-plugin
+
 ## MVC
    * Controller
       * https://github.com/pmvc-plugin/controller
