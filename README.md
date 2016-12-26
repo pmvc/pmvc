@@ -30,11 +30,28 @@ https://github.com/pmvc/pmvc/wiki
 ```
 plug( 'plugin name', ['option'] );
 ```
-#### Plugin hello world
+#### Plugin Hello world
    * Source Code
-      * https://github.com/pmvc-plugin/hello_world/blob/master/hello_world.php
+```
+<?php
+namespace PMVC\PlugIn\hello_world;
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\hello_world';
+class hello_world extends \PMVC\PlugIn
+{
+    public function init()
+    {
+        echo "I'm init\n";
+    }
+    public function say()
+    {
+        echo $this[0]."\n";
+    }
+}
+```
    * Used
-      * \PMVC\plug('hello_world', ['Hello, PMVC.'])->say();
+```
+\PMVC\plug('hello_world', ['Hello, PMVC.'])->say();
+```
 
 #### PlugIn features
    * setPlugInFolders
