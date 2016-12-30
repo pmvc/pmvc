@@ -67,7 +67,7 @@ class hello_world extends \PMVC\PlugIn
    * Controller
       * https://github.com/pmvc-plugin/controller
    * View
-      * https://github.com/pmvc-plugin/?utf8=%E2%9C%93&query=view
+      * https://github.com/pmvc-plugin/?q=view
       * view_react
       * view_html
       * view_json
