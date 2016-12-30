@@ -666,16 +666,14 @@ function run($func, $args)
 function exists($v, $type)
 {
     switch (strtolower($type)) {
-    case 'function':
-        return function_exists($v);
-    case 'class':
-        return class_exists($v);
     case 'file':
         return realpath($v);
     case 'plugin':
         $objs = getOption(PLUGIN_INSTANCE);
 
         return !empty($objs[$v]);
+    case 'plug': //check if OK to plug
+        return plug($v, [PAUSE => true]);
     default:
         return;
     }

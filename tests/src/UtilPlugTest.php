@@ -42,4 +42,10 @@ class UtilPlugTest extends PHPUnit_Framework_TestCase
         $a = 'xxx';
         $this->assertEquals($a.'/', lastSlash($a));
     }
+
+    public function testPlugInCantPlug()
+    {
+        $plug = 'xxxxxxxxxxxxxxxxxx';
+        $this->assertFalse(exists($plug, 'plug'));
+    }
 }
