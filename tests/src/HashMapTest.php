@@ -95,6 +95,34 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
         $hash->offsetUnset();
         $this->assertFalse(isset($hash['b']));
     }
+
+    public function testAppend()
+    {
+        $arr = [
+            'a'=> ['aaa'=> 111]
+        ];
+        $hash = new HashMap($arr);
+        $newSet = [
+            'a'=> ['bbb'=> 222]
+        ];
+        $hash[$newSet] = null;
+        $this->assertEquals($newSet, \PMVC\get($hash));
+        $hash->append([
+            'a'=> ['ccc'=> 333]
+        ]);
+        $expected = $newSet;
+        $expected['a']['ccc'] = 333;
+        $this->assertEquals($expected, \PMVC\get($hash));
+    }
+
+    public function testUnset()
+    {
+        $hash = new HashMap();
+        $hash['a'] = 1;
+        $this->assertTrue(isset($hash['a']));
+        unset($hash['a']);
+        $this->assertFalse(isset($hash['a']));
+    }
 }
 
 class FakeHash extends HashMap
