@@ -666,8 +666,6 @@ function run($func, $args)
 function exists($v, $type)
 {
     switch (strtolower($type)) {
-    case 'file':
-        return realpath($v);
     case 'plugin':
         $objs = getOption(PLUGIN_INSTANCE);
 
@@ -675,7 +673,11 @@ function exists($v, $type)
     case 'plug': //check if OK to plug
         return plug($v, [PAUSE => true]);
     default:
-        return;
+        throw new DomainException(
+            'Exists checker not support ['.
+            $type.
+            ']'
+        );
     }
 }
 
