@@ -116,7 +116,7 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
         ];
         $hash[$newSet] = null;
         $this->assertEquals($newSet, \PMVC\get($hash));
-        $hash[false]=[
+        $hash[false] = [
             'a'=> ['ccc'=> 333],
         ];
         $expected = $newSet;
