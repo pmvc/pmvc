@@ -37,21 +37,6 @@ use ArrayAccess;
 class HashMap extends ListIterator implements ArrayAccess
 {
     /**
-     * Append.
-     *
-     * @param array $arr merge array
-     *
-     * @return array
-     */
-    public function append(array $arr)
-    {
-        $this->state = array_merge_recursive(
-            $this->state,
-            $arr
-        );
-    }
-
-    /**
      * Get key set.
      *
      * @return array
@@ -121,6 +106,12 @@ class HashMap extends ListIterator implements ArrayAccess
      */
     public function offsetSet($k, $v)
     {
+        if (false===$k && is_array($v)) {
+            return $this->state = array_merge_recursive(
+                $this->state,
+                $v
+            );
+        }
         return set($this->state, $k, $v);
     }
 

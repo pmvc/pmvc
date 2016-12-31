@@ -116,12 +116,14 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
         ];
         $hash[$newSet] = null;
         $this->assertEquals($newSet, \PMVC\get($hash));
-        $hash->append([
+        $hash[false]=[
             'a'=> ['ccc'=> 333],
-        ]);
+        ];
         $expected = $newSet;
         $expected['a']['ccc'] = 333;
         $this->assertEquals($expected, \PMVC\get($hash));
+        $hash[] = ['ddd'];
+        $this->assertEquals(['ddd'], $hash[0]);
     }
 }
 
