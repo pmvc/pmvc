@@ -569,15 +569,15 @@ function &getOption($k = null, $default = null)
 
 /**
  * Global option for get/set.
- * 
+ *
  * Keep in mind why don't have clean and issset
- * 1. Make function more simple 
+ * 1. Make function more simple
  *    for get better performance.
  * 2. Get always have value, don't need isset
- * 3. Clean is not useful here, 
+ * 3. Clean is not useful here,
  *    some value need always keep.
  *    such as PLUGIN_INSTANCE.
- * 4. Mose of use case is append not replace all. 
+ * 4. Mose of use case is append not replace all.
  *
  * @param string $act [set|get]
  * @param mixed  $k   key
