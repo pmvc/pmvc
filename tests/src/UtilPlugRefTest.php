@@ -17,9 +17,9 @@ class UtilPlugRefTest extends PHPUnit_Framework_TestCase
     public function testHashmap()
     {
         $h = new Hashmap([
-            'a'=>123
+            'a'=> 123,
         ]);
-        $a =& \PMVC\ref($h->a);
+        $a = &\PMVC\ref($h->a);
         $a = 456;
         $this->assertEquals(456, $h['a']);
         \PMVC\ref($h->a, 789);
