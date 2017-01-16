@@ -436,6 +436,26 @@ function value($arr, array $path, $default = null)
 }
 
 /**
+ * Get Hashmap reference value
+ *
+ * @param mixed $v   value
+ * @param mixed $new new value
+ *
+ * @return mixed
+ */
+function &ref(&$v, $new = null)
+{
+    if (is_a($v, '\PMVC\Object')) {
+        return $v($new);
+    } else {
+        if (!is_null($new)) {
+            $v = $new;
+        }
+        return $v;
+    }
+}
+
+/**
  * Data access <!---.
  */
 

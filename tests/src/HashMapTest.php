@@ -19,7 +19,7 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $hash[$key]);
     }
 
-    public function testRef()
+    public function testRefObject()
     {
         $hash = new HashMap();
         $hash['abc'] = 123;

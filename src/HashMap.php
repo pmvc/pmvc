@@ -83,7 +83,7 @@ class HashMap extends ListIterator implements ArrayAccess
     }
 
     /**
-     * Get.
+     * Get reference object.
      *
      * @param mixed $k key
      *
@@ -91,9 +91,7 @@ class HashMap extends ListIterator implements ArrayAccess
      */
     public function __get($k)
     {
-        $val = new Object($this->state[$k]);
-
-        return $val;
+        return new Object($this->state[$k]);
     }
 
     /**
