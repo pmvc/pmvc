@@ -436,7 +436,7 @@ function value($arr, array $path, $default = null)
 }
 
 /**
- * Get Hashmap reference value
+ * Get Hashmap reference value.
  *
  * @param mixed $v   value
  * @param mixed $new new value
@@ -451,6 +451,7 @@ function &ref(&$v, $new = null)
         if (!is_null($new)) {
             $v = $new;
         }
+
         return $v;
     }
 }
