@@ -2,8 +2,24 @@
 
 namespace PMVC;
 
+use stdClass;
+
 class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * handle illegal offset type in isset or empty
+     */ 
+     public function testHandleGetObjectKey()
+     {
+        $k = new stdClass();
+        $arr = ['foo'=>'bar'];
+        $actual = \PMVC\get($arr,$k);
+        $this->assertNull($actual);
+        $arr2 = new FakeHashMap();
+        $actual2 = \PMVC\get($arr2, $k);
+        $this->assertEquals($k, $actual2);
+     }
+
     /**
      * Test set object.
      */
@@ -37,5 +53,17 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
         \PMVC\clean($arr);
         $expected = [];
         $this->assertEquals($expected, $arr);
+    }
+}
+
+class fakeHashMap extends HashMap
+{
+    function offsetGet($k)
+    {
+        if (is_object($k)) {
+            return $k;
+        } else {
+            return null;
+        }
     }
 }

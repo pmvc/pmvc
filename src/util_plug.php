@@ -423,11 +423,8 @@ function value($arr, array $path, $default = null)
 {
     $a = &$arr;
     foreach ($path as $p) {
-        if (isArray($a) && isset($a[$p])) {
-            $a = $a[$p];
-        } elseif (isset($a->{$p})) {
-            $a = $a->{$p};
-        } else {
+        $a = &get($a, $p);
+        if (is_null($a)) {
             return $default;
         }
     }
@@ -508,39 +505,37 @@ function clean(&$a, $k = null)
  */
 function &get(&$a, $k = null, $default = null)
 {
-    if (is_null($k)) { //return all
-        if (isArrayAccess($a)) {
-            $r = $a->offsetGet();
-
-            return $r;
+    if (isArrayAccess($a)) {
+        $v = $a->offsetGet($k);
+        if (!is_null($v)) {
+            return $v;
         }
-
+    }
+    if (is_null($k)) { //return all
         return $a;
-    } else {
-        if (is_array($k)) { //return by keys
-            if (isArrayAccess($a)) {
-                return $a->offsetGet($k);
-            } else {
-                $r = [];
-                foreach ($k as $i) {
-                    if (isset($a[$i])) {
-                        $r[$i] = &$a[$i];
-                    }
-                }
-
-                return $r;
+    } elseif (is_array($k)) { //return by keys
+        $r = [];
+        foreach ($k as $i) {
+            if (!is_string($i) && !is_numeric($i)) {
+                continue;
+            }
+            if (isset($a[$i])) {
+                $r[$i] = &$a[$i];
             }
         }
-        //return one
-        if (!isset($a[$k])) { //return default
-            set($a, $k, $default);
-        }
-        if (isArrayAccess($a)) {
-            $v = $a->offsetGet($k);
 
-            return $v;
+        return $r;
+    } else {
+        //return one
+        if (!is_string($k) && !is_numeric($k)) {
+            return $default;
+        }
+        if (is_array($a) && isset($a[$k])) {
+            return $a[$k];
+        } elseif (is_object($a) && isset($a->{$k})) {
+            return $a->{$k};
         } else {
-            return $a[$k]; //return exactly value
+            return $default;
         }
     }
 }
