@@ -23,8 +23,10 @@ use DomainException;
 
 option(
     'set',
-    PLUGIN_INSTANCE,
-    new HashMap()
+    [
+        PLUGIN_INSTANCE => new HashMap(),
+        ERRORS          => new HashMap()
+    ]
 );
 
 /**
