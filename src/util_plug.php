@@ -25,7 +25,7 @@ option(
     'set',
     [
         PLUGIN_INSTANCE => new HashMap(),
-        ERRORS          => new HashMap()
+        ERRORS          => new HashMap(),
     ]
 );
 

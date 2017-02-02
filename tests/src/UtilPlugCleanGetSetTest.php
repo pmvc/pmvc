@@ -7,17 +7,17 @@ use stdClass;
 class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * handle illegal offset type in isset or empty
-     */ 
+     * handle illegal offset type in isset or empty.
+     */
      public function testHandleGetObjectKey()
      {
-        $k = new stdClass();
-        $arr = ['foo'=>'bar'];
-        $actual = \PMVC\get($arr,$k);
-        $this->assertNull($actual);
-        $arr2 = new FakeHashMap();
-        $actual2 = \PMVC\get($arr2, $k);
-        $this->assertEquals($k, $actual2);
+         $k = new stdClass();
+         $arr = ['foo'=>'bar'];
+         $actual = \PMVC\get($arr, $k);
+         $this->assertNull($actual);
+         $arr2 = new FakeHashMap();
+         $actual2 = \PMVC\get($arr2, $k);
+         $this->assertEquals($k, $actual2);
      }
 
     /**
@@ -58,12 +58,12 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
 
 class fakeHashMap extends HashMap
 {
-    function offsetGet($k)
+    public function offsetGet($k)
     {
         if (is_object($k)) {
             return $k;
         } else {
-            return null;
+            return;
         }
     }
 }
