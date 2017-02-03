@@ -916,7 +916,7 @@ function plug($name, array $config = [])
         if (!$class) {
             $error = 'plugin '.$name.' not found.';
             if (!empty($file)) {
-                $error .= ' ['.$file.']';
+                $error .= ' ['.$file.'] '.print_r($folders['folders'], true);
             }
         } else {
             $error = 'plugIn '.$name.': class not found ('.$class.')';
