@@ -931,6 +931,30 @@ function plug($name, array $config = [])
     set($oPlugin, $config);
     rePlug($name, $oPlugin);
     $oPlugin->init();
+    \PMVC\dev(
+        function () use ($name) {
+            if (in_array(
+                $name, [
+                'debug',
+                'debug_console',
+                'debug_store',
+                'debug_cli',
+                'view',
+                'view_json',
+                'asset',
+                ]
+            )
+            ) {
+                return;
+            }
+            $trace = \PMVC\plug('debug')->parseTrace(debug_backtrace(), 9);
+
+            return [
+                'name'=>$name,
+                'trace'=>$trace,
+            ];
+        }, 'plug'
+    );
 
     return $oPlugin->update();
 }

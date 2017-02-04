@@ -37,12 +37,19 @@ class Load
      *
      * @param array $init    Default plugins
      * @param array $folders Extra plugin folder
+     * @param array $options PMVC options
      *
      * @return bool
      */
-    public static function plug(array $init = [], array $folders = [])
-    {
-        include_once __DIR__.'/../include.php';
+    public static function plug(
+        array $init = [],
+        array $folders = [],
+        array $options = []
+    ) {
+        include __DIR__.'/../include.php';
+        if (!empty($options)) {
+            \PMVC\option('set', $options);
+        }
         self::initPlugInFolder();
         if (!empty($folders)) {
             addPlugInFolders($folders);
