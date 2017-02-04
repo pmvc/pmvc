@@ -950,8 +950,8 @@ function plug($name, array $config = [])
             $trace = \PMVC\plug('debug')->parseTrace(debug_backtrace(), 9);
 
             return [
-                'name'=>$name,
-                'trace'=>$trace,
+                'name' => $name,
+                'trace'=> $trace,
             ];
         }, 'plug'
     );
