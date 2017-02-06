@@ -53,40 +53,40 @@ function realPath($p)
  * Same with include, but self manage include_once
  * and make global variable to local variable.
  *
- * @param string $name     file name
- * @param array  $compacts decide extrac files variable
- * @param bool   $once     if incldue once
+ * @param string $name   File name
+ * @param string $output Extract one variable
+ * @param bool   $once   If incldue once
  *
  * @return mixed
  */
-function l($name, $compacts = null, $once = true)
+function l($name, $output = null, $once = true)
 {
     $real = realpath($name);
     if (!$real) {
         return !trigger_error('File not found. ['.$name.']');
     }
     if ($once) {
-        return run(__NAMESPACE__.'\_l', [$real, $compacts]);
+        return run(__NAMESPACE__.'\_l', [$real, $output]);
     } else {
-        return _l($real, $compacts);
+        return _l($real, $output);
     }
 }
 
 /**
  * Private funciton for l.
  *
- * @param string $name     file name
- * @param array  $compacts decide extrac files variable
+ * @param string $name   file name
+ * @param string $output Extract one variable
  *
  * @return mixed
  */
-function _l($name, $compacts = null)
+function _l($name, $output = null)
 {
     include $name;
     $o = new \stdClass();
     $o->name = $name;
-    if ($compacts) {
-        $o->var = compact($compacts);
+    if ($output) {
+        $o->var = compact($output);
     }
 
     return $o;
@@ -114,7 +114,7 @@ function prependApp($name, $bTransparent = null)
  *
  * @param string $name        name
  * @param mixed  $dirs        dirs
- * @param mixed  $compacts    decide extrac files variable
+ * @param string $output      Extract one variable
  * @param bool   $once        if incldue once
  * @param bool   $bPrependApp search for application folder
  *
@@ -123,7 +123,7 @@ function prependApp($name, $bTransparent = null)
 function load(
     $name,
     $dirs = null,
-    $compacts = null,
+    $output = null,
     $once = true,
     $bPrependApp = null
 ) {
@@ -142,7 +142,7 @@ function load(
         ]
     );
     if ($file) {
-        return l($file, $compacts, $once);
+        return l($file, $output, $once);
     } else {
         return 2;
     }
