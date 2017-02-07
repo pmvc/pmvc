@@ -1,9 +1,5 @@
 <?php
 
-if (defined('_CLASS')) {
-    return;
-}
-
 include __DIR__.'/src/Constants.php';
 include __DIR__.'/src/Object.php';
 include __DIR__.'/src/ListIterator.php';

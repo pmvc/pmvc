@@ -17,6 +17,9 @@
  */
 
 namespace {
+    if (defined('_CLASS')) {
+        return;
+    }
     /* Plugin */
     define('_CLASS', '_class_'); //action, plugin
     define('_PLUGIN', '_plugin_');

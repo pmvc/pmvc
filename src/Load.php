@@ -46,7 +46,7 @@ class Load
         array $folders = [],
         array $options = []
     ) {
-        include __DIR__.'/../include.php';
+        include_once __DIR__.'/../include.php';
         if (!empty($options)) {
             \PMVC\option('set', $options);
         }
