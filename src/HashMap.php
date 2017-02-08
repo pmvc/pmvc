@@ -105,13 +105,15 @@ class HashMap extends ListIterator implements ArrayAccess
     public function offsetSet($k, $v)
     {
         if ([] === $k && is_array($v)) {
-            return $this->state = array_merge_recursive(
+            $this->state = array_merge_recursive(
                 $this->state,
                 $v
             );
+        } else {
+            set($this->state, $k, $v);
         }
 
-        return set($this->state, $k, $v);
+        return $this;
     }
 
     /**
@@ -136,7 +138,9 @@ class HashMap extends ListIterator implements ArrayAccess
      */
     public function offsetUnset($k = null)
     {
-        return clean($this->state, $k);
+        clean($this->state, $k);
+
+        return $this;
     }
 
     /**
