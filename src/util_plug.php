@@ -508,7 +508,7 @@ function clean(&$a, $k = null)
 function &get(&$a, $k = null, $default = null)
 {
     if (isArrayAccess($a)) {
-        $v = $a->offsetGet($k);
+        $v = &$a->offsetGet($k);
         if (!is_null($v)) {
             return $v;
         }

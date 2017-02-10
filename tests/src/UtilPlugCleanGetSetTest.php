@@ -58,12 +58,12 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
 
 class fakeHashMap extends HashMap
 {
-    public function offsetGet($k)
+    public function &offsetGet($k)
     {
-        if (is_object($k)) {
-            return $k;
-        } else {
-            return;
+        if (!is_object($k)) {
+            $k = null;
         }
+
+        return $k;
     }
 }
