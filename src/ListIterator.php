@@ -40,14 +40,12 @@ class ListIterator extends Object implements IteratorAggregate, Countable
      * Construct.
      *
      * @param array $state state
-     *
-     * @return ArrayIterator
      */
     public function __construct($state = null)
     {
         $this->state = $this->getInitialState();
         if (!empty($state)) {
-            set($this, $state);
+            set($this->state, $state);
         }
     }
 
