@@ -415,15 +415,14 @@ function isArray($obj)
 /**
  * Safe get multi layer array value.
  *
- * @param array $arr     array
+ * @param array $a       array
  * @param array $path    array's path
  * @param mixed $default if value not exists, return default value
  *
  * @return mixed
  */
-function value($arr, array $path, $default = null)
+function value($a, array $path, $default = null)
 {
-    $a = &$arr;
     foreach ($path as $p) {
         $a = &get($a, $p);
         if (is_null($a)) {
