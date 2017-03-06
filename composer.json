@@ -14,7 +14,9 @@
         "php": ">=5.5.0"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer" : "@stable"
+        "squizlabs/php_codesniffer" : "@stable",
+        "pmvc-plugin/dev" : "*",
+        "pmvc-plugin/debug" : "*"
     },
     "autoload": {
         "psr-4": {
