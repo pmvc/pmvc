@@ -882,6 +882,14 @@ function plug($name, array $config = [])
 
         return $oPlugin->update();
     }
+    $config = array_replace(
+        get(
+            getOption('PLUGIN'),
+            $name,
+            []
+        ),
+        $config
+    );
     $folders = folders(_PLUGIN);
     $alias = $folders['alias'];
     if (isset($alias[$name])) {
