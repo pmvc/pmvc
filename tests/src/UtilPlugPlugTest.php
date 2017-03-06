@@ -118,5 +118,8 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $test = plug('test', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
+        plug('asset', [
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+        ]);
     }
 }

@@ -2,10 +2,6 @@
 
 namespace PMVC;
 
-addPlugInFolders([
-    __DIR__.'/../resources/plugin1',
-]);
-
 use PHPUnit_Framework_TestCase;
 
 class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
@@ -13,6 +9,9 @@ class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
     public function setup()
     {
         //unplug('test');
+        addPlugInFolders([
+            __DIR__.'/../resources/plugin1',
+        ]);
     }
 
     public function testIncludeOnly()

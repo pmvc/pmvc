@@ -942,7 +942,6 @@ function plug($name, array $config = [])
         function () use ($name) {
             if (in_array(
                 $name, [
-                'debug',
                 'debug_console',
                 'debug_store',
                 'debug_cli',

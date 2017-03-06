@@ -55,7 +55,7 @@ class Load
             addPlugInFolders($folders);
         }
         if (!empty($init)) {
-            initPlugin($init);
+            initPlugin($init, \PMVC\get($options, PAUSE));
         }
     }
 
@@ -66,6 +66,6 @@ class Load
      */
     public static function initPlugInFolder()
     {
-        setPlugInFolders([__DIR__.'/../../../pmvc-plugin']);
+        addPlugInFolders([__DIR__.'/../../../pmvc-plugin']);
     }
 }
