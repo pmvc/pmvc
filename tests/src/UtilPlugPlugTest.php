@@ -3,6 +3,7 @@
 namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
+
 initPlugin(['debug'=>null], true);
 
 class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
@@ -92,15 +93,15 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
     {
         $test = plug('test', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
-            'foo'=>'ccc'
+            'foo'        => 'ccc',
         ]);
         $this->assertEquals('ccc', $test['foo']);
         unplug('test');
 
-        option('set', 'PLUGIN', ['test'=>['foo'=>'bar']]); 
+        option('set', 'PLUGIN', ['test'=>['foo'=>'bar']]);
         plug('test', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
-            'foo'=>'ccc'
+            'foo'        => 'ccc',
         ]);
         $this->assertEquals('ccc', $test['foo']);
     }
@@ -112,27 +113,25 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             ->getMock();
         $dumpMock->expects($this->atLeastOnce())
             ->method('dump')
-            ->with($this->anything(),'plug');
+            ->with($this->anything(), 'plug');
 
         plug('debug', ['output'=>$dumpMock])->setLevel('plug,debug');
         plug('dev');
         $test = plug('test', [
-            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php'
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
     }
 }
 
-class FakeDebugDump
-    extends PlugIn
-    implements \PMVC\PlugIn\debug\DebugDumpInterface
+class FakeDebugDump extends PlugIn implements \PMVC\PlugIn\debug\DebugDumpInterface
 {
-   public function escape($s)
-   {    
-       return $s;
-   }
+    public function escape($s)
+    {
+        return $s;
+    }
 
-   public function dump($p, $type='info')
-   {
-    var_dump($type);
-   }
+    public function dump($p, $type = 'info')
+    {
+        var_dump($type);
+    }
 }
