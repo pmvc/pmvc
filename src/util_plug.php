@@ -524,8 +524,8 @@ function &get(&$a, $k = null, $default = null)
             }
         } elseif (is_object($a)) {
             foreach ($k as $i) {
-                if (isset($a->{$k})) {
-                    $r[$i] = &$a->{$k};
+                if (isset($a->{$i})) {
+                    $r[$i] = &$a->{$i};
                 }
             }
         }
