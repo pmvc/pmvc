@@ -516,12 +516,17 @@ function &get(&$a, $k = null, $default = null)
         return $a;
     } elseif (is_array($k)) { //return by keys
         $r = [];
-        foreach ($k as $i) {
-            if (!is_string($i) && !is_numeric($i)) {
-                continue;
+        if (is_array($a)) {
+            foreach ($k as $i) {
+                if (isset($a[$i])) {
+                    $r[$i] = &$a[$i];
+                }
             }
-            if (isset($a[$i])) {
-                $r[$i] = &$a[$i];
+        } elseif (is_object($a)) {
+            foreach ($k as $i) {
+                if (isset($a->{$k})) {
+                    $r[$i] = &$a->{$k};
+                }
             }
         }
 
