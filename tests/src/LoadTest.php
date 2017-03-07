@@ -14,7 +14,7 @@ class LoadTest extends PHPUnit_Framework_TestCase
    /**
     * @runInSeparateProcess
     */
-    public function testrunInSeparateProcess()
+    public function testRunInSeparateProcess()
     {
         \PMVC\Load::plug(
             [
@@ -24,5 +24,15 @@ class LoadTest extends PHPUnit_Framework_TestCase
             ],
             ['./']
         );
+    }
+
+   /**
+    * @runInSeparateProcess
+    */
+    public function testSetOption()
+    {
+        \PMVC\option('set', 'foo', 'bar');
+        \PMVC\Load::plug([], [], ['foo'=>'bar']);
+        $this->assertEquals('bar', \PMVC\getOption('foo'));
     }
 }

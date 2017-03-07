@@ -6,6 +6,19 @@ use stdClass;
 
 class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function testGetMultiValueWithArray()
+    {
+        $a = ['a', 'b', 'c'];
+        $this->assertEquals(['b', 'c'], array_merge([],\PMVC\get($a, [1, 2])));
+    }
+
+    public function testGetMultiValueWithObject()
+    {
+        $a = (object)['a'=>1, 'b'=>2, 'c'=>3];
+        $this->assertEquals(['a'=>1,'b'=>2], \PMVC\get($a, ['a', 'b']));
+    }
+
     /**
      * handle illegal offset type in isset or empty.
      */
