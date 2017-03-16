@@ -2,10 +2,8 @@
 
 namespace PMVC\UnitTest\Task;
 
-use PMVC;
+${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\_without_invoke';
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\WithoutInvoke';
-
-class WithoutInvoke 
+class _without_invoke
 {
 }

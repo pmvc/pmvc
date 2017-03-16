@@ -2,12 +2,10 @@
 
 namespace PMVC\UnitTest\Task;
 
-use PMVC;
-
 // Simulate without class
 // ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\WithoutClass';
 
-class WithoutClass 
+class _without_class
 {
     public function __invoke()
     {

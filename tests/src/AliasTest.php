@@ -120,20 +120,20 @@ class AliasTest extends PHPUnit_Framework_TestCase
      }
 
      /**
-      * Test alias without implemnet getdir
+      * Test alias without implemnet getdir.
       * @expectedException PHPUnit_Framework_Error
       * @expectedExceptionMessage Method not found
       */
      public function testAliasObjectWithoutGetdir()
      {
-        $oAlias = new FakeAliasWithOutGetDir();
-        $result = $oAlias->faketask();
+         $oAlias = new FakeAliasWithOutGetDir();
+         $result = $oAlias->faketask();
      }
 
      /**
-      * Test not defned class in alias file 
+      * Test not defned class in alias file.
       * @expectedException PHPUnit_Framework_Error
-      * @expectedExceptionMessage Not defined default Class 
+      * @expectedExceptionMessage Not defined default Class
       */
      public function testAliasFileWithoutClass()
      {
@@ -142,9 +142,9 @@ class AliasTest extends PHPUnit_Framework_TestCase
      }
 
      /**
-      * Test defined class not exist 
+      * Test defined class not exist.
       * @expectedException PHPUnit_Framework_Error
-      * @expectedExceptionMessage Default class not exists 
+      * @expectedExceptionMessage Default class not exists
       */
      public function testAliasFileWithWrongName()
      {
@@ -153,9 +153,9 @@ class AliasTest extends PHPUnit_Framework_TestCase
      }
 
      /**
-      * Test not implement invoke 
+      * Test not implement invoke.
       * @expectedException PHPUnit_Framework_Error
-      * @expectedExceptionMessage Not implement __invoke 
+      * @expectedExceptionMessage Not implement __invoke
       */
      public function testAliasFileWithoutInvoke()
      {
@@ -163,5 +163,3 @@ class AliasTest extends PHPUnit_Framework_TestCase
          $oAlias->without_invoke();
      }
 }
-
-
