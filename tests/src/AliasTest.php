@@ -118,4 +118,50 @@ class AliasTest extends PHPUnit_Framework_TestCase
             is_object($obj)
         );
      }
+
+     /**
+      * Test alias without implemnet getdir
+      * @expectedException PHPUnit_Framework_Error
+      * @expectedExceptionMessage Method not found
+      */
+     public function testAliasObjectWithoutGetdir()
+     {
+        $oAlias = new FakeAliasWithOutGetDir();
+        $result = $oAlias->faketask();
+     }
+
+     /**
+      * Test not defned class in alias file 
+      * @expectedException PHPUnit_Framework_Error
+      * @expectedExceptionMessage Not defined default Class 
+      */
+     public function testAliasFileWithoutClass()
+     {
+         $oAlias = new FakeAliasWithoutArrayAccess();
+         $oAlias->without_class();
+     }
+
+     /**
+      * Test defined class not exist 
+      * @expectedException PHPUnit_Framework_Error
+      * @expectedExceptionMessage Default class not exists 
+      */
+     public function testAliasFileWithWrongName()
+     {
+         $oAlias = new FakeAliasWithoutArrayAccess();
+         $oAlias->with_wrong_name();
+     }
+
+     /**
+      * Test not implement invoke 
+      * @expectedException PHPUnit_Framework_Error
+      * @expectedExceptionMessage Not implement __invoke 
+      */
+     public function testAliasFileWithoutInvoke()
+     {
+         $oAlias = new FakeAliasWithoutArrayAccess();
+         $oAlias->without_invoke();
+     }
 }
+
+

@@ -50,6 +50,11 @@ class FakeAliasWithoutArrayAccess
     }
 }
 
+class FakeAliasWithOutGetDir
+{
+    use Alias;
+}
+
 /**
  * @codeCoverageIgnore
  */

@@ -265,7 +265,7 @@ class AliasSrcFile extends AbstractAlias
      */
     public function get($self, $method, $caller)
     {
-        if (!is_callable([$self, 'getDir'])) {
+        if (!method_exists($self, 'getDir')) {
             return false;
         }
         $path = $self->getDir().'src/_'.$method.'.php';
@@ -278,7 +278,7 @@ class AliasSrcFile extends AbstractAlias
         } else {
             $class = $r->var[_INIT_CONFIG][_CLASS];
             if (!class_exists($class)) {
-                return !trigger_error('Default Class not exits. ['.$class.']');
+                return !trigger_error('Default class not exists. ['.$class.']');
             }
             $func = new $class($caller);
             $func->caller = $caller;
