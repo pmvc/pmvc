@@ -518,12 +518,18 @@ function &get(&$a, $k = null, $default = null)
         $r = [];
         if (is_array($a)) {
             foreach ($k as $i) {
+                if (!testString($i)) {
+                    continue;
+                }
                 if (isset($a[$i])) {
                     $r[$i] = &$a[$i];
                 }
             }
         } elseif (is_object($a)) {
             foreach ($k as $i) {
+                if (!testString($i)) {
+                    continue;
+                }
                 if (isset($a->{$i})) {
                     $r[$i] = &$a->{$i};
                 }
@@ -533,7 +539,7 @@ function &get(&$a, $k = null, $default = null)
         return $r;
     } else {
         //return one
-        if (!is_string($k) && !is_numeric($k)) {
+        if (!testString($k)) {
             return $default;
         }
         if (is_array($a) && isset($a[$k])) {
@@ -544,6 +550,18 @@ function &get(&$a, $k = null, $default = null)
             return $default;
         }
     }
+}
+
+/**
+ * Test is a valid string contain number.
+ *
+ * @param string $s Test string
+ *
+ * @return bool
+ */
+function testString($s)
+{
+    return is_string($s) || is_numeric($s) || is_null($s) || is_bool($s);
 }
 
 /**
