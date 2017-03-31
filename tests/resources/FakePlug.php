@@ -8,4 +8,9 @@ class FakePlug extends PlugIn
     {
         return true;
     }
+
+    public function __tostring()
+    {
+        return __CLASS__;
+    }
 }

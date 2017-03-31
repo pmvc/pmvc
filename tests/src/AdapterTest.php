@@ -28,4 +28,31 @@ class AdapterTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(exists($this->_name, 'plugin'));
         $plug->onTest();
     }
+
+    public function testToString()
+    {
+        $plug = plug(
+            $this->_name,
+            [
+                _CLASS => $this->_class,
+            ]
+        );
+        $actual = (string) $plug;
+        $expected = 'PMVC\FakePlug';
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testUnset()
+    {
+        $plug = plug(
+            $this->_name,
+            [
+                _CLASS => $this->_class,
+            ]
+        );
+        $plug['a'] = 1;
+        $this->assertTrue(isset($plug['a']));
+        unset($plug['a']);
+        $this->assertFalse(isset($plug['a']));
+    }
 }
