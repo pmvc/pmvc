@@ -44,10 +44,7 @@ trait Alias
         if (!$this->_typeOfAlias) {
             $this->_typeOfAlias = $this->getTypeOfAlias();
         }
-        $caller = $this;
-        if (is_a($this, '\PMVC\PlugIn')) {
-            $caller = $this[THIS];
-        }
+        $caller = get($this, THIS, $this);
         foreach ($this->_typeOfAlias as $alias) {
             $func = $alias->get($this, $method, $caller);
             if (!empty($func)) {

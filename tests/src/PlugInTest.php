@@ -42,6 +42,20 @@ class PlugInTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($plug[THIS], $actual);
     }
 
+    public function testThis()
+    {
+        $a = [];
+        $aThis = get($a, THIS, $a);
+        $this->assertEquals($a, $aThis);
+        $b = plug(
+            'fake_plug', [
+            _CLASS => __NAMESPACE__.'\FakePlug',
+            ]
+        );
+        $bThis = get($b, THIS, $b);
+        $this->assertEquals($b[THIS], $bThis);
+    }
+
     public function testInstanceof()
     {
         $class = __NAMESPACE__.'\FakePlug';
