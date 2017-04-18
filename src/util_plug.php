@@ -667,11 +667,11 @@ function log()
 /**
  * Develop.
  *
- * @return void
+ * @return mixed
  */
 function dev()
 {
-    callPlugin('dev', 'dump', func_get_args());
+    return callPlugin('dev', 'dump', func_get_args());
 }
 
 /**
