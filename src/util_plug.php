@@ -896,6 +896,9 @@ function plugAlias($targetPlugin, $aliasName)
  */
 function plug($name, array $config = [])
 {
+    if (!is_string($name)) {
+        return !trigger_error('Plug name should be string.');
+    }
     $objs = getOption(PLUGIN_INSTANCE);
     if (isset($objs[$name])) {
         $oPlugin = $objs[$name];

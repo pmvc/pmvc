@@ -67,6 +67,15 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage Plug name should be string.
+     */
+    public function testPlugNameNotString()
+    {
+        plug(new \stdClass());
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
      * @expectedExceptionMessage [test/test.php]
      */
     public function testPlugFileNotFound()
