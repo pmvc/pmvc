@@ -610,7 +610,7 @@ function &getOption($k = null, $default = null)
 /**
  * Global option for get/set.
  *
- * Keep in mind why don't have clean and issset
+ * Keep in mind why don't have clean and isset
  * 1. Make function more simple
  *    for get better performance.
  * 2. Get always have value, don't need isset
