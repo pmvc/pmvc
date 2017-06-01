@@ -20,6 +20,15 @@ namespace PMVC;
 
 /**
  * Alias.
+ *
+ * @category CategoryName
+ *
+ * @package PMVC
+ *
+ * @author  Hill <hill@kimo.com>
+ * @license http://opensource.org/licenses/MIT MIT
+ *
+ * @link https://packagist.org/packages/pmvc/pmvc
  */
 trait Alias
 {

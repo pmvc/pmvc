@@ -20,6 +20,7 @@ namespace PMVC;
 
 use ArrayAccess;
 use DomainException;
+use stdclass;
 
 option(
     'set',
@@ -54,21 +55,21 @@ function realPath($p)
  * and make global variable to local variable.
  *
  * @param string $name   File name
- * @param string $output Extract one variable
+ * @param string $export Extract one variable name.
  * @param bool   $once   If incldue once
  *
  * @return mixed
  */
-function l($name, $output = null, $once = true)
+function l($name, $export = null, $once = true)
 {
     $real = realpath($name);
     if (!$real) {
         return !trigger_error('File not found. ['.$name.']');
     }
     if ($once) {
-        return run(__NAMESPACE__.'\_l', [$real, $output]);
+        return run(__NAMESPACE__.'\_l', [$real, $export]);
     } else {
-        return _l($real, $output);
+        return _l($real, $export);
     }
 }
 
@@ -76,17 +77,17 @@ function l($name, $output = null, $once = true)
  * Private funciton for l.
  *
  * @param string $name   file name
- * @param string $output Extract one variable
+ * @param string $export Extract one variable name.
  *
  * @return mixed
  */
-function _l($name, $output = null)
+function _l($name, $export = null)
 {
     include $name;
-    $o = new \stdClass();
+    $o = new stdClass();
     $o->name = $name;
-    if ($output) {
-        $o->var = compact($output);
+    if ($export) {
+        $o->var = compact($export);
     }
 
     return $o;

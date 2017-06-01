@@ -35,4 +35,5 @@ class LoadTest extends PHPUnit_Framework_TestCase
         \PMVC\Load::plug([], [], ['foo'=>'bar']);
         $this->assertEquals('bar', \PMVC\getOption('foo'));
     }
+
 }
