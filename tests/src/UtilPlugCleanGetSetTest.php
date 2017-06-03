@@ -64,9 +64,17 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
      {
          $arr = new Hashmap([1, 2, 3]);
          $arr1 = [];
-         \PMVC\set($arr1, $arr);
+         set($arr1, $arr);
          $expected = [1, 2, 3];
          $this->assertEquals($expected, $arr1);
+     }
+
+     public function testSetNull()
+     {
+        $a = ['foo', 'bar'];
+        $b = $a;
+        set($a, null, null);
+        $this->assertEquals($b, $a);
      }
 
     /**
