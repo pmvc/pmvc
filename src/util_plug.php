@@ -472,7 +472,7 @@ function clean(&$a, $k = null)
     if (isArrayAccess($a)) {
         $a->offsetUnset($k);
 
-        return; 
+        return;
     }
     if (is_null($k)) { //clean all
         $a = [];

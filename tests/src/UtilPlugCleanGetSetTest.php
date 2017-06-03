@@ -75,7 +75,7 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
     public function testCleanKeepInArray()
     {
         $arr = [1, 2, 3];
-        \PMVC\clean($arr);
+        clean($arr);
         $expected = [];
         $this->assertEquals($expected, $arr);
     }
@@ -84,8 +84,16 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
     {
         $a = new HashMap(['foo', 'bar']);
         $this->assertEquals(2, count($a));
-        \PMVC\clean($a);
+        clean($a);
         $this->assertEquals(0, count($a));
+    }
+
+    public function testCleanByReplace()
+    {
+        $a = ['foo'];
+        $b = ['bar'];
+        clean($a, $b);
+        $this->assertEquals($b, $a);
     }
 }
 
