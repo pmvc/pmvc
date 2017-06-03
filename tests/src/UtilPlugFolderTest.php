@@ -24,4 +24,14 @@ class UtilPlugFolderTest extends PHPUnit_Framework_TestCase
         }
         $this->assertEquals(1, count($arr[realpath(__DIR__)]));
     }
+
+    public function testClean()
+    {
+        $folders = folders('fake', [], [], true);
+        $expected = [
+            'folders'=> [],
+            'alias'  => [],
+        ];
+        $this->assertEquals($expected, $folders);
+    }
 }
