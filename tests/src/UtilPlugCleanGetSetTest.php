@@ -79,6 +79,14 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
         $expected = [];
         $this->assertEquals($expected, $arr);
     }
+
+    public function testCleanArrayAccess()
+    {
+        $a = new HashMap(['foo', 'bar']);
+        $this->assertEquals(2, count($a));
+        \PMVC\clean($a);
+        $this->assertEquals(0, count($a));
+    }
 }
 
 class fakeHashMap extends HashMap

@@ -469,28 +469,24 @@ function &ref(&$v, $new = null)
  */
 function clean(&$a, $k = null)
 {
-    if (is_null($k)) { //clean all
-        if (isArrayAccess($a)) {
-            return $a->offsetUnset(null);
-        } else {
-            $a = [];
-            unset($a);
+    if (isArrayAccess($a)) {
+        $a->offsetUnset($k);
 
-            return;
-        }
+        return; 
+    }
+    if (is_null($k)) { //clean all
+        $a = [];
+        unset($a);
+
+        return;
     } else {
         if (isArray($k)) { //replace
-            if (isArrayAccess($a)) {
-                foreach ($k as $k1 => $v1) {
-                    $a->offsetSet($k1, $v1);
-                }
+            $a = $k;
 
-                return true;
-            } else {
-                return $a = $k;
-            }
+            return;
         } else {
             unset($a[$k]); //clean by key
+
             return;
         }
     }
