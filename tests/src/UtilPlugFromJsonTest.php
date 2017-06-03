@@ -17,7 +17,7 @@ class UtilPlugFromJsonTest extends PHPUnit_Framework_TestCase
     {
         $a = '{}';
         $b = \PMVC\fromJson($a);
-        $this->assertEquals((object)[], $b);
+        $this->assertEquals((object) [], $b);
     }
 
     public function testParseJsonFailed()
