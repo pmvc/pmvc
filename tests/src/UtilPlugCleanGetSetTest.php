@@ -69,13 +69,13 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
          $this->assertEquals($expected, $arr1);
      }
 
-     public function testSetNull()
-     {
+    public function testSetNull()
+    {
         $a = ['foo', 'bar'];
         $b = $a;
         set($a, null, null);
         $this->assertEquals($b, $a);
-     }
+    }
 
     /**
      * @function clean
