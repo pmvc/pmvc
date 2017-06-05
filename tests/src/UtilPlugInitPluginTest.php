@@ -25,6 +25,16 @@ class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(exists('test', 'plugin'), 'Plugin should not exists');
     }
 
+    public function testInitPlugWithoutConfig()
+    {
+        $plug = 'testplugin';
+        unplug($plug);
+        $plugins = initPlugin([
+            $plug=> null,
+        ]);
+        $this->assertTrue(isset($plugins[$plug]));
+    }
+
     public function testAlreadyPlug()
     {
         $plug = 'testplugin';
