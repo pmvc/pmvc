@@ -732,19 +732,6 @@ function exists($v, $type)
  */
 
 /**
- * Set PlugIn Folder.
- *
- * @param array $folders plug-in folders
- * @param array $alias   plug-in alias
- *
- * @return mixed
- */
-function setPlugInFolders(array $folders, array $alias = [])
-{
-    return folders(_PLUGIN, $folders, $alias, true);
-}
-
-/**
  * Add PlugIn Folder.
  *
  * @param array $folders plug-in folders
@@ -788,15 +775,16 @@ function callPlugin($plugIn, $func, $args = [])
  */
 function unPlug($name)
 {
-    if (!$name) {
-        return $name;
-    }
     $objs = getOption(PLUGIN_INSTANCE);
-    $plug = $objs[$name];
-    $objs[$name] = null;
-    unset($objs[$name]);
+    if (isset($objs[$name])) {
+        $plug = $objs[$name];
+        $objs[$name] = null;
+        unset($objs[$name]);
 
-    return $plug;
+        return $plug;
+    } else {
+        return false;
+    }
 }
 
 /**

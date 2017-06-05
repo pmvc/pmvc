@@ -51,7 +51,6 @@ class hello_world extends \PMVC\PlugIn
 ```
 
 ### PlugIn features
-   * setPlugInFolders
    * addPlugInFolders
    * callPlugin
    * unPlug
