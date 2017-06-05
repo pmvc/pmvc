@@ -6,19 +6,6 @@ use PHPUnit_Framework_TestCase;
 
 class UtilPlugTest extends PHPUnit_Framework_TestCase
 {
-    public function testUnPlug()
-    {
-        $class = __NAMESPACE__.'\FakePlug';
-        plug(
-            'fake', [
-            _CLASS => $class,
-            ]
-        );
-        $this->assertTrue(exists('fake', 'PlugIn'));
-        unPlug('fake');
-        $this->assertFalse(exists('fake', 'PlugIn'));
-    }
-
     public function testSplitDir()
     {
         $dir = '111:222';
@@ -43,9 +30,18 @@ class UtilPlugTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($a.'/', lastSlash($a));
     }
 
-    public function testPlugInCantPlug()
+    public function testPlugInCanNotPlug()
     {
         $plug = 'xxxxxxxxxxxxxxxxxx';
         $this->assertFalse(exists($plug, 'plug'));
+    }
+
+    /**
+     * @expectedException DomainException
+     * @expectedExceptionMessage Exists checker not support
+     */
+    public function testExistsNotSupport()
+    {
+        exists('', 'xxx-type');
     }
 }
