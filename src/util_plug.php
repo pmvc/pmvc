@@ -885,8 +885,8 @@ function plug($name, array $config = [])
         return !trigger_error('Plug name should be string.');
     }
     $objs = getOption(PLUGIN_INSTANCE);
-    if (isset($objs[$name])) {
-        $oPlugin = $objs[$name];
+    $oPlugin = $objs[$name];
+    if (!empty($oPlugin)) {
         if (!empty($config)) {
             set($oPlugin, $config);
         }
