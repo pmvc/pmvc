@@ -34,7 +34,9 @@ class UtilPlugValueTest extends PHPUnit_Framework_TestCase
     {
         $expected = 'xxx';
         $arr = [ ];
-        $actual = value($arr, ['a', 'b', 'c'], function () use($expected) {return $expected;});
+        $actual = value($arr, ['a', 'b', 'c'], function () use ($expected) {
+            return $expected;
+        });
         $this->assertEquals($expected, $actual);
     }
 
