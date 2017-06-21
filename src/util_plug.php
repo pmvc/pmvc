@@ -427,6 +427,10 @@ function value($a, array $path, $default = null)
     foreach ($path as $p) {
         $a = &get($a, $p);
         if (is_null($a)) {
+            if (is_callable($default)) {
+                $default = call_user_func($default);
+            }
+
             return $default;
         }
     }
@@ -536,16 +540,18 @@ function &get(&$a, $k = null, $default = null)
         return $r;
     } else {
         //return one
-        if (!testString($k)) {
-            return $default;
+        if (testString($k)) {
+            if (is_array($a) && isset($a[$k])) {
+                return $a[$k];
+            } elseif (is_object($a) && isset($a->{$k})) {
+                return $a->{$k};
+            }
         }
-        if (is_array($a) && isset($a[$k])) {
-            return $a[$k];
-        } elseif (is_object($a) && isset($a->{$k})) {
-            return $a->{$k};
-        } else {
-            return $default;
+        if (is_callable($default)) {
+            $default = call_user_func($default);
         }
+
+        return $default;
     }
 }
 

@@ -7,7 +7,6 @@
   - [PlugIn Generator](#plugin-generator)
 - [[M]odel [V]iew [C]ontroller](#mvc)
 - [PMVC Family](#pmvc-family)
-- [HHVM Support](#hhvm-support)
 - [PHP Support Version](#php-version)
 
 <img src="https://raw.githubusercontent.com/pmvc/pmvc.github.io/master/flow5.png">
@@ -86,8 +85,6 @@ class hello_world extends \PMVC\PlugIn
    * PMVC Themes
       * https://github.com/pmvc-theme
 
-## HHVM Support
-[![HHVM Status](http://hhvm.h4cc.de/badge/pmvc/pmvc.svg)](http://hhvm.h4cc.de/package/pmvc/pmvc)
-
 ## PHP Version
+ * HHVM Support
 ![tested](http://php-eye.com/badge/pmvc/pmvc/tested.svg)

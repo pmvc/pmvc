@@ -9,24 +9,24 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
     public function testGetMultiValueWithArray()
     {
         $a = ['a', 'b', 'c'];
-        $this->assertEquals(['b', 'c'], array_merge([], \PMVC\get($a, [1, 2])));
+        $this->assertEquals(['b', 'c'], array_merge([], get($a, [1, 2])));
     }
 
     public function testGetMultiValueWithObject()
     {
         $a = (object) ['a'=>1, 'b'=>2, 'c'=>3];
-        $this->assertEquals(['a'=>1, 'b'=>2], \PMVC\get($a, ['a', 'b']));
+        $this->assertEquals(['a'=>1, 'b'=>2], get($a, ['a', 'b']));
     }
 
     public function testGetMultiValueWithInvalidKey()
     {
         $key = [new Object(), 'a', 'b', null, false];
         $arr = ['a'=>'foo', 'b'=>'bar', null=>'null', false=>'false'];
-        $this->assertEquals($arr, \PMVC\get($arr, $key), 'Test get array with invalid key');
+        $this->assertEquals($arr, get($arr, $key), 'Test get array with invalid key');
         $obj = (object) ['a'=>'foo', 'b'=>'bar'];
         $this->assertEquals(
             (array) $obj,
-            \PMVC\get($obj, $key),
+            get($obj, $key),
             'Test get array with invalid key'
         );
     }
@@ -38,11 +38,23 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
      {
          $k = new stdClass();
          $arr = ['foo'=>'bar'];
-         $actual = \PMVC\get($arr, $k);
+         $actual = get($arr, $k);
          $this->assertNull($actual);
          $arr2 = new FakeHashMap();
-         $actual2 = \PMVC\get($arr2, $k);
+         $actual2 = get($arr2, $k);
          $this->assertEquals($k, $actual2);
+     }
+
+     public function testGetDefaultValueWithLaze()
+     {
+        $a =[];
+        $expected = 'foo'; 
+        $actual = get(
+            $a,
+            'bar',
+            function () use($expected) {return $expected;}
+        );
+        $this->assertEquals($expected, $actual);
      }
 
     /**
@@ -52,7 +64,7 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
      {
          $arr = (object) [1, 2, 3];
          $arr1 = [];
-         \PMVC\set($arr1, $arr);
+         set($arr1, $arr);
          $expected = [1, 2, 3];
          $this->assertEquals($expected, $arr1);
      }

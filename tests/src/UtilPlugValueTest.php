@@ -30,6 +30,14 @@ class UtilPlugValueTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testGetDefaultValueWithLaze()
+    {
+        $expected = 'xxx';
+        $arr = [ ];
+        $actual = value($arr, ['a', 'b', 'c'], function () use($expected) {return $expected;});
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testGetHashMap()
     {
         $h = new HashMap(['a', 'b' => ['c' => 'd']]);
