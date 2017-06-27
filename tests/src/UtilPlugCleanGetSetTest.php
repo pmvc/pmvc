@@ -45,17 +45,19 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
          $this->assertEquals($k, $actual2);
      }
 
-     public function testGetDefaultValueWithLaze()
-     {
-        $a =[];
-        $expected = 'foo'; 
+    public function testGetDefaultValueWithLaze()
+    {
+        $a = [];
+        $expected = 'foo';
         $actual = get(
             $a,
             'bar',
-            function () use($expected) {return $expected;}
+            function () use ($expected) {
+                return $expected;
+            }
         );
         $this->assertEquals($expected, $actual);
-     }
+    }
 
     /**
      * Test set object.
