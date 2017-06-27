@@ -900,9 +900,9 @@ function plug($name, array $config = [])
         return $oPlugin->update();
     }
     $config = array_replace(
-        get(
+        value(
             getOption('PLUGIN'),
-            $name,
+            explode('_', $name),
             []
         ),
         $config

@@ -9,7 +9,9 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
     public function setup()
     {
         unplug('test');
+        unplug('test_test');
         unplug('testplugin');
+        option('set', 'test', null);
     }
 
     public function testPlug()
@@ -108,9 +110,17 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         option('set', 'PLUGIN', ['test'=>['foo'=>'bar']]);
         plug('test', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
-            'foo'        => 'ccc',
         ]);
-        $this->assertEquals('ccc', $test['foo']);
+        $this->assertEquals('bar', $test['foo']);
+    }
+
+    public function testGetConfigFromGlobalOptionWithUnderscore()
+    {
+        option('set', 'PLUGIN', ['test'=>['test'=>['a'=>'b']]]);
+        $test = plug('test_test', [
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+        ]);
+        $this->assertEquals('b', $test['a']);
     }
 
     public function testPluginDevInfo()
