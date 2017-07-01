@@ -439,9 +439,9 @@ function value($a, array $path, $default = null)
 }
 
 /**
- * Get Hashmap reference value.
+ * Get reference value.
  *
- * @param mixed $v   value
+ * @param mixed $v   variable
  * @param mixed $new new value
  *
  * @return mixed
