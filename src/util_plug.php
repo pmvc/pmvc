@@ -719,9 +719,7 @@ function exists($v, $type)
 {
     switch (strtolower($type)) {
     case 'plugin':
-        $objs = getOption(PLUGIN_INSTANCE);
-
-        return !empty($objs[$v]);
+        return !empty(getOption(PLUGIN_INSTANCE)[$v]);
     case 'plug': //check if OK to plug
         return plug($v, [PAUSE => true]);
     default:
@@ -899,10 +897,16 @@ function plug($name, array $config = [])
 
         return $oPlugin->update();
     }
+    $names = explode('_', $name);
     $config = array_replace(
         value(
             getOption('PLUGIN'),
-            explode('_', $name),
+            $names,
+            []
+        ),
+        value(
+            getOption('PW'),
+            $names,
             []
         ),
         $config
