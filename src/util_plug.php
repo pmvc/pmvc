@@ -448,7 +448,7 @@ function value($a, array $path, $default = null)
  */
 function &ref(&$v, $new = null)
 {
-    if (is_a($v, '\PMVC\Object')) {
+    if (is_a($v, __NAMESPACE__.'\Object')) {
         return $v($new);
     } else {
         if (!is_null($new)) {
@@ -745,6 +745,19 @@ function exists($v, $type)
  */
 function addPlugInFolders(array $folders, array $alias = [])
 {
+    dev(
+        function () use ($folders, $alias) {
+            $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
+
+            return [
+                'folders'=> $folders,
+                'alias'  => $alias,
+                'trace'  => $trace,
+            ];
+        },
+        'plugin-folder'
+    );
+
     return folders(_PLUGIN, $folders, $alias);
 }
 
@@ -808,18 +821,6 @@ function rePlug($name, $object)
     $objs[$name] = $object;
 
     return $plug;
-}
-
-/**
- * Get PlugIn Names.
- *
- * @return mixed
- */
-function getPlugs()
-{
-    $objs = getOption(PLUGIN_INSTANCE);
-
-    return $objs->keyset();
 }
 
 /**
@@ -959,7 +960,7 @@ function plug($name, array $config = [])
     set($oPlugin, $config);
     rePlug($name, $oPlugin);
     $oPlugin->init();
-    \PMVC\dev(
+    dev(
         function () use ($name) {
             if (in_array(
                 $name, [
@@ -974,7 +975,7 @@ function plug($name, array $config = [])
             ) {
                 return;
             }
-            $trace = \PMVC\plug('debug')->parseTrace(debug_backtrace(), 9);
+            $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
             return [
                 'name' => $name,

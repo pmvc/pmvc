@@ -54,7 +54,6 @@ class hello_world extends \PMVC\PlugIn
    * callPlugin
    * unPlug
    * rePlug
-   * getPlugs
    * initPlugIn
    * plug
 

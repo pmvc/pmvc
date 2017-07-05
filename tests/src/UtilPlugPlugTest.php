@@ -9,6 +9,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
     public function setup()
     {
         unplug('test');
+        unplug('debug');
         unplug('test_test');
         unplug('testplugin');
         option('set', 'test', null);
@@ -140,5 +141,18 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         plug('asset', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
+    }
+
+    public function testAddPluginFolderDevInfo()
+    {
+        $dumpMock = $this->getMockBuilder(FakeDebugDump::class)
+            ->setMethods(['dump'])
+            ->getMock();
+        $dumpMock->expects($this->atLeastOnce())
+            ->method('dump')
+            ->with($this->anything(), 'plugin-folder');
+        plug('debug', ['output'=>$dumpMock])->setLevel('plugin-folder,debug');
+        plug('dev');
+        $folders = addPlugInFolders(['fake'], []);
     }
 }
