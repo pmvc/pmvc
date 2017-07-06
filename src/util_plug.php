@@ -754,9 +754,10 @@ function addPlugInFolders(array $folders, array $alias = [])
             $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
             return [
-                'folders'=> $folders,
-                'alias'  => $alias,
-                'trace'  => $trace,
+                'previous'=> folders(_PLUGIN),
+                'folders' => $folders,
+                'alias'   => $alias,
+                'trace'   => $trace,
             ];
         },
         'plugin-folder'
@@ -966,19 +967,6 @@ function plug($name, array $config = [])
     $oPlugin->init();
     dev(
         function () use ($name) {
-            if (in_array(
-                $name, [
-                'debug_console',
-                'debug_store',
-                'debug_cli',
-                'view',
-                'view_json',
-                'asset',
-                ]
-            )
-            ) {
-                return;
-            }
             $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
             return [
