@@ -508,6 +508,10 @@ function clean(&$a, $k = null)
 function &get(&$a, $k = null, $default = null)
 {
     if (isArrayAccess($a)) {
+        /**
+         * Can't assign default by $a[$k]
+         * So the default value will handle in last.
+         */
         $v = &$a->offsetGet($k);
         if (!is_null($v)) {
             return $v;
@@ -547,12 +551,12 @@ function &get(&$a, $k = null, $default = null)
                 return $a->{$k};
             }
         }
-        if (is_callable($default)) {
-            $default = call_user_func($default);
-        }
-
-        return $default;
     }
+    if (is_callable($default)) {
+        $default = call_user_func($default);
+    }
+
+    return $default;
 }
 
 /**

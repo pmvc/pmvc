@@ -31,6 +31,13 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testGetDefaultValueWithArrayAccess()
+    {
+        $a = new HashMap();
+        $result = get($a, 'foo', 'bar');
+        $this->assertEquals('bar', $result);
+    }
+
     /**
      * handle illegal offset type in isset or empty.
      */
