@@ -21,7 +21,7 @@ class UtilPlugArrayTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException PHPUnit_Framework_Error
-     * @expectedExceptionMessage Param1 need be an array.
+     * @expectedExceptionMessage Param1 should be array type.
      */
     public function testArrayReplaceWrongType()
     {

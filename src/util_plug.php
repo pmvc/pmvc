@@ -352,7 +352,10 @@ function arrayReplace()
     $a = func_get_args();
     $new = $a[0];
     if (!isArray($new)) {
-        return !trigger_error('Param1 need be an array. '.print_r($new, true));
+        return !trigger_error(
+            'Param1 should be array type. '."\n".
+            print_r([$new, isArrayAccess($new) ? 'true' : 'false'], true)
+        );
     }
     for ($i = 1, $j = count($a); $i < $j; $i++) {
         if (is_null($a[$i])) {
@@ -884,8 +887,8 @@ function plugAlias($targetPlugin, $aliasName)
 /**
  * Plug.
  *
- * @param string $name   plugin name
- * @param array  $config plugin configs
+ * @param string $name   Plug-in name
+ * @param array  $config Plug-in configs
  *
  * @return PlugIn
  */
@@ -946,14 +949,17 @@ function plug($name, array $config = [])
     }
     if ($exists) {
         $oPlugin = new $class();
+        if (!($oPlugin instanceof PlugIn)) {
+            return !trigger_error('Class is not a plug-in(\PMVC\PlugIn) instance.');
+        }
     } else {
         if (!$class) {
-            $error = 'plugin '.$name.' not found.';
+            $error = 'Plug-in '.$name.' not found.';
             if (!empty($file)) {
                 $error .= ' ['.$file.'] '.print_r($folders['folders'], true);
             }
         } else {
-            $error = 'plugIn '.$name.': class not found ('.$class.')';
+            $error = 'Plug-in '.$name.': class not found ('.$class.')';
         }
 
         return !trigger_error($error);

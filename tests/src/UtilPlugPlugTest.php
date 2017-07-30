@@ -61,7 +61,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException PHPUnit_Framework_Error
-     * @expectedExceptionMessage plugin test not found
+     * @expectedExceptionMessage Plug-in test not found
      */
     public function testPlugNotFound()
     {
@@ -95,8 +95,19 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
     public function testPlugClassNotFound()
     {
         plug('test', [
-                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
-            ]);
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
+        ]);
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage Class is not a plug-in(\PMVC\PlugIn) instance.
+     */
+    public function testPlugANonPlugin()
+    {
+        plug('test', [
+            _CLASS => __NAMESPACE__.'\NotPlugIn',
+        ]);
     }
 
     public function testGetConfigFromGlobalOption()
@@ -155,4 +166,8 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         plug('dev');
         $folders = addPlugInFolders(['fake'], []);
     }
+}
+
+class NotPlugIn
+{
 }
