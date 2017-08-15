@@ -295,7 +295,7 @@ function hash()
 {
     $params = func_get_args();
 
-    return md5(var_export($params, true));
+    return md5(serialize($params));
 }
 
 /**
@@ -753,6 +753,9 @@ function exists($v, $type)
 function addPlugInFolders(array $folders, array $alias = [])
 {
     dev(
+        /**
+         * @help Debug for PMVC add plugin folder.
+         */
         function () use ($folders, $alias) {
             $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
@@ -972,6 +975,9 @@ function plug($name, array $config = [])
     rePlug($name, $oPlugin);
     $oPlugin->init();
     dev(
+        /**
+         * @help Debug for PMVC plug.
+         */
         function () use ($name) {
             $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
