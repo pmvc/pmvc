@@ -66,4 +66,11 @@ class UtilPlugArrayTest extends PHPUnit_Framework_TestCase
         $actual = toArray($a);
         $this->assertEquals($a, $actual);
     }
+
+    public function testToArrayWithObject()
+    {
+        $a = ['foo'];
+        $actual = toArray((object)$a);
+        $this->assertEquals($a, $actual);
+    }
 }

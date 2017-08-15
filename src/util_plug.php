@@ -383,9 +383,10 @@ function arrayReplace()
 function toArray($p)
 {
     if (is_null($p)) {
-        return [];
-    }
-    if (!is_array($p)) {
+        $p = [];
+    } elseif (is_object($p)) {
+        $p = (array)$p;
+    } elseif (!is_array($p)) {
         $p = [$p];
     }
 
@@ -754,6 +755,8 @@ function addPlugInFolders(array $folders, array $alias = [])
 {
     dev(
         /**
+         * Dev
+         *
          * @help Debug for PMVC add plugin folder.
          */
         function () use ($folders, $alias) {
@@ -976,6 +979,8 @@ function plug($name, array $config = [])
     $oPlugin->init();
     dev(
         /**
+         * Dev
+         *
          * @help Debug for PMVC plug.
          */
         function () use ($name) {

@@ -10,6 +10,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
     {
         unplug('test');
         unplug('debug');
+        unplug('dev');
         unplug('test_test');
         unplug('testplugin');
         option('set', 'test', null);
@@ -145,7 +146,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             ->with($this->anything(), 'plug');
 
         plug('debug', ['output'=>$dumpMock])->setLevel('plug,debug');
-        plug('dev');
+        plug('dev')->onResetDebugLevel();
         $test = plug('test', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
@@ -163,7 +164,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             ->method('dump')
             ->with($this->anything(), 'plugin-folder');
         plug('debug', ['output'=>$dumpMock])->setLevel('plugin-folder,debug');
-        plug('dev');
+        plug('dev')->onResetDebugLevel();
         $folders = addPlugInFolders(['fake'], []);
     }
 }
