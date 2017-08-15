@@ -41,16 +41,16 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
     /**
      * handle illegal offset type in isset or empty.
      */
-     public function testHandleGetObjectKey()
-     {
-         $k = new stdClass();
-         $arr = ['foo'=>'bar'];
-         $actual = get($arr, $k);
-         $this->assertNull($actual);
-         $arr2 = new FakeHashMap();
-         $actual2 = get($arr2, $k);
-         $this->assertEquals($k, $actual2);
-     }
+    public function testHandleGetObjectKey()
+    {
+        $k = new stdClass();
+        $arr = ['foo'=>'bar'];
+        $actual = get($arr, $k);
+        $this->assertNull($actual);
+        $arr2 = new FakeHashMap();
+        $actual2 = get($arr2, $k);
+        $this->assertEquals($k, $actual2);
+    }
 
     public function testGetDefaultValueWithLaze()
     {
@@ -69,26 +69,26 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
     /**
      * Test set object.
      */
-     public function testSetObject()
-     {
-         $arr = (object) [1, 2, 3];
-         $arr1 = [];
-         set($arr1, $arr);
-         $expected = [1, 2, 3];
-         $this->assertEquals($expected, $arr1);
-     }
+    public function testSetObject()
+    {
+        $arr = (object) [1, 2, 3];
+        $arr1 = [];
+        set($arr1, $arr);
+        $expected = [1, 2, 3];
+        $this->assertEquals($expected, $arr1);
+    }
 
     /**
      * Test set hashmap.
      */
-     public function testSetHashmap()
-     {
-         $arr = new Hashmap([1, 2, 3]);
-         $arr1 = [];
-         set($arr1, $arr);
-         $expected = [1, 2, 3];
-         $this->assertEquals($expected, $arr1);
-     }
+    public function testSetHashmap()
+    {
+        $arr = new Hashmap([1, 2, 3]);
+        $arr1 = [];
+        set($arr1, $arr);
+        $expected = [1, 2, 3];
+        $this->assertEquals($expected, $arr1);
+    }
 
     public function testSetNull()
     {

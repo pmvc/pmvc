@@ -38,7 +38,7 @@ class PlugIn extends HashMap implements SplObserver
     /*
      * Alias
      */
-     use Alias;
+    use Alias;
 
     /**
      * Get dir.

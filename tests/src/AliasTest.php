@@ -93,73 +93,73 @@ class AliasTest extends PHPUnit_Framework_TestCase
     /**
      * Test caller with plugin.
      */
-     public function testCallerWithPlugin()
-     {
-         $pFake = \PMVC\plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
-         $pFake->faketask();
-         $this->assertTrue(is_a(
+    public function testCallerWithPlugin()
+    {
+        $pFake = \PMVC\plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
+        $pFake->faketask();
+        $this->assertTrue(is_a(
             $pFake['faketask']->caller,
             '\PMVC\Adapter'
         ));
-     }
+    }
 
     /**
      * Test caller without plugin.
      */
-     public function testCallerWithoutPlugin()
-     {
-         $oAlias = new FakeAliasWithoutArrayAccess();
-         $oAlias->faketask();
-         $obj = \PMVC\value($oAlias, ['faketask', 'caller']);
-         $this->assertTrue(!is_a(
+    public function testCallerWithoutPlugin()
+    {
+        $oAlias = new FakeAliasWithoutArrayAccess();
+        $oAlias->faketask();
+        $obj = \PMVC\value($oAlias, ['faketask', 'caller']);
+        $this->assertTrue(!is_a(
                 $obj,
                 '\PMVC\Adapter'
             ) &&
             is_object($obj)
         );
-     }
+    }
 
-     /**
-      * Test alias without implemnet getdir.
-      * @expectedException PHPUnit_Framework_Error
-      * @expectedExceptionMessage Method not found
-      */
-     public function testAliasObjectWithoutGetdir()
-     {
-         $oAlias = new FakeAliasWithOutGetDir();
-         $result = $oAlias->faketask();
-     }
+    /**
+     * Test alias without implemnet getdir.
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage Method not found
+     */
+    public function testAliasObjectWithoutGetdir()
+    {
+        $oAlias = new FakeAliasWithOutGetDir();
+        $result = $oAlias->faketask();
+    }
 
-     /**
-      * Test not defned class in alias file.
-      * @expectedException PHPUnit_Framework_Error
-      * @expectedExceptionMessage Not defined default Class
-      */
-     public function testAliasFileWithoutClass()
-     {
-         $oAlias = new FakeAliasWithoutArrayAccess();
-         $oAlias->without_class();
-     }
+    /**
+     * Test not defned class in alias file.
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage Not defined default Class
+     */
+    public function testAliasFileWithoutClass()
+    {
+        $oAlias = new FakeAliasWithoutArrayAccess();
+        $oAlias->without_class();
+    }
 
-     /**
-      * Test defined class not exist.
-      * @expectedException PHPUnit_Framework_Error
-      * @expectedExceptionMessage Default class not exists
-      */
-     public function testAliasFileWithWrongName()
-     {
-         $oAlias = new FakeAliasWithoutArrayAccess();
-         $oAlias->with_wrong_name();
-     }
+    /**
+     * Test defined class not exist.
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage Default class not exists
+     */
+    public function testAliasFileWithWrongName()
+    {
+        $oAlias = new FakeAliasWithoutArrayAccess();
+        $oAlias->with_wrong_name();
+    }
 
-     /**
-      * Test not implement invoke.
-      * @expectedException PHPUnit_Framework_Error
-      * @expectedExceptionMessage Not implement __invoke
-      */
-     public function testAliasFileWithoutInvoke()
-     {
-         $oAlias = new FakeAliasWithoutArrayAccess();
-         $oAlias->without_invoke();
-     }
+    /**
+     * Test not implement invoke.
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage Not implement __invoke
+     */
+    public function testAliasFileWithoutInvoke()
+    {
+        $oAlias = new FakeAliasWithoutArrayAccess();
+        $oAlias->without_invoke();
+    }
 }
