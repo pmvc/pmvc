@@ -70,6 +70,7 @@ class UtilPlugValueTest extends PHPUnit_Framework_TestCase
     public function testHandlePathIsNotArray()
     {
         $h = ['a', 'b'];
+
         try {
             value($h, 'not-path');
         } catch (TypeError $e) {

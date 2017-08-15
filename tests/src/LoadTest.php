@@ -11,9 +11,9 @@ class LoadTest extends PHPUnit_Framework_TestCase
         \PMVC\Load::plug();
     }
 
-   /**
-    * @runInSeparateProcess
-    */
+    /**
+     * @runInSeparateProcess
+     */
     public function testRunInSeparateProcess()
     {
         \PMVC\Load::plug(
@@ -26,9 +26,9 @@ class LoadTest extends PHPUnit_Framework_TestCase
         );
     }
 
-   /**
-    * @runInSeparateProcess
-    */
+    /**
+     * @runInSeparateProcess
+     */
     public function testSetOption()
     {
         \PMVC\option('set', 'foo', 'bar');
