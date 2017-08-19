@@ -193,16 +193,21 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
         $_alias[$type] = [];
     }
     if (!empty($folders)) {
-        $_folders[$type] = array_unique(
-            array_merge(
-                $_folders[$type],
-                array_map(
-                    function ($f) {
-                        return realpath($f);
-                    }, $folders
-                )
-            )
+        $folders = array_map(
+            function ($f) {
+                return realpath($f);
+            },
+            $folders
         );
+        $folders = array_filter($folders);
+        if (!empty($folders)) {
+            $_folders[$type] = array_unique(
+                array_merge(
+                    $_folders[$type],
+                    $folders
+                )
+            );
+        }
     }
     $_alias[$type] = array_merge(
         $_alias[$type],
