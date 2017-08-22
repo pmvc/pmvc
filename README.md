@@ -25,6 +25,7 @@ A simple MVC for unidirectional dataflow architecture.
 
 ## Getting Started
 https://github.com/pmvc/pmvc/wiki
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://github.com/pmvc/react-pmvc)
 
 ## How to use?
 ```
@@ -64,7 +65,7 @@ class hello_world extends \PMVC\PlugIn
    * Controller
       * https://github.com/pmvc-plugin/controller
    * View
-      * https://github.com/pmvc-plugin/?q=view
+      * https://github.com/search?q=topic:pmvc-view
       * view_react
       * view_html
       * view_json
