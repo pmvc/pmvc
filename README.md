@@ -24,8 +24,9 @@ A simple MVC for unidirectional dataflow architecture.
 [![Total Downloads](https://poser.pugx.org/pmvc/pmvc/downloads)](https://packagist.org/packages/pmvc/pmvc) 
 
 ## Getting Started
-https://github.com/pmvc/pmvc/wiki
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://github.com/pmvc/react-pmvc)
+* https://github.com/pmvc/pmvc/wiki
+* Heroku (or Dokku) ready app test 
+   * [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://github.com/pmvc/react-pmvc)
 
 ## How to use?
 ```
