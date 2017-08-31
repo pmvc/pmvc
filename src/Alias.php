@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * @category Plug
+ * @category Alias
  *
  * @package PMVC
  *
@@ -109,8 +109,8 @@ trait Alias
     {
         return [
             'aliasAsKey'     => AliasAsKey::getInstance(),
-            'aliasAsDefault' => AliasAsDefault::getInstance(),
             'aliasSrcFile'   => AliasSrcFile::getInstance(),
+            'aliasAsDefault' => AliasAsDefault::getInstance(),
         ];
     }
 
