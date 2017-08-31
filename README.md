@@ -79,6 +79,8 @@ class hello_world extends \PMVC\PlugIn
 ## PMVC Family
    * Core Library
       * https://github.com/pmvc/pmvc
+      * CLI
+         * https://github.com/pmvc/pmvc-cli
    * PMVC Plug-ins
       * https://github.com/pmvc-plugin
    * PMVC Applications
