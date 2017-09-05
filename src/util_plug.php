@@ -941,8 +941,16 @@ function plug($name, array $config = [])
     } else {
         $file = null;
         if (isset($config[_PLUGIN_FILE])) {
-            $config[_PLUGIN_FILE] = realpath($config[_PLUGIN_FILE]);
-            $file = $config[_PLUGIN_FILE];
+            $file = realpath($config[_PLUGIN_FILE]);
+            if (empty($file)) {
+                trigger_error(
+                    'PlugIn '.$name.': Defined file not found. ['.
+                    $config[_PLUGIN_FILE].
+                    ']'
+                );
+            } else {
+                $config[_PLUGIN_FILE] = $file;
+            }
         }
         if ($file) {
             $r = l($file, _INIT_CONFIG);

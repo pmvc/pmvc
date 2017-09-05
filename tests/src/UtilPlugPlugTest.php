@@ -80,17 +80,6 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException PHPUnit_Framework_Error
-     * @expectedExceptionMessage [test/test.php]
-     */
-    public function testPlugFileNotFound()
-    {
-        plug('test', [
-                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugxxx.php',
-            ]);
-    }
-
-    /**
-     * @expectedException PHPUnit_Framework_Error
      * @expectedExceptionMessage class not found
      */
     public function testPlugClassNotFound()
@@ -166,6 +155,17 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         plug('debug', ['output'=>$dumpMock])->setLevel('plugin-folder,debug');
         plug('dev')->onResetDebugLevel();
         $folders = addPlugInFolders(['fake'], []);
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage PlugIn test: Defined file not found. [foo]
+     */
+    public function testPlugNotExistsFile()
+    {
+        plug('test', [
+            _PLUGIN_FILE => 'foo',
+        ]);
     }
 }
 
