@@ -30,11 +30,11 @@ class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
 
     public function testPrependApp()
     {
-        plug('controllder', [
+        plug('controller', [
             _PLUGIN_FILE => $this->_fakePlugFile,
         ]);
-        prependApp('fake', true);
-        unplug('controllder');
+        prependApp('fake', true, 'is_callable');
+        unplug('controller');
     }
 
     public function testLoadEmpty()
@@ -44,8 +44,3 @@ class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
     }
 }
 
-if (!function_exists(__NAMESPACE__.'\transparent')) {
-    function transparent()
-    {
-    }
-}

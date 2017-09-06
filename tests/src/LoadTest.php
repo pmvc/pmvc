@@ -6,6 +6,19 @@ use PHPUnit_Framework_TestCase;
 
 class LoadTest extends PHPUnit_Framework_TestCase
 {
+    public function testLoadWithLazyFunction()
+    {
+        \PMVC\Load::plug(function(){
+            return [
+                [],
+                [],
+                [_VIEW_ENGINE=>'xxx']
+            ];
+        });
+        $this->assertEquals('xxx', \PMVC\getOption(_VIEW_ENGINE));
+        \PMVC\option('set', _VIEW_ENGINE, '');
+    }
+
     public function testLoad()
     {
         \PMVC\Load::plug();

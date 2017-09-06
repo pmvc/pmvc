@@ -94,20 +94,25 @@ function _l($name, $export = null)
 }
 
 /**
- * Prepend app folder.
+ * Prepend app folder path.
  *
  * @param string $name         file name
  * @param string $bTransparent Transparent app folder
+ * @param string $func         For unit test
  *
  * @return mixed
  */
-function prependApp($name, $bTransparent = null)
-{
-    if (!$bTransparent || !exists('controllder', 'plugin')) {
+function prependApp(
+    $name,
+    $bTransparent = null,
+    $func = __NAMESPACE__.'\transparent'
+) {
+
+    if (!$bTransparent || !exists('controller', 'plugin')) {
         return realpath($name);
     }
 
-    return run(__NAMESPACE__.'\transparent', [$name]);
+    return run($func, [$name]);
 }
 
 /**

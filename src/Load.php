@@ -35,22 +35,28 @@ class Load
     /**
      * Include plugin only.
      *
-     * @param array $init    Default plugins
+     * @param mixed $init    Default plugins or lazy funciton
      * @param array $folders Extra plugin folder
      * @param array $options PMVC options
      *
      * @return bool
      */
     public static function plug(
-        array $init = [],
+        $init = [],
         array $folders = [],
         array $options = []
     ) {
         include_once __DIR__.'/../include.php';
+        self::initPlugInFolder();
+        if (is_callable($init)) {
+            $params = $init();
+            $init   = $params[0];
+            $folders= $params[1];
+            $options= $params[2];
+        }
         if (!empty($options)) {
             \PMVC\option('set', $options);
         }
-        self::initPlugInFolder();
         if (!empty($folders)) {
             addPlugInFolders($folders);
         }
