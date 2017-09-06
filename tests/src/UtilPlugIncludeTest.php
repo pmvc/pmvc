@@ -33,7 +33,7 @@ class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
         plug('controller', [
             _PLUGIN_FILE => $this->_fakePlugFile,
         ]);
-        prependApp('fake', true, 'is_callable');
+        prependApp('fake', true, 'isdev');
         unplug('controller');
     }
 
@@ -43,4 +43,3 @@ class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $result);
     }
 }
-

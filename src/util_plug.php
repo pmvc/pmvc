@@ -105,14 +105,13 @@ function _l($name, $export = null)
 function prependApp(
     $name,
     $bTransparent = null,
-    $func = __NAMESPACE__.'\transparent'
+    $func = 'transparent'
 ) {
-
     if (!$bTransparent || !exists('controller', 'plugin')) {
         return realpath($name);
     }
 
-    return run($func, [$name]);
+    return run(__NAMESPACE__.'\\'.$func, [$name]);
 }
 
 /**

@@ -8,11 +8,11 @@ class LoadTest extends PHPUnit_Framework_TestCase
 {
     public function testLoadWithLazyFunction()
     {
-        \PMVC\Load::plug(function(){
+        \PMVC\Load::plug(function () {
             return [
                 [],
                 [],
-                [_VIEW_ENGINE=>'xxx']
+                [_VIEW_ENGINE=> 'xxx'],
             ];
         });
         $this->assertEquals('xxx', \PMVC\getOption(_VIEW_ENGINE));

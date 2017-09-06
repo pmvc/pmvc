@@ -50,9 +50,9 @@ class Load
         self::initPlugInFolder();
         if (is_callable($init)) {
             $params = $init();
-            $init   = $params[0];
-            $folders= $params[1];
-            $options= $params[2];
+            $init = $params[0];
+            $folders = $params[1];
+            $options = $params[2];
         }
         if (!empty($options)) {
             \PMVC\option('set', $options);
