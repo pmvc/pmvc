@@ -107,7 +107,6 @@ function prependApp(
     $bTransparent = null,
     $func = __NAMESPACE__.'\transparent'
 ) {
-
     if (!$bTransparent || !exists('controller', 'plugin')) {
         return realpath($name);
     }
