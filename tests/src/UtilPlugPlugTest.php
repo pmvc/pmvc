@@ -159,7 +159,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException PHPUnit_Framework_Error
-     * @expectedExceptionMessage PlugIn test: Defined file not found. [foo]
+     * @expectedExceptionMessage PlugIn test: defined file not found. [foo]
      */
     public function testPlugNotExistsFile()
     {
