@@ -14,7 +14,7 @@ class UtilPlugArrayTest extends PHPUnit_Framework_TestCase
 
     public function testHasKeyArray()
     {
-        $arr = ['foo'=>'foo-value'];
+        $arr = ['foo' => 'foo-value'];
         $this->assertTrue(hasKey($arr, 'foo'));
         $this->assertFalse(hasKey($arr, 'bar'));
     }

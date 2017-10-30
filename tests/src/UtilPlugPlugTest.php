@@ -109,7 +109,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('ccc', $test['foo']);
         unplug('test');
 
-        option('set', 'PLUGIN', ['test'=>['foo'=>'bar']]);
+        option('set', 'PLUGIN', ['test' => ['foo' => 'bar']]);
         plug('test', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
@@ -118,7 +118,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 
     public function testGetConfigFromGlobalOptionWithUnderscore()
     {
-        option('set', 'PLUGIN', ['test'=>['test'=>['a'=>'b']]]);
+        option('set', 'PLUGIN', ['test' => ['test' => ['a' => 'b']]]);
         $test = plug('test_test', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
@@ -134,7 +134,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             ->method('dump')
             ->with($this->anything(), 'plug');
 
-        plug('debug', ['output'=>$dumpMock])->setLevel('plug,debug');
+        plug('debug', ['output' => $dumpMock])->setLevel('plug,debug');
         plug('dev')->onResetDebugLevel();
         $test = plug('test', [
             _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
@@ -152,7 +152,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $dumpMock->expects($this->atLeastOnce())
             ->method('dump')
             ->with($this->anything(), 'plugin-folder');
-        plug('debug', ['output'=>$dumpMock])->setLevel('plugin-folder,debug');
+        plug('debug', ['output' => $dumpMock])->setLevel('plugin-folder,debug');
         plug('dev')->onResetDebugLevel();
         $folders = addPlugInFolders(['fake'], []);
     }

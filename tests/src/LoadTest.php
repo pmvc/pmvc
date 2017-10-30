@@ -12,7 +12,7 @@ class LoadTest extends PHPUnit_Framework_TestCase
             return [
                 [],
                 [],
-                [_VIEW_ENGINE=> 'xxx'],
+                [_VIEW_ENGINE => 'xxx'],
             ];
         });
         $this->assertEquals('xxx', \PMVC\getOption(_VIEW_ENGINE));
@@ -45,7 +45,7 @@ class LoadTest extends PHPUnit_Framework_TestCase
     public function testSetOption()
     {
         \PMVC\option('set', 'foo', 'bar');
-        \PMVC\Load::plug([], [], ['foo'=>'bar']);
+        \PMVC\Load::plug([], [], ['foo' => 'bar']);
         $this->assertEquals('bar', \PMVC\getOption('foo'));
     }
 }

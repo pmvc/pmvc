@@ -2,7 +2,7 @@
 
 namespace PMVC;
 
-initPlugin(['debug'=>null], true);
+initPlugin(['debug' => null], true);
 
 class FakeDebugDump extends PlugIn implements \PMVC\PlugIn\debug\DebugDumpInterface
 {
