@@ -57,6 +57,7 @@ namespace PMVC\Event {
     const B4_PROCESS_ACTION = 'B4ProcessAction';
     const B4_PROCESS_ERROR = 'B4ProcessError';
     const B4_PROCESS_MAPPING = 'B4ProcessMapping';
+    const B4_PROCESS_HEADER = 'B4ProcessHeader';
     const B4_PROCESS_VIEW = 'B4ProcessView';
     const FINISH = 'Finish';
     const MAP_REQUEST = 'MapRequest';
