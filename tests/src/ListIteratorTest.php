@@ -10,7 +10,7 @@ class ListIteratorTest extends PHPUnit_Framework_TestCase
     {
         $arr = [1, 2];
         $list = new ListIterator($arr);
-        foreach ($list as $k=>$v) {
+        foreach ($list as $k => $v) {
             $this->assertEquals($arr[$k], $v);
         }
     }

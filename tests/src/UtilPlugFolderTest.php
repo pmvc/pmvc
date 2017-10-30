@@ -29,8 +29,8 @@ class UtilPlugFolderTest extends PHPUnit_Framework_TestCase
     {
         $folders = folders('fake', [], [], true);
         $expected = [
-            'folders'=> [],
-            'alias'  => [],
+            'folders' => [],
+            'alias'   => [],
         ];
         $this->assertEquals($expected, $folders);
     }

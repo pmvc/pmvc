@@ -14,16 +14,16 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMultiValueWithObject()
     {
-        $a = (object) ['a'=>1, 'b'=>2, 'c'=>3];
-        $this->assertEquals(['a'=>1, 'b'=>2], get($a, ['a', 'b']));
+        $a = (object) ['a' => 1, 'b' => 2, 'c' => 3];
+        $this->assertEquals(['a' => 1, 'b' => 2], get($a, ['a', 'b']));
     }
 
     public function testGetMultiValueWithInvalidKey()
     {
         $key = [new Object(), 'a', 'b', null, false];
-        $arr = ['a'=>'foo', 'b'=>'bar', null=>'null', false=>'false'];
+        $arr = ['a' => 'foo', 'b' => 'bar', null => 'null', false => 'false'];
         $this->assertEquals($arr, get($arr, $key), 'Test get array with invalid key');
-        $obj = (object) ['a'=>'foo', 'b'=>'bar'];
+        $obj = (object) ['a' => 'foo', 'b' => 'bar'];
         $this->assertEquals(
             (array) $obj,
             get($obj, $key),
@@ -44,7 +44,7 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
     public function testHandleGetObjectKey()
     {
         $k = new stdClass();
-        $arr = ['foo'=>'bar'];
+        $arr = ['foo' => 'bar'];
         $actual = get($arr, $k);
         $this->assertNull($actual);
         $arr2 = new FakeHashMap();

@@ -55,8 +55,8 @@ class UtilPlugValueTest extends PHPUnit_Framework_TestCase
     {
         $expected = 'd';
         $a = (object) [
-            'b'=> (object) [
-                'c'=> $expected,
+            'b' => (object) [
+                'c' => $expected,
             ],
         ];
         $this->assertEquals($expected, $a->b->c);

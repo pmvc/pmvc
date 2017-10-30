@@ -772,10 +772,10 @@ function addPlugInFolders(array $folders, array $alias = [])
             $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
             return [
-                'previous'=> folders(_PLUGIN),
-                'folders' => $folders,
-                'alias'   => $alias,
-                'trace'   => $trace,
+                'previous' => folders(_PLUGIN),
+                'folders'  => $folders,
+                'alias'    => $alias,
+                'trace'    => $trace,
             ];
         },
         'plugin-folder'
@@ -1003,8 +1003,8 @@ function plug($name, array $config = [])
             $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
             return [
-                'name' => $name,
-                'trace'=> $trace,
+                'name'  => $name,
+                'trace' => $trace,
             ];
         }, 'plug'
     );
