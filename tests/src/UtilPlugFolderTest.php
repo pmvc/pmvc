@@ -22,7 +22,7 @@ class UtilPlugFolderTest extends PHPUnit_Framework_TestCase
             }
             $arr[$dir]++;
         }
-        $this->assertEquals(1, count($arr[realpath(__DIR__)]));
+        $this->assertEquals(1, $arr[realpath(__DIR__)]);
     }
 
     public function testClean()

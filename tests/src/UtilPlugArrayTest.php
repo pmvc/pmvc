@@ -3,6 +3,8 @@
 namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_Error;
+use Exception;
 
 class UtilPlugArrayTest extends PHPUnit_Framework_TestCase
 {
@@ -25,8 +27,17 @@ class UtilPlugArrayTest extends PHPUnit_Framework_TestCase
      */
     public function testArrayReplaceWrongType()
     {
-        $s = '';
-        arrayReplace($s);
+        try {
+            $s = '';
+            arrayReplace($s);
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     public function testArrayReplaceWithNull()

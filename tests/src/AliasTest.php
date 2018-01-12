@@ -3,6 +3,8 @@
 namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_Error; 
+use Exception;
 
 class AliasTest extends PHPUnit_Framework_TestCase
 {
@@ -86,8 +88,17 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testParentMethodNotExists()
     {
-        $child = plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
-        $child->FakeNotExists();
+        try {
+            $child = plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
+            $child->FakeNotExists();
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     /**
@@ -126,8 +137,17 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testAliasObjectWithoutGetdir()
     {
-        $oAlias = new FakeAliasWithOutGetDir();
-        $result = $oAlias->faketask();
+        try {
+            $oAlias = new FakeAliasWithOutGetDir();
+            $result = $oAlias->faketask();
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     /**
@@ -137,8 +157,17 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testAliasFileWithoutClass()
     {
-        $oAlias = new FakeAliasWithoutArrayAccess();
-        $oAlias->without_class();
+        try {
+            $oAlias = new FakeAliasWithoutArrayAccess();
+            $oAlias->without_class();
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     /**
@@ -148,8 +177,17 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testAliasFileWithWrongName()
     {
-        $oAlias = new FakeAliasWithoutArrayAccess();
-        $oAlias->with_wrong_name();
+        try {
+            $oAlias = new FakeAliasWithoutArrayAccess();
+            $oAlias->with_wrong_name();
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     /**
@@ -159,7 +197,16 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testAliasFileWithoutInvoke()
     {
-        $oAlias = new FakeAliasWithoutArrayAccess();
-        $oAlias->without_invoke();
+        try {
+            $oAlias = new FakeAliasWithoutArrayAccess();
+            $oAlias->without_invoke();
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 }

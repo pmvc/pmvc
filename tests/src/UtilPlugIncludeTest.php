@@ -3,6 +3,8 @@
 namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
+use PHPUnit_Framework_Error; 
+use Exception;
 
 class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
 {
@@ -10,9 +12,13 @@ class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
 
     public function __construct()
     {
+        parent::__construct();
         $this->_fakePlugFile = __DIR__.'/../resources/FakePlugFile.php';
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testIncludeMoreThanOnce()
     {
         l(__DIR__.'/../resources/empty.php');
@@ -25,9 +31,21 @@ class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
      */
     public function testIncludeNotExists()
     {
-        l(__DIR__.'/../resources/empty.php.fake');
+        try {
+            l(__DIR__.'/../resources/empty.php.fake');
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testPrependApp()
     {
         plug('controller', [
