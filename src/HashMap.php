@@ -91,7 +91,7 @@ class HashMap extends ListIterator implements ArrayAccess
      */
     public function __get($k)
     {
-        return new Object($this->state[$k]);
+        return new BaseObject($this->state[$k]);
     }
 
     /**

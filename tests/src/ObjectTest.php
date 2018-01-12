@@ -8,7 +8,7 @@ class ObjectTest extends PHPUnit_Framework_TestCase
 {
     public function testSetValue()
     {
-        $o = new Object();
+        $o = new BaseObject();
         $expected = 'foo';
         $o($expected);
         $actual = $o();

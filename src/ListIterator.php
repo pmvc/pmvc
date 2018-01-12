@@ -34,7 +34,7 @@ use IteratorAggregate;
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class ListIterator extends Object implements IteratorAggregate, Countable
+class ListIterator extends BaseObject implements IteratorAggregate, Countable
 {
     /**
      * Construct.

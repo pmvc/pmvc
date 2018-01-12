@@ -461,7 +461,7 @@ function value($a, array $path, $default = null)
  */
 function &ref(&$v, $new = null)
 {
-    if (is_a($v, __NAMESPACE__.'\Object')) {
+    if (is_a($v, __NAMESPACE__.'\BaseObject')) {
         return $v($new);
     } else {
         if (!is_null($new)) {

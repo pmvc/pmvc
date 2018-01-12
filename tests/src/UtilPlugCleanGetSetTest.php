@@ -20,7 +20,7 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
 
     public function testGetMultiValueWithInvalidKey()
     {
-        $key = [new Object(), 'a', 'b', null, false];
+        $key = [new BaseObject(), 'a', 'b', null, false];
         $arr = ['a' => 'foo', 'b' => 'bar', null => 'null', false => 'false'];
         $this->assertEquals($arr, get($arr, $key), 'Test get array with invalid key');
         $obj = (object) ['a' => 'foo', 'b' => 'bar'];

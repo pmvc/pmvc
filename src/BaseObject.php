@@ -30,7 +30,7 @@ namespace PMVC;
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class Object
+class BaseObject
 {
     protected $state;
 
