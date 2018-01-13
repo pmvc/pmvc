@@ -2,9 +2,9 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-use PHPUnit_Framework_Error; 
 use Exception;
+use PHPUnit_Framework_Error;
+use PHPUnit_Framework_TestCase;
 
 class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
 {
