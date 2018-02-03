@@ -167,6 +167,22 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             _PLUGIN_FILE => 'foo',
         ]);
     }
+
+    public function testLazyConfig()
+    {
+        $file = __DIR__.'/../resources/FakePlugFile.php';
+        $unitKey = 'foo';
+        $unitValue = 'bar';
+        plug('test', [
+            _PLUGIN_FILE => $file,
+            _LAZY_CONFIG => function() use ($unitKey, $unitValue){
+                return [
+                    $unitKey => $unitValue
+                ];
+            }
+        ]);
+        $this->assertEquals($unitValue, plug('test')[$unitKey]);
+    }
 }
 
 class NotPlugIn

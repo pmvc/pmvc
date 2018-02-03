@@ -900,6 +900,22 @@ function plugAlias($targetPlugin, $aliasName)
 }
 
 /**
+ * Plug Config.
+ */
+ function plugConfig($oPlugin, array $config)
+ {
+    if (!empty($config)) {
+        if (is_callable(get($config, _LAZY_CONFIG))) {
+            $config = array_replace(
+                $config,
+                $config[_LAZY_CONFIG]()
+            );
+        }
+        set($oPlugin, $config);
+    }
+ }
+
+/**
  * Plug.
  *
  * @param string $name   Plug-in name
@@ -915,9 +931,7 @@ function plug($name, array $config = [])
     $objs = getOption(PLUGIN_INSTANCE);
     $oPlugin = $objs[$name];
     if (!empty($oPlugin)) {
-        if (!empty($config)) {
-            set($oPlugin, $config);
-        }
+        plugConfig($oPlugin, $config);
 
         return $oPlugin->update();
     }
@@ -990,7 +1004,7 @@ function plug($name, array $config = [])
         $config = arrayReplace($r->var[_INIT_CONFIG], $config);
         $config[_PLUGIN_FILE] = $r->name;
     }
-    set($oPlugin, $config);
+    plugConfig($oPlugin, $config);
     rePlug($name, $oPlugin);
     $oPlugin->init();
     dev(

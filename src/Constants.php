@@ -25,6 +25,7 @@ namespace {
     define('_PLUGIN', '_plugin_');
     define('_PLUGIN_FILE', '_plugin_file_');
     define('_INIT_CONFIG', '_init_config_');
+    define('_LAZY_CONFIG', '_lazy_config_');
 
     /* Debug */
     define('_VIEW_ENGINE', '_view_engine_');
