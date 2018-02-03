@@ -852,7 +852,7 @@ function rePlug($name, $object)
  * @param array $arr   plug-in array
  * @param bool  $pause for includ file only
  *
- * @return void
+ * @return array
  */
 function initPlugIn(array $arr, $pause = false)
 {
@@ -901,19 +901,24 @@ function plugAlias($targetPlugin, $aliasName)
 
 /**
  * Plug Config.
+ *
+ * @param PlugIn $oPlugin Plug-in object
+ * @param array  $config  Plug-in configs
+ *
+ * @return void
  */
- function plugConfig($oPlugin, array $config)
- {
-     if (!empty($config)) {
-         if (is_callable(get($config, _LAZY_CONFIG))) {
-             $config = array_replace(
+function plugConfig($oPlugin, array $config)
+{
+    if (!empty($config)) {
+        if (is_callable(get($config, _LAZY_CONFIG))) {
+            $config = array_replace(
                 $config,
                 $config[_LAZY_CONFIG]()
             );
-         }
-         set($oPlugin, $config);
-     }
- }
+        }
+        set($oPlugin, $config);
+    }
+}
 
 /**
  * Plug.
