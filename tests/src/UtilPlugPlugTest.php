@@ -222,11 +222,11 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         $unitValue = 'bar';
         plug('test', [
             _PLUGIN_FILE => $file,
-            _LAZY_CONFIG => function() use ($unitKey, $unitValue){
+            _LAZY_CONFIG => function () use ($unitKey, $unitValue) {
                 return [
-                    $unitKey => $unitValue
+                    $unitKey => $unitValue,
                 ];
-            }
+            },
         ]);
         $this->assertEquals($unitValue, plug('test')[$unitKey]);
     }

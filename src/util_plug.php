@@ -904,15 +904,15 @@ function plugAlias($targetPlugin, $aliasName)
  */
  function plugConfig($oPlugin, array $config)
  {
-    if (!empty($config)) {
-        if (is_callable(get($config, _LAZY_CONFIG))) {
-            $config = array_replace(
+     if (!empty($config)) {
+         if (is_callable(get($config, _LAZY_CONFIG))) {
+             $config = array_replace(
                 $config,
                 $config[_LAZY_CONFIG]()
             );
-        }
-        set($oPlugin, $config);
-    }
+         }
+         set($oPlugin, $config);
+     }
  }
 
 /**
