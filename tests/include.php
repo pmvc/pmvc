@@ -9,7 +9,7 @@ if (!class_exists('PHPUnit_Framework_TestCase')) {
     {
     }
     class PHPUnit_Framework_Error extends
-        \PHPUnit\Framework\Error\Error
+        \PHPUnit\Framework\Error\Notice
     {
     }
 }

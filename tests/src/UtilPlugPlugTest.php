@@ -2,6 +2,8 @@
 
 namespace PMVC;
 
+use Exception;
+use PHPUnit_Framework_Error;
 use PHPUnit_Framework_TestCase;
 
 class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
@@ -66,7 +68,16 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugNotFound()
     {
-        plug('test');
+        try {
+            plug('test');
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     /**
@@ -75,7 +86,16 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugNameNotString()
     {
-        plug(new \stdClass());
+        try {
+            plug(new \stdClass());
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     /**
@@ -84,9 +104,18 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugClassNotFound()
     {
-        plug('test', [
-            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
-        ]);
+        try {
+            plug('test', [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
+            ]);
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     /**
@@ -95,9 +124,18 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugANonPlugin()
     {
-        plug('test', [
-            _CLASS => __NAMESPACE__.'\NotPlugIn',
-        ]);
+        try {
+            plug('test', [
+                _CLASS => __NAMESPACE__.'\NotPlugIn',
+            ]);
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     public function testGetConfigFromGlobalOption()
@@ -163,9 +201,18 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugNotExistsFile()
     {
-        plug('test', [
-            _PLUGIN_FILE => 'foo',
-        ]);
+        try {
+            plug('test', [
+                _PLUGIN_FILE => 'foo',
+            ]);
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     public function testLazyConfig()

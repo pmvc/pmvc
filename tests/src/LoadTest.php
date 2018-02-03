@@ -19,12 +19,16 @@ class LoadTest extends PHPUnit_Framework_TestCase
         \PMVC\option('set', _VIEW_ENGINE, '');
     }
 
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testLoad()
     {
         \PMVC\Load::plug();
     }
 
     /**
+     * @doesNotPerformAssertions
      * @runInSeparateProcess
      */
     public function testRunInSeparateProcess()
