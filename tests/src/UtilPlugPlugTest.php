@@ -3,12 +3,13 @@
 namespace PMVC;
 
 use Exception;
+use OverflowException;
 use PHPUnit_Framework_Error;
 use PHPUnit_Framework_TestCase;
 
 class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 {
-    public function setup()
+    public function teardown()
     {
         unplug('test');
         unplug('debug');
@@ -229,6 +230,78 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             },
         ]);
         $this->assertEquals($unitValue, plug('test')[$unitKey]);
+    }
+
+    public function testGetPlugs()
+    {
+        $file = __DIR__.'/../resources/FakePlugFile.php';
+        plug('test', [
+            _PLUGIN_FILE => $file,
+        ]);
+        $a = plugInStore();
+        $this->assertTrue(in_array('test', $a));
+    }
+
+    public function testPlugSecurity()
+    {
+        $file = __DIR__.'/../resources/FakePlugFile.php';
+        plug('testSecurity', [
+            _PLUGIN_FILE => $file,
+            _IS_SECURITY => true,
+        ]);
+        $this->assertTrue(exists('testSecurity', 'plugin'));
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage You can not change security plugin
+     */
+    public function testUnPlugSecurityWarning()
+    {
+        try {
+            unplug('testSecurity');
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     * @expectedExceptionMessage You can not change security plugin
+     */
+    public function testRePlugSecurityWarning()
+    {
+        try {
+            replug('testSecurity', new HashMap());
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
+    }
+
+    /**
+     * @expectedException OverflowException
+     * @expectedExceptionMessage Security plugin [test] already plug
+     */
+    public function testSecurityPluginAlreadyExists()
+    {
+        $file = __DIR__.'/../resources/FakePlugFile.php';
+        plug('test', [
+            _PLUGIN_FILE => $file,
+        ]);
+        plug('test', [
+            _PLUGIN_FILE => $file,
+            _IS_SECURITY => true,
+        ]);
     }
 }
 

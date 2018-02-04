@@ -787,25 +787,18 @@ function addPlugInFolders(array $folders, array $alias = [])
  * PlugIn Store for Security.
  *
  * @param string $key        plug-in name
- * @param mixed  $value      [null: get only] [false: unset] [other: set]
+ * @param PlugIn $value      [null: get only] [false: unset] [other: set]
  * @param bool   $isSecurity security flag
  *
  * @return mixed
  */
-function plugInStore($key, $value = null, $isSecurity = false)
+function plugInStore($key = null, $value = null, $isSecurity = false)
 {
     static $plugins = [];
     static $securitys = [];
     $currentPlug = false;
     if (isset($plugins[$key])) {
         $currentPlug = $plugins[$key];
-    }
-    if (is_null($value)) {
-        if (!is_null($key)) {
-            return $currentPlug;
-        } else {
-            return array_keys($plugins);
-        }
     }
     if ($isSecurity) {
         if ($currentPlug) {
@@ -816,7 +809,14 @@ function plugInStore($key, $value = null, $isSecurity = false)
         }
         $securitys[$key] = true;
     }
-    if (isset($securitys[$key])) {
+    if (is_null($value)) {
+        if (!is_null($key)) {
+            return $currentPlug;
+        } else {
+            return array_keys($plugins);
+        }
+    }
+    if (isset($securitys[$key]) && $currentPlug) {
         return !trigger_error('You can not change security plugin. ['.$key.']');
     }
     if (empty($value)) {
@@ -942,7 +942,7 @@ function plugAlias($targetPlugin, $aliasName)
  */
 function plugConfig($oPlugin, array $config)
 {
-    if (!empty($config)) {
+    if (!empty($oPlugin) && !empty($config)) {
         if (is_callable(get($config, _LAZY_CONFIG))) {
             $config = array_replace(
                 $config,
@@ -966,10 +966,13 @@ function plug($name, array $config = [])
     if (!is_string($name)) {
         return !trigger_error('Plug name should be string.');
     }
-    $oPlugin = plugInStore($name);
-    if (!empty($oPlugin)) {
+    if (empty($config)) {
+        $oPlugin = plugInStore($name);
+    } else {
+        $oPlugin = plugInStore($name, null, get($config, _IS_SECURITY));
         plugConfig($oPlugin, $config);
-
+    }
+    if (!empty($oPlugin)) {
         return $oPlugin->update();
     }
     $names = explode('_', $name);
