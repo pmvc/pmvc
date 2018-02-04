@@ -64,11 +64,11 @@ class Adapter implements ArrayAccess, SplObserver
      */
     public function __call($method, $args = [])
     {
-        $objs = getOption(PLUGIN_INSTANCE);
-        if (!empty($objs[$this->_name])) {
+        $plug = plugInStore($this->_name);
+        if (!empty($plug)) {
             return call_user_func_array(
                 [
-                    $objs[$this->_name],
+                    $plug,
                     $method,
                 ],
                 $args

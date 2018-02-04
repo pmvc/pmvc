@@ -26,6 +26,7 @@ namespace {
     define('_PLUGIN_FILE', '_plugin_file_');
     define('_INIT_CONFIG', '_init_config_');
     define('_LAZY_CONFIG', '_lazy_config_');
+    define('_IS_SECURITY', '_is_security_');
 
     /* Debug */
     define('_VIEW_ENGINE', '_view_engine_');
@@ -48,7 +49,6 @@ namespace PMVC {
     /**
      * Plugins.
      */
-    const PLUGIN_INSTANCE = '__plugin_instance__';
     const PAUSE = '__pause__';
     const NAME = '__name__';
     const THIS = 'this';

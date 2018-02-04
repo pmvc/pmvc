@@ -20,12 +20,12 @@ namespace PMVC;
 
 use ArrayAccess;
 use DomainException;
+use OverflowException;
 use stdclass;
 
 option(
     'set',
     [
-        PLUGIN_INSTANCE => new HashMap(),
         ERRORS          => new HashMap(),
     ]
 );
@@ -636,7 +636,6 @@ function &getOption($k = null, $default = null)
  * 2. Get always have value, don't need isset
  * 3. Clean is not useful here,
  *    some value need always keep.
- *    such as PLUGIN_INSTANCE.
  * 4. Mose of use case is append not replace all.
  *
  * @param string $act [set|get]
@@ -736,7 +735,7 @@ function exists($v, $type)
 {
     switch (strtolower($type)) {
     case 'plugin':
-        return !empty(getOption(PLUGIN_INSTANCE)[$v]);
+        return !empty(plugInStore($v));
     case 'plug': //check if OK to plug
         return plug($v, [PAUSE => true]);
     default:
@@ -785,6 +784,49 @@ function addPlugInFolders(array $folders, array $alias = [])
 }
 
 /**
+ * PlugIn Store for Security.
+ *
+ * @param string $key        plug-in name
+ * @param mixed  $value      [null: get only] [false: unset] [other: set] 
+ * @param bool   $isSecurity security flag 
+ *
+ * @return mixed
+ */
+function plugInStore($key, $value = null, $isSecurity = false)
+{
+    static $plugins = [];
+    static $securitys = [];
+    $currentPlug = false;
+    if (isset($plugins[$key])) {
+        $currentPlug = $plugins[$key];
+    }
+    if (is_null($value)) {
+        return $currentPlug;
+    }
+    if ($isSecurity) {
+        if ($currentPlug) {
+            throw new OverflowException(
+                'Security plugin ['.$key.'] already plug, '.
+                'you need check your code if it is safe.'
+            );
+        }
+        $securitys[$key] = true; 
+    }
+    if (isset($securitys[$key])) {
+        return !trigger_error('You can not change security plugin. ['.$key.']');
+    }
+    if (empty($value)) {
+        if ($currentPlug) {
+            $plugins[$key] = null;
+            unset($plugins[$key]);
+        }
+    } else {
+        $plugins[$key] = $value;
+    }
+    return $currentPlug;
+}
+
+/**
  * Call Plug-In.
  *
  * @param sring $plugIn plug-in name
@@ -815,16 +857,7 @@ function callPlugin($plugIn, $func, $args = [])
  */
 function unPlug($name)
 {
-    $objs = getOption(PLUGIN_INSTANCE);
-    if (isset($objs[$name])) {
-        $plug = $objs[$name];
-        $objs[$name] = null;
-        unset($objs[$name]);
-
-        return $plug;
-    } else {
-        return false;
-    }
+    return plugInStore($name, false);
 }
 
 /**
@@ -839,11 +872,8 @@ function rePlug($name, $object)
 {
     $object[NAME] = $name;
     $object[THIS] = new Adapter($name);
-    $objs = getOption(PLUGIN_INSTANCE);
-    $plug = $objs[$name];
-    $objs[$name] = $object;
 
-    return $plug;
+    return plugInStore($name, $object, $object[_IS_SECURITY]);
 }
 
 /**
@@ -857,9 +887,8 @@ function rePlug($name, $object)
 function initPlugIn(array $arr, $pause = false)
 {
     $init = [];
-    $objs = getOption(PLUGIN_INSTANCE);
     foreach ($arr as $plugIn => $config) {
-        if (!isset($objs[$plugIn]) || !empty($config)) {
+        if (empty(plugInStore($plugIn)) || !empty($config)) {
             if (empty($config)) {
                 $config = [];
             }
@@ -883,8 +912,8 @@ function initPlugIn(array $arr, $pause = false)
  */
 function plugAlias($targetPlugin, $aliasName)
 {
-    $objs = getOption(PLUGIN_INSTANCE);
-    if (!isset($objs[$targetPlugin])) {
+    $oPlugin = plugInStore($targetPlugin);
+    if (empty($oPlugin)) {
         throw new DomainException(
             'Plug alias fail. Target: ['.
             $targetPlugin.
@@ -893,8 +922,7 @@ function plugAlias($targetPlugin, $aliasName)
             ']'
         );
     }
-    $oPlugin = $objs[$targetPlugin];
-    $objs[$aliasName] = $oPlugin;
+    plugInStore($aliasName, $oPlugin);
 
     return $oPlugin;
 }
@@ -933,8 +961,7 @@ function plug($name, array $config = [])
     if (!is_string($name)) {
         return !trigger_error('Plug name should be string.');
     }
-    $objs = getOption(PLUGIN_INSTANCE);
-    $oPlugin = $objs[$name];
+    $oPlugin = plugInStore($name);
     if (!empty($oPlugin)) {
         plugConfig($oPlugin, $config);
 

@@ -72,8 +72,7 @@ class AliasTest extends PHPUnit_Framework_TestCase
         } elseif (\PMVC\value($a, ['faketask'])) {
             $this->assertTrue((bool) \PMVC\value($a, ['faketask']));
         } else {
-            $obj = getOption(PLUGIN_INSTANCE);
-            $plugin = $obj[$a[NAME]];
+            $plugin = plugInStore($a[NAME]);
             $this->assertTrue((bool) \PMVC\value($plugin, ['parentAlias', 'faketask']));
         }
         $a->FakeTask();
@@ -121,12 +120,12 @@ class AliasTest extends PHPUnit_Framework_TestCase
     {
         $oAlias = new FakeAliasWithoutArrayAccess();
         $oAlias->faketask();
-        $obj = \PMVC\value($oAlias, ['faketask', 'caller']);
+        $oCaller = \PMVC\value($oAlias, ['faketask', 'caller']);
         $this->assertTrue(!is_a(
-                $obj,
+                $oCaller,
                 '\PMVC\Adapter'
             ) &&
-            is_object($obj)
+            is_object($oCaller)
         );
     }
 
