@@ -787,8 +787,8 @@ function addPlugInFolders(array $folders, array $alias = [])
  * PlugIn Store for Security.
  *
  * @param string $key        plug-in name
- * @param mixed  $value      [null: get only] [false: unset] [other: set] 
- * @param bool   $isSecurity security flag 
+ * @param mixed  $value      [null: get only] [false: unset] [other: set]
+ * @param bool   $isSecurity security flag
  *
  * @return mixed
  */
@@ -801,7 +801,11 @@ function plugInStore($key, $value = null, $isSecurity = false)
         $currentPlug = $plugins[$key];
     }
     if (is_null($value)) {
-        return $currentPlug;
+        if (!is_null($key)) {
+            return $currentPlug;
+        } else {
+            return array_keys($plugins);
+        }
     }
     if ($isSecurity) {
         if ($currentPlug) {
@@ -810,7 +814,7 @@ function plugInStore($key, $value = null, $isSecurity = false)
                 'you need check your code if it is safe.'
             );
         }
-        $securitys[$key] = true; 
+        $securitys[$key] = true;
     }
     if (isset($securitys[$key])) {
         return !trigger_error('You can not change security plugin. ['.$key.']');
@@ -823,6 +827,7 @@ function plugInStore($key, $value = null, $isSecurity = false)
     } else {
         $plugins[$key] = $value;
     }
+
     return $currentPlug;
 }
 
