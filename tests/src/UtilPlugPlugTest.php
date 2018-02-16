@@ -99,6 +99,12 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testCheckNullPlug()
+    {
+        $isExits = exists(null, 'plugin');
+        $this->assertFalse($isExits);
+    }
+
     /**
      * @expectedException PHPUnit_Framework_Error
      * @expectedExceptionMessage class not found

@@ -964,7 +964,7 @@ function plugConfig($oPlugin, array $config)
 function plug($name, array $config = [])
 {
     if (!is_string($name)) {
-        return !trigger_error('Plug name should be string.');
+        return !trigger_error('Plug name should be string. '.print_r($name, true));
     }
     if (empty($config)) {
         $oPlugin = plugInStore($name);
