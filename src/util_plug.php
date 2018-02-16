@@ -735,7 +735,7 @@ function exists($v, $type)
 {
     switch (strtolower($type)) {
     case 'plugin':
-        return !empty(plugInStore($v));
+        return !empty($v) && plugInStore($v);
     case 'plug': //check if OK to plug
         return plug($v, [PAUSE => true]);
     default:
