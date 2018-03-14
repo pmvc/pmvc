@@ -17,6 +17,14 @@ class UtilPlugDevTest extends PHPUnit_Framework_TestCase
     /**
      * @doesNotPerformAssertions
      */
+    public function testVariableDump()
+    {
+        v('test');
+    }
+
+    /**
+     * @doesNotPerformAssertions
+     */
     public function testLog()
     {
         log('test');

@@ -674,6 +674,16 @@ function d()
 }
 
 /**
+ * Variable dump.
+ *
+ * @return void
+ */
+function v()
+{
+    d(json_encode(func_get_args()));
+}
+
+/**
  * Log for debug.
  *
  * @return void
