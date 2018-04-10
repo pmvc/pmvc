@@ -26,7 +26,7 @@ use stdclass;
 option(
     'set',
     [
-        ERRORS          => new HashMap(),
+        ERRORS => new HashMap(),
     ]
 );
 
@@ -338,7 +338,7 @@ function &fromJson($s)
  * @param mixed  $haystack search on array or string
  * @param string $needle   search keyword
  *
- * @return array
+ * @return bool
  */
 function hasKey($haystack, $needle)
 {
@@ -387,7 +387,7 @@ function arrayReplace()
  *
  * @param mixed $p parameters
  *
- * @return string hash result
+ * @return array
  */
 function toArray($p)
 {
@@ -423,7 +423,7 @@ function isArrayAccess($obj)
  */
 function isArray($obj)
 {
-    return  is_array($obj) || isArrayAccess($obj);
+    return is_array($obj) || isArrayAccess($obj);
 }
 
 /**
@@ -575,7 +575,7 @@ function &get(&$a, $k = null, $default = null)
 /**
  * Test is a valid string contain number.
  *
- * @param string $s Test string
+ * @param mixed $s Test string
  *
  * @return bool
  */
@@ -620,7 +620,7 @@ function set(&$a, $k, $v = null)
  * @param mixed $k       which want to get
  * @param mixed $default value or default
  *
- * @return string hash result
+ * @return mixed
  */
 function &getOption($k = null, $default = null)
 {
@@ -716,10 +716,10 @@ function isDev()
 /**
  * Cache function run result.
  *
- * @param mixed $func run function
- * @param mixed $args parameters
+ * @param function $func run function
+ * @param array    $args parameters
  *
- * @return bool
+ * @return mixed Cache result.
  */
 function run($func, $args)
 {
@@ -736,8 +736,8 @@ function run($func, $args)
 /**
  * Check exists.
  *
- * @param mixed $v    value
- * @param mixed $type [array|string]
+ * @param mixed  $v    A mixed type to check exists.
+ * @param string $type Check type.
  *
  * @return bool
  */
@@ -844,9 +844,9 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
 /**
  * Call Plug-In.
  *
- * @param sring $plugIn plug-in name
- * @param sring $func   plug-in function
- * @param sring $args   plug-in function parameters
+ * @param string $plugIn plug-in name
+ * @param string $func   plug-in function name
+ * @param array  $args   plug-in function parameters
  *
  * @return mixed
  */
@@ -868,7 +868,7 @@ function callPlugin($plugIn, $func, $args = [])
  *
  * @param sring $name plug-in name
  *
- * @return mixed PlugIn
+ * @return PlugIn
  */
 function unPlug($name)
 {
@@ -878,10 +878,10 @@ function unPlug($name)
 /**
  * Re plug.
  *
- * @param sring $name   plug-in name
- * @param mixed $object plug-in plugin instance
+ * @param sring  $name   plug-in name
+ * @param PlugIn $object plug-in plugin instance
  *
- * @return mixed PlugIn
+ * @return PlugIn
  */
 function rePlug($name, $object)
 {
