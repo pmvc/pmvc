@@ -385,16 +385,24 @@ function arrayReplace()
 /**
  * Keep string and array both in array type.
  *
- * @param mixed $p parameters
+ * @param mixed $p          parameters
+ * @param bool  $onlyValues Return all the values of an array
  *
  * @return array
  */
-function toArray($p)
+function toArray($p, $onlyValues = false)
 {
     if (is_null($p)) {
         $p = [];
     } elseif (is_object($p)) {
-        $p = (array) $p;
+        if (isArrayAccess($p)) {
+            $p = get($p);
+        } else {
+            $p = (array) $p;
+        }
+        if ($onlyValues) {
+            $p = array_values($p);
+        }
     } elseif (!is_array($p)) {
         $p = [$p];
     }

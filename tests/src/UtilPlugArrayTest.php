@@ -55,33 +55,4 @@ class UtilPlugArrayTest extends PHPUnit_Framework_TestCase
         $actual = arrayReplace($a, 'bar');
         $this->assertEquals($expected, $actual);
     }
-
-    public function testToArrayWithNull()
-    {
-        $expected = [];
-        $actual = toArray(null);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testToArrayWithString()
-    {
-        $s = 'foo';
-        $expected = [$s];
-        $actual = toArray($s);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testToArrayWithArray()
-    {
-        $a = ['foo'];
-        $actual = toArray($a);
-        $this->assertEquals($a, $actual);
-    }
-
-    public function testToArrayWithObject()
-    {
-        $a = ['foo'];
-        $actual = toArray((object) $a);
-        $this->assertEquals($a, $actual);
-    }
 }
