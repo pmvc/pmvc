@@ -20,6 +20,7 @@ class UtilPlugDevTest extends PHPUnit_Framework_TestCase
     public function testVariableDump()
     {
         v('test');
+        v('1', '2');
     }
 
     /**

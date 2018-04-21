@@ -688,7 +688,13 @@ function d()
  */
 function v()
 {
-    d(json_encode(func_get_args()));
+    $p = func_get_args();
+    if (1 === count($p)) {
+        $p = $p[0];
+    } else {
+        $p['-'] = 0;
+    }
+    d(json_encode($p));
 }
 
 /**
