@@ -15,7 +15,7 @@ class PlugInTest extends PHPUnit_Framework_TestCase
 
     public function testUpdate()
     {
-        $class = __NAMESPACE__.'\FakePlug';
+        $class = __NAMESPACE__.'\FakePlugIn';
         $plug_name = 'fake_plug';
         $plug = plug(
             $plug_name, [
@@ -58,7 +58,7 @@ class PlugInTest extends PHPUnit_Framework_TestCase
 
     public function testInstanceof()
     {
-        $class = __NAMESPACE__.'\FakePlug';
+        $class = __NAMESPACE__.'\FakePlugIn';
         $plug_name = 'fake_plug';
         $plug = plug(
             $plug_name, [

@@ -692,6 +692,7 @@ function v()
     if (1 === count($p)) {
         $p = $p[0];
     } else {
+        // avoid console.table
         $p['-'] = 0;
     }
     d(json_encode($p));

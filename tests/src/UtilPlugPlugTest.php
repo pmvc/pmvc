@@ -21,7 +21,7 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 
     public function testPlug()
     {
-        $class = __NAMESPACE__.'\FakePlug';
+        $class = __NAMESPACE__.'\FakePlugIn';
         $plug = 'test';
         $file = __DIR__.'/../resources/FakePlugFile.php';
         $test = plug($plug, [

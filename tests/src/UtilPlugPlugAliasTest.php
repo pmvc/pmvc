@@ -17,7 +17,7 @@ class UtilPlugPlugAliasTest extends PHPUnit_Framework_TestCase
 
     public function testAlias()
     {
-        $class = __NAMESPACE__.'\FakePlug';
+        $class = __NAMESPACE__.'\FakePlugIn';
         plug(
             'test', [
             _CLASS => $class,

@@ -2,7 +2,7 @@
 
 namespace PMVC;
 
-class FakePlug extends PlugIn
+class FakePlugIn extends PlugIn
 {
     public function onTest()
     {

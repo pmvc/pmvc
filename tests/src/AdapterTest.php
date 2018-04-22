@@ -11,7 +11,7 @@ class AdapterTest extends PHPUnit_Framework_TestCase
 
     public function setup()
     {
-        $this->_class = __NAMESPACE__.'\FakePlug';
+        $this->_class = __NAMESPACE__.'\FakePlugIn';
         $this->_name = 'fake_plug';
     }
 
@@ -38,8 +38,7 @@ class AdapterTest extends PHPUnit_Framework_TestCase
             ]
         );
         $actual = (string) $plug;
-        $expected = 'PMVC\FakePlug';
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($this->_class, $actual);
     }
 
     public function testUnset()
