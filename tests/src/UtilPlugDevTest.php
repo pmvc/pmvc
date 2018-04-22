@@ -24,7 +24,7 @@ class UtilPlugDevTest extends PHPUnit_Framework_TestCase
     public function testVariableDump()
     {
         plug('debug', [
-            _CLASS => $this->_debugClass,
+            _CLASS      => $this->_debugClass,
             'dCallback' => function () {
                 $args = func_get_args();
                 $arr = fromJson($args[0], true);
@@ -36,9 +36,9 @@ class UtilPlugDevTest extends PHPUnit_Framework_TestCase
                             $int = false;
                         }
                     }
-                    $this->assertFalse($int); 
+                    $this->assertFalse($int);
                 }
-            }
+            },
         ]);
         v('test');
         v('1', '2');
