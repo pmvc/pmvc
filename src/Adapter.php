@@ -25,9 +25,10 @@ use SplSubject;
 /**
  * PMVC PlugIn Adapter.
  *
- * Adapter help you unplug class, will not leak to global.
+ * Adapter help you not leak plug-in class instance to global,
+ * and especially useful in unplug.
  * It purpose let plugin's attribute can not access even it's public,
- * If you need access variable, need replace with $plug['xxx'].
+ * If you need access variable, need replace $plug->xxx with $plug['xxx'].
  *
  * @category CategoryName
  *
