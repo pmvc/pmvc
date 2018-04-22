@@ -43,18 +43,6 @@ class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
-    public function testPrependApp()
-    {
-        plug('controller', [
-            _PLUGIN_FILE => $this->_fakePlugFile,
-        ]);
-        prependApp('fake', true, 'isdev');
-        unplug('controller');
-    }
-
     public function testLoadEmpty()
     {
         $result = load(0);

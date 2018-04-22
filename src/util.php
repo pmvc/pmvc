@@ -94,34 +94,12 @@ function _l($name, $export = null)
 }
 
 /**
- * Prepend app folder path.
- *
- * @param string $name         file name
- * @param string $bTransparent Transparent app folder
- * @param string $func         For unit test
- *
- * @return mixed
- */
-function prependApp(
-    $name,
-    $bTransparent = null,
-    $func = 'transparent'
-) {
-    if (!$bTransparent || !exists('controller', 'plugin')) {
-        return realpath($name);
-    }
-
-    return run(__NAMESPACE__.'\\'.$func, [$name]);
-}
-
-/**
  * Smart Load.
  *
- * @param string $name        name
- * @param mixed  $dirs        dirs
- * @param string $output      Extract one variable
- * @param bool   $once        if incldue once
- * @param bool   $bPrependApp search for application folder
+ * @param string $name   name
+ * @param mixed  $dirs   dirs
+ * @param string $output Extract one variable
+ * @param bool   $once   if incldue once
  *
  * @return mixed
  */
@@ -129,8 +107,7 @@ function load(
     $name,
     $dirs = null,
     $output = null,
-    $once = true,
-    $bPrependApp = null
+    $once = true
 ) {
     if (empty($name)) {
         return 1;
@@ -143,7 +120,6 @@ function load(
         [
             $name,
             $dirs,
-            $bPrependApp,
         ]
     );
     if ($file) {
@@ -156,20 +132,19 @@ function load(
 /**
  * Smart find.
  *
- * @param string $name        name
- * @param mixed  $dirs        dirs
- * @param bool   $bPrependApp search for application folder
+ * @param string $name name
+ * @param mixed  $dirs dirs
  *
  * @return mixed
  */
-function find($name, $dirs = null, $bPrependApp = null)
+function find($name, $dirs = null)
 {
     $dirs = splitDir($dirs);
     foreach ($dirs as $dirPath) {
         if (!realpath($dirPath)) {
             continue;
         }
-        $r = prependApp(mergeFileName($name, $dirPath), $bPrependApp);
+        $r = realpath(mergeFileName($name, $dirPath));
         if ($r) {
             return $r;
         }
