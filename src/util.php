@@ -199,6 +199,10 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
     ];
 }
 
+/*
+ * File -->.
+ */
+
 /**
  * String Util (Path or Folder parse) <!---.
  */
@@ -302,6 +306,22 @@ function &fromJson($s)
         return $s;
     }
 }
+
+/**
+ * Test is a valid string contain number.
+ *
+ * @param mixed $s Test string
+ *
+ * @return bool
+ */
+function testString($s)
+{
+    return is_string($s) || is_numeric($s) || is_null($s) || is_bool($s);
+}
+
+/*
+ * String Util -->.
+ */
 
 /**
  * Array Util <!---.
@@ -455,6 +475,10 @@ function &ref(&$v, $new = null)
     }
 }
 
+/*
+ * Array Util -->.
+ */
+
 /**
  * Data access <!---.
  */
@@ -556,18 +580,6 @@ function &get(&$a, $k = null, $default = null)
 }
 
 /**
- * Test is a valid string contain number.
- *
- * @param mixed $s Test string
- *
- * @return bool
- */
-function testString($s)
-{
-    return is_string($s) || is_numeric($s) || is_null($s) || is_bool($s);
-}
-
-/**
  * Magic Set function.
  *
  * @param array $a array
@@ -592,6 +604,10 @@ function set(&$a, $k, $v = null)
         return $a[$k] = $v; //exactly set key and value
     }
 }
+
+/*
+ * Data access -->.
+ */
 
 /**
  * Option <!---.
@@ -641,6 +657,10 @@ function &option($act, $k = null, $v = null)
 
     return $return;
 }
+
+/*
+ * Option -->.
+ */
 
 /**
  * Misc <!---.
@@ -746,6 +766,10 @@ function exists($v, $type)
         );
     }
 }
+
+/*
+ * Misc -->.
+ */
 
 /**
  * Plugins <!---.
@@ -1065,3 +1089,7 @@ function plug($name, array $config = [])
 
     return $oPlugin->update();
 }
+
+/*
+ * Plugins -->.
+ */
