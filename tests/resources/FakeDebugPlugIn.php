@@ -4,7 +4,7 @@ namespace PMVC;
 
 class FakeDebugPlugIn extends PlugIn
 {
-    function d()
+    public function d()
     {
         if (is_callable($this['dCallback'])) {
             $args = func_get_args();
