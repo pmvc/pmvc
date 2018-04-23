@@ -42,6 +42,20 @@ class UtilPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testExistsNotSupport()
     {
-        exists('', 'xxx-type');
+        exists('test', 'xxx-type');
+    }
+
+    public function testExistsWithNull()
+    {
+        $this->assertFalse(exists(null, null));
+    }
+
+    public function testExistsWithZero()
+    {
+        $p = \PMVC\plug('0', [
+            _CLASS=>'\PMVC\FakePlugIn'
+        ]);
+        $this->assertTrue(exists(0, 'plugin'));
+        unplug('0');
     }
 }

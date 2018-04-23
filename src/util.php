@@ -753,11 +753,18 @@ function run($func, $args)
  */
 function exists($v, $type)
 {
+    if (!strlen($v)) {
+        return false;
+    }
     switch (strtolower($type)) {
     case 'plugin':
-        return !empty($v) && plugInStore($v);
+        return !!plugInStore($v);
     case 'plug': //check if OK to plug
-        return plug($v, [PAUSE => true]);
+        if (plugInStore($v)) {
+            return true;
+        } else {
+            return plug($v, [PAUSE => true]);
+        }
     default:
         throw new DomainException(
             'Exists checker not support ['.
