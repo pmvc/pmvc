@@ -688,7 +688,8 @@ function v()
         $p = $p[0];
     } else {
         // avoid console.table
-        $p['-'] = 0;
+        $p[''] = $p[0];
+        unset($p[0]);
     }
     d(json_encode($p));
 }
