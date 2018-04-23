@@ -43,11 +43,19 @@ class UtilPlugToArrayTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($a, $actual);
     }
 
-    public function testToArrayOnlyValues()
+    public function testToArrayWithHashMapAndOnlyValues()
     {
         $a = ['a'=>'foo', 'b'=>'bar'];
         $hash = new HashMap($a);
         $actual = toArray($hash, true);
+        $expedted = ['foo', 'bar'];
+        $this->assertEquals($expedted, $actual);
+    }
+
+    public function testToArrayOnlyValues()
+    {
+        $a = ['a'=>'foo', 'b'=>'bar'];
+        $actual = toArray($a, true);
         $expedted = ['foo', 'bar'];
         $this->assertEquals($expedted, $actual);
     }

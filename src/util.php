@@ -395,11 +395,11 @@ function toArray($p, $onlyValues = false)
         } else {
             $p = (array) $p;
         }
-        if ($onlyValues) {
-            $p = array_values($p);
-        }
     } elseif (!is_array($p)) {
         $p = [$p];
+    }
+    if ($onlyValues) {
+        $p = array_values($p);
     }
 
     return $p;
