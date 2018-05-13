@@ -21,7 +21,7 @@ namespace PMVC;
 use ArrayAccess;
 use DomainException;
 use OverflowException;
-use stdclass;
+use stdClass;
 
 option(
     'set',
