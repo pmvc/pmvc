@@ -91,3 +91,7 @@ class hello_world extends \PMVC\PlugIn
 ## PHP Version
  * HHVM Support
 ![tested](http://php-eye.com/badge/pmvc/pmvc/tested.svg)
+
+---
+
+MIT 2018
