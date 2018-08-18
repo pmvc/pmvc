@@ -30,7 +30,7 @@ A simple MVC for unidirectional dataflow architecture.
 
 ## How to use?
 ```
-plug( 'plugin name', ['option'] );
+plug( 'PluginName', ['option'] );
 ```
 ### Plugin Hello world
    * Source Code
