@@ -30,7 +30,7 @@ A simple MVC for unidirectional dataflow architecture.
 
 ## How to use?
 ```
-plug( 'plugin name', ['option'] );
+plug( 'PluginName', ['option'] );
 ```
 ### Plugin Hello world
    * Source Code
@@ -91,3 +91,7 @@ class hello_world extends \PMVC\PlugIn
 ## PHP Version
  * HHVM Support
 ![tested](http://php-eye.com/badge/pmvc/pmvc/tested.svg)
+
+---
+
+MIT 2018
