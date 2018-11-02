@@ -722,6 +722,7 @@ function dev()
 function isDev()
 {
     $result = callPlugin('dev', 'isDev', func_get_args());
+
     return !empty($result);
 }
 
