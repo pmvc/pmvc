@@ -721,7 +721,8 @@ function dev()
  */
 function isDev()
 {
-    return !empty(callPlugin('dev', 'isDev', func_get_args()));
+    $result = callPlugin('dev', 'isDev', func_get_args());
+    return !empty($result);
 }
 
 /**
@@ -925,7 +926,8 @@ function initPlugIn(array $arr, $pause = false)
 {
     $init = [];
     foreach ($arr as $plugIn => $config) {
-        if (empty(plugInStore($plugIn)) || !empty($config)) {
+        $isPlug = plugInStore($plugIn);
+        if (empty($isPlug) || !empty($config)) {
             if (empty($config)) {
                 $config = [];
             }
