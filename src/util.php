@@ -1050,9 +1050,7 @@ function plug($name, array $config = [])
             $file = $name.'/'.$name.'.php';
             $r = load($file, $folders['folders'], _INIT_CONFIG, true, false);
         }
-        $class = (!empty($r->var[_INIT_CONFIG][_CLASS]))
-            ? $r->var[_INIT_CONFIG][_CLASS]
-            : false;
+        $class = value($r, ['var', _INIT_CONFIG, _CLASS]);
     }
     $exists = class_exists($class);
     if (!empty($config[PAUSE])) {
