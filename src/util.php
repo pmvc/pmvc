@@ -1083,10 +1083,10 @@ function plug($name, array $config = [])
     if (false === strpos($name, 'debug')) {
         dev(
             /**
-            * Dev.
-            *
-            * @help Debug for PMVC plug.
-            */
+             * Dev.
+             *
+             * @help Debug for PMVC plug.
+             */
             function () use ($name) {
                 $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
