@@ -1082,21 +1082,23 @@ function plug($name, array $config = [])
     plugConfig($oPlugin, $config);
     rePlug($name, $oPlugin);
     $oPlugin->init();
-    dev(
-        /**
-         * Dev.
-         *
-         * @help Debug for PMVC plug.
-         */
-        function () use ($name) {
-            $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
+    if (false === strpos($name, 'debug')) {
+        dev(
+            /**
+            * Dev.
+            *
+            * @help Debug for PMVC plug.
+            */
+            function () use ($name) {
+                $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
-            return [
+                return [
                 'name'  => $name,
                 'trace' => $trace,
-            ];
-        }, 'plug'
-    );
+                ];
+            }, 'plug'
+        );
+    }
 
     return $oPlugin->update();
 }
