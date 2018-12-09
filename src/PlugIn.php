@@ -82,8 +82,9 @@ class PlugIn extends HashMap implements SplObserver
     {
         if ($subject) {
             $state = 'on'.$subject->getName();
-            if ($this->isCallable($state)) {
-                return $this->{$state}($subject);
+            $func = $this->isCallable($state);
+            if ($func) {
+                return call_user_func($func, $subject);
             }
         }
 
