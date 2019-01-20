@@ -67,14 +67,14 @@ function l($name, $export = null, $once = true)
         return !trigger_error('File not found. ['.$name.']');
     }
     if ($once) {
-        return run(__NAMESPACE__.'\_l', [$real, $export]);
+        return run(ns('_l'), [$real, $export]);
     } else {
         return _l($real, $export);
     }
 }
 
 /**
- * Private funciton for l.
+ * Private function for l.
  *
  * @param string $name   file name
  * @param string $export Extract one variable name.
@@ -116,7 +116,7 @@ function load(
      * Cache find in load case, if some case can't use cahce please use find directly
      */
     $file = run(
-        __NAMESPACE__.'\find',
+        ns('find'),
         [
             $name,
             $dirs,
@@ -464,7 +464,7 @@ function value($a, array $path, $default = null)
  */
 function &ref(&$v, $new = null)
 {
-    if (is_a($v, __NAMESPACE__.'\BaseObject')) {
+    if (is_a($v, ns('BaseObject'))) {
         return $v($new);
     } else {
         if (!is_null($new)) {
@@ -665,6 +665,18 @@ function &option($act, $k = null, $v = null)
 /**
  * Misc <!---.
  */
+
+/**
+ * Transpile namespace string.
+ *
+ * @param string $s class string or function string
+ *
+ * @return namestpace string
+ */
+function ns($s)
+{
+    return __NAMESPACE__.'\\'.$s;
+}
 
 /**
  * Dump for debug.
@@ -968,14 +980,14 @@ function plugAlias($targetPlugin, $aliasName)
 }
 
 /**
- * Plug Config.
+ * Plug With Config.
  *
  * @param PlugIn $oPlugin Plug-in object
  * @param array  $config  Plug-in configs
  *
  * @return void
  */
-function plugConfig($oPlugin, array $config)
+function plugWithConfig($oPlugin, array $config)
 {
     if (!empty($oPlugin) && !empty($config)) {
         if (is_callable(get($config, _LAZY_CONFIG))) {
@@ -991,25 +1003,16 @@ function plugConfig($oPlugin, array $config)
 /**
  * Plug.
  *
- * @param string $name   Plug-in name
- * @param array  $config Plug-in configs
+ * @param array  $folders Plug-in folder.
+ * @param array  $plugTo  New name in plugin folder.
+ * @param string $name    Plug-in name
+ * @param array  $config  Plug-in configs
  *
  * @return PlugIn
  */
-function plug($name, array $config = [])
+function plugInGenerate($folders, $plugTo, $name, array $config = [])
 {
-    if (!is_string($name)) {
-        return !trigger_error('Plug name should be string. '.print_r($name, true));
-    }
-    if (empty($config)) {
-        $oPlugin = plugInStore($name);
-    } else {
-        $oPlugin = plugInStore($name, null, get($config, _IS_SECURITY));
-        plugConfig($oPlugin, $config);
-    }
-    if (!empty($oPlugin)) {
-        return $oPlugin->update();
-    }
+    // get config from global options
     $names = explode('_', $name);
     $config = array_replace(
         value(
@@ -1024,11 +1027,7 @@ function plug($name, array $config = [])
         ),
         $config
     );
-    $folders = folders(_PLUGIN);
-    $alias = $folders['alias'];
-    if (isset($alias[$name])) {
-        return plugAlias($alias[$name], $name);
-    }
+
     if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
         $class = $config[_CLASS];
     } else {
@@ -1077,8 +1076,8 @@ function plug($name, array $config = [])
         $config = arrayReplace($r->var[_INIT_CONFIG], $config);
         $config[_PLUGIN_FILE] = $r->name;
     }
-    plugConfig($oPlugin, $config);
-    rePlug($name, $oPlugin);
+    plugWithConfig($oPlugin, $config);
+    rePlug($plugTo, $oPlugin);
     $oPlugin->init();
     if (false === strpos($name, 'debug')) {
         dev(
@@ -1099,6 +1098,39 @@ function plug($name, array $config = [])
     }
 
     return $oPlugin->update();
+}
+
+/**
+ * Plug.
+ *
+ * @param string $name   Plug-in name
+ * @param array  $config Plug-in configs
+ *
+ * @return PlugIn
+ */
+function plug($name, array $config = [])
+{
+    if (!is_string($name)) {
+        return !trigger_error('Plug name should be string. '.print_r($name, true));
+    }
+    if (empty($config)) {
+        $oPlugin = plugInStore($name);
+    } else {
+        $oPlugin = plugInStore($name, null, get($config, _IS_SECURITY));
+        plugWithConfig($oPlugin, $config);
+    }
+    if (!empty($oPlugin)) {
+        return $oPlugin->update();
+    }
+
+    // check alias
+    $folders = folders(_PLUGIN);
+    $alias = $folders['alias'];
+    if (isset($alias[$name])) {
+        return plugAlias($alias[$name], $name);
+    }
+
+    return plugInGenerate($folders, $name, $name, $config);
 }
 
 /*
