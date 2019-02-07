@@ -496,22 +496,21 @@ function clean(&$a, $k = null)
     if (isArrayAccess($a)) {
         $a->offsetUnset($k);
 
-        return;
+        return $a;
     }
     if (is_null($k)) { //clean all
         $a = [];
-        unset($a);
 
-        return;
+        return $a;
     } else {
         if (isArray($k)) { //replace
             $a = $k;
 
-            return;
+            return $a;
         } else {
             unset($a[$k]); //clean by key
 
-            return;
+            return $a;
         }
     }
 }
