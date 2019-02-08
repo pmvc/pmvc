@@ -6,30 +6,6 @@ use PHPUnit_Framework_TestCase;
 
 class UtilPlugTest extends PHPUnit_Framework_TestCase
 {
-    public function testSplitDir()
-    {
-        $dir = '111:222';
-        $expected = ['111', '222'];
-        $actual = splitDir($dir);
-        $this->assertEquals($expected, $actual);
-        $winDir = 'aaa;bbb';
-        $expected = ['aaa', 'bbb'];
-        $actual = splitDir($winDir);
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testHasLastSlash()
-    {
-        $a = 'xxx/';
-        $this->assertEquals($a, lastSlash($a));
-    }
-
-    public function testAppendLastSlash()
-    {
-        $a = 'xxx';
-        $this->assertEquals($a.'/', lastSlash($a));
-    }
-
     public function testPlugInCanNotPlug()
     {
         $plug = 'xxxxxxxxxxxxxxxxxx';

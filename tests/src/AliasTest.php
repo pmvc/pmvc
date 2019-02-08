@@ -50,7 +50,7 @@ class AliasTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider getAliasProvider
      */
-    public function testSourceFileAlias($a)
+    public function testSourceFromFile($a)
     {
         option('set', 'd', 0);
         $a->FakeTask();
