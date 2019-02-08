@@ -916,7 +916,7 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
 function callPlugin($plugIn, $func = null, $args = [])
 {
     if (exists($plugIn, 'plugin')) {
-      return is_null($func) ?
+        return is_null($func) ?
         plug($plugIn) :
         call_user_func_array(
             [
