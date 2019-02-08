@@ -319,6 +319,34 @@ function testString($s)
     return is_string($s) || is_numeric($s) || is_null($s) || is_bool($s);
 }
 
+/**
+ * Transform camelcase.
+ *
+ * @param string $s    Input with camel case.
+ * @param string $join Delimiter.
+ *
+ * @return mixed
+ */
+function camelCase($s, $join = null)
+{
+    $arr = preg_split(
+        '/([A-Z][^A-Z]*)/',
+        $camelcase,
+        -1,
+        PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY
+    );
+    if (is_null($join)) {
+        $result = array_map('strtolower', $arr);
+    } else {
+        $result = strtolower($arr[0]);
+        for ($i = 1, $j = count($arr); $i < $j; $i++) {
+            $result .= '_'.strtolower($arr[$i]);
+        }
+    }
+
+    return $result;
+}
+
 /*
  * String Util -->.
  */
@@ -555,6 +583,9 @@ function &get(&$a, $k = null, $default = null)
                     continue;
                 }
                 if (isset($a->{$i})) {
+                    if (is_bool($i)) {
+                        $i = (int) $i;
+                    }
                     $r[$i] = &$a->{$i};
                 }
             }
