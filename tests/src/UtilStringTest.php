@@ -4,7 +4,7 @@ namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugStringTest extends PHPUnit_Framework_TestCase
+class UtilStringTest extends PHPUnit_Framework_TestCase
 {
     public function testSplitDir()
     {

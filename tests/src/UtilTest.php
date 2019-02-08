@@ -4,7 +4,7 @@ namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugTest extends PHPUnit_Framework_TestCase
+class UtilTest extends PHPUnit_Framework_TestCase
 {
     public function testPlugInCanNotPlug()
     {
@@ -13,7 +13,7 @@ class UtilPlugTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException DomainException
+     * @expectedException        DomainException
      * @expectedExceptionMessage Exists checker not support
      */
     public function testExistsNotSupport()
@@ -28,17 +28,21 @@ class UtilPlugTest extends PHPUnit_Framework_TestCase
 
     public function testIsOkToPlugWithAlreadyPlug()
     {
-        $p = \PMVC\plug('test', [
+        $p = \PMVC\plug(
+            'test', [
             _CLASS=> '\PMVC\FakePlugIn',
-        ]);
+            ]
+        );
         $this->assertTrue(exists('test', 'plug'));
     }
 
     public function testExistsWithZero()
     {
-        $p = \PMVC\plug('0', [
+        $p = \PMVC\plug(
+            '0', [
             _CLASS=> '\PMVC\FakePlugIn',
-        ]);
+            ]
+        );
         $this->assertTrue(exists(0, 'plugin'));
         unplug('0');
     }

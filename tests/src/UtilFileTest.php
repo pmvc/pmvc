@@ -4,7 +4,7 @@ namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugFileTest extends PHPUnit_Framework_TestCase
+class UtilFileTest extends PHPUnit_Framework_TestCase
 {
     public function testRealPathWithEmpty()
     {

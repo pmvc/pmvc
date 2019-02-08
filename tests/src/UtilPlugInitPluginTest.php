@@ -9,18 +9,22 @@ class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
     public function setup()
     {
         //unplug('test');
-        addPlugInFolders([
+        addPlugInFolders(
+            [
             __DIR__.'/../resources/plugin1',
-        ]);
+            ]
+        );
     }
 
     public function testIncludeOnly()
     {
-        initPlugin([
+        initPlugin(
+            [
             'test' => [
                 _PLUGIN_FILE => __DIR__.'/../resources/FakePlugInclude.php',
             ],
-        ], true);
+            ], true
+        );
         $this->assertTrue(class_exists(__NAMESPACE__.'\FakePlugInclude'), 'Class should exists');
         $this->assertFalse(exists('test', 'plugin'), 'Plugin should not exists');
     }
@@ -29,9 +33,11 @@ class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
     {
         $plug = 'testplugin';
         unplug($plug);
-        $plugins = initPlugin([
+        $plugins = initPlugin(
+            [
             $plug => null,
-        ]);
+            ]
+        );
         $this->assertTrue(isset($plugins[$plug]));
     }
 
@@ -39,9 +45,11 @@ class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
     {
         $plug = 'testplugin';
         $test = plug($plug);
-        $plugins = initPlugin([
+        $plugins = initPlugin(
+            [
             $plug => null,
-        ]);
+            ]
+        );
         $this->assertFalse(isset($plugins[$plug]));
     }
 
@@ -49,9 +57,11 @@ class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
     {
         $plug = 'testplugin';
         $test = plug($plug);
-        $plugins = initPlugin([
+        $plugins = initPlugin(
+            [
             $plug => [0],
-        ]);
+            ]
+        );
         $this->assertTrue(isset($plugins[$plug]));
     }
 }

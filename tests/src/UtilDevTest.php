@@ -4,7 +4,7 @@ namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugDevTest extends PHPUnit_Framework_TestCase
+class UtilDevTest extends PHPUnit_Framework_TestCase
 {
     public function setup()
     {
@@ -23,7 +23,8 @@ class UtilPlugDevTest extends PHPUnit_Framework_TestCase
 
     public function testVariableDump()
     {
-        plug('debug', [
+        plug(
+            'debug', [
             _CLASS      => $this->_debugClass,
             'dCallback' => function () {
                 $args = func_get_args();
@@ -39,7 +40,8 @@ class UtilPlugDevTest extends PHPUnit_Framework_TestCase
                     $this->assertFalse($int);
                 }
             },
-        ]);
+            ]
+        );
         v('test');
         v('1', '2');
     }

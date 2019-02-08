@@ -4,7 +4,7 @@ namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugRefTest extends PHPUnit_Framework_TestCase
+class UtilRefTest extends PHPUnit_Framework_TestCase
 {
     public function testGeneralVerb()
     {
@@ -16,9 +16,11 @@ class UtilPlugRefTest extends PHPUnit_Framework_TestCase
 
     public function testHashmap()
     {
-        $h = new Hashmap([
+        $h = new Hashmap(
+            [
             'a' => 123,
-        ]);
+            ]
+        );
         $a = &\PMVC\ref($h->a);
         $a = 456;
         $this->assertEquals(456, $h['a']);

@@ -4,7 +4,7 @@ namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugFromJsonTest extends PHPUnit_Framework_TestCase
+class UtilFromJsonTest extends PHPUnit_Framework_TestCase
 {
     public function testIsNotJsonString()
     {

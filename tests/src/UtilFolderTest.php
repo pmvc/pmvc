@@ -4,16 +4,20 @@ namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugFolderTest extends PHPUnit_Framework_TestCase
+class UtilFolderTest extends PHPUnit_Framework_TestCase
 {
     public function testDeDuplicate()
     {
-        addPlugInFolders([
+        addPlugInFolders(
+            [
             __DIR__,
-        ]);
-        addPlugInFolders([
+            ]
+        );
+        addPlugInFolders(
+            [
             __DIR__,
-        ]);
+            ]
+        );
         $folders = folders(_PLUGIN);
         $arr = [];
         foreach ($folders['folders'] as $dir) {

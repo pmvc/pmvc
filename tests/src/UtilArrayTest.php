@@ -6,7 +6,7 @@ use Exception;
 use PHPUnit_Framework_Error;
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugArrayTest extends PHPUnit_Framework_TestCase
+class UtilArrayTest extends PHPUnit_Framework_TestCase
 {
     public function testHasKeyString()
     {
@@ -22,7 +22,7 @@ class UtilPlugArrayTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException        PHPUnit_Framework_Error
      * @expectedExceptionMessage Param1 should be array type.
      */
     public function testArrayReplaceWrongType()

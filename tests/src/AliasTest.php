@@ -107,10 +107,12 @@ class AliasTest extends PHPUnit_Framework_TestCase
     {
         $pFake = \PMVC\plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
         $pFake->fakeTask();
-        $this->assertTrue(is_a(
-            $pFake['faketask']->caller,
-            '\PMVC\Adapter'
-        ));
+        $this->assertTrue(
+            is_a(
+                $pFake['faketask']->caller,
+                '\PMVC\Adapter'
+            )
+        );
     }
 
     /**
@@ -121,7 +123,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
         $oAlias = new FakeAliasWithoutArrayAccess();
         $oAlias->fakeTask();
         $oCaller = \PMVC\value($oAlias, ['faketask', 'caller']);
-        $this->assertTrue(!is_a(
+        $this->assertTrue(
+            !is_a(
                 $oCaller,
                 '\PMVC\Adapter'
             ) &&
@@ -131,7 +134,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test alias without implemnet getdir.
-     * @expectedException PHPUnit_Framework_Error
+     *
+     * @expectedException        PHPUnit_Framework_Error
      * @expectedExceptionMessage Method not found
      */
     public function testAliasObjectWithoutGetdir()
@@ -151,7 +155,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test not defned class in alias file.
-     * @expectedException PHPUnit_Framework_Error
+     *
+     * @expectedException        PHPUnit_Framework_Error
      * @expectedExceptionMessage Not defined default Class
      */
     public function testAliasFileWithoutClass()
@@ -171,7 +176,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test defined class not exist.
-     * @expectedException PHPUnit_Framework_Error
+     *
+     * @expectedException        PHPUnit_Framework_Error
      * @expectedExceptionMessage Default class not exists
      */
     public function testAliasFileWithWrongName()
@@ -191,7 +197,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
 
     /**
      * Test not implement invoke.
-     * @expectedException PHPUnit_Framework_Error
+     *
+     * @expectedException        PHPUnit_Framework_Error
      * @expectedExceptionMessage Not implement __invoke
      */
     public function testAliasFileWithoutInvoke()

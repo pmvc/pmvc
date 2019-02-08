@@ -1,7 +1,7 @@
 <?php
 
 $path = __DIR__.'/../vendor/autoload.php';
-include $path;
+require $path;
 
 if (!class_exists('PHPUnit_Framework_TestCase')) {
     class PHPUnit_Framework_TestCase extends

@@ -4,7 +4,7 @@ namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugToArrayTest extends PHPUnit_Framework_TestCase
+class UtilToArrayTest extends PHPUnit_Framework_TestCase
 {
     public function testToArrayWithNull()
     {

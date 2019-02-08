@@ -913,10 +913,12 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
  *
  * @return mixed
  */
-function callPlugin($plugIn, $func, $args = [])
+function callPlugin($plugIn, $func = null, $args = [])
 {
     if (exists($plugIn, 'plugin')) {
-        return call_user_func_array(
+      return is_null($func) ?
+        plug($plugIn) :
+        call_user_func_array(
             [
                 plug($plugIn),
                 $func,

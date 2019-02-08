@@ -6,7 +6,7 @@ use PHPUnit_Framework_Error;
 use PHPUnit_Framework_TestCase;
 use TypeError;
 
-class UtilPlugValueTest extends PHPUnit_Framework_TestCase
+class UtilGetValueTest extends PHPUnit_Framework_TestCase
 {
     public function testGetValue()
     {
@@ -34,9 +34,11 @@ class UtilPlugValueTest extends PHPUnit_Framework_TestCase
     {
         $expected = 'xxx';
         $arr = [ ];
-        $actual = value($arr, ['a', 'b', 'c'], function () use ($expected) {
-            return $expected;
-        });
+        $actual = value(
+            $arr, ['a', 'b', 'c'], function () use ($expected) {
+                return $expected;
+            }
+        );
         $this->assertEquals($expected, $actual);
     }
 
@@ -64,7 +66,7 @@ class UtilPlugValueTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException              PHPUnit_Framework_Error
      * @expectedExceptionMessageRegExp /(Argument 2 passed to PMVC\\value\(\) must be)/
      */
     public function testHandlePathIsNotArray()

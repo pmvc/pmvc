@@ -6,7 +6,7 @@ use Exception;
 use PHPUnit_Framework_Error;
 use PHPUnit_Framework_TestCase;
 
-class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
+class UtilIncludeTest extends PHPUnit_Framework_TestCase
 {
     private $_fakePlugFile;
 
@@ -26,7 +26,7 @@ class UtilPlugIncludeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException        PHPUnit_Framework_Error
      * @expectedExceptionMessage File not found.
      */
     public function testIncludeNotExists()

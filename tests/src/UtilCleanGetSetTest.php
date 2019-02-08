@@ -4,7 +4,7 @@ namespace PMVC;
 
 use stdClass;
 
-class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
+class UtilCleanGetSetTest extends \PHPUnit_Framework_TestCase
 {
     public function testGetMultiValueWithArray()
     {
