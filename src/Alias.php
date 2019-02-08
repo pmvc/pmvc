@@ -48,7 +48,6 @@ trait Alias
         if (method_exists($this, $method)) {
             return [$this, $method];
         }
-        $method = strtolower($method);
         $func = false;
         if (!$this->_typeOfAlias) {
             $this->_typeOfAlias = $this->getTypeOfAlias();
@@ -170,7 +169,7 @@ abstract class AbstractAlias
 }
 
 /**
- * Alias as key, such $this['xxx'].
+ * Forward method call to ArrayClass key, such as $this['xxx'].
  *
  * @category Alias
  *
@@ -194,13 +193,7 @@ class AliasAsKey extends AbstractAlias
      */
     public function get($self, $method, $caller)
     {
-        if (isArray($self) && isset($self[$method])) {
-            $func = $self[$method];
-        } elseif (isset($self->{$method})) {
-            $func = $self->{$method};
-        } else {
-            $func = false;
-        }
+        $func = get($self, strtolower($method));
         if (is_callable($func)) {
             return $func;
         } else {
@@ -210,7 +203,7 @@ class AliasAsKey extends AbstractAlias
 }
 
 /**
- * Alias any not defined function to another class.
+ * Alias undefined function to another class.
  *
  * @category Alias
  *
@@ -274,9 +267,13 @@ class AliasSrcFile extends AbstractAlias
         if (!method_exists($self, 'getDir')) {
             return false;
         }
-        $path = $self->getDir().'src/_'.$method.'.php';
+        $lowerMethod = strtolower($method);
+        $path = $this->_getPath($self, $lowerMethod);
         if (!realpath($path)) {
-            return false;
+            $path = $this->_getPath($self, camelCase($method, '_'));
+            if (!realpath($path)) {
+                return false;
+            }
         }
         $r = l($path, _INIT_CONFIG);
         $class = value($r, ['var', _INIT_CONFIG, _CLASS]);
@@ -292,12 +289,25 @@ class AliasSrcFile extends AbstractAlias
         if (!is_callable($func)) {
             return !trigger_error('Not implement __invoke function');
         }
-        if (isArray($self) && !isset($self[$method])) {
-            $self[$method] = $func;
-        } elseif (!isset($self->{$method})) {
-            $self->{$method} = $func;
+        if (isArray($self) && !isset($self[$lowerMethod])) {
+            $self[$lowerMethod] = $func;
+        } elseif (!isset($self->{$lowerMethod})) {
+            $self->{$lowerMethod} = $func;
         }
 
         return $func;
+    }
+
+    /**
+     * Get alias file path.
+     *
+     * @param object $self   Same with object $this
+     * @param string $method Call which funciton
+     *
+     * @return string
+     */
+    private function _getPath($self, $method)
+    {
+        return $self->getDir().'src/_'.$method.'.php';
     }
 }

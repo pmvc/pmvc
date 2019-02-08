@@ -106,7 +106,7 @@ class AliasTest extends PHPUnit_Framework_TestCase
     public function testCallerWithPlugin()
     {
         $pFake = \PMVC\plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
-        $pFake->faketask();
+        $pFake->fakeTask();
         $this->assertTrue(is_a(
             $pFake['faketask']->caller,
             '\PMVC\Adapter'
@@ -119,7 +119,7 @@ class AliasTest extends PHPUnit_Framework_TestCase
     public function testCallerWithoutPlugin()
     {
         $oAlias = new FakeAliasWithoutArrayAccess();
-        $oAlias->faketask();
+        $oAlias->fakeTask();
         $oCaller = \PMVC\value($oAlias, ['faketask', 'caller']);
         $this->assertTrue(!is_a(
                 $oCaller,
