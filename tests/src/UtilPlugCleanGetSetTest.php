@@ -23,11 +23,11 @@ class UtilPlugCleanGetSetTest extends \PHPUnit_Framework_TestCase
         $key = [new BaseObject(), 'a', 'b', false, null, true];
         $arr = ['a' => 'foo', 'b' => 'bar', false => 'false', null => 'null',  true=> 'true'];
         $this->assertEquals($arr, get($arr, $key), 'Test get array with invalid key');
-        $obj = (object) $arr;
+        $obj = (object) ['a' => 'foo', 'b' => 'bar'];
         $this->assertEquals(
             (array) $obj,
             get($obj, $key),
-            'Test get array with invalid key'
+            'Test get object with invalid key'
         );
     }
 

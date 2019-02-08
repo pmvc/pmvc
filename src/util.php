@@ -86,7 +86,7 @@ function _l($name, $export = null)
     include $name;
     $o = new stdClass();
     $o->name = $name;
-    if ($export) {
+    if (isset($$export)) {
         $o->var = compact($export);
     }
 
@@ -579,13 +579,10 @@ function &get(&$a, $k = null, $default = null)
             }
         } elseif (is_object($a)) {
             foreach ($k as $i) {
-                if (!testString($i)) {
+                if (!is_string($i)) {
                     continue;
                 }
                 if (isset($a->{$i})) {
-                    if (is_bool($i)) {
-                        $i = (int) $i;
-                    }
                     $r[$i] = &$a->{$i};
                 }
             }
