@@ -98,7 +98,7 @@ class Adapter implements ArrayAccess, SplObserver
     {
         if (is_string($k)) {
             $val = $this->__call('__get', [$k]);
-            $val =& ref($val);
+            $val = &ref($val);
         } else {
             $val = $this->__call(__FUNCTION__, [$k]);
         }

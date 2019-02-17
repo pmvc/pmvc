@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase;
 
 class PluginRefTest extends PHPUnit_Framework_TestCase
 {
-    private $_name = 'fake_plug'; 
+    private $_name = 'fake_plug';
 
     public function setup()
     {
@@ -22,33 +22,33 @@ class PluginRefTest extends PHPUnit_Framework_TestCase
     public function testRef()
     {
         $p = \PMVC\plug($this->_name);
-        $p['foo'] = 'bar'; 
-        $abc =& $p['foo']; 
+        $p['foo'] = 'bar';
+        $abc = &$p['foo'];
         $this->assertEquals('bar', $abc);
         $abc = 'def';
         $this->assertEquals('def', $p['foo']);
-    } 
+    }
 
     public function testStringWithoutRef()
     {
         $p = \PMVC\plug($this->_name);
-        $p['foo'] = 'bar'; 
-        $abc = $p['foo']; 
+        $p['foo'] = 'bar';
+        $abc = $p['foo'];
         $this->assertEquals('bar', $abc);
         $abc = 'def';
         $this->assertEquals('bar', $p['foo']);
-    } 
+    }
 
     public function testNonStringWithoutRef()
     {
         $p = \PMVC\plug($this->_name);
         $key = true;
-        $p[$key] = 'bar'; 
-        $abc =& $p[$key]; 
+        $p[$key] = 'bar';
+        $abc = &$p[$key];
         $this->assertEquals('bar', $abc);
         $abc = 'def';
         $this->assertEquals('bar', $p[$key]);
-    } 
+    }
 
     public function testGetAll()
     {
