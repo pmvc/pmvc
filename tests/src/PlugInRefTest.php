@@ -44,7 +44,7 @@ class PluginRefTest extends PHPUnit_Framework_TestCase
         $p = \PMVC\plug($this->_name);
         $key = true;
         $p[$key] = 'bar';
-        $abc = &$p[$key];
+        @$abc = &$p[$key];
         $this->assertEquals('bar', $abc);
         $abc = 'def';
         $this->assertEquals('bar', $p[$key]);
