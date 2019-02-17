@@ -21,7 +21,7 @@ namespace PMVC;
 /**
  * Alias.
  *
- * @category CategoryName
+ * @category Alias
  *
  * @package PMVC
  *

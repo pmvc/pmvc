@@ -19,9 +19,9 @@
 namespace PMVC;
 
 /**
- * PMVC Action.
+ * PMVC Loader.
  *
- * @category CategoryName
+ * @category Core
  *
  * @package PMVC
  *

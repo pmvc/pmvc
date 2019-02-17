@@ -25,7 +25,7 @@ use ArrayAccess;
  * What is overloading?
  * http://php.net/manual/en/language.oop5.overloading.php.
  *
- * @category CategoryName
+ * @category Data
  *
  * @package PMVC
  *

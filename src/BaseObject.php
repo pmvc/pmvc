@@ -21,7 +21,7 @@ namespace PMVC;
 /**
  * PMVC root object.
  *
- * @category CategoryName
+ * @category Data
  *
  * @package PMVC
  *

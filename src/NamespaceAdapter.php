@@ -21,7 +21,7 @@ namespace PMVC;
 /**
  * Magic wrap for namespace function.
  *
- * @category CategoryName
+ * @category Alias
  *
  * @package PMVC
  *

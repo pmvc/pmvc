@@ -25,7 +25,7 @@ use IteratorAggregate;
 /**
  * ListIterator.
  *
- * @category CategoryName
+ * @category Data
  *
  * @package PMVC
  *

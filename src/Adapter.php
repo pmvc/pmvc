@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * @category Plug
+ * @category PlugIn
  *
  * @package PMVC
  *
@@ -30,7 +30,7 @@ use SplSubject;
  * It purpose let plugin's attribute can not access even it's public,
  * If you need access variable, need replace $plug->xxx with $plug['xxx'].
  *
- * @category CategoryName
+ * @category PlugIn
  *
  * @package PMVC
  *

@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * @category Plug
+ * @category PlugIn
  *
  * @package PMVC
  *
@@ -24,7 +24,7 @@ use SplSubject;
 /**
  * PMVC PlugIn.
  *
- * @category CategoryName
+ * @category PlugIn
  *
  * @package PMVC
  *
