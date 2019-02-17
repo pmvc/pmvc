@@ -96,7 +96,12 @@ class Adapter implements ArrayAccess, SplObserver
      */
     public function &offsetGet($k = null)
     {
-        $val = $this->__call(__FUNCTION__, [$k]);
+        if (is_string($k)) {
+            $val = $this->__call('__get', [$k]);
+            $val =& ref($val);
+        } else {
+            $val = $this->__call(__FUNCTION__, [$k]);
+        }
 
         return $val;
     }
