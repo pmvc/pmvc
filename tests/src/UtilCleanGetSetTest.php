@@ -6,6 +6,16 @@ use stdClass;
 
 class UtilCleanGetSetTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetAll()
+    {
+        $a = ['foo', 'bar'];
+        $this->assertEquals($a, get($a), 'with array');
+        $b = new HashMap($a);
+        $this->assertEquals($a, get($b), 'with hashmap');
+        $c = (object)$a; 
+        $this->assertEquals($a, get($c), 'with object');
+    }
+
     public function testGetMultiValueWithArray()
     {
         $a = ['a', 'b', 'c'];
