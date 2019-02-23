@@ -8,7 +8,7 @@ class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
 {
     public function setup()
     {
-        //unplug('test');
+        unplug('test');
         addPlugInFolders(
             [
             __DIR__.'/../resources/plugin1',

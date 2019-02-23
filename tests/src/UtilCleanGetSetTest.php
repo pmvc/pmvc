@@ -12,7 +12,7 @@ class UtilCleanGetSetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($a, get($a), 'with array');
         $b = new HashMap($a);
         $this->assertEquals($a, get($b), 'with hashmap');
-        $c = (object)$a; 
+        $c = (object) $a;
         $this->assertEquals($a, get($c), 'with object');
     }
 
