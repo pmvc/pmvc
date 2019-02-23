@@ -567,9 +567,7 @@ function &get(&$a, $k = null, $default = null)
     if (is_null($k)) { //return all
         if (is_object($a)) {
             $r = get_object_vars($a);
-            if (empty($r)) {
-              $r = (array) $a;
-            }
+            $r = $r ? $r : (array) $a;
 
             return $r;
         }
