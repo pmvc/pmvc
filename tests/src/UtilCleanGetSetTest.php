@@ -13,6 +13,7 @@ class UtilCleanGetSetTest extends \PHPUnit_Framework_TestCase
         $b = new HashMap($a);
         $this->assertEquals($a, get($b), 'with hashmap');
         $c = (object) $a;
+        var_dump(get_object_vars($c));
         $this->assertEquals($a, get($c), 'with object');
     }
 
