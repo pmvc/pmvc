@@ -188,10 +188,9 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
             );
         }
     }
-    $_alias[$type] = array_merge(
-        $_alias[$type],
-        $alias
-    );
+    foreach ($alias as $k => $v) {
+        $_alias[$type][strtolower($k)] = $v;
+    }
 
     return [
        'folders' => array_reverse($_folders[$type]),
@@ -340,7 +339,7 @@ function camelCase($s, $join = null)
     } else {
         $result = strtolower($arr[0]);
         for ($i = 1, $j = count($arr); $i < $j; $i++) {
-            $result .= '_'.strtolower($arr[$i]);
+            $result .= $join.strtolower($arr[$i]);
         }
     }
 
@@ -877,6 +876,9 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
     static $plugins = [];
     static $securitys = [];
     $currentPlug = false;
+    if (!is_null($key)) {
+        $key = strtolower($key);
+    }
     if (isset($plugins[$key])) {
         $currentPlug = $plugins[$key];
     }
@@ -1161,9 +1163,9 @@ function plug($name, array $config = [])
 
     // check alias
     $folders = folders(_PLUGIN);
-    $alias = $folders['alias'];
-    if (isset($alias[$name])) {
-        return plugAlias($alias[$name], $name);
+    $alias = get($folders['alias'], strtolower($name));
+    if ($alias) {
+        return plugAlias($alias, $name);
     }
 
     return plugInGenerate($folders, $name, $name, $config);
