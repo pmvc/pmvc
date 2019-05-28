@@ -731,12 +731,13 @@ function utf8Dump()
  *
  * @param string $error Error message
  * @param object $debug Error payload
+ * @param int    $type  Error type
  *
  * @return false
  */
-function triggerJson($error, $debug)
+function triggerJson($error, $debug, $type = E_USER_NOTICE)
 {
-    return !trigger_error(json_encode(['Error'=>$error, 'Debug'=>$debug]));
+    return !trigger_error(json_encode(['Error'=>$error, 'Debug'=>$debug]), $type);
 }
 
 /**

@@ -25,8 +25,8 @@ before_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then composer require satooshi/php-coveralls:1.* -n ; fi
  
 script:
-  - if [[ "$TRAVIS_PHP_VERSION" != '5.6' ]]; then vendor/bin/phpunit; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then vendor/bin/phpunit --coverage-clover clover.xml ; fi
+  - if [[ "$TRAVIS_PHP_VERSION" != '5.6' ]]; then vendor/bin/phpunit -v; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then vendor/bin/phpunit -v --coverage-clover clover.xml ; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then vendor/bin/phpcs src/; fi
 
 after_script:

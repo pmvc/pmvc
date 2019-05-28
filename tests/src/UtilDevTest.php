@@ -3,6 +3,7 @@
 namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
+use Exception;
 use PHPUnit_Framework_Error;
 
 class UtilDevTest extends PHPUnit_Framework_TestCase
