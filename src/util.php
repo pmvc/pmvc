@@ -385,7 +385,7 @@ function arrayReplace()
     if (!isArray($new)) {
         return triggerJson(
             'Param1 should be array type.',
-            [ 'Array'=> $new, ]
+            [ 'Array'=> $new]
         );
     }
     for ($i = 1, $j = count($a); $i < $j; $i++) {
@@ -714,24 +714,25 @@ function ns($s)
 /**
  * UTF8 Dump.
  *
- * @return mixed 
+ * @return mixed
  */
 function utf8Dump()
 {
     $a = func_get_args();
-    if (1===count($a)) {
+    if (1 === count($a)) {
         $a = $a[0];
     }
+
     return utf8_encode(trim(var_export($a, true)));
 }
 
 /**
- * Trigger error with json format. 
+ * Trigger error with json format.
  *
- * @param string $error Error message 
+ * @param string $error Error message
  * @param object $debug Error payload
  *
- * @return false 
+ * @return false
  */
 function triggerJson($error, $debug)
 {

@@ -56,7 +56,7 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
 
     /**
      * @expectedException        PHPUnit_Framework_Error
-     * @expectedExceptionMessage {"Error":"error","Debug":["debug-payload"]} 
+     * @expectedExceptionMessage {"Error":"error","Debug":["debug-payload"]}
      */
     public function testTriggerJson()
     {
