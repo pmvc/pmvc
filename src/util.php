@@ -383,9 +383,9 @@ function arrayReplace()
     $a = func_get_args();
     $new = $a[0];
     if (!isArray($new)) {
-        return !trigger_error(
-            'Param1 should be array type. '."\n".
-            print_r([$new, isArrayAccess($new) ? 'true' : 'false'], true)
+        return triggerJson(
+            'Param1 should be array type.',
+            [ 'Array'=> $new, ]
         );
     }
     for ($i = 1, $j = count($a); $i < $j; $i++) {
@@ -709,6 +709,33 @@ function &option($act, $k = null, $v = null)
 function ns($s)
 {
     return __NAMESPACE__.'\\'.$s;
+}
+
+/**
+ * UTF8 Dump.
+ *
+ * @return mixed 
+ */
+function utf8Dump()
+{
+    $a = func_get_args();
+    if (1===count($a)) {
+        $a = $a[0];
+    }
+    return utf8_encode(trim(var_export($a, true)));
+}
+
+/**
+ * Trigger error with json format. 
+ *
+ * @param string $error Error message 
+ * @param object $debug Error payload
+ *
+ * @return false 
+ */
+function triggerJson($error, $debug)
+{
+    return !trigger_error(json_encode(['Error'=>$error, 'Debug'=>$debug]));
 }
 
 /**
@@ -1102,7 +1129,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
         if (!$class) {
             $error = 'Plug-in '.$name.' not found.';
             if (!empty($file)) {
-                $error .= ' ['.$file.'] '.print_r($folders['folders'], true);
+                $error .= ' ['.$file.'] '.utf8Dump($folders['folders']);
             }
         } else {
             $error = 'Plug-in '.$name.': class not found ('.$class.')';
@@ -1149,7 +1176,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
 function plug($name, array $config = [])
 {
     if (!is_string($name)) {
-        return !trigger_error('Plug name should be string. '.print_r($name, true));
+        return !trigger_error('Plug name should be string. '.utf8Dump($name));
     }
     if (empty($config)) {
         $oPlugin = plugInStore($name);

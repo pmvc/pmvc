@@ -46,6 +46,23 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
         v('1', '2');
     }
 
+    public function testUtf8Dump()
+    {
+        $s = utf8Dump('str');
+        $this->assertEquals("'str'", $s);
+        $s = utf8Dump('str1', 'str2');
+        $this->assertContains('array', $s);
+    }
+
+    /**
+     * @expectedException        PHPUnit_Framework_Error
+     * @expectedExceptionMessage {"Error":"error","Debug":["debug-payload"]} 
+     */
+    public function testTriggerJson()
+    {
+        $error = triggerJson('error', ['debug-payload']);
+    }
+
     /**
      * @doesNotPerformAssertions
      */
