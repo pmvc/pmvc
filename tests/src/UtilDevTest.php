@@ -60,7 +60,16 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
      */
     public function testTriggerJson()
     {
-        $error = triggerJson('error', ['debug-payload']);
+        try {
+            triggerJson('error', ['debug-payload']);
+        } catch (Exception $e) {
+            throw new PHPUnit_Framework_Error(
+                $e->getMessage(),
+                0,
+                $e->getFile(),
+                $e->getLine()
+            );
+        }
     }
 
     /**
