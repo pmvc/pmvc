@@ -287,7 +287,12 @@ class AliasSrcFile extends AbstractAlias
             $func->caller = $caller;
         }
         if (!is_callable($func)) {
-            return !trigger_error('Not implement __invoke function');
+            return triggerJson(
+                'Not implement __invoke function', [
+                'path' => $path, 
+                'class'=> $class, 
+                'method'=>$method]
+            );
         }
         if (isArray($self) && !isset($self[$lowerMethod])) {
             $self[$lowerMethod] = $func;

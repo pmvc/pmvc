@@ -22,6 +22,11 @@ class UtilGetValueTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testGetEmpty()
+    {
+        value(null, [1]);
+    }
+
     public function testGetDefaultValue()
     {
         $expected = 'xxx';
