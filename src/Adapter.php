@@ -82,7 +82,7 @@ class Adapter implements ArrayAccess, SplObserver
      *
      * @return string
      */
-    public function __tostring()
+    public function __toString()
     {
         return $this->__call(__FUNCTION__);
     }
