@@ -30,6 +30,16 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($new_value, $hash['abc']);
     }
 
+    public function testRefArray()
+    {
+        $hash = new HashMap();
+        $hash['abc'] = 123;
+        $abc = &$hash['abc'];
+        $new_value = 789;
+        $abc = $new_value;
+        $this->assertEquals($new_value, $hash['abc']);
+    }
+
     public function testPlug()
     {
         $class = __NAMESPACE__.'\FakePlugIn';
