@@ -9,7 +9,7 @@ class FakePlugIn extends PlugIn
         return true;
     }
 
-    public function __tostring()
+    public function __toString()
     {
         return __CLASS__;
     }
