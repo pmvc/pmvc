@@ -553,11 +553,11 @@ function clean(&$a, $k = null)
  */
 function &get(&$a, $k = null, $default = null)
 {
+    /**
+     * Can't assign default by $a[$k]
+     * So the default value will handle at last.
+     */
     if (isArrayAccess($a)) {
-        /**
-         * Can't assign default by $a[$k]
-         * So the default value will handle in last.
-         */
         $v = &$a->offsetGet($k);
         if (!is_null($v)) {
             if (is_null($k) && is_array($v)) {
