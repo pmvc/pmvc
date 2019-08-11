@@ -56,6 +56,7 @@ class PluginRefTest extends PHPUnit_Framework_TestCase
         $p = \PMVC\plug($this->_name);
         set($p, [1, 2, 3]);
         $all = get($p);
+        unset($all[THIS]);
         $this->assertTrue(empty(array_diff($a, $all)));
     }
 }

@@ -560,10 +560,18 @@ function &get(&$a, $k = null, $default = null)
          */
         $v = &$a->offsetGet($k);
         if (!is_null($v)) {
+            if (is_null($k) && is_array($v)) {
+                foreach ($v as $vk=>$vv) {
+                    if (isArrayAccess($vv)) {
+                        $v[$vk] = $vv->offsetGet();
+                    }
+                }
+            }
+
             return $v;
         }
     }
-    if (is_null($k)) { //return all
+    if (is_null($k) || false === $k) { //return all
         if (is_object($a)) {
             $r = get_object_vars($a);
             $r = $r ? $r : (array) $a;
