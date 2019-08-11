@@ -52,7 +52,7 @@ class ListIterator extends BaseObject implements IteratorAggregate, Countable
             $my = get_class($this);
             foreach ($this->state as $k=>$v) {
                 if (is_array($v)) {
-                    $this->state[$k] = new $my($v);
+                    $this->state[$k] = new $my($v, true);
                 }
             }
         }
