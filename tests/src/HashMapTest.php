@@ -2,7 +2,9 @@
 
 namespace PMVC;
 
-class HashMapTest extends \PHPUnit_Framework_TestCase
+use PHPUnit_Framework_TestCase;
+
+class HashMapTest extends PHPUnit_Framework_TestCase
 {
     public function testHashMap()
     {
@@ -56,7 +58,7 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
     {
         $arr = ['a' => '111', 'b' => '222'];
         $hash = new HashMap($arr);
-        $this->assertEquals($arr, \PMVC\get($hash));
+        $this->assertEquals($arr, get($hash));
     }
 
     public function testKeyset()
@@ -125,15 +127,23 @@ class HashMapTest extends \PHPUnit_Framework_TestCase
             'a' => ['bbb' => 222],
         ];
         $hash[$newSet] = null;
-        $this->assertEquals($newSet, \PMVC\get($hash));
+        $this->assertEquals($newSet, get($hash));
         $hash[[]] = [
             'a' => ['ccc' => 333],
         ];
         $expected = $newSet;
         $expected['a']['ccc'] = 333;
-        $this->assertEquals($expected, \PMVC\get($hash));
+        $this->assertEquals($expected, get($hash));
         $hash[] = ['ddd'];
         $this->assertEquals(['ddd'], $hash[0]);
+    }
+
+    public function testHashMapWalk()
+    {
+        $arr = ['foo'=>['a'], 'bar'];
+        $list = new HashMap($arr, true);
+        $expected = new HashMap(['foo'=>new HashMap(['a']), 'bar']);
+        $this->assertEquals($expected, $list);
     }
 }
 

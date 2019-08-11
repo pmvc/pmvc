@@ -40,12 +40,21 @@ class ListIterator extends BaseObject implements IteratorAggregate, Countable
      * Construct.
      *
      * @param array $state state
+     * @param bool  $walk  change sub array to same type.
      */
-    public function __construct($state = null)
+    public function __construct($state = null, $walk = null)
     {
         $this->state = $this->getInitialState();
         if (!empty($state)) {
             set($this->state, $state);
+        }
+        if ($walk) {
+            $my = get_class($this);
+            foreach ($this->state as $k=>$v) {
+                if (is_array($v)) {
+                    $this->state[$k] = new $my($v);
+                }
+            }
         }
     }
 

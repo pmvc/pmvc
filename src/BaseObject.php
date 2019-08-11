@@ -38,8 +38,9 @@ class BaseObject
      * Construct.
      *
      * @param mixed $state state
+     * @param bool  $walk  for exted class compatibility.
      */
-    public function __construct(&$state = null)
+    public function __construct(&$state = null, $walk = null)
     {
         $this->state = &$state;
     }

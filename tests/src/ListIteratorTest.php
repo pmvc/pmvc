@@ -36,4 +36,12 @@ class ListIteratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, $it->current());
         $this->assertTrue($it->valid());
     }
+
+    public function testListIteratorWalk()
+    {
+        $arr = ['foo'=>['a'], 'bar'];
+        $list = new ListIterator($arr, true);
+        $expected = new ListIterator(['foo'=>new ListIterator(['a']), 'bar']);
+        $this->assertEquals($expected, $list);
+    }
 }
