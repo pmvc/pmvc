@@ -144,9 +144,9 @@ function find($name, $dirs = null)
         if (!realpath($dirPath)) {
             continue;
         }
-        $r = realpath(mergeFileName($name, $dirPath));
-        if ($r) {
-            return $r;
+        $mergeName = mergeFileName($name, $dirPath);
+        if (realpath($mergeName)) {
+            return $mergeName;
         }
     }
 
