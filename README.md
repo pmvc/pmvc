@@ -88,10 +88,6 @@ class hello_world extends \PMVC\PlugIn
    * PMVC Themes
       * https://github.com/pmvc-theme
 
-## PHP Version
- * HHVM Support
-![tested](http://php-eye.com/badge/pmvc/pmvc/tested.svg)
-
 ---
 
 MIT 2019
