@@ -112,6 +112,13 @@ class HashMap extends ListIterator implements ArrayAccess
         } else {
             set($this->state, $k, $v);
         }
+        if ($this->walk) {
+            foreach ($this->state as $sk=>$sv) {
+                if (is_array($sv)) {
+                    $this->state[$sk] = new HashMap($sv, true);
+                }
+            }
+        }
 
         return $this;
     }

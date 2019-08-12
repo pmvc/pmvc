@@ -41,7 +41,7 @@ class ListIteratorTest extends PHPUnit_Framework_TestCase
     {
         $arr = ['foo'=>['a'], 'bar'];
         $list = new ListIterator($arr, true);
-        $expected = new ListIterator(['foo'=>new ListIterator(['a']), 'bar']);
+        $expected = new ListIterator(['foo'=>new ListIterator(['a'], true), 'bar'], true);
         $this->assertEquals($expected, $list);
     }
 
@@ -49,7 +49,7 @@ class ListIteratorTest extends PHPUnit_Framework_TestCase
     {
         $arr = ['foo'=>['a'=>['b', 'c']], 'bar'];
         $list = new ListIterator($arr, true);
-        $expected = new ListIterator(['foo'=>new ListIterator(['a'=>new ListIterator(['b', 'c'])]), 'bar']);
+        $expected = new ListIterator(['foo'=>new ListIterator(['a'=>new ListIterator(['b', 'c'], true)], true), 'bar'], true);
         $this->assertEquals($expected, $list);
     }
 }

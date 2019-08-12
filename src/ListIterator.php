@@ -37,6 +37,13 @@ use IteratorAggregate;
 class ListIterator extends BaseObject implements IteratorAggregate, Countable
 {
     /**
+     * Walk flag.
+     *
+     * @var bool 
+     */
+    protected $walk;
+
+    /**
      * Construct.
      *
      * @param array $state state
@@ -49,6 +56,7 @@ class ListIterator extends BaseObject implements IteratorAggregate, Countable
             set($this->state, $state);
         }
         if ($walk) {
+            $this->walk = $walk;
             $my = get_class($this);
             foreach ($this->state as $k=>$v) {
                 if (is_array($v)) {
