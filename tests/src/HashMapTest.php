@@ -151,7 +151,7 @@ class HashMapTest extends PHPUnit_Framework_TestCase
         $map = new HashMap([], true);
         $map['foo'] = [ 'a', 'b' ];
         $expected = new HashMap([
-          'foo' => new HashMap(['a', 'b'], true)
+          'foo' => new HashMap(['a', 'b'], true),
         ], true);
         $this->assertEquals($expected, $map);
     }

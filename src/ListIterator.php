@@ -39,7 +39,7 @@ class ListIterator extends BaseObject implements IteratorAggregate, Countable
     /**
      * Walk flag.
      *
-     * @var bool 
+     * @var bool
      */
     protected $walk;
 
@@ -57,10 +57,9 @@ class ListIterator extends BaseObject implements IteratorAggregate, Countable
         }
         if ($walk) {
             $this->walk = $walk;
-            $my = get_class($this);
             foreach ($this->state as $k=>$v) {
                 if (is_array($v)) {
-                    $this->state[$k] = new $my($v, true);
+                    $this->state[$k] = new static($v, true);
                 }
             }
         }

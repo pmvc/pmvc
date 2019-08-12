@@ -115,7 +115,7 @@ class HashMap extends ListIterator implements ArrayAccess
         if ($this->walk) {
             foreach ($this->state as $sk=>$sv) {
                 if (is_array($sv)) {
-                    $this->state[$sk] = new HashMap($sv, true);
+                    $this->state[$sk] = new static($sv, true);
                 }
             }
         }
