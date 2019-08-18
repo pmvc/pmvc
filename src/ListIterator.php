@@ -37,13 +37,6 @@ use IteratorAggregate;
 class ListIterator extends BaseObject implements IteratorAggregate, Countable
 {
     /**
-     * Walk flag.
-     *
-     * @var bool
-     */
-    protected $walk;
-
-    /**
      * Construct.
      *
      * @param array $state state
@@ -55,8 +48,8 @@ class ListIterator extends BaseObject implements IteratorAggregate, Countable
         if (!empty($state)) {
             set($this->state, $state);
         }
-        if ($walk) {
-            $this->walk = $walk;
+        $hashMapAllClass = 'PMVC\HashMapAll';
+        if ($walk || $this instanceof $hashMapAllClass) {
             foreach ($this->state as $k=>$v) {
                 if (is_array($v)) {
                     $this->state[$k] = new static($v, true);

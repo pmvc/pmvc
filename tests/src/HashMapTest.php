@@ -145,16 +145,6 @@ class HashMapTest extends PHPUnit_Framework_TestCase
         $expected = new HashMap(['foo'=>new HashMap(['a'], true), 'bar'], true);
         $this->assertEquals($expected, $map);
     }
-
-    public function testHashMapWalkWithSet()
-    {
-        $map = new HashMap([], true);
-        $map['foo'] = [ 'a', 'b' ];
-        $expected = new HashMap([
-          'foo' => new HashMap(['a', 'b'], true),
-        ], true);
-        $this->assertEquals($expected, $map);
-    }
 }
 
 class FakeHash extends HashMap
