@@ -45,7 +45,7 @@ class HashMapAll extends HashMap
     public function offsetSet($k, $v)
     {
         parent::offsetSet($k, $v);
-        foreach ($this->state as $sk=>$sv) {
+        foreach ($this->state as $sk=> $sv) {
             if (is_array($sv)) {
                 $this->state[$sk] = new static($sv, true);
             }
@@ -53,5 +53,4 @@ class HashMapAll extends HashMap
 
         return $this;
     }
-
 }
