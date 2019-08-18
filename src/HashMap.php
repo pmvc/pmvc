@@ -21,7 +21,7 @@ namespace PMVC;
 use ArrayAccess;
 
 /**
- * PMVC HashMap
+ * HashMap.
  * What is overloading?
  * http://php.net/manual/en/language.oop5.overloading.php.
  *
