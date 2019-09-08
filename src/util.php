@@ -328,6 +328,9 @@ function testString($s)
  */
 function camelCase($s, $join = null)
 {
+    if (empty($s)) {
+        return $s;
+    }
     $arr = preg_split(
         '/([A-Z][^A-Z]*)/',
         $s,
