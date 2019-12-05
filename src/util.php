@@ -776,7 +776,10 @@ function v()
         $p[''] = $p[0];
         unset($p[0]);
     }
-    d(json_encode(get($p)));
+    if (isArray($p)) {
+        $p =& get($p);
+    }
+    d(json_encode($p));
 }
 
 /**
