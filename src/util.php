@@ -776,7 +776,7 @@ function v()
         $p[''] = $p[0];
         unset($p[0]);
     }
-    d(json_encode($p));
+    d(json_encode(get($p)));
 }
 
 /**
