@@ -561,7 +561,7 @@ function &get(&$a, $k = null, $default = null)
      * So the default value will handle at last.
      */
     if (isArrayAccess($a)) {
-        $v = &$a->offsetGet($k);
+        $v = $a->offsetGet($k);
         if (!is_null($v)) {
             if (is_null($k) && is_array($v)) {
                 foreach ($v as $vk=>$vv) {
