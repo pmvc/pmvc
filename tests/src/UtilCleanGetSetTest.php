@@ -20,6 +20,18 @@ class UtilCleanGetSetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['a'=>'foo', 'b'=>'bar'], get($d), 'with object assign');
     }
 
+    public function testToArrayNotEffectOriginalMap()
+    {
+        $a = ['a'=>'foo', 'b'=>new HashMap(['bar'])];
+        $b = new HashMap($a);
+        $c = &get($b);
+        $c['a'] = '000';
+        $this->assertEquals($a['a'], $b['a']);
+        $this->assertEquals($a['b'], $b['b']);
+        $this->assertEquals('000', $c['a']);
+        $this->assertEquals(['bar'], $c['b']);
+    }
+
     public function testGetMultiValueWithArray()
     {
         $a = ['a', 'b', 'c'];

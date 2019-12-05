@@ -746,7 +746,7 @@ function utf8Dump()
  *
  * @return false
  */
-function triggerJson($error, $debug, $type = E_USER_NOTICE)
+function triggerJson($error, $debug = null, $type = E_USER_NOTICE)
 {
     return !trigger_error(json_encode(['Error'=>$error, 'Debug'=>$debug]), $type);
 }
