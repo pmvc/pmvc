@@ -777,7 +777,7 @@ function v()
         unset($p[0]);
     }
     if (isArrayAccess($p)) {
-      $p = get($p);
+        $p = get($p);
     }
     d(json_encode($p));
 }

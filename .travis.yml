@@ -11,10 +11,12 @@ php:
   - 7.1
   - 7.2
   - 7.3
+  - 7.4
  
 before_script:
   - composer self-update
   - composer install
+  - if [[ "$TRAVIS_PHP_VERSION" == '7.4' ]]; then composer require phpunit/phpunit 6.5.5; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.3' ]]; then composer require phpunit/phpunit 6.5.5; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.2' ]]; then composer require phpunit/phpunit 6.5.5; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.1' ]]; then composer require phpunit/phpunit 4.8.35; fi
