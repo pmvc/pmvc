@@ -776,6 +776,9 @@ function v()
         $p[''] = $p[0];
         unset($p[0]);
     }
+    if (isArrayAccess($p)) {
+      $p = get($p);
+    }
     d(json_encode($p));
 }
 
@@ -1157,8 +1160,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
     plugWithConfig($oPlugin, $config);
     rePlug($plugTo, $oPlugin);
     $oPlugin->init();
-    var_dump($name);
-    if (false === strpos($name, 'debug')) {
+    if (false === strpos('|debug|dev|', $name)) {
         dev(
             /**
              * Dev.
