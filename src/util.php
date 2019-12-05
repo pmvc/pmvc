@@ -776,9 +776,6 @@ function v()
         $p[''] = $p[0];
         unset($p[0]);
     }
-    if (isArray($p)) {
-        $p =& get($p);
-    }
     d(json_encode($p));
 }
 
@@ -1160,6 +1157,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
     plugWithConfig($oPlugin, $config);
     rePlug($plugTo, $oPlugin);
     $oPlugin->init();
+    var_dump($name);
     if (false === strpos($name, 'debug')) {
         dev(
             /**
