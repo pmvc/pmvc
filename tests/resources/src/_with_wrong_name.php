@@ -2,7 +2,8 @@
 
 namespace PMVC\UnitTest\Task;
 
-${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\WithWrongName';
+${_INIT_CONFIG
+}[_CLASS] = __NAMESPACE__.'\WithWrongName';
 
 class _with_wrong_name
 {

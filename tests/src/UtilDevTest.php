@@ -25,12 +25,20 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
 
     public function testVariableDump()
     {
+        $expected = [
+          'test',
+          [1=>'2', ''=>'1'],
+          [0=>'0']
+        ];
+        $i = 0;
         plug(
             'debug', [
             _CLASS      => $this->_debugClass,
-            'dCallback' => function () {
+            'dCallback' => function () use (&$i, $expected) {
                 $args = func_get_args();
                 $arr = fromJson($args[0], true);
+                $this->assertEquals($expected[$i], $arr);
+                $i++;
                 if (is_array($arr) && 1 < count($arr)) {
                     $keys = array_keys($arr);
                     $int = true;
@@ -46,6 +54,7 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
         );
         v('test');
         v('1', '2');
+        v(new HashMap(['0']));
     }
 
     public function testUtf8Dump()
