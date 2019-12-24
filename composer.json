@@ -15,6 +15,7 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer" : "@stable",
+        "pmvc-plugin/utf8": "*",
         "pmvc-plugin/dev" : "*",
         "pmvc-plugin/debug" : "*"
     },

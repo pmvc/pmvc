@@ -734,9 +734,15 @@ function utf8Dump()
     $a = func_get_args();
     if (1 === count($a)) {
         $a = $a[0];
+    } else {
+        // avoid console.table
+        $a[''] = $a[0];
+        unset($a[0]);
     }
 
-    return utf8_encode(trim(var_export($a, true)));
+    return (exists('utf8', 'plug')) ?
+      plug('utf8')->toUtf8($a) :
+      utf8_encode($a);
 }
 
 /**
@@ -771,17 +777,7 @@ function d()
 function v()
 {
     $p = func_get_args();
-    if (1 === count($p)) {
-        $p = $p[0];
-    } else {
-        // avoid console.table
-        $p[''] = $p[0];
-        unset($p[0]);
-    }
-    if (isArrayAccess($p)) {
-        $p = get($p);
-    }
-    d(json_encode($p));
+    d(json_encode(call_user_func_array(ns('utf8dump'), $p)));
 }
 
 /**
@@ -1147,7 +1143,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
         if (!$class) {
             $error = 'Plug-in '.$name.' not found.';
             if (!empty($file)) {
-                $error .= ' ['.$file.'] '.utf8Dump($folders['folders']);
+                $error .= ' ['.$file.'] '.print_r($folders['folders'], true);
             }
         } else {
             $error = 'Plug-in '.$name.': class not found ('.$class.')';
@@ -1194,7 +1190,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
 function plug($name, array $config = [])
 {
     if (!is_string($name)) {
-        return !trigger_error('Plug name should be string. '.utf8Dump($name));
+        return !trigger_error('Plug name should be string. '.print_r($name, true));
     }
     if (empty($config)) {
         $oPlugin = plugInStore($name);

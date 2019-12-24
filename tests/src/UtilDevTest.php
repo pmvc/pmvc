@@ -60,9 +60,9 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
     public function testUtf8Dump()
     {
         $s = utf8Dump('str');
-        $this->assertEquals("'str'", $s);
+        $this->assertEquals('str', $s);
         $s = utf8Dump('str1', 'str2');
-        $this->assertContains('array', $s);
+        $this->assertEquals([''=>'str1', 1=>'str2'], $s);
     }
 
     /**
