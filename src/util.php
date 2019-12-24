@@ -384,7 +384,7 @@ function hasKey($haystack, $needle)
 function arrayReplace()
 {
     $a = func_get_args();
-    $new = $a[0];
+    $new = &$a[0];
     if (!isArray($new)) {
         return triggerJson(
             'Param1 should be array type.',
