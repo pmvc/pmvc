@@ -740,7 +740,7 @@ function utf8Dump()
         unset($a[0]);
     }
 
-    return (exists('utf8', 'plug')) ?
+    return exists('utf8', 'plug') ?
       plug('utf8')->toUtf8($a) :
       utf8_encode($a);
 }
