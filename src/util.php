@@ -384,7 +384,9 @@ function hasKey($haystack, $needle)
 function arrayReplace()
 {
     $a = func_get_args();
-    $new = &$a[0];
+    // Do not make this reference,
+    // it helpful if you just pass pure array without assign.
+    $new = $a[0];
     if (!isArray($new)) {
         return triggerJson(
             'Param1 should be array type.',
