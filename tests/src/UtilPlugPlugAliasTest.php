@@ -11,8 +11,9 @@ class UtilPlugPlugAliasTest extends PHPUnit_Framework_TestCase
         unplug('test');
         unplug('fakeAlias');
         addPlugInFolders(
-            [], [
-            'fakeAlias' => 'test',
+            [],
+            [
+                'fakeAlias' => 'test',
             ]
         );
     }
@@ -21,8 +22,9 @@ class UtilPlugPlugAliasTest extends PHPUnit_Framework_TestCase
     {
         $class = __NAMESPACE__.'\FakePlugIn';
         plug(
-            'test', [
-            _CLASS => $class,
+            'test',
+            [
+                _CLASS => $class,
             ]
         );
         $abc = plug('fakeAlias');

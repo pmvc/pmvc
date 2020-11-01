@@ -18,7 +18,7 @@ class UtilRefTest extends PHPUnit_Framework_TestCase
     {
         $h = new Hashmap(
             [
-            'a' => 123,
+                'a' => 123,
             ]
         );
         $a = &\PMVC\ref($h->a);

@@ -10,12 +10,12 @@ class UtilFolderTest extends PHPUnit_Framework_TestCase
     {
         addPlugInFolders(
             [
-            __DIR__,
+                __DIR__,
             ]
         );
         addPlugInFolders(
             [
-            __DIR__,
+                __DIR__,
             ]
         );
         $folders = folders(_PLUGIN);

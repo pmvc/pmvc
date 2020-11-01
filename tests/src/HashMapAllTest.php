@@ -12,7 +12,7 @@ class HashMapAllTest extends PHPUnit_Framework_TestCase
         $map['foo'] = [ 'a', 'b' ];
         $expected = new HashMapAll(
             [
-            'foo' => new HashMapAll(['a', 'b']),
+                'foo' => new HashMapAll(['a', 'b']),
             ]
         );
         $this->assertEquals($expected, $map);
