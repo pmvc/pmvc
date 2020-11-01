@@ -207,6 +207,32 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
  */
 
 /**
+ * UTF8 Export.
+ *
+ * @param mixed $p payload.
+ *
+ * @return mixed
+ */
+function utf8Export($p)
+{
+    return exists('utf8', 'plug') ?
+      plug('utf8')->toUtf8($p) :
+      utf8_encode($p);
+}
+
+/**
+ * UTF8 Json Encode.
+ *
+ * @param mixed $p payload.
+ *
+ * @return mixed
+ */
+function utf8JsonEncode($p)
+{
+    return json_encode(utf8Export($p));
+}
+
+/**
  * Merge name.
  *
  * @param string $name name
@@ -725,27 +751,6 @@ function ns($s)
 }
 
 /**
- * UTF8 Dump.
- *
- * @return mixed
- */
-function utf8Dump()
-{
-    $a = func_get_args();
-    if (1 === count($a)) {
-        $a = $a[0];
-    } else {
-        // avoid console.table
-        $a[''] = $a[0];
-        unset($a[0]);
-    }
-
-    return exists('utf8', 'plug') ?
-      plug('utf8')->toUtf8($a) :
-      utf8_encode($a);
-}
-
-/**
  * Trigger error with json format.
  *
  * @param string $error Error message
@@ -756,7 +761,7 @@ function utf8Dump()
  */
 function triggerJson($error, $debug = null, $type = E_USER_NOTICE)
 {
-    return !trigger_error(json_encode(['Error'=>$error, 'Debug'=>$debug]), $type);
+    return !trigger_error(utf8JsonEncode(['Error'=>$error, 'Debug'=>$debug]), $type);
 }
 
 /**
@@ -777,7 +782,14 @@ function d()
 function v()
 {
     $p = func_get_args();
-    d(json_encode(call_user_func_array(ns('utf8dump'), $p)));
+    if (1 === count($p)) {
+        $p = $p[0];
+    } else {
+        // avoid console.table
+        $p[''] = $p[0];
+        unset($p[0]);
+    }
+    d(utf8JsonEncode($p));
 }
 
 /**

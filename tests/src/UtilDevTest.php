@@ -57,14 +57,6 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
         v(new HashMap(['0']));
     }
 
-    public function testUtf8Dump()
-    {
-        $s = utf8Dump('str');
-        $this->assertEquals('str', $s);
-        $s = utf8Dump('str1', 'str2');
-        $this->assertEquals([''=>'str1', 1=>'str2'], $s);
-    }
-
     /**
      * @expectedException        PHPUnit_Framework_Error
      * @expectedExceptionMessage {"Error":"error","Debug":["debug-payload"]}

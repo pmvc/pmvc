@@ -37,4 +37,16 @@ class UtilStringTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, camelcase('camelCase'), 'first Lower');
         $this->assertEquals(null, camelcase(null), 'test null');
     }
+
+    public function testUtf8Export()
+    {
+        $s = utf8Export('str');
+        $this->assertEquals('str', $s);
+    }
+
+    public function testUtf8JsonEncode()
+    {
+        $s = utf8JsonEncode(['str', 'str2']);
+        $this->assertEquals('["str","str2"]', $s);
+    }
 }
