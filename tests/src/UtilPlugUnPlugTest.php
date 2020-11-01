@@ -16,8 +16,9 @@ class UtilPlugUnPlugTest extends PHPUnit_Framework_TestCase
     {
         $class = __NAMESPACE__.'\FakePlug';
         plug(
-            'fake', [
-            _CLASS => $class,
+            'fake',
+            [
+                _CLASS => $class,
             ]
         );
         $this->assertTrue(exists('fake', 'PlugIn'));

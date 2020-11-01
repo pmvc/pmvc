@@ -193,8 +193,8 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
     }
 
     return [
-       'folders' => array_reverse($_folders[$type]),
-       'alias'   => $_alias[$type],
+        'folders' => array_reverse($_folders[$type]),
+        'alias'   => $_alias[$type],
     ];
 }
 
@@ -1181,10 +1181,11 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
                 $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
                 return [
-                'name'  => $name,
-                'trace' => $trace,
+                    'name'  => $name,
+                    'trace' => $trace,
                 ];
-            }, 'plug'
+            },
+            'plug'
         );
     }
 

@@ -18,8 +18,9 @@ class PlugInTest extends PHPUnit_Framework_TestCase
         $class = __NAMESPACE__.'\FakePlugIn';
         $plug_name = 'fake_plug';
         $plug = plug(
-            $plug_name, [
-            _CLASS => $class,
+            $plug_name,
+            [
+                _CLASS => $class,
             ]
         );
         $actual = $plug->update(new fakeSplSubject());
@@ -34,8 +35,9 @@ class PlugInTest extends PHPUnit_Framework_TestCase
         $class = __NAMESPACE__.'\FakePlug';
         $plug_name = 'fake_plug';
         $plug = plug(
-            $plug_name, [
-            _CLASS => $class,
+            $plug_name,
+            [
+                _CLASS => $class,
             ]
         );
         $actual = $plug->update($subject);
@@ -48,8 +50,9 @@ class PlugInTest extends PHPUnit_Framework_TestCase
         $aThis = get($a, THIS, $a);
         $this->assertEquals($a, $aThis);
         $b = plug(
-            'fake_plug', [
-            _CLASS => __NAMESPACE__.'\FakePlug',
+            'fake_plug',
+            [
+                _CLASS => __NAMESPACE__.'\FakePlug',
             ]
         );
         $bThis = get($b, THIS, $b);
@@ -61,8 +64,9 @@ class PlugInTest extends PHPUnit_Framework_TestCase
         $class = __NAMESPACE__.'\FakePlugIn';
         $plug_name = 'fake_plug';
         $plug = plug(
-            $plug_name, [
-            _CLASS => $class,
+            $plug_name,
+            [
+                _CLASS => $class,
             ]
         );
         $this->assertTrue($plug->is($class));

@@ -11,9 +11,9 @@ class LoadTest extends PHPUnit_Framework_TestCase
         \PMVC\Load::plug(
             function () {
                 return [
-                [],
-                [],
-                [_VIEW_ENGINE => 'xxx'],
+                    [],
+                    [],
+                    [_VIEW_ENGINE => 'xxx'],
                 ];
             }
         );

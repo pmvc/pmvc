@@ -47,8 +47,9 @@ class HashMapTest extends PHPUnit_Framework_TestCase
         $class = __NAMESPACE__.'\FakePlugIn';
         $plug_name = 'fake_plug';
         $plug = plug(
-            $plug_name, [
-            _CLASS => $class,
+            $plug_name,
+            [
+                _CLASS => $class,
             ]
         );
         $this->assertEquals($class, plug($plug_name)[_CLASS]);

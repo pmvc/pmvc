@@ -29,8 +29,9 @@ class UtilTest extends PHPUnit_Framework_TestCase
     public function testIsOkToPlugWithAlreadyPlug()
     {
         $p = \PMVC\plug(
-            'test', [
-            _CLASS=> '\PMVC\FakePlugIn',
+            'test',
+            [
+                _CLASS=> '\PMVC\FakePlugIn',
             ]
         );
         $this->assertTrue(exists('test', 'plug'));
@@ -39,8 +40,9 @@ class UtilTest extends PHPUnit_Framework_TestCase
     public function testExistsWithZero()
     {
         $p = \PMVC\plug(
-            '0', [
-            _CLASS=> '\PMVC\FakePlugIn',
+            '0',
+            [
+                _CLASS=> '\PMVC\FakePlugIn',
             ]
         );
         $this->assertTrue(exists(0, 'plugin'));
