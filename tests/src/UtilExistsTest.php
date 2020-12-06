@@ -3,6 +3,7 @@
 namespace PMVC;
 
 use PHPUnit_Framework_TestCase;
+use DomainException;
 
 class UtilTest extends PHPUnit_Framework_TestCase
 {
@@ -18,6 +19,8 @@ class UtilTest extends PHPUnit_Framework_TestCase
      */
     public function testExistsNotSupport()
     {
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage("Exists checker not support");
         exists('test', 'xxx-type');
     }
 

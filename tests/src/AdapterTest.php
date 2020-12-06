@@ -9,7 +9,7 @@ class AdapterTest extends PHPUnit_Framework_TestCase
     private $_class;
     private $_name;
 
-    public function setup()
+    protected function setup(): void
     {
         $this->_class = __NAMESPACE__.'\FakePlugIn';
         $this->_name = 'fake_plug';
