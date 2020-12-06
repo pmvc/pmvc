@@ -8,7 +8,7 @@ class PluginRefTest extends PHPUnit_Framework_TestCase
 {
     private $_name = 'fake_plug';
 
-    public function setup()
+    protected function setup(): void
     {
         unplug($this->_name);
         $class = __NAMESPACE__.'\FakePlugIn';

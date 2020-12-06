@@ -24,7 +24,8 @@ class UtilGetValueTest extends PHPUnit_Framework_TestCase
 
     public function testGetEmpty()
     {
-        value(null, [1]);
+        $actual = value(null, [1]);
+        $this->assertEquals(NULL, $actual);
     }
 
     public function testGetDefaultValue()
@@ -78,6 +79,8 @@ class UtilGetValueTest extends PHPUnit_Framework_TestCase
      */
     public function testHandlePathIsNotArray()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage("must be of type array");
         $h = ['a', 'b'];
 
         try {
@@ -86,8 +89,6 @@ class UtilGetValueTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }

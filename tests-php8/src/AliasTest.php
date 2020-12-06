@@ -87,6 +87,7 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testParentMethodNotExists()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
         try {
             $child = plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
             $child->FakeNotExists();
@@ -94,8 +95,6 @@ class AliasTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
@@ -140,6 +139,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testAliasObjectWithoutGetdir()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage("Method not found");
         try {
             $oAlias = new FakeAliasWithOutGetDir();
             $result = $oAlias->faketask();
@@ -147,8 +148,6 @@ class AliasTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
@@ -161,6 +160,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testAliasFileWithoutClass()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage("Not defined default Class");
         try {
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->without_class();
@@ -168,8 +169,6 @@ class AliasTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
@@ -182,6 +181,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testAliasFileWithWrongName()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage("Default class not exists");
         try {
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->with_wrong_name();
@@ -189,8 +190,6 @@ class AliasTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
@@ -203,6 +202,8 @@ class AliasTest extends PHPUnit_Framework_TestCase
      */
     public function testAliasFileWithoutInvoke()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage("Not implement __invoke");
         try {
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->without_invoke();
@@ -210,8 +211,6 @@ class AliasTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }

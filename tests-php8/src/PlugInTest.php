@@ -8,7 +8,7 @@ use SplSubject;
 
 class PlugInTest extends PHPUnit_Framework_TestCase
 {
-    public function setup()
+    protected function setup(): void
     {
         option('set', 'test', null);
     }
