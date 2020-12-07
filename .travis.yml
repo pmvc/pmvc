@@ -1,6 +1,6 @@
 language: php
 # https://docs.travis-ci.com/user/languages/php/#HHVM-versions-on-Trusty
-dist: trusty
+dist: focal
 sudo: required
 group: edge
  
