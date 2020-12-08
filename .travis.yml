@@ -1,21 +1,32 @@
 language: php
-# https://docs.travis-ci.com/user/languages/php/#HHVM-versions-on-Trusty
-dist: trusty
+
+jobs:
+  include:
+    - dist: trusty
+      php: 5.5
+    - dist: trusty
+      php: 5.6
+    - dist: trusty
+      php: 7.0 
+    - dist: trusty
+      php: 7.1 
+    - dist: trusty
+      php: 7.2 
+    - dist: trusty
+      php: 7.3 
+    - dist: trusty
+      php: 7.4 
+    - dist: focal
+      php: 8.0 
+
 sudo: required
 group: edge
- 
-php:
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-  - 7.3
-  - 7.4
  
 before_script:
   - composer self-update
   - composer install
+  - if [[ "$TRAVIS_PHP_VERSION" == '8.0' ]]; then composer require --ignore-platform-req=php phpunit/phpunit 9.5.0; fi
+  - if [[ "$TRAVIS_PHP_VERSION" == '8.0' ]]; then mv phpunit-php8.xml phpunit.xml; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.4' ]]; then composer require phpunit/phpunit 6.5.5; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.3' ]]; then composer require phpunit/phpunit 6.5.5; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.2' ]]; then composer require phpunit/phpunit 6.5.5; fi
@@ -23,7 +34,6 @@ before_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '7.0' ]]; then composer require phpunit/phpunit 4.8.35; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then composer require phpunit/phpunit 4.8.35; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '5.5' ]]; then composer require phpunit/phpunit 4.8.35; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == 'hhvm' ]]; then composer require phpunit/phpunit 4.8.35; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then composer require satooshi/php-coveralls:1.* -n ; fi
  
 script:
