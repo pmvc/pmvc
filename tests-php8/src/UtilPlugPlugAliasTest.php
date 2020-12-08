@@ -2,8 +2,8 @@
 
 namespace PMVC;
 
+use DomainException;
 use PHPUnit_Framework_TestCase;
-use DomainException; 
 
 class UtilPlugPlugAliasTest extends PHPUnit_Framework_TestCase
 {

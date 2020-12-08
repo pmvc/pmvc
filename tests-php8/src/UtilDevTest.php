@@ -66,6 +66,7 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
     {
         $this->expectException(PHPUnit_Framework_Error::class);
         $this->expectExceptionMessage('{"Error":"error","Debug":["debug-payload"]}');
+
         try {
             triggerJson('error', ['debug-payload']);
         } catch (Exception $e) {
