@@ -32,7 +32,8 @@ class UtilIncludeTest extends PHPUnit_Framework_TestCase
     public function testIncludeNotExists()
     {
         $this->expectException(PHPUnit_Framework_Error::class);
-        $this->expectExceptionMessage("File not found.");
+        $this->expectExceptionMessage('File not found.');
+
         try {
             l(__DIR__.'/../resources/empty.php.fake');
         } catch (Exception $e) {

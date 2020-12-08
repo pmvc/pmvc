@@ -28,7 +28,8 @@ class UtilArrayTest extends PHPUnit_Framework_TestCase
     public function testArrayReplaceWrongType()
     {
         $this->expectException(PHPUnit_Framework_Error::class);
-        $this->expectExceptionMessage("Param1 should be array type.");
+        $this->expectExceptionMessage('Param1 should be array type.');
+
         try {
             $s = '';
             arrayReplace($s);
