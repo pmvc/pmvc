@@ -26,7 +26,7 @@ before_script:
   - composer self-update
   - composer install
   - if [[ "$TRAVIS_PHP_VERSION" == '8.0' ]]; then composer require --ignore-platform-req=php phpunit/phpunit 9.5.0; fi
-  - if [[ "$TRAVIS_PHP_VERSION" == '8.0' ]]; then mv phpunit-php8.xml phpunit.xml; fi
+  - if [[ "$TRAVIS_PHP_VERSION" != '8.0' ]]; then mv phpunit-legacy.xml phpunit.xml; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.4' ]]; then composer require phpunit/phpunit 6.5.5; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.3' ]]; then composer require phpunit/phpunit 6.5.5; fi
   - if [[ "$TRAVIS_PHP_VERSION" == '7.2' ]]; then composer require phpunit/phpunit 6.5.5; fi

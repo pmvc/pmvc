@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase;
 
 class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
 {
-    protected function setup(): void
+    public function setup()
     {
         unplug('test');
         addPlugInFolders(

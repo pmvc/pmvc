@@ -2,11 +2,12 @@
 
 namespace PMVC;
 
+use DomainException;
 use PHPUnit_Framework_TestCase;
 
 class UtilPlugPlugAliasTest extends PHPUnit_Framework_TestCase
 {
-    public function setup()
+    protected function setup(): void
     {
         unplug('test');
         unplug('fakeAlias');
@@ -37,6 +38,7 @@ class UtilPlugPlugAliasTest extends PHPUnit_Framework_TestCase
      */
     public function testPluginNotFound()
     {
+        $this->expectException(DomainException::class);
         $abc = plug('fakeAlias');
     }
 }

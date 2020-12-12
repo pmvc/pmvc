@@ -9,7 +9,7 @@ use PHPUnit_Framework_TestCase;
 
 class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
 {
-    public function teardown()
+    protected function teardown(): void
     {
         unplug('test');
         unplug('debug');
@@ -91,14 +91,15 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugNotFound()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage('Plug-in test not found');
+
         try {
             plug('test');
         } catch (Exception $e) {
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
@@ -109,14 +110,15 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugNameNotString()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage('Plug name should be string.');
+
         try {
             plug(new \stdClass());
         } catch (Exception $e) {
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
@@ -133,6 +135,9 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugClassNotFound()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage('class not found');
+
         try {
             plug(
                 'test',
@@ -144,8 +149,6 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
@@ -156,6 +159,9 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugANonPlugin()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage("Class is not a plug-in(\PMVC\PlugIn) instance.");
+
         try {
             plug(
                 'test',
@@ -167,8 +173,6 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
@@ -251,6 +255,9 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testPlugNotExistsFile()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage('PlugIn test: defined file not found. [foo]');
+
         try {
             plug(
                 'test',
@@ -262,8 +269,6 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
@@ -319,14 +324,15 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testUnPlugSecurityWarning()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage('You can not change security plugin');
+
         try {
             unplug('testSecurity');
         } catch (Exception $e) {
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
-                0,
-                $e->getFile(),
-                $e->getLine()
+                0
             );
         }
     }
@@ -337,14 +343,15 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testRePlugSecurityWarning()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage('You can not change security plugin');
+
         try {
             replug('testSecurity', new HashMap());
         } catch (Exception $e) {
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
-                0,
-                $e->getFile(),
-                $e->getLine()
+                0
             );
         }
     }
@@ -355,6 +362,8 @@ class UtilPlugPlugTest extends PHPUnit_Framework_TestCase
      */
     public function testSecurityPluginAlreadyExists()
     {
+        $this->expectException(OverflowException::class);
+        $this->expectExceptionMessage('Security plugin [test] already plug');
         $file = __DIR__.'/../resources/FakePlugFile.php';
         plug(
             'test',

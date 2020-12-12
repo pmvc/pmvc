@@ -27,9 +27,6 @@ class UtilArrayTest extends PHPUnit_Framework_TestCase
      */
     public function testArrayReplaceWrongType()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
-        $this->expectExceptionMessage('Param1 should be array type.');
-
         try {
             $s = '';
             arrayReplace($s);
@@ -37,6 +34,8 @@ class UtilArrayTest extends PHPUnit_Framework_TestCase
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
+                $e->getFile(),
+                $e->getLine()
             );
         }
     }

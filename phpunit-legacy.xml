@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+   backupStaticAttributes="false"
+   bootstrap="tests/include.php"
+   colors="true"
+   convertErrorsToExceptions="true"
+   convertNoticesToExceptions="true"
+   convertWarningsToExceptions="true"
+   processIsolation="false"
+   stopOnFailure="false"
+>
+    <testsuites>
+        <testsuite name="Application Test Suite">
+            <directory>./tests-legacy/</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <ini name="error_reporting" value="E_ALL"/>
+        <ini name="display_errors" value="true"/>
+        <ini name="display_startup_errors" value="true"/>
+        <env name="APP_ENV" value="testing"/>
+    </php>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
+</phpunit>

@@ -8,7 +8,7 @@ use PHPUnit_Framework_TestCase;
 
 class UtilDevTest extends PHPUnit_Framework_TestCase
 {
-    protected function setup(): void
+    public function setup()
     {
         unplug('debug');
         $this->_debugClass = __NAMESPACE__.
@@ -64,15 +64,14 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
      */
     public function testTriggerJson()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
-        $this->expectExceptionMessage('{"Error":"error","Debug":["debug-payload"]}');
-
         try {
             triggerJson('error', ['debug-payload']);
         } catch (Exception $e) {
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
+                $e->getFile(),
+                $e->getLine()
             );
         }
     }

@@ -8,7 +8,8 @@ if (!class_exists('PHPUnit_Framework_TestCase')) {
         \PHPUnit\Framework\TestCase
     {
     }
-    class PHPUnit_Framework_Error extends Exception
+    class PHPUnit_Framework_Error extends
+        \PHPUnit\Framework\Error\Notice
     {
     }
 }

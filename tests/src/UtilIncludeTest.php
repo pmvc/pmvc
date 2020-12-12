@@ -31,14 +31,15 @@ class UtilIncludeTest extends PHPUnit_Framework_TestCase
      */
     public function testIncludeNotExists()
     {
+        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectExceptionMessage('File not found.');
+
         try {
             l(__DIR__.'/../resources/empty.php.fake');
         } catch (Exception $e) {
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
                 0,
-                $e->getFile(),
-                $e->getLine()
             );
         }
     }
