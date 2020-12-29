@@ -89,7 +89,7 @@ trait Alias
                 'Method not found: '.
                 str_replace('\\\\', '\\', get_class($this)).'::'.
                 $method.'()'.
-                '. Please check alias file already use lowercase.'
+                '. Please confirm alias file already use lowercase.'
             );
         } else {
             return call_user_func_array(
