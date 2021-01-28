@@ -90,4 +90,8 @@ class hello_world extends \PMVC\PlugIn
 
 ---
 
-MIT 2020
+```
+composer require pmvc/pmvc
+```
+
+MIT 2021
