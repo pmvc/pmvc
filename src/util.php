@@ -233,6 +233,7 @@ function utf8JsonEncode($p, int $flags = 0)
     if (!$flags && JSON_INVALID_UTF8_SUBSTITUTE) {
         $flags = JSON_INVALID_UTF8_SUBSTITUTE;
     }
+
     return json_encode(utf8Export($p), $flags);
 }
 
