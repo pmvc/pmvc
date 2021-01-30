@@ -217,19 +217,23 @@ function utf8Export($p)
 {
     return exists('utf8', 'plug') ?
       plug('utf8')->toUtf8($p) :
-      utf8_encode(var_export($p, true));
+      (testString($p) ? utf8_encode($p) : $p);
 }
 
 /**
  * UTF8 Json Encode.
  *
- * @param mixed $p payload.
+ * @param mixed $p     payload.
+ * @param int   $flags flags.
  *
  * @return mixed
  */
-function utf8JsonEncode($p)
+function utf8JsonEncode($p, int $flags = 0)
 {
-    return json_encode(utf8Export($p));
+    if (!$flags && JSON_INVALID_UTF8_SUBSTITUTE) {
+        $flags = JSON_INVALID_UTF8_SUBSTITUTE;
+    }
+    return json_encode(utf8Export($p), $flags);
 }
 
 /**
