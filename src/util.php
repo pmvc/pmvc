@@ -217,7 +217,7 @@ function utf8Export($p)
 {
     return exists('utf8', 'plug') ?
       plug('utf8')->toUtf8($p) :
-      utf8_encode($p);
+      utf8_encode(var_export($p, true));
 }
 
 /**
