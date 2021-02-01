@@ -233,6 +233,7 @@ function utf8JsonEncode($p, int $flags = 0)
     if (!$flags && JSON_INVALID_UTF8_SUBSTITUTE) {
         $flags = JSON_INVALID_UTF8_SUBSTITUTE;
     }
+
     return json_encode(utf8Export($p), $flags);
 }
 
@@ -593,7 +594,11 @@ function &get(&$a, $k = null, $default = null)
      * So the default value will handle at last.
      */
     if (isArrayAccess($a)) {
-        $v = $a->offsetGet($k);
+        if (is_null($k) && method_exists($a, "toArray")) {
+            $v = $a->toArray();
+        } else {
+            $v = $a->offsetGet($k);
+        }
         if (!is_null($v)) {
             if (is_null($k) && is_array($v)) {
                 foreach ($v as $vk=>$vv) {
