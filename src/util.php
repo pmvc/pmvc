@@ -594,7 +594,7 @@ function &get(&$a, $k = null, $default = null)
      * So the default value will handle at last.
      */
     if (isArrayAccess($a)) {
-        if (is_null($k) && method_exists($a, "toArray")) {
+        if (is_null($k) && method_exists($a, 'toArray')) {
             $v = $a->toArray();
         } else {
             $v = $a->offsetGet($k);
