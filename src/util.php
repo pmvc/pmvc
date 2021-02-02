@@ -228,7 +228,7 @@ function utf8Export($p)
  *
  * @return mixed
  */
-function utf8JsonEncode($p, int $flags = 0)
+function utf8JsonEncode($p, $flags = 0)
 {
     if (!$flags && JSON_INVALID_UTF8_SUBSTITUTE) {
         $flags = JSON_INVALID_UTF8_SUBSTITUTE;
