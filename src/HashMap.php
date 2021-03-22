@@ -43,7 +43,7 @@ class HashMap extends ListIterator implements ArrayAccess
      */
     public function keySet()
     {
-        return array_keys($this->state);
+        return array_keys(is_array($this->state) ? $this->state : []);
     }
 
     /**

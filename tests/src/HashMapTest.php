@@ -69,6 +69,12 @@ class HashMapTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(['a'], $hash->keySet());
     }
 
+    public function testKeysetAsEmpty()
+    {
+        $hash = new FakeHash1();
+        $this->assertEquals([], $hash->keySet());
+    }
+
     public function testOffsetExists()
     {
         $arr = ['a' => '111'];
@@ -153,5 +159,12 @@ class FakeHash extends HashMap
     public function mySet($k, $v)
     {
         $this[$k] = $v;
+    }
+}
+
+class FakeHash1 extends HashMap
+{
+    public function __construct()
+    {
     }
 }
