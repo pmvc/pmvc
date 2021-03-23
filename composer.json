@@ -1,28 +1,32 @@
 {
-    "name": "pmvc/pmvc",
-    "description": "Pure plugin framework (PMVC with PHP8), use anything you like. No mvc, http inside.",
-    "type": "library",
-    "keywords": ["pmvc", "plug", "plug-in", "framework", "mvc", "phramework"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Hill",
-            "email": "hill@kimo.com"
-        }
+  "name": "pmvc/pmvc",
+  "description": "Pure plugin framework (PMVC with PHP8), use anything you like. No mvc, http inside.",
+  "type": "library",
+  "keywords": ["pmvc", "plug", "plug-in", "framework", "mvc", "phramework"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Hill",
+      "email": "hill@kimo.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "@stable",
+    "pmvc-plugin/utf8": "*",
+    "pmvc-plugin/dev": "*",
+    "pmvc-plugin/debug": "*"
+  },
+  "autoload": {
+    "files": [
+      "src/Constants.php",
+      "src/util.php"
     ],
-    "require": {
-        "php": ">=5.5.0"
-    },
-    "require-dev": {
-        "squizlabs/php_codesniffer" : "@stable",
-        "pmvc-plugin/utf8": "*",
-        "pmvc-plugin/dev" : "*",
-        "pmvc-plugin/debug" : "*"
-    },
-    "autoload": {
-        "psr-4": {
-            "PMVC\\": "src"
-        }
-    },
-    "minimum-stability": "dev"
+    "psr-4": {
+      "PMVC\\": "src"
+    }
+  },
+  "minimum-stability": "dev"
 }

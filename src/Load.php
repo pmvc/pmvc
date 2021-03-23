@@ -46,7 +46,6 @@ class Load
         array $folders = [],
         array $options = []
     ) {
-        include_once __DIR__.'/../include.php';
         self::initPlugInFolder();
         if (is_callable($init)) {
             $params = $init();

@@ -62,9 +62,12 @@ function realPath($p)
  */
 function l($name, $export = null, $once = true)
 {
-    $real = realpath($name);
+    $real = realpath($name.'.php');
     if (!$real) {
-        return !trigger_error('File not found. ['.$name.']');
+      $real = realpath($name);
+      if (!$real) {
+          return !trigger_error('File not found. ['.$name.']');
+      }
     }
     if ($once) {
         return run(ns('_l'), [$real, $export]);
