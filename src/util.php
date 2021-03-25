@@ -68,9 +68,9 @@ function l($name, $export = null, $once = true, $ignore = false)
         $real = realpath($name);
         if (!$real) {
             if ($ignore) {
-              return false;
+                return false;
             } else {
-              return !trigger_error('File not found. ['.$name.']');
+                return !trigger_error('File not found. ['.$name.']');
             }
         }
     }
