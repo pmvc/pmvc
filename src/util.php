@@ -57,16 +57,21 @@ function realPath($p)
  * @param string $name   File name
  * @param string $export Extract one variable name.
  * @param bool   $once   If incldue once
+ * @param bool   $ignore Without error message.
  *
  * @return mixed
  */
-function l($name, $export = null, $once = true)
+function l($name, $export = null, $once = true, $ignore = false)
 {
     $real = realpath($name.'.php');
     if (!$real) {
         $real = realpath($name);
         if (!$real) {
-            return !trigger_error('File not found. ['.$name.']');
+            if ($ignore) {
+              return false;
+            } else {
+              return !trigger_error('File not found. ['.$name.']');
+            }
         }
     }
     if ($once) {

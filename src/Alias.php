@@ -269,13 +269,14 @@ class AliasSrcFile extends AbstractAlias
         }
         $lowerMethod = strtolower($method);
         $path = $this->_getPath($self, $lowerMethod);
-        if (!realpath($path)) {
+        $r = l($path, _INIT_CONFIG, true, true);
+        if (!$r) {
             $path = $this->_getPath($self, camelCase($method, '_'));
-            if (!realpath($path)) {
+            $r = l($path, _INIT_CONFIG, true, true);
+            if (!$r) {
                 return false;
             }
         }
-        $r = l($path, _INIT_CONFIG);
         $class = value($r, ['var', _INIT_CONFIG, _CLASS]);
         if (!$class) {
             return !trigger_error('Not defined default Class. ['.$path.']');
@@ -314,6 +315,6 @@ class AliasSrcFile extends AbstractAlias
      */
     private function _getPath($self, $method)
     {
-        return $self->getDir().'src/_'.$method.'.php';
+        return $self->getDir().'src/_'.$method;
     }
 }
