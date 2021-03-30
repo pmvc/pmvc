@@ -57,9 +57,9 @@ namespace PMVC {
 namespace PMVC\Event {
     const SET_CONFIG = 'SetConfig';
     const MAP_REQUEST = 'MapRequest';
-    const B4_PROCESS_ERROR = 'B4ProcessError';
-    const B4_PROCESS_ACTION = 'B4ProcessAction';
-    const B4_PROCESS_HEADER = 'B4ProcessHeader';
-    const B4_PROCESS_VIEW = 'B4ProcessView';
+    const WILL_PROCESS_ERROR = 'WillProcessError';
+    const WILL_PROCESS_ACTION = 'WillProcessAction';
+    const WILL_PROCESS_HEADER = 'WillProcessHeader';
+    const WILL_PROCESS_VIEW = 'WillProcessView';
     const FINISH = 'Finish';
 }

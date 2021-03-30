@@ -51,7 +51,7 @@ function realPath($p)
 }
 
 /**
- * Same with include, but self manage include_once
+ * Same with include, but manage include_once by self.
  * and make global variable to local variable.
  *
  * @param string $name   File name
