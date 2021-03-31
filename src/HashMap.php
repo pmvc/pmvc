@@ -106,7 +106,7 @@ class HashMap extends ListIterator implements ArrayAccess
     {
         if ([] === $k && is_array($v)) {
             /**
-             * Overwrite with all new value
+             * Overwrite with all new value.
              *
              * If the input arrays have the same string keys,
              * then the values for these keys are merged together into an array.

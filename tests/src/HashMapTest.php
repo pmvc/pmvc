@@ -42,7 +42,7 @@ class HashMapTest extends TestCase
 
     public function testPlug()
     {
-        $class = __NAMESPACE__ . '\FakePlugIn';
+        $class = __NAMESPACE__.'\FakePlugIn';
         $plug_name = 'fake_plug';
         $plug = plug($plug_name, [
             _CLASS => $class,
