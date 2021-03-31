@@ -15,15 +15,13 @@
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "@stable",
+    "pmvc-plugin/unit": "*",
     "pmvc-plugin/utf8": "*",
     "pmvc-plugin/dev": "*",
     "pmvc-plugin/debug": "*"
   },
   "autoload": {
-    "files": [
-      "src/Constants.php",
-      "src/util.php"
-    ],
+    "files": ["src/Constants.php", "src/util.php"],
     "psr-4": {
       "PMVC\\": "src"
     }

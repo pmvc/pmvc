@@ -2,9 +2,7 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-
-class HashMapTest extends PHPUnit_Framework_TestCase
+class HashMapTest extends TestCase
 {
     public function testHashMap()
     {
@@ -44,14 +42,11 @@ class HashMapTest extends PHPUnit_Framework_TestCase
 
     public function testPlug()
     {
-        $class = __NAMESPACE__.'\FakePlugIn';
+        $class = __NAMESPACE__ . '\FakePlugIn';
         $plug_name = 'fake_plug';
-        $plug = plug(
-            $plug_name,
-            [
-                _CLASS => $class,
-            ]
-        );
+        $plug = plug($plug_name, [
+            _CLASS => $class,
+        ]);
         $this->assertEquals($class, plug($plug_name)[_CLASS]);
     }
 
@@ -145,11 +140,35 @@ class HashMapTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(['ddd'], $hash[0]);
     }
 
+    public function testAppendWithSameKey()
+    {
+        $hash = new HashMap(['foo' => 'bar']);
+        $hash[[]] = ['foo' => 'bar'];
+        $this->assertEquals(['foo' => ['bar', 'bar']], get($hash));
+    }
+
+    public function testMergeDefault()
+    {
+        $hash = new HashMap([
+            'a' => 0,
+        ]);
+        $hash[
+            [
+                'a' => 1,
+                'b' => 2,
+            ]
+        ] = [];
+        $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
+    }
+
     public function testHashMapWalk()
     {
-        $arr = ['foo'=>['a'], 'bar'];
+        $arr = ['foo' => ['a'], 'bar'];
         $map = new HashMap($arr, true);
-        $expected = new HashMap(['foo'=>new HashMap(['a'], true), 'bar'], true);
+        $expected = new HashMap(
+            ['foo' => new HashMap(['a'], true), 'bar'],
+            true
+        );
         $this->assertEquals($expected, $map);
     }
 }
