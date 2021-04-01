@@ -3,58 +3,61 @@
 namespace PMVC;
 
 use Exception;
-use PHPUnit_Framework_Error;
-use PHPUnit_Framework_TestCase;
 
-class AliasTest extends PHPUnit_Framework_TestCase
+class AliasTest extends TestCase
 {
+    public function pmvc_setup() {
+      unplug('fake');
+      unplug('fakeChild');
+    }
+
     public function getAliasProvider()
     {
+        $parent = function() {return plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);};
         return [
-            [plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias'])],
-            [plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild'])],
-            [new FakeAliasWithoutArrayAccess()],
-            [new FakeAliasWithoutArrayAccessChild()],
+            [$parent, 'data1'],
+            [function() use ($parent) {$parent();return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);}, 'data2'],
+            [function() { return new FakeAliasWithoutArrayAccess();}, 'data3'],
+            [function() { return new FakeAliasWithoutArrayAccessChild();}, 'data4'],
         ];
     }
 
     /**
      * @dataProvider getAliasProvider
      */
-    public function testDefaultAlias($a)
+    public function testDefaultAlias($a, $tData)
     {
         option('set', 'a', 0);
-        $a->a();
-        $name = get_class($a);
-        if (\PMVC\value($a, [NAME])) {
-            $name = $a[NAME];
-        }
-        $this->assertEquals(1, getOption('a'), 'Test for: '.$name);
+        $obj = $a();
+        $obj->a();
+        $this->assertEquals(1, getOption('a'), 'Test for: '.$tData);
     }
 
     /**
      * @dataProvider getAliasProvider
      */
-    public function testConfigAlias($a)
+    public function testConfigAlias($a, $tData)
     {
-        if (isArray($a)) {
-            $a['c'] = new FakeInvoke();
+        $obj = $a();
+        if (isArray($obj)) {
+            $obj['c'] = new FakeInvoke();
         } else {
-            $a->c = new FakeInvoke();
+            $obj->c = new FakeInvoke();
         }
         option('set', 'c', 0);
-        $a->c();
-        $this->assertEquals(1, getOption('c'), 'Test for: '.get_class($a));
+        $obj->c();
+        $this->assertEquals(1, getOption('c'), 'Test for: '.$tData);
     }
 
     /**
      * @dataProvider getAliasProvider
      */
-    public function testSourceFromFile($a)
+    public function testSourceFromFile($a, $tData)
     {
+        $obj = $a();
         option('set', 'd', 0);
-        $a->FakeTask();
-        $this->assertEquals(1, getOption('d'));
+        $obj->FakeTask();
+        $this->assertEquals(1, getOption('d'), 'Test for: '.$tData);
     }
 
     /**
@@ -62,40 +65,41 @@ class AliasTest extends PHPUnit_Framework_TestCase
      *
      * @dataProvider getAliasProvider
      */
-    public function testFileAliasCache($a)
+    public function testFileAliasCache($a, $tData)
     {
-        $a->FakeTask();
+        $obj = $a();
+        $obj->FakeTask();
         option('set', 'd', 0);
         option('set', 'e', 0);
-        if (\PMVC\value($a, ['parentAlias'])) {
-            $this->assertTrue((bool) \PMVC\value($a, ['parentAlias', 'faketask']));
-        } elseif (\PMVC\value($a, ['faketask'])) {
-            $this->assertTrue((bool) \PMVC\value($a, ['faketask']));
+        if (\PMVC\value($obj, ['parentAlias'])) {
+            $this->assertTrue((bool) \PMVC\value($obj, ['parentAlias', 'faketask']), 'Test for: '.$tData);
+        } elseif (\PMVC\value($obj, ['faketask'])) {
+            $this->assertTrue((bool) \PMVC\value($obj, ['faketask']), 'Test for: '.$tData);
         } else {
-            $plugin = plugInStore($a[NAME]);
-            $this->assertTrue((bool) \PMVC\value($plugin, ['parentAlias', 'faketask']));
+            $plugin = plugInStore($obj[NAME]);
+            $this->assertTrue((bool) \PMVC\value($plugin, ['parentAlias', 'faketask']), 'Test for: '.$tData);
         }
-        $a->FakeTask();
-        $this->assertEquals(1, getOption('d'));
-        $this->assertEquals(0, getOption('e'));
+        $obj->FakeTask();
+        $this->assertEquals(1, getOption('d'), 'Test for: '.$tData);
+        $this->assertEquals(0, getOption('e'), 'Test for: '.$tData);
     }
 
     /**
      * Test parent method not exists.
      *
-     * @expectedException PHPUnit_Framework_Error
+     * @expectedException \PMVC\PMVCUnitException
      */
     public function testParentMethodNotExists()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectException(PMVCUnitException::class);
 
         try {
             $child = plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
             $child->FakeNotExists();
         } catch (Exception $e) {
-            throw new PHPUnit_Framework_Error(
+            throw new PMVCUnitException(
                 $e->getMessage(),
-                0,
+                0
             );
         }
     }
@@ -135,21 +139,21 @@ class AliasTest extends PHPUnit_Framework_TestCase
     /**
      * Test alias without implemnet getdir.
      *
-     * @expectedException        PHPUnit_Framework_Error
+     * @expectedException        \PMVC\PMVCUnitException
      * @expectedExceptionMessage Method not found
      */
     public function testAliasObjectWithoutGetdir()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectException(PMVCUnitException::class);
         $this->expectExceptionMessage('Method not found');
 
         try {
             $oAlias = new FakeAliasWithOutGetDir();
             $result = $oAlias->faketask();
         } catch (Exception $e) {
-            throw new PHPUnit_Framework_Error(
+            throw new PMVCUnitException(
                 $e->getMessage(),
-                0,
+                0
             );
         }
     }
@@ -157,21 +161,21 @@ class AliasTest extends PHPUnit_Framework_TestCase
     /**
      * Test not defned class in alias file.
      *
-     * @expectedException        PHPUnit_Framework_Error
+     * @expectedException        \PMVC\PMVCUnitException
      * @expectedExceptionMessage Not defined default Class
      */
     public function testAliasFileWithoutClass()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectException(PMVCUnitException::class);
         $this->expectExceptionMessage('Not defined default Class');
 
         try {
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->without_class();
         } catch (Exception $e) {
-            throw new PHPUnit_Framework_Error(
+            throw new PMVCUnitException(
                 $e->getMessage(),
-                0,
+                0
             );
         }
     }
@@ -179,21 +183,21 @@ class AliasTest extends PHPUnit_Framework_TestCase
     /**
      * Test defined class not exist.
      *
-     * @expectedException        PHPUnit_Framework_Error
+     * @expectedException        \PMVC\PMVCUnitException
      * @expectedExceptionMessage Default class not exists
      */
     public function testAliasFileWithWrongName()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectException(PMVCUnitException::class);
         $this->expectExceptionMessage('Default class not exists');
 
         try {
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->with_wrong_name();
         } catch (Exception $e) {
-            throw new PHPUnit_Framework_Error(
+            throw new PMVCUnitException(
                 $e->getMessage(),
-                0,
+                0
             );
         }
     }
@@ -201,21 +205,21 @@ class AliasTest extends PHPUnit_Framework_TestCase
     /**
      * Test not implement invoke.
      *
-     * @expectedException        PHPUnit_Framework_Error
+     * @expectedException        \PMVC\PMVCUnitException
      * @expectedExceptionMessage Not implement __invoke
      */
     public function testAliasFileWithoutInvoke()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
+        $this->expectException(PMVCUnitException::class);
         $this->expectExceptionMessage('Not implement __invoke');
 
         try {
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->without_invoke();
         } catch (Exception $e) {
-            throw new PHPUnit_Framework_Error(
+            throw new PMVCUnitException(
                 $e->getMessage(),
-                0,
+                0
             );
         }
     }

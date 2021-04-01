@@ -1,2 +1,2 @@
 #!/bin/bash
-phpunit --configuration ./phpunit-legacy.xml
+phpunit --configuration ./phpunit-legacy.xml $*

@@ -6,7 +6,7 @@ case "$1" in
     ;;
 
   *)
-    docker-compose run --rm phpunit ./phpunit-legacy.sh 
+    docker-compose run --rm phpunit ./phpunit-legacy.sh $* 
     ;;
 esac
 

@@ -2,9 +2,7 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-
-class UtilPlugUnPlugTest extends PHPUnit_Framework_TestCase
+class UtilPlugUnPlugTest extends TestCase
 {
     public function testUnplugNotExist()
     {
@@ -14,7 +12,7 @@ class UtilPlugUnPlugTest extends PHPUnit_Framework_TestCase
 
     public function testUnPlug()
     {
-        $class = __NAMESPACE__.'\FakePlug';
+        $class = __NAMESPACE__.'\FakePlugIn';
         plug(
             'fake',
             [
