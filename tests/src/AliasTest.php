@@ -6,19 +6,23 @@ use Exception;
 
 class AliasTest extends TestCase
 {
-    public function pmvc_setup() {
-      unplug('fake');
-      unplug('fakeChild');
+    public function pmvc_setup()
+    {
+        unplug('fake');
+        unplug('fakeChild');
     }
 
     public function getAliasProvider()
     {
-        $parent = function() {return plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);};
+        $parent = function () {return plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']); };
+
         return [
             [$parent, 'data1'],
-            [function() use ($parent) {$parent();return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);}, 'data2'],
-            [function() { return new FakeAliasWithoutArrayAccess();}, 'data3'],
-            [function() { return new FakeAliasWithoutArrayAccessChild();}, 'data4'],
+            [function () use ($parent) {$parent();
+
+return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']); }, 'data2'],
+            [function () { return new FakeAliasWithoutArrayAccess(); }, 'data3'],
+            [function () { return new FakeAliasWithoutArrayAccessChild(); }, 'data4'],
         ];
     }
 
