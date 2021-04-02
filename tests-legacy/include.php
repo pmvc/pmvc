@@ -5,7 +5,7 @@ require $path;
 
 \PMVC\Load::plug(['unit' => null], [__DIR__.'/../vendor/pmvc-plugin/']);
 
-\PMVC\l(__DIR__.'/resources/FakePlugIn');
-\PMVC\l(__DIR__.'/resources/FakeDebugPlugIn');
-\PMVC\l(__DIR__.'/resources/FakeAlias');
-\PMVC\l(__DIR__.'/resources/FakeDebugDump');
+\PMVC\l(__DIR__.'/../tests/resources/FakePlugIn');
+\PMVC\l(__DIR__.'/../tests/resources/FakeDebugPlugIn');
+\PMVC\l(__DIR__.'/../tests/resources/FakeAlias');
+\PMVC\l(__DIR__.'/../tests/resources/FakeDebugDump');

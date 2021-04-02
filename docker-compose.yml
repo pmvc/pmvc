@@ -5,7 +5,9 @@ services:
     image: hillliu/pmvc-phpunit:5.6
     volumes:
     - .:/var/www/html
+    - .:/root/.composer/vendor/pmvc/pmvc
   phpunit7.2:
     image: hillliu/pmvc-phpunit:7.2
     volumes:
     - .:/var/www/html
+    - .:/root/.composer/vendor/pmvc/pmvc

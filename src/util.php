@@ -24,9 +24,8 @@ use OverflowException;
 use stdClass;
 
 option(
-    'set',
-    [
-        ERRORS => new HashMap(),
+    'set', [
+    ERRORS => new HashMap(),
     ]
 );
 
@@ -63,14 +62,14 @@ function realPath($p)
  */
 function l($name, $export = null, $once = true, $ignore = false)
 {
-    $real = realpath($name.'.php');
+    $real = realpath($name . '.php');
     if (!$real) {
         $real = realpath($name);
         if (!$real) {
             if ($ignore) {
                 return false;
             } else {
-                return !trigger_error('File not found. ['.$name.']');
+                return !trigger_error('File not found. [' . $name . ']');
             }
         }
     }
@@ -111,25 +110,15 @@ function _l($name, $export = null)
  *
  * @return mixed
  */
-function load(
-    $name,
-    $dirs = null,
-    $output = null,
-    $once = true
-) {
+function load($name, $dirs = null, $output = null, $once = true)
+{
     if (empty($name)) {
         return 1;
     }
     /*
      * Cache find in load case, if some case can't use cahce please use find directly
      */
-    $file = run(
-        ns('find'),
-        [
-            $name,
-            $dirs,
-        ]
-    );
+    $file = run(ns('find'), [$name, $dirs]);
     if ($file) {
         return l($file, $output, $once);
     } else {
@@ -183,16 +172,12 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
         $folders = array_map(
             function ($f) {
                 return realpath($f);
-            },
-            $folders
+            }, $folders
         );
         $folders = array_filter($folders);
         if (!empty($folders)) {
             $_folders[$type] = array_unique(
-                array_merge(
-                    $_folders[$type],
-                    $folders
-                )
+                array_merge($_folders[$type], $folders)
             );
         }
     }
@@ -202,7 +187,7 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
 
     return [
         'folders' => array_reverse($_folders[$type]),
-        'alias'   => $_alias[$type],
+        'alias' => $_alias[$type],
     ];
 }
 
@@ -223,9 +208,11 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
  */
 function utf8Export($p)
 {
-    return exists('utf8', 'plug') ?
-      plug('utf8')->toUtf8($p) :
-      (testString($p) ? utf8_encode($p) : $p);
+    return exists('utf8', 'plug')
+        ? plug('utf8')->toUtf8($p)
+        : (testString($p)
+            ? utf8_encode($p)
+            : $p);
 }
 
 /**
@@ -256,7 +243,7 @@ function utf8JsonEncode($p, $flags = 0)
 function mergeFileName($name, $dir = null)
 {
     if (!empty($dir)) {
-        $name = lastSlash($dir).$name;
+        $name = lastSlash($dir) . $name;
     }
 
     return $name;
@@ -381,7 +368,7 @@ function camelCase($s, $join = null)
     } else {
         $result = strtolower($arr[0]);
         for ($i = 1, $j = count($arr); $i < $j; $i++) {
-            $result .= $join.strtolower($arr[$i]);
+            $result .= $join . strtolower($arr[$i]);
         }
     }
 
@@ -406,9 +393,7 @@ function camelCase($s, $join = null)
  */
 function hasKey($haystack, $needle)
 {
-    if ($haystack === $needle
-        || isset($haystack[$needle])
-    ) {
+    if ($haystack === $needle || isset($haystack[$needle])) {
         return true;
     } else {
         return false;
@@ -427,10 +412,7 @@ function arrayReplace()
     // it helpful if you just pass pure array without assign.
     $new = $a[0];
     if (!isArray($new)) {
-        return triggerJson(
-            'Param1 should be array type.',
-            [ 'Array'=> $new]
-        );
+        return triggerJson('Param1 should be array type.', ['Array' => $new]);
     }
     for ($i = 1, $j = count($a); $i < $j; $i++) {
         if (is_null($a[$i])) {
@@ -569,12 +551,14 @@ function clean(&$a, $k = null)
 
         return $a;
     }
-    if (is_null($k)) { //clean all
+    if (is_null($k)) {
+        //clean all
         $a = [];
 
         return $a;
     } else {
-        if (isArray($k)) { //replace
+        if (isArray($k)) {
+            //replace
             $a = $k;
 
             return $a;
@@ -609,7 +593,7 @@ function &get(&$a, $k = null, $default = null)
         }
         if (!is_null($v)) {
             if (is_null($k) && is_array($v)) {
-                foreach ($v as $vk=>$vv) {
+                foreach ($v as $vk => $vv) {
                     if (isArrayAccess($vv)) {
                         $v[$vk] = $vv->offsetGet();
                     }
@@ -619,7 +603,8 @@ function &get(&$a, $k = null, $default = null)
             return $v;
         }
     }
-    if (is_null($k) || false === $k) { //return all
+    if (is_null($k) || false === $k) {
+        //return all
         if (is_object($a)) {
             $r = get_object_vars($a);
             $r = $r ? $r : (array) $a;
@@ -628,7 +613,8 @@ function &get(&$a, $k = null, $default = null)
         }
 
         return $a;
-    } elseif (is_array($k)) { //return by keys
+    } elseif (is_array($k)) {
+        //return by keys
         $r = [];
         if (is_array($a)) {
             foreach ($k as $i) {
@@ -764,7 +750,7 @@ function &option($act, $k = null, $v = null)
  */
 function ns($s)
 {
-    return __NAMESPACE__.'\\'.$s;
+    return __NAMESPACE__ . '\\' . $s;
 }
 
 /**
@@ -778,7 +764,10 @@ function ns($s)
  */
 function triggerJson($error, $debug = null, $type = E_USER_NOTICE)
 {
-    return !trigger_error(utf8JsonEncode(['Error'=>$error, 'Debug'=>$debug]), $type);
+    return !trigger_error(
+        utf8JsonEncode(['Error' => $error, 'Debug' => $debug]),
+        $type
+    );
 }
 
 /**
@@ -885,9 +874,7 @@ function exists($v, $type)
         }
     default:
         throw new DomainException(
-            'Exists checker not support ['.
-            $type.
-            ']'
+            'Exists checker not support [' . $type . ']'
         );
     }
 }
@@ -921,9 +908,9 @@ function addPlugInFolders(array $folders, array $alias = [])
 
             return [
                 'previous' => folders(_PLUGIN),
-                'folders'  => $folders,
-                'alias'    => $alias,
-                'trace'    => $trace,
+                'folders' => $folders,
+                'alias' => $alias,
+                'trace' => $trace,
             ];
         },
         'plugin-folder'
@@ -946,40 +933,42 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
     static $plugins = [];
     static $securitys = [];
     $currentPlug = false;
+    $isOrigSecurity = false;
     if (!is_null($key)) {
-        $key = strtolower($key);
-    }
-    if (isset($plugins[$key])) {
-        $currentPlug = $plugins[$key];
-    }
-    if ($isSecurity) {
-        if ($currentPlug) {
-            throw new OverflowException(
-                'Security plugin ['.$key.'] already plug, '.
-                'you need check your code if it is safe.'
-            );
+        $cookKey = strtolower($key);
+        if (isset($plugins[$cookKey])) {
+            $currentPlug = $plugins[$cookKey];
         }
-        $securitys[$key] = true;
+        if (isset($securitys[$cookKey])) {
+            $isOrigSecurity = $securitys[$cookKey];
+        }
     }
     if (is_null($value)) {
-        if (!is_null($key)) {
-            return $currentPlug;
-        } else {
-            return array_keys($plugins);
-        }
-    }
-    if (isset($securitys[$key]) && $currentPlug) {
-        return !trigger_error('You can not change security plugin. ['.$key.']');
-    }
-    if (empty($value)) {
         if ($currentPlug) {
-            $plugins[$key] = null;
-            unset($plugins[$key]);
+            return $currentPlug;
+        } elseif (is_null($key)) {
+            return array_keys($plugins);
+        } else {
+            return false;
         }
-    } else {
-        $plugins[$key] = $value;
     }
-
+    if ($currentPlug && false !== $value && ($isSecurity || $isOrigSecurity)) {
+        throw new OverflowException(
+            'Security plugin [' .
+                $key .
+                '] already plug or unplug, ' .
+                'you need check your code if it is safe.'
+        );
+    }
+    if ($isOrigSecurity) {
+        return !trigger_error(
+            'You can not change security plugin. [' . $key . ']'
+        );
+    }
+    $plugins[$cookKey] = $value;
+    if ($isSecurity) {
+        $securitys[$cookKey] = true;
+    }
     return $currentPlug;
 }
 
@@ -995,28 +984,23 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
 function callPlugin($plugIn, $func = null, $args = [])
 {
     if (exists($plugIn, 'plugin')) {
-        return is_null($func) ?
-        plug($plugIn) :
-        call_user_func_array(
-            [
-                plug($plugIn),
-                $func,
-            ],
-            $args
-        );
+        return is_null($func)
+            ? plug($plugIn)
+            : call_user_func_array([plug($plugIn), $func], $args);
     }
 }
 
 /**
  * Unplug.
  *
- * @param sring $name plug-in name
+ * @param sring $name   Plug-in name.
+ * @param sring $reject Reject replug again.
  *
  * @return PlugIn
  */
-function unPlug($name)
+function unPlug($name, $reject = false)
 {
-    return plugInStore($name, false);
+    return plugInStore($name, false, $reject);
 }
 
 /**
@@ -1032,7 +1016,7 @@ function rePlug($name, $object)
     $object[NAME] = $name;
     $object[THIS] = new Adapter($name);
 
-    return plugInStore($name, $object, $object[_IS_SECURITY]);
+    return plugInStore($name, $object, get($object, _IS_SECURITY));
 }
 
 /**
@@ -1075,11 +1059,11 @@ function plugAlias($targetPlugin, $aliasName)
     $oPlugin = plugInStore($targetPlugin);
     if (empty($oPlugin)) {
         throw new DomainException(
-            'Plug alias fail. Target: ['.
-            $targetPlugin.
-            '], New Alias: ['.
-            $aliasName.
-            ']'
+            'Plug alias fail. Target: [' .
+                $targetPlugin .
+                '], New Alias: [' .
+                $aliasName .
+                ']'
         );
     }
     plugInStore($aliasName, $oPlugin);
@@ -1099,10 +1083,7 @@ function plugWithConfig($oPlugin, array $config)
 {
     if (!empty($oPlugin) && !empty($config)) {
         if (is_callable(get($config, _LAZY_CONFIG))) {
-            $config = array_replace(
-                $config,
-                $config[_LAZY_CONFIG]()
-            );
+            $config = array_replace($config, $config[_LAZY_CONFIG]());
         }
         set($oPlugin, $config);
     }
@@ -1123,16 +1104,8 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
     // get config from global options
     $names = explode('_', $name);
     $config = array_replace(
-        value(
-            getOption('PLUGIN'),
-            $names,
-            []
-        ),
-        value(
-            getOption('PW'),
-            $names,
-            []
-        ),
+        value(getOption('PLUGIN'), $names, []),
+        value(getOption('PW'), $names, []),
         $config
     );
 
@@ -1144,8 +1117,12 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
             $file = realpath($config[_PLUGIN_FILE]);
             if (empty($file)) {
                 return !trigger_error(
-                    'PlugIn '.$name.': defined file not found. '.
-                    '['.$config[_PLUGIN_FILE].']'
+                    'PlugIn ' .
+                        $name .
+                        ': defined file not found. ' .
+                        '[' .
+                        $config[_PLUGIN_FILE] .
+                        ']'
                 );
             }
             // assign realpath
@@ -1154,7 +1131,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
         if ($file) {
             $r = l($file, _INIT_CONFIG);
         } else {
-            $file = $name.'/'.$name.'.php';
+            $file = $name . '/' . $name . '.php';
             $r = load($file, $folders['folders'], _INIT_CONFIG, true, false);
         }
         $class = value($r, ['var', _INIT_CONFIG, _CLASS]);
@@ -1166,16 +1143,19 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
     if ($exists) {
         $oPlugin = new $class();
         if (!($oPlugin instanceof PlugIn)) {
-            return !trigger_error('Class is not a plug-in(\PMVC\PlugIn) instance.');
+            return !trigger_error(
+                'Class is not a plug-in(\PMVC\PlugIn) instance.'
+            );
         }
     } else {
         if (!$class) {
-            $error = 'Plug-in '.$name.' not found.';
+            $error = 'Plug-in ' . $name . ' not found.';
             if (!empty($file)) {
-                $error .= ' ['.$file.'] '.print_r($folders['folders'], true);
+                $error .=
+                    ' [' . $file . '] ' . print_r($folders['folders'], true);
             }
         } else {
-            $error = 'Plug-in '.$name.': class not found ('.$class.')';
+            $error = 'Plug-in ' . $name . ': class not found (' . $class . ')';
         }
 
         return !trigger_error($error);
@@ -1198,7 +1178,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
                 $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
                 return [
-                    'name'  => $name,
+                    'name' => $name,
                     'trace' => $trace,
                 ];
             },
@@ -1220,7 +1200,9 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
 function plug($name, array $config = [])
 {
     if (!is_string($name)) {
-        return !trigger_error('Plug name should be string. '.print_r($name, true));
+        return !trigger_error(
+            'Plug name should be string. ' . print_r($name, true)
+        );
     }
     if (empty($config)) {
         $oPlugin = plugInStore($name);
