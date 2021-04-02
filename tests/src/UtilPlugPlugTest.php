@@ -2,7 +2,6 @@
 
 namespace PMVC;
 
-use Exception;
 use OverflowException;
 
 class UtilPlugPlugTest extends TestCase
@@ -19,9 +18,9 @@ class UtilPlugPlugTest extends TestCase
 
     public function testPlug()
     {
-        $class = __NAMESPACE__ . '\FakePlugIn';
+        $class = __NAMESPACE__.'\FakePlugIn';
         $plug = 'test';
-        $file = __DIR__ . '/../resources/FakePlugFile.php';
+        $file = __DIR__.'/../resources/FakePlugFile.php';
         $test = plug($plug, [
             _PLUGIN_FILE => $file,
         ]);
@@ -34,7 +33,7 @@ class UtilPlugPlugTest extends TestCase
             'check plugin file fail'
         );
         $this->assertEquals(
-            dirname(realpath($file)) . '/',
+            dirname(realpath($file)).'/',
             $test->getDir(),
             'test get dir'
         );
@@ -50,7 +49,7 @@ class UtilPlugPlugTest extends TestCase
 
     public function testPlugWithOneFolder()
     {
-        addPlugInFolders([__DIR__ . '/../resources/plugin1']);
+        addPlugInFolders([__DIR__.'/../resources/plugin1']);
         $test = plug('testplugin');
         $this->assertEquals('plugin1', $test['test']);
     }
@@ -58,8 +57,8 @@ class UtilPlugPlugTest extends TestCase
     public function testPlugWithFolders()
     {
         addPlugInFolders([
-            __DIR__ . '/../resources/plugin1',
-            __DIR__ . '/../resources/plugin2',
+            __DIR__.'/../resources/plugin1',
+            __DIR__.'/../resources/plugin2',
         ]);
         $test = plug('testplugin');
         $this->assertEquals('plugin2', $test['test']);
@@ -68,7 +67,7 @@ class UtilPlugPlugTest extends TestCase
     public function testPlugFile()
     {
         plug('test', [
-            _PLUGIN_FILE => __DIR__ . '/../resources/FakePlugFile.php',
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
         $this->assertEquals('test', plug('test')[NAME]);
     }
@@ -78,7 +77,7 @@ class UtilPlugPlugTest extends TestCase
         $test = callPlugIn('test');
         $this->assertFalse(!empty($test));
         plug('test', [
-            _PLUGIN_FILE => __DIR__ . '/../resources/FakePlugFile.php',
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
         $test = callPlugIn('test');
         $this->assertTrue(!empty($test));
@@ -120,8 +119,7 @@ class UtilPlugPlugTest extends TestCase
     {
         \PMVC\plug('unit')->throw(function () {
             plug('test', [
-                _PLUGIN_FILE =>
-                    __DIR__ . '/../resources/FakePlugClassNotFound.php',
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
             ]);
         }, [$this, __FUNCTION__], $this);
     }
@@ -134,7 +132,7 @@ class UtilPlugPlugTest extends TestCase
     {
         \PMVC\plug('unit')->throw(function () {
             plug('test', [
-                _CLASS => __NAMESPACE__ . '\NotPlugIn',
+                _CLASS => __NAMESPACE__.'\NotPlugIn',
             ]);
         }, [$this, __FUNCTION__], $this);
     }
@@ -142,15 +140,15 @@ class UtilPlugPlugTest extends TestCase
     public function testGetConfigFromGlobalOption()
     {
         $test = plug('test', [
-            _PLUGIN_FILE => __DIR__ . '/../resources/FakePlugFile.php',
-            'foo' => 'ccc',
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+            'foo'        => 'ccc',
         ]);
         $this->assertEquals('ccc', $test['foo']);
         unplug('test');
 
         option('set', 'PLUGIN', ['test' => ['foo' => 'bar']]);
         plug('test', [
-            _PLUGIN_FILE => __DIR__ . '/../resources/FakePlugFile.php',
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
         $this->assertEquals('bar', $test['foo']);
     }
@@ -159,7 +157,7 @@ class UtilPlugPlugTest extends TestCase
     {
         option('set', 'PLUGIN', ['test' => ['test' => ['a' => 'b']]]);
         $test = plug('test_test', [
-            _PLUGIN_FILE => __DIR__ . '/../resources/FakePlugFile.php',
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
         $this->assertEquals('b', $test['a']);
     }
@@ -177,10 +175,10 @@ class UtilPlugPlugTest extends TestCase
         plug('debug', ['output' => $dumpMock])->setLevel('plug,debug');
         plug('dev')->onResetDebugLevel();
         $test = plug('test', [
-            _PLUGIN_FILE => __DIR__ . '/../resources/FakePlugFile.php',
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
         plug('asset', [
-            _PLUGIN_FILE => __DIR__ . '/../resources/FakePlugFile.php',
+            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
         ]);
     }
 
@@ -213,7 +211,7 @@ class UtilPlugPlugTest extends TestCase
 
     public function testLazyConfig()
     {
-        $file = __DIR__ . '/../resources/FakePlugFile.php';
+        $file = __DIR__.'/../resources/FakePlugFile.php';
         $unitKey = 'foo';
         $unitValue = 'bar';
         plug('test', [
@@ -229,7 +227,7 @@ class UtilPlugPlugTest extends TestCase
 
     public function testGetPlugs()
     {
-        $file = __DIR__ . '/../resources/FakePlugFile.php';
+        $file = __DIR__.'/../resources/FakePlugFile.php';
         plug('test', [
             _PLUGIN_FILE => $file,
         ]);
@@ -239,7 +237,7 @@ class UtilPlugPlugTest extends TestCase
 
     public function testPlugSecurity()
     {
-        $file = __DIR__ . '/../resources/FakePlugFile.php';
+        $file = __DIR__.'/../resources/FakePlugFile.php';
         plug('testSecurity', [
             _PLUGIN_FILE => $file,
             _IS_SECURITY => true,
@@ -253,7 +251,6 @@ class UtilPlugPlugTest extends TestCase
      */
     public function testUnPlugSecurityWarning()
     {
-        
         $this->assertTrue(exists('testSecurity', 'plugin'));
 
         \PMVC\plug('unit')->throw(function () {
@@ -273,12 +270,12 @@ class UtilPlugPlugTest extends TestCase
     }
 
     /**
-     * @expectedException        OverflowException 
+     * @expectedException        OverflowException
      * @expectedExceptionMessage Security plugin [test] already plug
      */
     public function testSecurityPluginAlreadyExists()
     {
-        $file = __DIR__ . '/../resources/FakePlugFile.php';
+        $file = __DIR__.'/../resources/FakePlugFile.php';
         plug('test', [
             _PLUGIN_FILE => $file,
         ]);
