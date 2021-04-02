@@ -2,8 +2,6 @@
 
 namespace PMVC;
 
-use Exception;
-
 class UtilPlugUnPlugTest extends TestCase
 {
     public function testUnplugNotExist()
@@ -30,6 +28,7 @@ class UtilPlugUnPlugTest extends TestCase
      * Test can not unplug reject plug.
      *
      * @expectedException \PMVC\PMVCUnitException
+     * @expectedExceptionMessage You can not change security plugin
      */
     public function testRejectPlug()
     {
@@ -42,16 +41,9 @@ class UtilPlugUnPlugTest extends TestCase
         );
         $this->assertTrue(exists('fake-can-not-replug', 'PlugIn'));
         unPlug('fake-can-not-replug', true);
-        $this->expectException(PMVCUnitException::class);
-        $this->expectExceptionMessage('You can not change security plugin');
 
-        try {
+        \PMVC\plug('unit')->throw(function () use ($class) {
             plug('fake-can-not-replug', [_CLASS => $class]);
-        } catch (Exception $e) {
-            throw new PMVCUnitException(
-                $e->getMessage(),
-                0
-            );
-        }
+        }, [$this, __FUNCTION__], $this);
     }
 }
