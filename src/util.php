@@ -935,14 +935,14 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
     static $plugins = [];
     static $securitys = [];
     $currentPlug = false;
-    $isOrigSecurity = false;
+    $hasSecurity = false;
     if (!is_null($key)) {
         $cookKey = strtolower($key);
         if (isset($plugins[$cookKey])) {
             $currentPlug = $plugins[$cookKey];
         }
         if (isset($securitys[$cookKey])) {
-            $isOrigSecurity = $securitys[$cookKey];
+            $hasSecurity = $securitys[$cookKey];
         }
     }
     if (is_null($value)) {
@@ -954,7 +954,7 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
             return false;
         }
     }
-    if ($currentPlug && false !== $value && ($isSecurity || $isOrigSecurity)) {
+    if ($currentPlug && false !== $value && ($isSecurity || $hasSecurity)) {
         throw new OverflowException(
             'Security plugin ['.
                 $key.
@@ -962,17 +962,18 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
                 'you need check your code if it is safe.'
         );
     }
-    if ($isOrigSecurity) {
+    if ($hasSecurity) {
         return !trigger_error(
             'You can not change security plugin. ['.$key.']'
         );
-    }
-    $plugins[$cookKey] = $value;
-    if ($isSecurity) {
-        $securitys[$cookKey] = true;
-    }
+    } else {
+        $plugins[$cookKey] = $value;
+        if ($isSecurity) {
+            $securitys[$cookKey] = true;
+        }
 
-    return $currentPlug;
+        return $currentPlug;
+    }
 }
 
 /**
