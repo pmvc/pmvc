@@ -1,14 +1,15 @@
 #!/bin/bash
 
-VERSION=phpunit${VERSION:-5.6}
+VERSION=${VERSION:-5.6}
+PHPUNIT=phpunit${VERSION}
 
 case "$1" in
   bash)
-    docker-compose run --rm ${VERSION} bash
+    docker-compose run --rm ${PHPUNIT} bash
     ;;
 
   *)
-    docker-compose run --rm ${VERSION} ./phpunit-legacy.sh $* 
+    docker-compose run --rm ${PHPUNIT} ./phpunit-legacy.sh $* 
     ;;
 esac
 
