@@ -84,25 +84,25 @@ class UtilPlugPlugTest extends TestCase
     }
 
     /**
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage Plug-in test not found
      */
     public function testPlugNotFound()
     {
-        \PMVC\plug('unit')->throw(function () {
+        $this->willThrow(function () {
             plug('test');
-        }, [$this, __FUNCTION__], $this);
+        });
     }
 
     /**
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage Plug name should be string.
      */
     public function testPlugNameNotString()
     {
-        \PMVC\plug('unit')->throw(function () {
+        $this->willThrow(function () {
             plug(new \stdClass());
-        }, [$this, __FUNCTION__], $this);
+        });
     }
 
     public function testCheckNullPlug()
@@ -112,29 +112,29 @@ class UtilPlugPlugTest extends TestCase
     }
 
     /**
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage class not found
      */
     public function testPlugClassNotFound()
     {
-        \PMVC\plug('unit')->throw(function () {
+        $this->willThrow(function () {
             plug('test', [
                 _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
             ]);
-        }, [$this, __FUNCTION__], $this);
+        });
     }
 
     /**
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage Class is not a plug-in(\PMVC\PlugIn) instance.
      */
     public function testPlugANonPlugin()
     {
-        \PMVC\plug('unit')->throw(function () {
+        $this->willThrow(function () {
             plug('test', [
                 _CLASS => __NAMESPACE__.'\NotPlugIn',
             ]);
-        }, [$this, __FUNCTION__], $this);
+        });
     }
 
     public function testGetConfigFromGlobalOption()
@@ -197,16 +197,16 @@ class UtilPlugPlugTest extends TestCase
     }
 
     /**
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage PlugIn test: defined file not found. [foo]
      */
     public function testPlugNotExistsFile()
     {
-        \PMVC\plug('unit')->throw(function () {
+        $this->willThrow(function () {
             plug('test', [
                 _PLUGIN_FILE => 'foo',
             ]);
-        }, [$this, __FUNCTION__], $this);
+        });
     }
 
     public function testLazyConfig()
@@ -246,27 +246,27 @@ class UtilPlugPlugTest extends TestCase
     }
 
     /**
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage You can not change security plugin
      */
     public function testUnPlugSecurityWarning()
     {
         $this->assertTrue(exists('testSecurity', 'plugin'));
 
-        \PMVC\plug('unit')->throw(function () {
+        $this->willThrow(function () {
             unplug('testSecurity');
-        }, [$this, __FUNCTION__], $this);
+        });
     }
 
     /**
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage Security plugin [testSecurity] already plug
      */
     public function testRePlugSecurityWarning()
     {
-        \PMVC\plug('unit')->throw(function () {
+        $this->willThrow(function () {
             replug('testSecurity', new HashMap());
-        }, [$this, __FUNCTION__], $this);
+        });
     }
 
     /**
@@ -283,12 +283,12 @@ class UtilPlugPlugTest extends TestCase
             _PLUGIN_FILE => $file,
         ]);
         $this->assertTrue(exists('test', 'PlugIn'));
-        \PMVC\plug('unit')->throw(function () use ($file) {
+        $this->willThrow(function () use ($file) {
             replug('test', [
                 _PLUGIN_FILE => $file,
                 _IS_SECURITY => true,
             ]);
-        }, [$this, __FUNCTION__], $this, false);
+        }, false);
     }
 }
 

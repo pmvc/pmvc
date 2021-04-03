@@ -91,21 +91,14 @@ return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']); }, 'data2
     /**
      * Test parent method not exists.
      *
-     * @expectedException \PMVC\PMVCUnitException
+     * @expectedException Exception
      */
     public function testParentMethodNotExists()
     {
-        $this->expectException(PMVCUnitException::class);
-
-        try {
+        $this->willThrow(function () {
             $child = plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
             $child->FakeNotExists();
-        } catch (Exception $e) {
-            throw new PMVCUnitException(
-                $e->getMessage(),
-                0
-            );
-        }
+        });
     }
 
     /**
@@ -143,88 +136,56 @@ return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']); }, 'data2
     /**
      * Test alias without implemnet getdir.
      *
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage Method not found
      */
     public function testAliasObjectWithoutGetdir()
     {
-        $this->expectException(PMVCUnitException::class);
-        $this->expectExceptionMessage('Method not found');
-
-        try {
+        $this->willThrow(function(){
             $oAlias = new FakeAliasWithOutGetDir();
             $result = $oAlias->faketask();
-        } catch (Exception $e) {
-            throw new PMVCUnitException(
-                $e->getMessage(),
-                0
-            );
-        }
+        });
     }
 
     /**
      * Test not defned class in alias file.
      *
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage Not defined default Class
      */
     public function testAliasFileWithoutClass()
     {
-        $this->expectException(PMVCUnitException::class);
-        $this->expectExceptionMessage('Not defined default Class');
-
-        try {
+        $this->willThrow(function(){
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->without_class();
-        } catch (Exception $e) {
-            throw new PMVCUnitException(
-                $e->getMessage(),
-                0
-            );
-        }
+        });
     }
 
     /**
      * Test defined class not exist.
      *
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage Default class not exists
      */
     public function testAliasFileWithWrongName()
     {
-        $this->expectException(PMVCUnitException::class);
-        $this->expectExceptionMessage('Default class not exists');
-
-        try {
+        $this->willThrow(function(){
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->with_wrong_name();
-        } catch (Exception $e) {
-            throw new PMVCUnitException(
-                $e->getMessage(),
-                0
-            );
-        }
+        });
     }
 
     /**
      * Test not implement invoke.
      *
-     * @expectedException        \PMVC\PMVCUnitException
+     * @expectedException        Exception
      * @expectedExceptionMessage Not implement __invoke
      */
     public function testAliasFileWithoutInvoke()
     {
-        $this->expectException(PMVCUnitException::class);
-        $this->expectExceptionMessage('Not implement __invoke');
-
-        try {
+        $this->willThrow(function(){
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->without_invoke();
-        } catch (Exception $e) {
-            throw new PMVCUnitException(
-                $e->getMessage(),
-                0
-            );
-        }
+        });
     }
 }
