@@ -18,9 +18,11 @@ class AliasTest extends TestCase
 
         return [
             [$parent, 'data1'],
-            [function () use ($parent) {$parent();
+            [function () use ($parent) {
+                $parent();
 
-return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']); }, 'data2'],
+                return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
+            }, 'data2'],
             [function () { return new FakeAliasWithoutArrayAccess(); }, 'data3'],
             [function () { return new FakeAliasWithoutArrayAccessChild(); }, 'data4'],
         ];
@@ -141,7 +143,7 @@ return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']); }, 'data2
      */
     public function testAliasObjectWithoutGetdir()
     {
-        $this->willThrow(function(){
+        $this->willThrow(function () {
             $oAlias = new FakeAliasWithOutGetDir();
             $result = $oAlias->faketask();
         });
@@ -155,7 +157,7 @@ return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']); }, 'data2
      */
     public function testAliasFileWithoutClass()
     {
-        $this->willThrow(function(){
+        $this->willThrow(function () {
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->without_class();
         });
@@ -169,7 +171,7 @@ return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']); }, 'data2
      */
     public function testAliasFileWithWrongName()
     {
-        $this->willThrow(function(){
+        $this->willThrow(function () {
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->with_wrong_name();
         });
@@ -183,7 +185,7 @@ return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']); }, 'data2
      */
     public function testAliasFileWithoutInvoke()
     {
-        $this->willThrow(function(){
+        $this->willThrow(function () {
             $oAlias = new FakeAliasWithoutArrayAccess();
             $oAlias->without_invoke();
         });
