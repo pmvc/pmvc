@@ -1037,13 +1037,14 @@ function initPlugIn(array $arr, $pause = false)
     foreach ($arr as $plugIn => $config) {
         $isPlug = plugInStore($plugIn);
         if (empty($isPlug) || !empty($config)) {
-            if (empty($config)) {
-                $config = [];
+            $plugConfig = $config;
+            if (empty($plugConfig)) {
+                $plugConfig = [];
             }
-            if ($pause) {
-                $config[PAUSE] = true;
+            if ($pause || false === $config) {
+                $plugConfig[PAUSE] = true;
             }
-            $init[$plugIn] = plug($plugIn, $config);
+            $init[$plugIn] = plug($plugIn, $plugConfig);
         }
     }
 
