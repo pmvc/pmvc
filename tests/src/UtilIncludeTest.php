@@ -2,11 +2,8 @@
 
 namespace PMVC;
 
-use Exception;
-use PHPUnit_Framework_Error;
-use PHPUnit_Framework_TestCase;
 
-class UtilIncludeTest extends PHPUnit_Framework_TestCase
+class UtilIncludeTest extends TestCase
 {
     private $_fakePlugFile;
 
@@ -26,22 +23,14 @@ class UtilIncludeTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException        PHPUnit_Framework_Error
+     * @expectedException        Exception 
      * @expectedExceptionMessage File not found.
      */
     public function testIncludeNotExists()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
-        $this->expectExceptionMessage('File not found.');
-
-        try {
+        $this->willThrow(function(){
             l(__DIR__.'/../resources/empty.php.fake');
-        } catch (Exception $e) {
-            throw new PHPUnit_Framework_Error(
-                $e->getMessage(),
-                0
-            );
-        }
+        });
     }
 
     public function testLoadEmpty()

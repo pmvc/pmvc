@@ -3,10 +3,9 @@
 namespace PMVC;
 
 use PHPUnit_Framework_Error;
-use PHPUnit_Framework_TestCase;
 use TypeError;
 
-class UtilGetValueTest extends PHPUnit_Framework_TestCase
+class UtilGetValueTest extends TestCase
 {
     public function testGetValue()
     {
@@ -74,22 +73,16 @@ class UtilGetValueTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException              PHPUnit_Framework_Error
+     * @expectedException              TypeError 
      * @expectedExceptionMessageRegExp /(Argument 2 passed to PMVC\\value\(\) must be)/
      */
     public function testHandlePathIsNotArray()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
-        $this->expectExceptionMessage('must be of type array');
         $h = ['a', 'b'];
 
-        try {
+        $this->willThrow(function() use ($h) {
             value($h, 'not-path');
-        } catch (TypeError $e) {
-            throw new PHPUnit_Framework_Error(
-                $e->getMessage(),
-                0
-            );
-        }
+        });
+
     }
 }

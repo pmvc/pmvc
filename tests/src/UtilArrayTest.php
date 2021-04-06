@@ -2,11 +2,8 @@
 
 namespace PMVC;
 
-use Exception;
-use PHPUnit_Framework_Error;
-use PHPUnit_Framework_TestCase;
 
-class UtilArrayTest extends PHPUnit_Framework_TestCase
+class UtilArrayTest extends TestCase
 {
     public function testHasKeyString()
     {
@@ -22,23 +19,15 @@ class UtilArrayTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException        PHPUnit_Framework_Error
+     * @expectedException        Exception
      * @expectedExceptionMessage Param1 should be array type.
      */
     public function testArrayReplaceWrongType()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
-        $this->expectExceptionMessage('Param1 should be array type.');
-
-        try {
+        $this->willThrow(function(){
             $s = '';
             arrayReplace($s);
-        } catch (Exception $e) {
-            throw new PHPUnit_Framework_Error(
-                $e->getMessage(),
-                0
-            );
-        }
+        });
     }
 
     public function testArrayReplaceWithNull()

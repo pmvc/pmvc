@@ -4,9 +4,8 @@ namespace PMVC;
 
 use Exception;
 use PHPUnit_Framework_Error;
-use PHPUnit_Framework_TestCase;
 
-class UtilDevTest extends PHPUnit_Framework_TestCase
+class UtilDevTest extends TestCase
 {
     protected function setup(): void
     {
@@ -59,22 +58,16 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException        PHPUnit_Framework_Error
+     * @expectedException        Exception
      * @expectedExceptionMessage {"Error":"error","Debug":["debug-payload"]}
      */
     public function testTriggerJson()
     {
-        $this->expectException(PHPUnit_Framework_Error::class);
-        $this->expectExceptionMessage('{"Error":"error","Debug":["debug-payload"]}');
 
-        try {
+        $this->willThrow(function(){
             triggerJson('error', ['debug-payload']);
-        } catch (Exception $e) {
-            throw new PHPUnit_Framework_Error(
-                $e->getMessage(),
-                0
-            );
-        }
+        });
+
     }
 
     /**
