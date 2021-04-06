@@ -11,7 +11,7 @@
 >
     <testsuites>
         <testsuite name="Application Test Suite">
-            <directory>./tests-legacy/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
     <php>

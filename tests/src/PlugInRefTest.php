@@ -2,13 +2,12 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
 
-class PluginRefTest extends PHPUnit_Framework_TestCase
+class PluginRefTest extends TestCase
 {
     private $_name = 'fake_plug';
 
-    protected function setup(): void
+    protected function pmvc_setup()
     {
         unplug($this->_name);
         $class = __NAMESPACE__.'\FakePlugIn';

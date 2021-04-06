@@ -2,13 +2,12 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
 use SplObserver;
 use SplSubject;
 
-class PlugInTest extends PHPUnit_Framework_TestCase
+class PlugInTest extends TestCase
 {
-    protected function setup(): void
+    protected function pmvc_setup()
     {
         option('set', 'test', null);
     }

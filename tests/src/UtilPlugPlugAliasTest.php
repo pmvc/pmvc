@@ -6,7 +6,7 @@ use DomainException;
 
 class UtilPlugPlugAliasTest extends TestCase
 {
-    protected function setup(): void
+    protected function pmvc_setup()
     {
         unplug('test');
         unplug('fakeAlias');

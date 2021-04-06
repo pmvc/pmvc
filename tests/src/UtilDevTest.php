@@ -2,11 +2,9 @@
 
 namespace PMVC;
 
-use Exception;
-
 class UtilDevTest extends TestCase
 {
-    protected function setup(): void
+    protected function pmvc_setup()
     {
         unplug('debug');
         $this->_debugClass = __NAMESPACE__.

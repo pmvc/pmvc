@@ -2,11 +2,10 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
 
-class UtilPlugInitPluginTest extends PHPUnit_Framework_TestCase
+class UtilPlugInitPluginTest extends TestCase
 {
-    protected function setup(): void
+    protected function pmvc_setup()
     {
         unplug('test');
         addPlugInFolders(
