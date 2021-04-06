@@ -3,7 +3,6 @@
 namespace PMVC;
 
 use Exception;
-use PHPUnit_Framework_Error;
 
 class UtilDevTest extends TestCase
 {
@@ -63,11 +62,9 @@ class UtilDevTest extends TestCase
      */
     public function testTriggerJson()
     {
-
-        $this->willThrow(function(){
+        $this->willThrow(function () {
             triggerJson('error', ['debug-payload']);
         });
-
     }
 
     /**

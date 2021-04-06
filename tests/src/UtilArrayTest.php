@@ -2,7 +2,6 @@
 
 namespace PMVC;
 
-
 class UtilArrayTest extends TestCase
 {
     public function testHasKeyString()
@@ -24,7 +23,7 @@ class UtilArrayTest extends TestCase
      */
     public function testArrayReplaceWrongType()
     {
-        $this->willThrow(function(){
+        $this->willThrow(function () {
             $s = '';
             arrayReplace($s);
         });

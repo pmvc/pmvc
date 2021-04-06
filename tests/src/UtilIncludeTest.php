@@ -2,7 +2,6 @@
 
 namespace PMVC;
 
-
 class UtilIncludeTest extends TestCase
 {
     private $_fakePlugFile;
@@ -23,12 +22,12 @@ class UtilIncludeTest extends TestCase
     }
 
     /**
-     * @expectedException        Exception 
+     * @expectedException        Exception
      * @expectedExceptionMessage File not found.
      */
     public function testIncludeNotExists()
     {
-        $this->willThrow(function(){
+        $this->willThrow(function () {
             l(__DIR__.'/../resources/empty.php.fake');
         });
     }
