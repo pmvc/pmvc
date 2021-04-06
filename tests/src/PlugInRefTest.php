@@ -2,7 +2,6 @@
 
 namespace PMVC;
 
-
 class PluginRefTest extends TestCase
 {
     private $_name = 'fake_plug';

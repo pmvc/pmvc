@@ -2,7 +2,6 @@
 
 namespace PMVC;
 
-
 class AdapterTest extends TestCase
 {
     private $_class;
