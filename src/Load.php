@@ -46,7 +46,6 @@ class Load
         array $folders = [],
         array $options = []
     ) {
-        self::initPlugInFolder();
         if (is_callable($init)) {
             $params = $init();
             $init = $params[0];
@@ -59,6 +58,7 @@ class Load
         if (!empty($folders)) {
             addPlugInFolders($folders);
         }
+        self::initPlugInFolder();
         if (!empty($init)) {
             initPlugin($init, \PMVC\get($options, PAUSE));
         }
