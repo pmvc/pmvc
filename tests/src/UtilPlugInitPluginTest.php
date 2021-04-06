@@ -2,7 +2,6 @@
 
 namespace PMVC;
 
-
 class UtilPlugInitPluginTest extends TestCase
 {
     protected function pmvc_setup()
