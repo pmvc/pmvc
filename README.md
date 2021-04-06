@@ -7,7 +7,8 @@
   - [PlugIn Generator](#plugin-generator)
 - [[M]odel [V]iew [C]ontroller](#mvc)
 - [PMVC Family](#pmvc-family)
-- [PHP Support Version](#php-version)
+- [Explain addPlugInFolders](#explain-addpluginfolders)
+- [Quick test](#quick-test)
 
 <img src="https://raw.githubusercontent.com/pmvc/pmvc.github.io/master/flow5.png">
 
@@ -100,6 +101,8 @@ If folder a and folder b both have same plugin will apply with folder b.
 
 ---
 
+
+## Quick test
 ```
 composer require pmvc/pmvc
 ```
