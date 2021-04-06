@@ -88,6 +88,16 @@ class hello_world extends \PMVC\PlugIn
    * PMVC Themes
       * https://github.com/pmvc-theme
 
+## Explain addPlugInFolders
+The last folder will have more high priority.
+
+
+Such as 
+```
+addPlugInFolders(['./a', './b'])
+```
+If folder a and folder b both have same plugin will apply with folder b.
+
 ---
 
 ```
