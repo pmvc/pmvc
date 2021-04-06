@@ -1172,7 +1172,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
     plugWithConfig($oPlugin, $config);
     rePlug($plugTo, $oPlugin);
     $oPlugin->init();
-    if (false === strpos('|debug|dev|', $name)) {
+    if (false === strpos('|debug|dev|cli|', $name)) {
         dev(
             /**
              * Dev.
