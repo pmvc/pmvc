@@ -20,7 +20,7 @@ class UtilPlugPlugAliasTest extends TestCase
 
     public function testAlias()
     {
-        $class = __NAMESPACE__ . '\FakePlugIn';
+        $class = __NAMESPACE__.'\FakePlugIn';
         plug('test', [
             _CLASS => $class,
         ]);
