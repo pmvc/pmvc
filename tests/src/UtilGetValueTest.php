@@ -88,7 +88,7 @@ class UtilGetValueTest extends PHPUnit_Framework_TestCase
         } catch (TypeError $e) {
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
-                0,
+                0
             );
         }
     }

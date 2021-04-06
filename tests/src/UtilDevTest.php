@@ -72,7 +72,7 @@ class UtilDevTest extends PHPUnit_Framework_TestCase
         } catch (Exception $e) {
             throw new PHPUnit_Framework_Error(
                 $e->getMessage(),
-                0,
+                0
             );
         }
     }
