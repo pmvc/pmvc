@@ -723,7 +723,6 @@ function set(&$a, $k, $v = null)
         if (!isArray($k)) {
             $k = (array) $k;
         }
-
         return $a = arrayReplace($a, $k); //merge by new array
     } elseif (is_null($k)) {
         return $a[] = $v; //append value when no-assign key
@@ -1189,15 +1188,12 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
             $file = $name.'/'.$name.'.php';
             $r = load($file, $folders['folders'], _INIT_CONFIG, true, false);
         }
-        $rConfig = value($r, ['var', _INIT_CONFIG]);
-        $class = get(
-            $rConfig,
-            _CLASS,
-            function () use ($rConfig) {
-                return get($rConfig, _DEFAULT_CLASS);
+        $class = value(
+            $r, ['var', _INIT_CONFIG, _CLASS], 
+            function () use ($config) {
+                return get($config, _DEFAULT_CLASS);
             }
         );
-        $class = value($r, ['var', _INIT_CONFIG, _CLASS]);
     }
     $exists = class_exists($class);
     if (!empty($config[PAUSE])) {
@@ -1224,7 +1220,9 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
         return !trigger_error($error);
     }
     if (!empty($r)) {
-        $config = arrayReplace($r->var[_INIT_CONFIG], $config);
+        if (isset($r->var[_INIT_CONFIG])) {
+            $config = arrayReplace($r->var[_INIT_CONFIG], $config);
+        }
         $config[_PLUGIN_FILE] = $r->name;
     }
     plugWithConfig($oPlugin, $config);
