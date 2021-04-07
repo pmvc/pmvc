@@ -55,6 +55,9 @@ class UtilStringTest extends PHPUnit_Framework_TestCase
 
     public function testUtf8JsonEncode()
     {
+        if (!defined('JSON_INVALID_UTF8_SUBSTITUTE')) {
+            define('JSON_INVALID_UTF8_SUBSTITUTE', 0);
+        }
         $s = utf8JsonEncode(['str', 'str2']);
         $this->assertEquals('["str","str2"]', $s);
     }
