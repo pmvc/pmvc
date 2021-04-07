@@ -75,7 +75,7 @@ class Load
      */
     public static function initPlugInFolder()
     {
-        addPlugInFolders([__DIR__ . '/../../../pmvc-plugin']);
+        addPlugInFolders([__DIR__.'/../../../pmvc-plugin']);
     }
 }
 
@@ -112,14 +112,14 @@ function realPath($p)
  */
 function l($name, $export = null, $once = true, $ignore = false)
 {
-    $real = realpath($name . '.php');
+    $real = realpath($name.'.php');
     if (!$real) {
         $real = realpath($name);
         if (!$real) {
             if ($ignore) {
                 return false;
             } else {
-                return !trigger_error('File not found. [' . $name . ']');
+                return !trigger_error('File not found. ['.$name.']');
             }
         }
     }
@@ -222,7 +222,8 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
         $folders = array_map(
             function ($f) {
                 return realpath($f);
-            }, $folders
+            },
+            $folders
         );
         $folders = array_filter($folders);
         if (!empty($folders)) {
@@ -237,7 +238,7 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
 
     return [
         'folders' => array_reverse($_folders[$type]),
-        'alias' => $_alias[$type],
+        'alias'   => $_alias[$type],
     ];
 }
 
@@ -294,7 +295,7 @@ function utf8JsonEncode($p, $flags = 0)
 function mergeFileName($name, $dir = null)
 {
     if (!empty($dir)) {
-        $name = lastSlash($dir) . $name;
+        $name = lastSlash($dir).$name;
     }
 
     return $name;
@@ -419,7 +420,7 @@ function camelCase($s, $join = null)
     } else {
         $result = strtolower($arr[0]);
         for ($i = 1, $j = count($arr); $i < $j; $i++) {
-            $result .= $join . strtolower($arr[$i]);
+            $result .= $join.strtolower($arr[$i]);
         }
     }
 
@@ -801,7 +802,7 @@ function &option($act, $k = null, $v = null)
  */
 function ns($s)
 {
-    return __NAMESPACE__ . '\\' . $s;
+    return __NAMESPACE__.'\\'.$s;
 }
 
 /**
@@ -925,7 +926,7 @@ function exists($v, $type)
         }
     default:
         throw new DomainException(
-            'Exists checker not support [' . $type . ']'
+            'Exists checker not support ['.$type.']'
         );
     }
 }
@@ -959,9 +960,9 @@ function addPlugInFolders(array $folders, array $alias = [])
 
             return [
                 'previous' => folders(_PLUGIN),
-                'folders' => $folders,
-                'alias' => $alias,
-                'trace' => $trace,
+                'folders'  => $folders,
+                'alias'    => $alias,
+                'trace'    => $trace,
             ];
         },
         'plugin-folder'
@@ -1005,15 +1006,15 @@ function plugInStore($key = null, $value = null, $isSecurity = false)
     }
     if ($currentPlug && false !== $value && ($isSecurity || $hasSecurity)) {
         throw new OverflowException(
-            'Security plugin [' .
-                $key .
-                '] already plug or unplug, ' .
+            'Security plugin ['.
+                $key.
+                '] already plug or unplug, '.
                 'you need check your code if it is safe.'
         );
     }
     if ($hasSecurity) {
         return !trigger_error(
-            'You can not change security plugin. [' . $key . ']'
+            'You can not change security plugin. ['.$key.']'
         );
     } else {
         $plugins[$cookKey] = $value;
@@ -1113,10 +1114,10 @@ function plugAlias($targetPlugin, $aliasName)
     $oPlugin = plugInStore($targetPlugin);
     if (empty($oPlugin)) {
         throw new DomainException(
-            'Plug alias fail. Target: [' .
-                $targetPlugin .
-                '], New Alias: [' .
-                $aliasName .
+            'Plug alias fail. Target: ['.
+                $targetPlugin.
+                '], New Alias: ['.
+                $aliasName.
                 ']'
         );
     }
@@ -1171,11 +1172,11 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
             $file = realpath($config[_PLUGIN_FILE]);
             if (empty($file)) {
                 return !trigger_error(
-                    'PlugIn ' .
-                        $name .
-                        ': defined file not found. ' .
-                        '[' .
-                        $config[_PLUGIN_FILE] .
+                    'PlugIn '.
+                        $name.
+                        ': defined file not found. '.
+                        '['.
+                        $config[_PLUGIN_FILE].
                         ']'
                 );
             }
@@ -1185,12 +1186,14 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
         if ($file) {
             $r = l($file, _INIT_CONFIG);
         } else {
-            $file = $name . '/' . $name . '.php';
+            $file = $name.'/'.$name.'.php';
             $r = load($file, $folders['folders'], _INIT_CONFIG, true, false);
         }
         $rConfig = value($r, ['var', _INIT_CONFIG]);
         $class = get(
-            $rConfig, _CLASS, function () use ($rConfig) {
+            $rConfig,
+            _CLASS,
+            function () use ($rConfig) {
                 return get($rConfig, _DEFAULT_CLASS);
             }
         );
@@ -1209,13 +1212,13 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
         }
     } else {
         if (!$class) {
-            $error = 'Plug-in ' . $name . ' not found.';
+            $error = 'Plug-in '.$name.' not found.';
             if (!empty($file)) {
                 $error .=
-                    ' [' . $file . '] ' . print_r($folders['folders'], true);
+                    ' ['.$file.'] '.print_r($folders['folders'], true);
             }
         } else {
-            $error = 'Plug-in ' . $name . ': class not found (' . $class . ')';
+            $error = 'Plug-in '.$name.': class not found ('.$class.')';
         }
 
         return !trigger_error($error);
@@ -1238,7 +1241,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
                 $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
                 return [
-                    'name' => $name,
+                    'name'  => $name,
                     'trace' => $trace,
                 ];
             },
@@ -1261,7 +1264,7 @@ function plug($name, array $config = [])
 {
     if (!is_string($name)) {
         return !trigger_error(
-            'Plug name should be string. ' . print_r($name, true)
+            'Plug name should be string. '.print_r($name, true)
         );
     }
     if (empty($config)) {
