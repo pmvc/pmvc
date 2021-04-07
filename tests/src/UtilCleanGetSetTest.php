@@ -20,6 +20,12 @@ class UtilCleanGetSetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['a'=>'foo', 'b'=>'bar'], get($d), 'with object assign');
     }
 
+    public function testGetAllWithToArray()
+    {
+        $arr = new FakeHashMap();
+        $this->assertEquals([], get($arr));
+    }
+
     public function testToArrayNotEffectOriginalMap()
     {
         $a = ['a'=>'foo', 'b'=>new HashMap(['bar'])];
@@ -154,6 +160,11 @@ class UtilCleanGetSetTest extends \PHPUnit_Framework_TestCase
 
 class fakeHashMap extends HashMap
 {
+    public function toArray()
+    {
+        return [];
+    }
+
     public function &offsetGet($k = null)
     {
         if (!is_object($k)) {
