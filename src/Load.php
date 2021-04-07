@@ -252,13 +252,14 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
 /**
  * UTF8 Export.
  *
- * @param mixed $p payload.
+ * @param mixed    $p      Payload.
+ * @param callable $exists Let exists func mockable.
  *
  * @return mixed
  */
-function utf8Export($p)
+function utf8Export($p, $exists = '\PMVC\exists')
 {
-    return exists('utf8', 'plug')
+    return $exists('utf8', 'plug')
         ? plug('utf8')->toUtf8($p)
         : (testString($p)
             ? utf8_encode($p)

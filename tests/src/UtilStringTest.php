@@ -44,6 +44,15 @@ class UtilStringTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('str', $s);
     }
 
+    public function testUtf8ExportWhenUtf8PluginNotExists()
+    {
+        $fakeExists = function () {return false;};
+        $s = utf8Export('str', $fakeExists);
+        $this->assertEquals('str', $s);
+        $o = utf8Export([], $fakeExists);
+        $this->assertEquals([], $o);
+    }
+
     public function testUtf8JsonEncode()
     {
         $s = utf8JsonEncode(['str', 'str2']);
