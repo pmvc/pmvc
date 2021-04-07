@@ -17,19 +17,34 @@
  */
 
 namespace {
-    if (defined('_CLASS')) {
+    if (defined('\PMVC\ERRORS')) {
         return;
     }
     /* Plugin */
-    define('_CLASS', '_class_'); //action, plugin
-    define('_PLUGIN', '_plugin_');
-    define('_PLUGIN_FILE', '_plugin_file_');
-    define('_INIT_CONFIG', '_init_config_');
-    define('_LAZY_CONFIG', '_lazy_config_');
-    define('_IS_SECURITY', '_is_security_');
-
-    /* Debug */
-    define('_VIEW_ENGINE', '_view_engine_');
+    if (!defined('_CLASS')) {
+        define('_CLASS', '_class_'); //use by action, plugin
+    }
+    if (!defined('_DEFAULT_CLASS')) {
+        define('_DEFAULT_CLASS', '_default_class_');
+    }
+    if (!defined('_PLUGIN')) {
+        define('_PLUGIN', '_plugin_');
+    }
+    if (!defined('_PLUGIN_FILE')) {
+        define('_PLUGIN_FILE', '_plugin_file_');
+    }
+    if (!defined('_INIT_CONFIG')) {
+        define('_INIT_CONFIG', '_init_config_');
+    }
+    if (!defined('_LAZY_CONFIG')) {
+        define('_LAZY_CONFIG', '_lazy_config_');
+    }
+    if (!defined('_IS_SECURITY')) {
+        define('_IS_SECURITY', '_is_security_');
+    }
+    if (!defined('_VIEW_ENGINE')) {
+        define('_VIEW_ENGINE', '_view_engine_'); //use by debug
+    }
 }
 
 namespace PMVC {
