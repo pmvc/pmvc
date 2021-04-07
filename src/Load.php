@@ -723,6 +723,7 @@ function set(&$a, $k, $v = null)
         if (!isArray($k)) {
             $k = (array) $k;
         }
+
         return $a = arrayReplace($a, $k); //merge by new array
     } elseif (is_null($k)) {
         return $a[] = $v; //append value when no-assign key
@@ -1189,7 +1190,8 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
             $r = load($file, $folders['folders'], _INIT_CONFIG, true, false);
         }
         $class = value(
-            $r, ['var', _INIT_CONFIG, _CLASS], 
+            $r,
+            ['var', _INIT_CONFIG, _CLASS],
             function () use ($config) {
                 return get($config, _DEFAULT_CLASS);
             }
