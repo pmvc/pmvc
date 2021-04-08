@@ -58,13 +58,13 @@ class Load
             $options = $params[2];
         }
         $options[ERRORS] = new HashMap();
-        \PMVC\option('set', $options);
+        option('set', $options);
         if (!empty($folders)) {
             addPlugInFolders($folders);
         }
         self::initPlugInFolder();
         if (!empty($init)) {
-            initPlugin($init, \PMVC\get($options, PAUSE));
+            initPlugin($init, get($options, PAUSE));
         }
     }
 
@@ -1205,7 +1205,7 @@ function plugInGenerate($folders, $plugTo, $name, array $config = [])
         $oPlugin = new $class();
         if (!($oPlugin instanceof PlugIn)) {
             return !trigger_error(
-                'Class is not a plug-in(\PMVC\PlugIn) instance.'
+                'Class is not a plug-in('.ns('PlugIn').') instance.'
             );
         }
     } else {

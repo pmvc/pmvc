@@ -126,7 +126,7 @@ class UtilPlugPlugTest extends TestCase
 
     /**
      * @expectedException        Exception
-     * @expectedExceptionMessage Class is not a plug-in(\PMVC\PlugIn) instance.
+     * @expectedExceptionMessage Class is not a plug-in(PMVC\PlugIn) instance.
      */
     public function testPlugANonPlugin()
     {
