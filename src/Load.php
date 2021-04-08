@@ -796,7 +796,7 @@ function &option($act, $k = null, $v = null)
 /**
  * Transpile namespace string.
  * It will always be PMVC\xxx,
- * so it only could use with pmvc
+ * so it only could use with pmvc.
  *
  * @param string $s class string or function string
  *
