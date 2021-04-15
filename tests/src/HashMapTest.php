@@ -30,6 +30,31 @@ class HashMapTest extends TestCase
         $this->assertEquals($new_value, $hash['abc']);
     }
 
+    public function testRefObjectCall()
+    {
+        $hash = new HashMap();
+        $hash->abc = 'def';
+        $this->assertEquals(true, is_a($hash->abc, ns('BaseObject')));
+        // can not call "$hash->abc();" directly,
+        // else will get fatal error undefined method.
+        // $hash->abc();
+        $abc = $hash->abc;
+        $this->assertEquals(true, is_a($abc, ns('BaseObject')));
+        $this->assertEquals('def', ref($hash->abc));
+        $this->assertEquals('def', $abc());
+        $this->assertEquals('ghi', ref($hash->abc, 'ghi')); 
+        $abc('jkl');
+        $this->assertEquals('jkl', $abc()); 
+        $refAbc = &$abc(); 
+        $this->assertEquals('jkl', $refAbc); 
+        $refAbc = 'mno';
+        $this->assertEquals('mno', $abc()); 
+        $this->assertEquals('mno', ref($hash->abc)); 
+        $refAbc2 = &ref($hash->abc);
+        $refAbc2 = 'pqr';
+        $this->assertEquals('pqr', ref($hash->abc)); 
+    }
+
     public function testRefArray()
     {
         $hash = new HashMap();
