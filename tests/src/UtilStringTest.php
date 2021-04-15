@@ -61,4 +61,13 @@ class UtilStringTest extends PHPUnit_Framework_TestCase
         $s = utf8JsonEncode(['str', 'str2']);
         $this->assertEquals('["str","str2"]', $s);
     }
+
+    public function testUtf8JsonEncodeWithObject()
+    {
+        $foo = new \StdClass();
+        $foo->a = 'b';
+        $foo->c = 'd';
+        $acture = utf8JsonEncode($foo);
+        $this->assertEquals('{"a":"b","c":"d"}', $acture);
+    }
 }
