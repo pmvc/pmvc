@@ -42,17 +42,17 @@ class HashMapTest extends TestCase
         $this->assertEquals(true, is_a($abc, ns('BaseObject')));
         $this->assertEquals('def', ref($hash->abc));
         $this->assertEquals('def', $abc());
-        $this->assertEquals('ghi', ref($hash->abc, 'ghi')); 
+        $this->assertEquals('ghi', ref($hash->abc, 'ghi'));
         $abc('jkl');
-        $this->assertEquals('jkl', $abc()); 
-        $refAbc = &$abc(); 
-        $this->assertEquals('jkl', $refAbc); 
+        $this->assertEquals('jkl', $abc());
+        $refAbc = &$abc();
+        $this->assertEquals('jkl', $refAbc);
         $refAbc = 'mno';
-        $this->assertEquals('mno', $abc()); 
-        $this->assertEquals('mno', ref($hash->abc)); 
+        $this->assertEquals('mno', $abc());
+        $this->assertEquals('mno', ref($hash->abc));
         $refAbc2 = &ref($hash->abc);
         $refAbc2 = 'pqr';
-        $this->assertEquals('pqr', ref($hash->abc)); 
+        $this->assertEquals('pqr', ref($hash->abc));
     }
 
     public function testRefArray()
