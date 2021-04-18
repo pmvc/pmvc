@@ -103,19 +103,20 @@ function realPath($p)
  * Same with include, but manage include_once by self.
  * and make global variable to local variable.
  *
- * @param string $name   File name
- * @param string $export Extract one variable name.
- * @param bool   $once   If incldue once
- * @param bool   $ignore Without error message.
+ * @param string $name    File name
+ * @param string $export  Extract one variable name.
+ * @param bool   $options $once, $ignore, $import
  *
  * @return mixed
  */
-function l($name, $export = null, $once = true, $ignore = false)
+function l($name, $export = null, $options = [])
 {
+    $once = get($options, 'once', true);
     $real = realpath($name.'.php');
     if (!$real) {
         $real = realpath($name);
         if (!$real) {
+            $ignore = get($options, 'ignore');
             if ($ignore) {
                 return false;
             } else {
@@ -123,23 +124,30 @@ function l($name, $export = null, $once = true, $ignore = false)
             }
         }
     }
+    $import = get($options, 'import');
     if ($once) {
-        return run(ns('_l'), [$real, $export]);
+        return run(ns('_l'), [$real, $export, $import]);
     } else {
-        return _l($real, $export);
+        return _l($real, $export, $import);
     }
 }
 
 /**
  * Private function for l.
  *
- * @param string $name   file name
- * @param string $export Extract one variable name.
+ * @param string $name   File name.
+ * @param mixed  $export Extract one variable name.
+ * @param array  $import Import variable to file.
  *
  * @return mixed
  */
-function _l($name, $export = null)
+function _l($name, $export = null, $import = null)
 {
+    if (is_array($import)) {
+        foreach ($import as $k=>$v) {
+            $$k = $v;
+        }
+    } 
     include $name;
     $o = new stdClass();
     $o->name = $name;

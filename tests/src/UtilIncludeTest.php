@@ -9,7 +9,7 @@ class UtilIncludeTest extends TestCase
     public function __construct()
     {
         parent::__construct();
-        $this->_fakePlugFile = __DIR__.'/../resources/FakePlugFile.php';
+        $this->_fakePlugFile = __DIR__ . '/../resources/FakePlugFile.php';
     }
 
     /**
@@ -17,8 +17,8 @@ class UtilIncludeTest extends TestCase
      */
     public function testIncludeMoreThanOnce()
     {
-        l(__DIR__.'/../resources/empty.php');
-        l(__DIR__.'/../resources/empty.php', null, false);
+        l(__DIR__ . '/../resources/empty.php');
+        l(__DIR__ . '/../resources/empty.php', null, false);
     }
 
     /**
@@ -28,7 +28,7 @@ class UtilIncludeTest extends TestCase
     public function testIncludeNotExists()
     {
         $this->willThrow(function () {
-            l(__DIR__.'/../resources/empty.php.fake');
+            l(__DIR__ . '/../resources/empty.php.fake');
         });
     }
 
@@ -36,5 +36,13 @@ class UtilIncludeTest extends TestCase
     {
         $result = load(0);
         $this->assertEquals(1, $result);
+    }
+
+    public function testLoadWithImport()
+    {
+        $r = l(__DIR__ . '/../resources/empty.php', 'fakeTest', [
+            'import' => ['fakeTest' => 'foo'],
+        ]);
+        $this->assertEquals('foo', $r->var['fakeTest']);
     }
 }
