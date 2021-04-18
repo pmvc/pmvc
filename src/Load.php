@@ -147,7 +147,7 @@ function _l($name, $export = null, $import = null)
         foreach ($import as $k=>$v) {
             $$k = $v;
         }
-    } 
+    }
     include $name;
     $o = new stdClass();
     $o->name = $name;
