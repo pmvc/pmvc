@@ -856,8 +856,13 @@ function v()
         // avoid console.table
         $p[''] = $p[0];
         unset($p[0]);
+        foreach ($p as &$pn) {
+          if (!testString($pn)) {
+              $pn = utf8JsonEncode($p);
+          } 
+        }
     }
-    d(utf8JsonEncode($p));
+    d($p);
 }
 
 /**
