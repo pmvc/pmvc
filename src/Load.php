@@ -857,10 +857,9 @@ function v()
         $p[''] = $p[0];
         unset($p[0]);
         foreach ($p as &$pn) {
-          if (!testString($pn)) {
-              $pn = utf8JsonEncode($p);
-          } 
+            $pn = \PMVC\get($pn);
         }
+        $p = utf8JsonEncode($p);
     }
     d($p);
 }
