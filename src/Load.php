@@ -857,9 +857,9 @@ function v()
         $p[''] = $p[0];
         unset($p[0]);
         foreach ($p as &$pn) {
-          if (!testString($pn)) {
-              $pn = utf8JsonEncode($p);
-          } 
+            if (!testString($pn)) {
+                $pn = utf8JsonEncode($p);
+            }
         }
     }
     d($p);
