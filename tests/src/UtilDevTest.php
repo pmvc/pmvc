@@ -24,7 +24,7 @@ class UtilDevTest extends TestCase
         $expected = [
             'test',
             [1=> '2', ''=>'1'],
-            new HashMap(['0']),
+            ['0'],
         ];
         $i = 0;
         plug(

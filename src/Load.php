@@ -857,11 +857,10 @@ function v()
         $p[''] = $p[0];
         unset($p[0]);
         foreach ($p as &$pn) {
-            $pn = \PMVC\get($pn);
+            $pn = get($pn);
         }
-        $p = utf8JsonEncode($p);
     }
-    d($p);
+    d(utf8JsonEncode($p));
 }
 
 /**
