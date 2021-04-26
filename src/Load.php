@@ -462,6 +462,7 @@ function hasKey($haystack, $needle)
 
 /**
  * Array Replace (The numeric key will be overwrite not append).
+ * Different with array_replace, it accept ArrayAccess object.
  *
  * @return array
  */
