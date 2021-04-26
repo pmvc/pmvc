@@ -476,6 +476,7 @@ function arrayReplace()
         return triggerJson('Param1 should be array type.', ['Array' => $new]);
     }
     for ($i = 1, $j = count($a); $i < $j; $i++) {
+        // This is for handle empty array not empty value
         if (is_null($a[$i])) {
             continue;
         }
