@@ -20,6 +20,7 @@ namespace PMVC;
 
 use ArrayIterator;
 use Countable;
+use Serializable;
 use IteratorAggregate;
 
 /**
@@ -34,7 +35,10 @@ use IteratorAggregate;
  *
  * @link https://packagist.org/packages/pmvc/pmvc
  */
-class ListIterator extends BaseObject implements IteratorAggregate, Countable
+class ListIterator extends BaseObject implements
+    IteratorAggregate,
+    Countable,
+    Serializable
 {
     /**
      * Construct.
@@ -45,6 +49,9 @@ class ListIterator extends BaseObject implements IteratorAggregate, Countable
     public function __construct($state = null, $walk = null)
     {
         $this->state = $this->getInitialState();
+        if (is_string($state)) {
+            $state = unserialize($state);
+        }
         if (!empty($state)) {
             set($this->state, $state);
         }
@@ -86,5 +93,37 @@ class ListIterator extends BaseObject implements IteratorAggregate, Countable
     public function count()
     {
         return count($this->state);
+    }
+    
+    /**
+     * To string.
+     *
+     * @return string 
+     */
+    public function __toString()
+    {
+        return $this->serialize();
+    }
+
+    /**
+     * Serializable.
+     *
+     * @return string 
+     */
+    public function serialize()
+    {
+        return serialize($this->state);
+    }
+
+    /**
+     * Serializable.
+     *
+     * @param array $state state
+     *
+     * @return array
+     */
+    public function unserialize($state)
+    {
+        $this->state = unserialize($state);
     }
 }

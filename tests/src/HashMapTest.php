@@ -196,6 +196,32 @@ class HashMapTest extends TestCase
         );
         $this->assertEquals($expected, $map);
     }
+
+    public function testHashMapToString()
+    {
+        $arr = ['foo' => 'bar'];
+        $map = new HashMap($arr);
+        $expected = 'a:1:{s:3:"foo";s:3:"bar";}';
+        $this->assertEquals($expected, (string)$map);
+    }
+
+    public function testStringToHashMap()
+    {
+        $state = 'a:1:{s:3:"foo";s:3:"bar";}';
+        $map = new HashMap($state);
+        $expected = ['foo' => 'bar'];
+        $this->assertEquals($expected, get($map));
+    }
+
+    public function testHashMapSerialize()
+    {
+        $arr = ['foo' => 'bar'];
+        $map = new HashMap($arr);
+        $str = serialize($map);
+        $expected = 'C:12:"PMVC\HashMap":26:{a:1:{s:3:"foo";s:3:"bar";}}';
+        $this->assertEquals($expected, $str);
+        $this->assertEquals(unserialize($str), $map);
+    }
 }
 
 class FakeHash extends HashMap
