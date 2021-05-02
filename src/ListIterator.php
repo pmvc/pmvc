@@ -20,8 +20,8 @@ namespace PMVC;
 
 use ArrayIterator;
 use Countable;
-use Serializable;
 use IteratorAggregate;
+use Serializable;
 
 /**
  * ListIterator.
@@ -94,11 +94,11 @@ class ListIterator extends BaseObject implements
     {
         return count($this->state);
     }
-    
+
     /**
      * To string.
      *
-     * @return string 
+     * @return string
      */
     public function __toString()
     {
@@ -108,7 +108,7 @@ class ListIterator extends BaseObject implements
     /**
      * Serializable.
      *
-     * @return string 
+     * @return string
      */
     public function serialize()
     {
