@@ -202,7 +202,7 @@ class HashMapTest extends TestCase
         $arr = ['foo' => 'bar'];
         $map = new HashMap($arr);
         $expected = 'a:1:{s:3:"foo";s:3:"bar";}';
-        $this->assertEquals($expected, (string)$map);
+        $this->assertEquals($expected, (string) $map);
     }
 
     public function testStringToHashMap()
