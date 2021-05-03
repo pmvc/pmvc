@@ -18,9 +18,11 @@ class UtilExistsTest extends TestCase
      */
     public function testExistsNotSupport()
     {
-        $this->willThrow(function () {
-            exists('test', 'xxx-type');
-        }, false);
+        $this->willThrow(
+            function () {
+                exists('test', 'xxx-type');
+            }, false
+        );
     }
 
     public function testExistsWithNull()
@@ -30,17 +32,21 @@ class UtilExistsTest extends TestCase
 
     public function testIsOkToPlugWithAlreadyPlug()
     {
-        $p = \PMVC\plug('test', [
+        $p = \PMVC\plug(
+            'test', [
             _CLASS => '\PMVC\FakePlugIn',
-        ]);
+            ]
+        );
         $this->assertTrue(exists('test', 'plug'));
     }
 
     public function testExistsWithZero()
     {
-        $p = \PMVC\plug('0', [
+        $p = \PMVC\plug(
+            '0', [
             _CLASS => '\PMVC\FakePlugIn',
-        ]);
+            ]
+        );
         $this->assertTrue(exists(0, 'plugin'));
         unplug('0');
     }

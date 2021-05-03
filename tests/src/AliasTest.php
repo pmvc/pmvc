@@ -14,7 +14,9 @@ class AliasTest extends TestCase
 
     public function getAliasProvider()
     {
-        $parent = function () {return plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']); };
+        $parent = function () {
+            return plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']); 
+        };
 
         return [
             [$parent, 'data1'],
@@ -23,8 +25,12 @@ class AliasTest extends TestCase
 
                 return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
             }, 'data2'],
-            [function () { return new FakeAliasWithoutArrayAccess(); }, 'data3'],
-            [function () { return new FakeAliasWithoutArrayAccessChild(); }, 'data4'],
+            [function () {
+                return new FakeAliasWithoutArrayAccess(); 
+            }, 'data3'],
+            [function () {
+                return new FakeAliasWithoutArrayAccessChild(); 
+            }, 'data4'],
         ];
     }
 
@@ -97,10 +103,12 @@ class AliasTest extends TestCase
      */
     public function testParentMethodNotExists()
     {
-        $this->willThrow(function () {
-            $child = plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
-            $child->FakeNotExists();
-        });
+        $this->willThrow(
+            function () {
+                $child = plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
+                $child->FakeNotExists();
+            }
+        );
     }
 
     /**
@@ -143,10 +151,12 @@ class AliasTest extends TestCase
      */
     public function testAliasObjectWithoutGetdir()
     {
-        $this->willThrow(function () {
-            $oAlias = new FakeAliasWithOutGetDir();
-            $result = $oAlias->faketask();
-        });
+        $this->willThrow(
+            function () {
+                $oAlias = new FakeAliasWithOutGetDir();
+                $result = $oAlias->faketask();
+            }
+        );
     }
 
     /**
@@ -157,10 +167,12 @@ class AliasTest extends TestCase
      */
     public function testAliasFileWithoutClass()
     {
-        $this->willThrow(function () {
-            $oAlias = new FakeAliasWithoutArrayAccess();
-            $oAlias->without_class();
-        });
+        $this->willThrow(
+            function () {
+                $oAlias = new FakeAliasWithoutArrayAccess();
+                $oAlias->without_class();
+            }
+        );
     }
 
     /**
@@ -171,10 +183,12 @@ class AliasTest extends TestCase
      */
     public function testAliasFileWithWrongName()
     {
-        $this->willThrow(function () {
-            $oAlias = new FakeAliasWithoutArrayAccess();
-            $oAlias->with_wrong_name();
-        });
+        $this->willThrow(
+            function () {
+                $oAlias = new FakeAliasWithoutArrayAccess();
+                $oAlias->with_wrong_name();
+            }
+        );
     }
 
     /**
@@ -185,9 +199,11 @@ class AliasTest extends TestCase
      */
     public function testAliasFileWithoutInvoke()
     {
-        $this->willThrow(function () {
-            $oAlias = new FakeAliasWithoutArrayAccess();
-            $oAlias->without_invoke();
-        });
+        $this->willThrow(
+            function () {
+                $oAlias = new FakeAliasWithoutArrayAccess();
+                $oAlias->without_invoke();
+            }
+        );
     }
 }

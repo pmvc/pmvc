@@ -27,7 +27,7 @@ class UtilPlugUnPlugTest extends TestCase
     /**
      * Test can not unplug reject plug.
      *
-     * @expectedException Exception
+     * @expectedException        Exception
      * @expectedExceptionMessage You can not change security plugin
      */
     public function testRejectPlug()
@@ -42,8 +42,10 @@ class UtilPlugUnPlugTest extends TestCase
         $this->assertTrue(exists('fake-can-not-replug', 'PlugIn'));
         unPlug('fake-can-not-replug', true);
 
-        \PMVC\plug('unit')->throw(function () use ($class) {
-            plug('fake-can-not-replug', [_CLASS => $class]);
-        }, [$this, __FUNCTION__], $this);
+        \PMVC\plug('unit')->throw(
+            function () use ($class) {
+                plug('fake-can-not-replug', [_CLASS => $class]);
+            }, [$this, __FUNCTION__], $this
+        );
     }
 }

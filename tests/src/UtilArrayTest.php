@@ -23,10 +23,12 @@ class UtilArrayTest extends TestCase
      */
     public function testArrayReplaceWrongType()
     {
-        $this->willThrow(function () {
-            $s = '';
-            arrayReplace($s);
-        });
+        $this->willThrow(
+            function () {
+                $s = '';
+                arrayReplace($s);
+            }
+        );
     }
 
     public function testArrayReplaceWithNull()

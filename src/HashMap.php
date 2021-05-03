@@ -104,16 +104,20 @@ class HashMap extends ListIterator implements ArrayAccess
      */
     public function offsetSet($k, $v)
     {
-        if ([] === $k && is_array($v)) {
-            /**
-             * Overwrite with all new value.
-             *
-             * If the input arrays have the same string keys,
-             * then the values for these keys are merged together into an array.
-             *
-             * https://www.php.net/manual/en/function.array-merge-recursive.php
-             */
-            $this->state = array_merge_recursive($this->state, $v);
+        if ([] === $k) {
+            if (is_array($v)) {
+                /**
+                 * Overwrite with all new value.
+                 *
+                 * If the input arrays have the same string keys,
+                 * then the values for these keys are merged together into an array.
+                 *
+                 * https://www.php.net/manual/en/function.array-merge-recursive.php
+                 */
+                $this->state = array_merge_recursive($this->state, $v);
+            } else {
+                $this->state = array_replace_recursive($this->state, $v());
+            }
         } elseif ([] === $v && is_array($k) && !empty($k)) {
             // overwrite with not exists key only
             $arrKeys = array_keys($k);

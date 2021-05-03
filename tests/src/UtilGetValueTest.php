@@ -79,8 +79,10 @@ class UtilGetValueTest extends TestCase
     {
         $h = ['a', 'b'];
 
-        $this->willThrow(function () use ($h) {
-            value($h, 'not-path');
-        }, 'TypeError');
+        $this->willThrow(
+            function () use ($h) {
+                value($h, 'not-path');
+            }, 'TypeError'
+        );
     }
 }

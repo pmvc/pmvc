@@ -60,9 +60,11 @@ class UtilDevTest extends TestCase
      */
     public function testTriggerJson()
     {
-        $this->willThrow(function () {
-            triggerJson('error', ['debug-payload']);
-        });
+        $this->willThrow(
+            function () {
+                triggerJson('error', ['debug-payload']);
+            }
+        );
     }
 
     /**

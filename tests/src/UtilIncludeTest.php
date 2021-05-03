@@ -27,9 +27,11 @@ class UtilIncludeTest extends TestCase
      */
     public function testIncludeNotExists()
     {
-        $this->willThrow(function () {
-            l(__DIR__.'/../resources/empty.php.fake');
-        });
+        $this->willThrow(
+            function () {
+                l(__DIR__.'/../resources/empty.php.fake');
+            }
+        );
     }
 
     public function testLoadEmpty()
@@ -40,9 +42,11 @@ class UtilIncludeTest extends TestCase
 
     public function testLoadWithImport()
     {
-        $r = l(__DIR__.'/../resources/empty.php', 'fakeTest', [
+        $r = l(
+            __DIR__.'/../resources/empty.php', 'fakeTest', [
             'import' => ['fakeTest' => 'foo'],
-        ]);
+            ]
+        );
         $this->assertEquals('foo', $r->var['fakeTest']);
     }
 }

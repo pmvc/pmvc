@@ -21,9 +21,11 @@ class UtilPlugPlugAliasTest extends TestCase
     public function testAlias()
     {
         $class = __NAMESPACE__.'\FakePlugIn';
-        plug('test', [
+        plug(
+            'test', [
             _CLASS => $class,
-        ]);
+            ]
+        );
         $abc = plug('fakeAlias');
         $this->assertEquals('test', $abc[NAME]);
         $this->assertEquals($class, $abc[_CLASS]);
@@ -34,8 +36,10 @@ class UtilPlugPlugAliasTest extends TestCase
      */
     public function testPluginNotFound()
     {
-        $this->willThrow(function () {
-            $abc = plug('fakeAlias');
-        }, false);
+        $this->willThrow(
+            function () {
+                $abc = plug('fakeAlias');
+            }, false
+        );
     }
 }

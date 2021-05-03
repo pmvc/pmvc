@@ -69,9 +69,11 @@ class HashMapTest extends TestCase
     {
         $class = __NAMESPACE__.'\FakePlugIn';
         $plug_name = 'fake_plug';
-        $plug = plug($plug_name, [
+        $plug = plug(
+            $plug_name, [
             _CLASS => $class,
-        ]);
+            ]
+        );
         $this->assertEquals($class, plug($plug_name)[_CLASS]);
     }
 
@@ -165,6 +167,41 @@ class HashMapTest extends TestCase
         $this->assertEquals(['ddd'], $hash[0]);
     }
 
+    public function testMerge()
+    {
+        $arr = [
+            'aaa' => 111,
+        ];
+        $hash = new HashMap($arr);
+        $hash[[]] =  [
+            'aaa' => 222,
+        ];
+        $expected = [
+            'aaa'=>[
+                  '111',
+                  '222'
+              ]
+        ];
+        $this->assertEquals($expected, \PMVC\get($expected));
+    }
+
+    public function testReplace()
+    {
+        $arr = [
+            'aaa' => 111,
+        ];
+        $hash = new HashMap($arr);
+        $hash[[]] = function () {
+            return [
+              'aaa' => 222,
+            ];
+        };
+        $expected = [
+            'aaa'=>'222' 
+        ];
+        $this->assertEquals($expected, \PMVC\get($expected));
+    }
+
     public function testAppendWithSameKey()
     {
         $hash = new HashMap(['foo' => 'bar']);
@@ -174,16 +211,18 @@ class HashMapTest extends TestCase
 
     public function testMergeDefault()
     {
-        $hash = new HashMap([
+        $hash = new HashMap(
+            [
             'a' => 0,
-        ]);
+            ]
+        );
         $hash[
             [
                 'a' => 1,
                 'b' => 2,
             ]
-        ] = [];
-        $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
+            ] = [];
+            $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
     }
 
     public function testHashMapWalk()
