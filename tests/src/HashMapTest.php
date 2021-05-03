@@ -70,8 +70,9 @@ class HashMapTest extends TestCase
         $class = __NAMESPACE__.'\FakePlugIn';
         $plug_name = 'fake_plug';
         $plug = plug(
-            $plug_name, [
-            _CLASS => $class,
+            $plug_name,
+            [
+                _CLASS => $class,
             ]
         );
         $this->assertEquals($class, plug($plug_name)[_CLASS]);
@@ -173,14 +174,14 @@ class HashMapTest extends TestCase
             'aaa' => 111,
         ];
         $hash = new HashMap($arr);
-        $hash[[]] =  [
+        $hash[[]] = [
             'aaa' => 222,
         ];
         $expected = [
-            'aaa'=>[
-                  '111',
-                  '222'
-              ]
+            'aaa'=> [
+                '111',
+                '222',
+            ],
         ];
         $this->assertEquals($expected, \PMVC\get($expected));
     }
@@ -193,11 +194,11 @@ class HashMapTest extends TestCase
         $hash = new HashMap($arr);
         $hash[[]] = function () {
             return [
-              'aaa' => 222,
+                'aaa' => 222,
             ];
         };
         $expected = [
-            'aaa'=>'222' 
+            'aaa'=> '222',
         ];
         $this->assertEquals($expected, \PMVC\get($expected));
     }
@@ -213,7 +214,7 @@ class HashMapTest extends TestCase
     {
         $hash = new HashMap(
             [
-            'a' => 0,
+                'a' => 0,
             ]
         );
         $hash[
@@ -222,7 +223,7 @@ class HashMapTest extends TestCase
                 'b' => 2,
             ]
             ] = [];
-            $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
+        $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
     }
 
     public function testHashMapWalk()

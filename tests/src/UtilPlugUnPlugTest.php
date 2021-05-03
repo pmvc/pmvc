@@ -45,7 +45,9 @@ class UtilPlugUnPlugTest extends TestCase
         \PMVC\plug('unit')->throw(
             function () use ($class) {
                 plug('fake-can-not-replug', [_CLASS => $class]);
-            }, [$this, __FUNCTION__], $this
+            },
+            [$this, __FUNCTION__],
+            $this
         );
     }
 }

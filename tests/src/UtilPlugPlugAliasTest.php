@@ -22,8 +22,9 @@ class UtilPlugPlugAliasTest extends TestCase
     {
         $class = __NAMESPACE__.'\FakePlugIn';
         plug(
-            'test', [
-            _CLASS => $class,
+            'test',
+            [
+                _CLASS => $class,
             ]
         );
         $abc = plug('fakeAlias');
@@ -39,7 +40,8 @@ class UtilPlugPlugAliasTest extends TestCase
         $this->willThrow(
             function () {
                 $abc = plug('fakeAlias');
-            }, false
+            },
+            false
         );
     }
 }

@@ -15,7 +15,7 @@ class AliasTest extends TestCase
     public function getAliasProvider()
     {
         $parent = function () {
-            return plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']); 
+            return plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
         };
 
         return [
@@ -26,10 +26,10 @@ class AliasTest extends TestCase
                 return plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
             }, 'data2'],
             [function () {
-                return new FakeAliasWithoutArrayAccess(); 
+                return new FakeAliasWithoutArrayAccess();
             }, 'data3'],
             [function () {
-                return new FakeAliasWithoutArrayAccessChild(); 
+                return new FakeAliasWithoutArrayAccessChild();
             }, 'data4'],
         ];
     }
