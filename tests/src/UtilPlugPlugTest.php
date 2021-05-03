@@ -22,8 +22,9 @@ class UtilPlugPlugTest extends TestCase
         $plug = 'test';
         $file = __DIR__.'/../resources/FakePlugFile.php';
         $test = plug(
-            $plug, [
-            _PLUGIN_FILE => $file,
+            $plug,
+            [
+                _PLUGIN_FILE => $file,
             ]
         );
         $this->assertEquals('1', $test['init'], 'call once for init');
@@ -60,8 +61,8 @@ class UtilPlugPlugTest extends TestCase
     {
         addPlugInFolders(
             [
-            __DIR__.'/../resources/plugin1',
-            __DIR__.'/../resources/plugin2',
+                __DIR__.'/../resources/plugin1',
+                __DIR__.'/../resources/plugin2',
             ]
         );
         $test = plug('testplugin');
@@ -71,8 +72,9 @@ class UtilPlugPlugTest extends TestCase
     public function testPlugFile()
     {
         plug(
-            'test', [
-            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+            'test',
+            [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
             ]
         );
         $this->assertEquals('test', plug('test')[NAME]);
@@ -83,8 +85,9 @@ class UtilPlugPlugTest extends TestCase
         $test = callPlugIn('test');
         $this->assertFalse(!empty($test));
         plug(
-            'test', [
-            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+            'test',
+            [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
             ]
         );
         $test = callPlugIn('test');
@@ -132,8 +135,9 @@ class UtilPlugPlugTest extends TestCase
         $this->willThrow(
             function () {
                 plug(
-                    'test', [
-                    _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
+                    'test',
+                    [
+                        _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
                     ]
                 );
             }
@@ -149,8 +153,9 @@ class UtilPlugPlugTest extends TestCase
         $this->willThrow(
             function () {
                 plug(
-                    'test', [
-                    _CLASS => __NAMESPACE__.'\NotPlugIn',
+                    'test',
+                    [
+                        _CLASS => __NAMESPACE__.'\NotPlugIn',
                     ]
                 );
             }
@@ -160,9 +165,10 @@ class UtilPlugPlugTest extends TestCase
     public function testGetConfigFromGlobalOption()
     {
         $test = plug(
-            'test', [
-            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
-            'foo'        => 'ccc',
+            'test',
+            [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+                'foo'        => 'ccc',
             ]
         );
         $this->assertEquals('ccc', $test['foo']);
@@ -170,8 +176,9 @@ class UtilPlugPlugTest extends TestCase
 
         option('set', 'PLUGIN', ['test' => ['foo' => 'bar']]);
         plug(
-            'test', [
-            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+            'test',
+            [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
             ]
         );
         $this->assertEquals('bar', $test['foo']);
@@ -181,8 +188,9 @@ class UtilPlugPlugTest extends TestCase
     {
         option('set', 'PLUGIN', ['test' => ['test' => ['a' => 'b']]]);
         $test = plug(
-            'test_test', [
-            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+            'test_test',
+            [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
             ]
         );
         $this->assertEquals('b', $test['a']);
@@ -201,13 +209,15 @@ class UtilPlugPlugTest extends TestCase
         plug('debug', ['output' => $dumpMock])->setLevel('plug,debug');
         plug('dev')->onResetDebugLevel();
         $test = plug(
-            'test', [
-            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+            'test',
+            [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
             ]
         );
         plug(
-            'asset', [
-            _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+            'asset',
+            [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
             ]
         );
     }
@@ -235,8 +245,9 @@ class UtilPlugPlugTest extends TestCase
         $this->willThrow(
             function () {
                 plug(
-                    'test', [
-                    _PLUGIN_FILE => 'foo',
+                    'test',
+                    [
+                        _PLUGIN_FILE => 'foo',
                     ]
                 );
             }
@@ -249,13 +260,14 @@ class UtilPlugPlugTest extends TestCase
         $unitKey = 'foo';
         $unitValue = 'bar';
         plug(
-            'test', [
-            _PLUGIN_FILE => $file,
-            _LAZY_CONFIG => function () use ($unitKey, $unitValue) {
-                return [
-                    $unitKey => $unitValue,
-                ];
-            },
+            'test',
+            [
+                _PLUGIN_FILE => $file,
+                _LAZY_CONFIG => function () use ($unitKey, $unitValue) {
+                    return [
+                        $unitKey => $unitValue,
+                    ];
+                },
             ]
         );
         $this->assertEquals($unitValue, plug('test')[$unitKey]);
@@ -265,8 +277,9 @@ class UtilPlugPlugTest extends TestCase
     {
         $file = __DIR__.'/../resources/FakePlugFile.php';
         plug(
-            'test', [
-            _PLUGIN_FILE => $file,
+            'test',
+            [
+                _PLUGIN_FILE => $file,
             ]
         );
         $a = plugInStore();
@@ -277,9 +290,10 @@ class UtilPlugPlugTest extends TestCase
     {
         $file = __DIR__.'/../resources/FakePlugFile.php';
         plug(
-            'testSecurity', [
-            _PLUGIN_FILE => $file,
-            _IS_SECURITY => true,
+            'testSecurity',
+            [
+                _PLUGIN_FILE => $file,
+                _IS_SECURITY => true,
             ]
         );
         $this->assertTrue(exists('testSecurity', 'plugin'));
@@ -321,25 +335,29 @@ class UtilPlugPlugTest extends TestCase
     {
         $file = __DIR__.'/../resources/FakePlugFile.php';
         plug(
-            'test', [
-            _PLUGIN_FILE => $file,
+            'test',
+            [
+                _PLUGIN_FILE => $file,
             ]
         );
         replug(
-            'test', [
-            _PLUGIN_FILE => $file,
+            'test',
+            [
+                _PLUGIN_FILE => $file,
             ]
         );
         $this->assertTrue(exists('test', 'PlugIn'));
         $this->willThrow(
             function () use ($file) {
                 replug(
-                    'test', [
-                    _PLUGIN_FILE => $file,
-                    _IS_SECURITY => true,
+                    'test',
+                    [
+                        _PLUGIN_FILE => $file,
+                        _IS_SECURITY => true,
                     ]
                 );
-            }, false
+            },
+            false
         );
     }
 }

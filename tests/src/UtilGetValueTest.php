@@ -82,7 +82,8 @@ class UtilGetValueTest extends TestCase
         $this->willThrow(
             function () use ($h) {
                 value($h, 'not-path');
-            }, 'TypeError'
+            },
+            'TypeError'
         );
     }
 }

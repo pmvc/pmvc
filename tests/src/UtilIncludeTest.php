@@ -43,8 +43,10 @@ class UtilIncludeTest extends TestCase
     public function testLoadWithImport()
     {
         $r = l(
-            __DIR__.'/../resources/empty.php', 'fakeTest', [
-            'import' => ['fakeTest' => 'foo'],
+            __DIR__.'/../resources/empty.php',
+            'fakeTest',
+            [
+                'import' => ['fakeTest' => 'foo'],
             ]
         );
         $this->assertEquals('foo', $r->var['fakeTest']);
