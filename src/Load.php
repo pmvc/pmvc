@@ -550,23 +550,53 @@ function isArray($obj)
  * @param array $a       array
  * @param array $path    array's path
  * @param mixed $default if value not exists, return default value
+ * @param mixed $setter  set values. 
  *
  * @return mixed
  */
-function value($a, array $path, $default = null)
+function value(&$a, array $path, $default = null, $setter = null)
 {
-    foreach ($path as $p) {
-        $a = &get($a, $p);
-        if (is_null($a)) {
-            if (is_callable($default)) {
-                $default = call_user_func($default);
-            }
-
-            return $default;
+    $getValue = function ($v) {
+        if (is_callable($v)) {
+            $v = call_user_func($v);
         }
-    }
 
-    return $a;
+        return $v;
+    };
+    $setValue = function (&$p, $k, $v) use ($getValue) {
+        $v = $getValue($v);
+        if (is_object($p)) {
+            $p->{$k} = $v;
+        } else {
+            set($p, $k, $v);
+        }
+        return $v;
+    };
+    if (!is_null($setter)) {
+        $lastPath = array_pop($path); 
+        if (is_null($default)) {
+            $default  = [];
+        }
+    } else {
+        $lastPath = null;
+    }
+    $previous =& $a;
+    foreach ($path as $p) {
+        unset($next);
+        $next = &get($previous, $p);
+        if (is_null($next)) {
+            $defV = $getValue($default);
+            if ($lastPath) {
+                $setValue($previous, $p, $defV);
+                $next = &get($previous, $p);
+            } else {
+                return $defV;
+            }
+        }
+        unset($previous);
+        $previous =& $next;
+    }
+    return $lastPath ? $setValue($previous, $lastPath, $setter): $next;
 }
 
 /**

@@ -22,7 +22,8 @@ class UtilGetValueTest extends TestCase
 
     public function testGetEmpty()
     {
-        $actual = value(null, [1]);
+        $a = null;
+        $actual = value($a, [1]);
         $this->assertEquals(null, $actual);
     }
 
