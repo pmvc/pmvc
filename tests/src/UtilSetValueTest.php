@@ -2,8 +2,6 @@
 
 namespace PMVC;
 
-use TypeError;
-
 class UtilSetValueTest extends TestCase
 {
     public function testSetArray()
@@ -12,8 +10,8 @@ class UtilSetValueTest extends TestCase
         $arr = [];
         $actual = value($arr, ['a', 'b', 'c', 'd'], null, $expected);
         $this->assertEquals(
-          $expected,
-          value($arr, ['a', 'b', 'c', 'd'])
+            $expected,
+            value($arr, ['a', 'b', 'c', 'd'])
         );
     }
 
@@ -21,28 +19,28 @@ class UtilSetValueTest extends TestCase
     {
         $expected = 'bar';
         $arr = [
-          'a' => [
-            'b' => [
-              'c' => null
-            ] 
-          ]
+            'a' => [
+                'b' => [
+                    'c' => null,
+                ],
+            ],
         ];
         $arr = fromJson(json_encode($arr));
         $actual = value($arr, ['a', 'b', 'c'], null, $expected);
         $this->assertEquals(
-          $expected,
-          $arr->a->b->c
+            $expected,
+            $arr->a->b->c
         );
     }
 
     public function testSetObjectWithAutoCreate()
     {
         $expected = 'bar';
-        $arr = (object)[];
-        $actual = value($arr, ['a', 'b', 'c', 'd'], function(){return (object)[];}, $expected);
+        $arr = (object) [];
+        $actual = value($arr, ['a', 'b', 'c', 'd'], function () {return (object) []; }, $expected);
         $this->assertEquals(
-          $expected,
-          $arr->a->b->c->d
+            $expected,
+            $arr->a->b->c->d
         );
     }
 }

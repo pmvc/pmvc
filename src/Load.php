@@ -550,7 +550,7 @@ function isArray($obj)
  * @param array $a       array
  * @param array $path    array's path
  * @param mixed $default if value not exists, return default value
- * @param mixed $setter  set values. 
+ * @param mixed $setter  set values.
  *
  * @return mixed
  */
@@ -570,17 +570,18 @@ function value(&$a, array $path, $default = null, $setter = null)
         } else {
             set($p, $k, $v);
         }
+
         return $v;
     };
     if (!is_null($setter)) {
-        $lastPath = array_pop($path); 
+        $lastPath = array_pop($path);
         if (is_null($default)) {
-            $default  = [];
+            $default = [];
         }
     } else {
         $lastPath = null;
     }
-    $previous =& $a;
+    $previous = &$a;
     foreach ($path as $p) {
         unset($next);
         $next = &get($previous, $p);
@@ -594,9 +595,10 @@ function value(&$a, array $path, $default = null, $setter = null)
             }
         }
         unset($previous);
-        $previous =& $next;
+        $previous = &$next;
     }
-    return $lastPath ? $setValue($previous, $lastPath, $setter): $next;
+
+    return $lastPath ? $setValue($previous, $lastPath, $setter) : $next;
 }
 
 /**
