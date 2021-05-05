@@ -46,7 +46,6 @@ class UtilSetValueTest extends TestCase
 
     /**
      * Test pass by ref.
-     *
      */
     public function testPassByRef()
     {
