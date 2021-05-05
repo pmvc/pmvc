@@ -43,4 +43,14 @@ class UtilSetValueTest extends TestCase
             $arr->a->b->c->d
         );
     }
+
+    /**
+     * Test pass by ref.
+     *
+     */
+    public function testPassByRef()
+    {
+        $actual = value(passByRef(['foo']), [0]);
+        $this->assertEquals('foo', $actual);
+    }
 }

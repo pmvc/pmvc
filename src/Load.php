@@ -626,6 +626,18 @@ function &ref(&$v, $new = null)
     }
 }
 
+/**
+ * Pass by reference.
+ *
+ * @param mixed $v variable
+ *
+ * @return mixed
+ */
+function &passByRef($v)
+{
+    return $v;
+}
+
 /*
  * Array Util -->.
  */
