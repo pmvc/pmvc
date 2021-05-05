@@ -27,6 +27,13 @@ class UtilGetValueTest extends TestCase
         $this->assertEquals(null, $actual);
     }
 
+    public function testGetWithEmptyPath()
+    {
+        $a = ['foo'];
+        $actual = value($a, []);
+        $this->assertEquals($a, $actual);
+    }
+
     public function testGetDefaultValue()
     {
         $expected = 'xxx';

@@ -598,6 +598,10 @@ function value(&$a, array $path, $default = null, $setter = null)
         $previous = &$next;
     }
 
+    if (!isset($next)) {
+        $next = &$a;
+    }
+
     return $lastPath ? $setValue($previous, $lastPath, $setter) : $next;
 }
 
