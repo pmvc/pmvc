@@ -40,7 +40,7 @@ class Load
     /**
      * Include plugin only.
      *
-     * @param mixed $init    Default plugins or lazy funciton
+     * @param mixed $init    Default plugins or lazy function
      * @param array $folders Extra plugin folder
      * @param array $options PMVC options
      *
@@ -505,11 +505,7 @@ function toArray($p, $onlyValues = false)
     if (is_null($p)) {
         $p = [];
     } elseif (is_object($p)) {
-        if (isArrayAccess($p)) {
-            $p = get($p);
-        } else {
-            $p = (array) $p;
-        }
+        $p = get($p);
     } elseif (!is_array($p)) {
         $p = [$p];
     }
