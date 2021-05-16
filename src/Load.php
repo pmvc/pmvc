@@ -1138,7 +1138,7 @@ function rePlug($name, $object)
  * @param array $arr   plug-in array
  * @param bool  $pause for includ file only
  *
- * @return array
+ * @return array set pause to true will return plugin exits array
  */
 function initPlugIn(array $arr, $pause = false)
 {
