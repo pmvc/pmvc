@@ -1126,8 +1126,10 @@ function unPlug($name, $reject = false)
  */
 function rePlug($name, $object)
 {
-    $object[NAME] = $name;
-    $object[THIS] = new Adapter($name);
+    if (isArray($object)) {
+        $object[NAME] = $name;
+        $object[THIS] = new Adapter($name);
+    }
 
     return plugInStore($name, $object, get($object, _IS_SECURITY));
 }
