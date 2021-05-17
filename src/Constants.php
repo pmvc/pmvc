@@ -72,6 +72,7 @@ namespace PMVC {
 namespace PMVC\Event {
     const SET_CONFIG = 'SetConfig';
     const MAP_REQUEST = 'MapRequest';
+    const WILL_SET_VIEW = 'WillSetView';
     const WILL_PROCESS_ERROR = 'WillProcessError';
     const WILL_PROCESS_ACTION = 'WillProcessAction';
     const WILL_PROCESS_HEADER = 'WillProcessHeader';
