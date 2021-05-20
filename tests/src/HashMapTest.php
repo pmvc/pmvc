@@ -168,6 +168,30 @@ class HashMapTest extends TestCase
         $this->assertEquals(['ddd'], $hash[0]);
     }
 
+    public function testAppendSameKey()
+    {
+        $hash1 = new HashMap();
+        $hash1[[]] = ['a'=>'111'];
+        $hash1[[]] = ['a'=>'222'];
+        $expected1 = [
+            'a' => [
+                '111',
+                '222'
+            ]
+        ];
+        $this->assertEquals($expected1, get($hash1));
+        $hash2 = new HashMap();
+        $hash2[[]] = ['a'=>['b1'=>'c1']];
+        $hash2[[]] = ['a'=>['b2'=>'c2']];
+        $expected2 = [
+            'a' => [
+                'b1' => 'c1',
+                'b2' => 'c2',
+            ]
+        ];
+        $this->assertEquals($expected2, get($hash2));
+    } 
+
     public function testMerge()
     {
         $arr = [
