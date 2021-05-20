@@ -125,14 +125,13 @@ function l($name, $export = null, $options = [])
     $import = get($options, 'import');
     if ($once) {
         return run(
-            ns('InternalUtility::l'), 
+            ns('InternalUtility::l'),
             [$real, $export, $import]
         );
     } else {
         return InternalUtility::l($real, $export, $import);
     }
 }
-
 
 /**
  * Smart Load.

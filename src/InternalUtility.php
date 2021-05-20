@@ -99,15 +99,15 @@ class InternalUtility
         }
         if ($currentPlug && false !== $value && ($isSecurity || $hasSecurity)) {
             throw new DomainException(
-                'Security plugin [' .
-                    $key .
-                    '] already plug or unplug, ' .
+                'Security plugin ['.
+                    $key.
+                    '] already plug or unplug, '.
                     'you need check your code if it is safe.'
             );
         }
         if ($hasSecurity) {
             return !trigger_error(
-                'You can not change security plugin. [' . $key . ']'
+                'You can not change security plugin. ['.$key.']'
             );
         } else {
             $plugins[$cookKey] = $value;
@@ -132,10 +132,10 @@ class InternalUtility
         $oPlugin = InternalUtility::plugInStore($targetPlugin);
         if (empty($oPlugin)) {
             throw new DomainException(
-                'Plug alias fail. Target: [' .
-                    $targetPlugin .
-                    '], New Alias: [' .
-                    $aliasName .
+                'Plug alias fail. Target: ['.
+                    $targetPlugin.
+                    '], New Alias: ['.
+                    $aliasName.
                     ']'
             );
         }
@@ -176,11 +176,11 @@ class InternalUtility
                 $file = realpath($config[_PLUGIN_FILE]);
                 if (empty($file)) {
                     return !trigger_error(
-                        'PlugIn ' .
-                            $name .
-                            ': defined file not found. ' .
-                            '[' .
-                            $config[_PLUGIN_FILE] .
+                        'PlugIn '.
+                            $name.
+                            ': defined file not found. '.
+                            '['.
+                            $config[_PLUGIN_FILE].
                             ']'
                     );
                 }
@@ -190,7 +190,7 @@ class InternalUtility
             if ($file) {
                 $r = l($file, _INIT_CONFIG);
             } else {
-                $file = $name . '/' . $name . '.php';
+                $file = $name.'/'.$name.'.php';
                 $r = load(
                     $file,
                     $folders['folders'],
@@ -200,7 +200,9 @@ class InternalUtility
                 );
             }
             $class = value(
-                $r, ['var', _INIT_CONFIG, _CLASS], function () use (
+                $r,
+                ['var', _INIT_CONFIG, _CLASS],
+                function () use (
                     $config
                 ) {
                     return get($config, _DEFAULT_CLASS);
@@ -215,21 +217,21 @@ class InternalUtility
             $oPlugin = new $class();
             if (!($oPlugin instanceof PlugIn)) {
                 return !trigger_error(
-                    'Class is not a plug-in(' . ns('PlugIn') . ') instance.'
+                    'Class is not a plug-in('.ns('PlugIn').') instance.'
                 );
             }
         } else {
             if (!$class) {
-                $error = 'Plug-in ' . $name . ' not found.';
+                $error = 'Plug-in '.$name.' not found.';
                 if (!empty($file)) {
                     $error .=
-                        ' [' .
-                        $file .
-                        '] ' .
+                        ' ['.
+                        $file.
+                        '] '.
                         print_r($folders['folders'], true);
                 }
             } else {
-                $error = 'Plug-in ' . $name . ': class not found (' . $class . ')';
+                $error = 'Plug-in '.$name.': class not found ('.$class.')';
             }
 
             return !trigger_error($error);
@@ -254,7 +256,7 @@ class InternalUtility
                     $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
                     return [
-                        'name' => $name,
+                        'name'  => $name,
                         'trace' => $trace,
                     ];
                 },
