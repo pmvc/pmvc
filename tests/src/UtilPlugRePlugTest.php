@@ -22,7 +22,7 @@ class UtilPlugRePlugTest extends TestCase
         );
         $test['foo'] = 'bar';
         $this->assertEquals('bar', $test['foo']);
-        replug('test', null, [
+        replug('test', [
             _PLUGIN_FILE => $file,
         ]);
         $this->assertTrue(exists('test', 'plugin'));
@@ -37,7 +37,7 @@ class UtilPlugRePlugTest extends TestCase
     {
         $this->willThrow(
             function () {
-                replug('testSecurity', new HashMap());
+                replug('testSecurity', [], new HashMap());
             }
         );
     }
@@ -57,6 +57,7 @@ class UtilPlugRePlugTest extends TestCase
         );
         replug(
             'test',
+            [],
             [
                 _PLUGIN_FILE => $file,
             ]
@@ -66,6 +67,7 @@ class UtilPlugRePlugTest extends TestCase
             function () use ($file) {
                 replug(
                     'test',
+                    [],
                     [
                         _PLUGIN_FILE => $file,
                         _IS_SECURITY => true,

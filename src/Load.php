@@ -1040,12 +1040,12 @@ function unPlug($name, $reject = false)
  * Re plug.
  *
  * @param sring  $name   plug-in name
- * @param PlugIn $object plug-in plugin instance
  * @param array  $config Plug-in configs
+ * @param PlugIn $object plug-in plugin instance
  *
  * @return PlugIn
  */
-function rePlug($name, $object = null, array $config = [])
+function rePlug($name, array $config = [], $object = null)
 {
     if (!is_null($object)) {
         if (isArray($object)) {

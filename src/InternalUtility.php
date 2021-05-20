@@ -243,7 +243,7 @@ class InternalUtility
             $config[_PLUGIN_FILE] = $r->name;
         }
         InternalUtility::plugWithConfig($oPlugin, $config);
-        rePlug($plugTo, $oPlugin);
+        rePlug($plugTo, [], $oPlugin);
         $oPlugin->init();
         if (false === strpos('|debug|dev|cli|', $name)) {
             dev(
