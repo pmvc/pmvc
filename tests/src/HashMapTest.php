@@ -176,8 +176,8 @@ class HashMapTest extends TestCase
         $expected1 = [
             'a' => [
                 '111',
-                '222'
-            ]
+                '222',
+            ],
         ];
         $this->assertEquals($expected1, get($hash1));
         $hash2 = new HashMap();
@@ -187,10 +187,10 @@ class HashMapTest extends TestCase
             'a' => [
                 'b1' => 'c1',
                 'b2' => 'c2',
-            ]
+            ],
         ];
         $this->assertEquals($expected2, get($hash2));
-    } 
+    }
 
     public function testMerge()
     {
