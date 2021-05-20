@@ -43,7 +43,7 @@ class UtilPlugRePlugTest extends TestCase
     }
 
     /**
-     * @expectedException        DomainException 
+     * @expectedException        DomainException
      * @expectedExceptionMessage Security plugin [test] already plug
      */
     public function testSecurityPluginAlreadyExists()

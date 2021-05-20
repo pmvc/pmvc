@@ -2,8 +2,6 @@
 
 namespace PMVC;
 
-use DomainException;
-
 class UtilPlugPlugTest extends TestCase
 {
     protected function pmvc_teardown()
@@ -313,8 +311,6 @@ class UtilPlugPlugTest extends TestCase
             }
         );
     }
-
-
 }
 
 class NotPlugIn
