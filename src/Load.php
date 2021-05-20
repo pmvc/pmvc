@@ -20,8 +20,6 @@ namespace PMVC;
 
 use ArrayAccess;
 use DomainException;
-use OverflowException;
-use stdClass;
 
 /**
  * PMVC Loader.
@@ -126,37 +124,15 @@ function l($name, $export = null, $options = [])
     }
     $import = get($options, 'import');
     if ($once) {
-        return run(ns('_l'), [$real, $export, $import]);
+        return run(
+            ns('InternalUtility::l'), 
+            [$real, $export, $import]
+        );
     } else {
-        return _l($real, $export, $import);
+        return InternalUtility::l($real, $export, $import);
     }
 }
 
-/**
- * Private function for l.
- *
- * @param string $name   File name.
- * @param mixed  $export Extract one variable name.
- * @param array  $import Import variable to file.
- *
- * @return mixed
- */
-function _l($name, $export = null, $import = null)
-{
-    if (is_array($import)) {
-        foreach ($import as $k=>$v) {
-            $$k = $v;
-        }
-    }
-    include $name;
-    $o = new stdClass();
-    $o->name = $name;
-    if (isset($$export)) {
-        $o->var = compact($export);
-    }
-
-    return $o;
-}
 
 /**
  * Smart Load.
@@ -255,7 +231,7 @@ function folders($type, array $folders = [], array $alias = [], $clean = null)
  */
 
 /**
- * String Util (Path or Folder parse) <!---.
+ * String (Path or Folder parse) <!---.
  */
 
 /**
@@ -436,11 +412,11 @@ function camelCase($s, $join = null)
 }
 
 /*
- * String Util -->.
+ * String -->.
  */
 
 /**
- * Array Util <!---.
+ * Array <!---.
  */
 
 /**
@@ -635,7 +611,7 @@ function &passByRef($v)
 }
 
 /*
- * Array Util -->.
+ * Array -->.
  */
 
 /**
@@ -976,9 +952,9 @@ function exists($v, $type)
     }
     switch (strtolower($type)) {
     case 'plugin':
-        return (bool) plugInStore($v);
+        return (bool) InternalUtility::plugInStore($v);
     case 'plug': //check if OK to plug
-        if (plugInStore($v)) {
+        if (InternalUtility::plugInStore($v)) {
             return true;
         } else {
             return plug($v, [PAUSE => true]);
@@ -997,6 +973,24 @@ function exists($v, $type)
 /**
  * Plugins <!---.
  */
+
+/**
+ * Call Plug-In.
+ *
+ * @param string $plugIn plug-in name
+ * @param string $func   plug-in function name
+ * @param array  $args   plug-in function parameters
+ *
+ * @return mixed
+ */
+function callPlugin($plugIn, $func = null, $args = [])
+{
+    if (exists($plugIn, 'plugin')) {
+        return is_null($func)
+            ? plug($plugIn)
+            : call_user_func_array([plug($plugIn), $func], $args);
+    }
+}
 
 /**
  * Add PlugIn Folder.
@@ -1031,79 +1025,6 @@ function addPlugInFolders(array $folders, array $alias = [])
 }
 
 /**
- * PlugIn Store for Security.
- *
- * @param string $key        plug-in name
- * @param PlugIn $value      [null: get only] [false: unset] [other: set]
- * @param bool   $isSecurity security flag
- *
- * @return mixed
- */
-function plugInStore($key = null, $value = null, $isSecurity = false)
-{
-    static $plugins = [];
-    static $securitys = [];
-    $currentPlug = false;
-    $hasSecurity = false;
-    if (!is_null($key)) {
-        $cookKey = strtolower($key);
-        if (isset($plugins[$cookKey])) {
-            $currentPlug = $plugins[$cookKey];
-        }
-        if (isset($securitys[$cookKey])) {
-            $hasSecurity = $securitys[$cookKey];
-        }
-    }
-    if (is_null($value)) {
-        if ($currentPlug) {
-            return $currentPlug;
-        } elseif (is_null($key)) {
-            return array_keys($plugins);
-        } else {
-            return false;
-        }
-    }
-    if ($currentPlug && false !== $value && ($isSecurity || $hasSecurity)) {
-        throw new OverflowException(
-            'Security plugin ['.
-                $key.
-                '] already plug or unplug, '.
-                'you need check your code if it is safe.'
-        );
-    }
-    if ($hasSecurity) {
-        return !trigger_error(
-            'You can not change security plugin. ['.$key.']'
-        );
-    } else {
-        $plugins[$cookKey] = $value;
-        if ($isSecurity) {
-            $securitys[$cookKey] = true;
-        }
-
-        return $currentPlug;
-    }
-}
-
-/**
- * Call Plug-In.
- *
- * @param string $plugIn plug-in name
- * @param string $func   plug-in function name
- * @param array  $args   plug-in function parameters
- *
- * @return mixed
- */
-function callPlugin($plugIn, $func = null, $args = [])
-{
-    if (exists($plugIn, 'plugin')) {
-        return is_null($func)
-            ? plug($plugIn)
-            : call_user_func_array([plug($plugIn), $func], $args);
-    }
-}
-
-/**
  * Unplug.
  *
  * @param sring $name   Plug-in name.
@@ -1113,7 +1034,7 @@ function callPlugin($plugIn, $func = null, $args = [])
  */
 function unPlug($name, $reject = false)
 {
-    return plugInStore($name, false, $reject);
+    return InternalUtility::plugInStore($name, false, $reject);
 }
 
 /**
@@ -1121,17 +1042,28 @@ function unPlug($name, $reject = false)
  *
  * @param sring  $name   plug-in name
  * @param PlugIn $object plug-in plugin instance
+ * @param array  $config Plug-in configs
  *
  * @return PlugIn
  */
-function rePlug($name, $object)
+function rePlug($name, $object = null, array $config = [])
 {
-    if (isArray($object)) {
-        $object[NAME] = $name;
-        $object[THIS] = new Adapter($name);
-    }
+    if (!is_null($object)) {
+        if (isArray($object)) {
+            $object[NAME] = $name;
+            $object[THIS] = new Adapter($name);
+        }
 
-    return plugInStore($name, $object, get($object, _IS_SECURITY));
+        return InternalUtility::plugInStore(
+            $name,
+            $object,
+            get($object, _IS_SECURITY)
+        );
+    } else {
+        unplug($name);
+
+        return plug($name, $config);
+    }
 }
 
 /**
@@ -1146,7 +1078,7 @@ function initPlugIn(array $arr, $pause = false)
 {
     $init = [];
     foreach ($arr as $plugIn => $config) {
-        $isPlug = plugInStore($plugIn);
+        $isPlug = InternalUtility::plugInStore($plugIn);
         if (empty($isPlug) || !empty($config)) {
             $plugConfig = $config;
             if (empty($plugConfig)) {
@@ -1160,157 +1092,6 @@ function initPlugIn(array $arr, $pause = false)
     }
 
     return $init;
-}
-
-/**
- * Plug alias.
- *
- * @param string $targetPlugin Target plugin.
- * @param string $aliasName    New alias name.
- *
- * @return PlugIn
- */
-function plugAlias($targetPlugin, $aliasName)
-{
-    $oPlugin = plugInStore($targetPlugin);
-    if (empty($oPlugin)) {
-        throw new DomainException(
-            'Plug alias fail. Target: ['.
-                $targetPlugin.
-                '], New Alias: ['.
-                $aliasName.
-                ']'
-        );
-    }
-    plugInStore($aliasName, $oPlugin);
-
-    return $oPlugin;
-}
-
-/**
- * Plug With Config.
- *
- * @param PlugIn $oPlugin Plug-in object
- * @param array  $config  Plug-in configs
- *
- * @return void
- */
-function plugWithConfig($oPlugin, array $config)
-{
-    if (!empty($oPlugin) && !empty($config)) {
-        if (is_callable(get($config, _LAZY_CONFIG))) {
-            $config = array_replace($config, $config[_LAZY_CONFIG]());
-        }
-        set($oPlugin, $config);
-    }
-}
-
-/**
- * Plug.
- *
- * @param array  $folders Plug-in folder.
- * @param array  $plugTo  New name in plugin folder.
- * @param string $name    Plug-in name
- * @param array  $config  Plug-in configs
- *
- * @return PlugIn
- */
-function plugInGenerate($folders, $plugTo, $name, array $config = [])
-{
-    // get config from global options
-    $names = explode('_', $name);
-    $config = array_replace(
-        value(getOption('PLUGIN'), $names, []),
-        value(getOption('PW'), $names, []),
-        $config
-    );
-
-    if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
-        $class = $config[_CLASS];
-    } else {
-        $file = null;
-        if (isset($config[_PLUGIN_FILE])) {
-            $file = realpath($config[_PLUGIN_FILE]);
-            if (empty($file)) {
-                return !trigger_error(
-                    'PlugIn '.
-                        $name.
-                        ': defined file not found. '.
-                        '['.
-                        $config[_PLUGIN_FILE].
-                        ']'
-                );
-            }
-            // assign realpath
-            $config[_PLUGIN_FILE] = $file;
-        }
-        if ($file) {
-            $r = l($file, _INIT_CONFIG);
-        } else {
-            $file = $name.'/'.$name.'.php';
-            $r = load($file, $folders['folders'], _INIT_CONFIG, true, false);
-        }
-        $class = value(
-            $r,
-            ['var', _INIT_CONFIG, _CLASS],
-            function () use ($config) {
-                return get($config, _DEFAULT_CLASS);
-            }
-        );
-    }
-    $exists = class_exists($class);
-    if (!empty($config[PAUSE])) {
-        return $exists; //for inclue only purpose
-    }
-    if ($exists) {
-        $oPlugin = new $class();
-        if (!($oPlugin instanceof PlugIn)) {
-            return !trigger_error(
-                'Class is not a plug-in('.ns('PlugIn').') instance.'
-            );
-        }
-    } else {
-        if (!$class) {
-            $error = 'Plug-in '.$name.' not found.';
-            if (!empty($file)) {
-                $error .=
-                    ' ['.$file.'] '.print_r($folders['folders'], true);
-            }
-        } else {
-            $error = 'Plug-in '.$name.': class not found ('.$class.')';
-        }
-
-        return !trigger_error($error);
-    }
-    if (!empty($r)) {
-        if (isset($r->var[_INIT_CONFIG])) {
-            $config = arrayReplace($r->var[_INIT_CONFIG], $config);
-        }
-        $config[_PLUGIN_FILE] = $r->name;
-    }
-    plugWithConfig($oPlugin, $config);
-    rePlug($plugTo, $oPlugin);
-    $oPlugin->init();
-    if (false === strpos('|debug|dev|cli|', $name)) {
-        dev(
-            /**
-             * Dev.
-             *
-             * @help Debug for PMVC plug.
-             */
-            function () use ($name) {
-                $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
-
-                return [
-                    'name'  => $name,
-                    'trace' => $trace,
-                ];
-            },
-            'plug'
-        );
-    }
-
-    return $oPlugin->update();
 }
 
 /**
@@ -1329,10 +1110,14 @@ function plug($name, array $config = [])
         );
     }
     if (empty($config)) {
-        $oPlugin = plugInStore($name);
+        $oPlugin = InternalUtility::plugInStore($name);
     } else {
-        $oPlugin = plugInStore($name, null, get($config, _IS_SECURITY));
-        plugWithConfig($oPlugin, $config);
+        $oPlugin = InternalUtility::plugInStore(
+            $name,
+            null,
+            get($config, _IS_SECURITY)
+        );
+        InternalUtility::plugWithConfig($oPlugin, $config);
     }
     if (!empty($oPlugin)) {
         return $oPlugin->update();
@@ -1342,10 +1127,10 @@ function plug($name, array $config = [])
     $folders = folders(_PLUGIN);
     $alias = get($folders['alias'], strtolower($name));
     if ($alias) {
-        return plugAlias($alias, $name);
+        return InternalUtility::plugAlias($alias, $name);
     }
 
-    return plugInGenerate($folders, $name, $name, $config);
+    return InternalUtility::plugInGenerate($folders, $name, $name, $config);
 }
 
 /*

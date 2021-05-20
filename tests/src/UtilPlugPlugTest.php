@@ -2,7 +2,7 @@
 
 namespace PMVC;
 
-use OverflowException;
+use DomainException;
 
 class UtilPlugPlugTest extends TestCase
 {
@@ -282,7 +282,7 @@ class UtilPlugPlugTest extends TestCase
                 _PLUGIN_FILE => $file,
             ]
         );
-        $a = plugInStore();
+        $a = InternalUtility::plugInStore();
         $this->assertTrue(in_array('test', $a));
     }
 
@@ -314,52 +314,7 @@ class UtilPlugPlugTest extends TestCase
         );
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage Security plugin [testSecurity] already plug
-     */
-    public function testRePlugSecurityWarning()
-    {
-        $this->willThrow(
-            function () {
-                replug('testSecurity', new HashMap());
-            }
-        );
-    }
 
-    /**
-     * @expectedException        OverflowException
-     * @expectedExceptionMessage Security plugin [test] already plug
-     */
-    public function testSecurityPluginAlreadyExists()
-    {
-        $file = __DIR__.'/../resources/FakePlugFile.php';
-        plug(
-            'test',
-            [
-                _PLUGIN_FILE => $file,
-            ]
-        );
-        replug(
-            'test',
-            [
-                _PLUGIN_FILE => $file,
-            ]
-        );
-        $this->assertTrue(exists('test', 'PlugIn'));
-        $this->willThrow(
-            function () use ($file) {
-                replug(
-                    'test',
-                    [
-                        _PLUGIN_FILE => $file,
-                        _IS_SECURITY => true,
-                    ]
-                );
-            },
-            false
-        );
-    }
 }
 
 class NotPlugIn
