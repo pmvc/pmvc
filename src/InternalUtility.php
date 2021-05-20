@@ -110,7 +110,12 @@ class InternalUtility
                 'You can not change security plugin. ['.$key.']'
             );
         } else {
-            $plugins[$cookKey] = $value;
+            if (empty($value)) { // false === $value
+                unset($plugins[$cookKey]);
+                $plugins[$cookKey] = null;
+            } else {
+                $plugins[$cookKey] = $value;
+            }
             if ($isSecurity) {
                 $securitys[$cookKey] = true;
             }
