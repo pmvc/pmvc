@@ -1033,7 +1033,7 @@ function addPlugInFolders(array $folders, array $alias = [])
  */
 function unPlug($name, $reject = false)
 {
-    return !!InternalUtility::plugInStore($name, false, $reject);
+    return (bool) InternalUtility::plugInStore($name, false, $reject);
 }
 
 /**
@@ -1134,7 +1134,7 @@ function plug($name, array $config = [])
         return InternalUtility::callPlugInFunc(
             $name,
             'update'
-        ); 
+        );
     } else {
         return InternalUtility::plugInGenerate($folders, $name, $config);
     }
