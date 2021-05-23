@@ -23,8 +23,9 @@ class UtilPlugRePlugTest extends TestCase
         $test['foo'] = 'bar';
         $this->assertEquals('bar', $test['foo']);
         replug(
-            'test', [
-            _PLUGIN_FILE => $file,
+            'test',
+            [
+                _PLUGIN_FILE => $file,
             ]
         );
         $this->assertTrue(exists('test', 'plugin'));

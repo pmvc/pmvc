@@ -247,7 +247,7 @@ class HashMapTest extends TestCase
                 'b' => 2,
             ]
             ] = [];
-            $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
+        $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
     }
 
     public function testHashMapWalk()
