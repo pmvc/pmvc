@@ -22,9 +22,11 @@ class UtilPlugRePlugTest extends TestCase
         );
         $test['foo'] = 'bar';
         $this->assertEquals('bar', $test['foo']);
-        replug('test', [
+        replug(
+            'test', [
             _PLUGIN_FILE => $file,
-        ]);
+            ]
+        );
         $this->assertTrue(exists('test', 'plugin'));
         $this->assertEquals(null, $test['foo']);
     }

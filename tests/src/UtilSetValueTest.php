@@ -37,7 +37,11 @@ class UtilSetValueTest extends TestCase
     {
         $expected = 'bar';
         $arr = (object) [];
-        $actual = value($arr, ['a', 'b', 'c', 'd'], function () {return (object) []; }, $expected);
+        $actual = value(
+            $arr, ['a', 'b', 'c', 'd'], function () {
+                return (object) []; 
+            }, $expected
+        );
         $this->assertEquals(
             $expected,
             $arr->a->b->c->d

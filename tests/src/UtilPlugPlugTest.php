@@ -280,7 +280,7 @@ class UtilPlugPlugTest extends TestCase
                 _PLUGIN_FILE => $file,
             ]
         );
-        $a = InternalUtility::plugInStore();
+        $a = InternalUtility::getPlugInNameList();
         $this->assertTrue(in_array('test', $a));
     }
 

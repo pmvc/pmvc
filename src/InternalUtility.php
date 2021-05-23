@@ -106,43 +106,42 @@ class InternalUtility
     }
 
     /**
+     * Get Plugins.
+     *
+     * @return array 
+     */
+    public static function getPlugInNameList()
+    {
+        return array_keys(self::$_plugins);
+    } 
+
+    /**
      * PlugIn Store for Security.
      *
      * @param string $name       plug-in name
-     * @param PlugIn $value      [null: get only] [false: unset] [other: set]
+     * @param PlugIn $value      [false: unset] [other: set]
      * @param bool   $isSecurity security flag
      *
      * @return mixed
      */
     public static function plugInStore(
-        $name = null,
-        $value = null,
+        $name,
+        $value,
         $isSecurity = false
     ) {
         static $securitys = [];
         $plugins = &self::$_plugins;
-        $currentPlug = false;
+        $hasPlug = false;
         $hasSecurity = false;
-        if (!is_null($name)) {
-            $cookName = strtolower($name);
-            if (isset($plugins[$cookName])) {
-                $currentPlug = $plugins[$cookName];
-            }
-            if (isset($securitys[$cookName])) {
-                $hasSecurity = $securitys[$cookName];
-            }
+        $cookName = strtolower($name);
+        if (!empty($plugins[$cookName])) {
+            $hasPlug = true;
+        }
+        if (isset($securitys[$cookName])) {
+            $hasSecurity = $securitys[$cookName];
         }
 
-        if (is_null($value)) {
-            if ($currentPlug) {
-                return true;
-            } elseif (is_null($name)) {
-                return array_keys($plugins);
-            } else {
-                return false;
-            }
-        }
-        if ($currentPlug && false !== $value && ($isSecurity || $hasSecurity)) {
+        if ($hasPlug && false !== $value && ($isSecurity || $hasSecurity)) {
             throw new DomainException(
                 'Security plugin ['.
                     $name.
@@ -150,6 +149,7 @@ class InternalUtility
                     'you need check your code if it is safe.'
             );
         }
+
         if ($hasSecurity) {
             return !trigger_error(
                 'You can not change security plugin. ['.$name.']'
@@ -165,7 +165,7 @@ class InternalUtility
                 $securitys[$cookName] = true;
             }
 
-            return (bool) $currentPlug;
+            return (bool) $hasPlug;
         }
     }
 
