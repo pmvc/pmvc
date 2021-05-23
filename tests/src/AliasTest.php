@@ -88,8 +88,8 @@ class AliasTest extends TestCase
         } elseif (\PMVC\value($obj, ['faketask'])) {
             $this->assertTrue((bool) \PMVC\value($obj, ['faketask']), 'Test for: '.$tData);
         } else {
-            $plugin = InternalUtility::plugInStore($obj[NAME]);
-            $this->assertTrue((bool) \PMVC\value($plugin, ['parentAlias', 'faketask']), 'Test for: '.$tData);
+            $plugin = plug($obj[NAME]);
+            $this->assertTrue((bool) \PMVC\value(passByRef($plugin->getParentAlias()), ['faketask']), 'Test for: '.$tData);
         }
         $obj->FakeTask();
         $this->assertEquals(1, getOption('d'), 'Test for: '.$tData);

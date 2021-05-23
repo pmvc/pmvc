@@ -31,13 +31,21 @@ class UtilPlugRePlugTest extends TestCase
 
     /**
      * @expectedException        Exception
-     * @expectedExceptionMessage Security plugin [testSecurity] already plug
+     * @expectedExceptionMessage Security plugin [testRePlugSecurity] already plug
      */
     public function testRePlugSecurityWarning()
     {
+        $file = __DIR__.'/../resources/FakePlugFile.php';
+        plug(
+            'testRePlugSecurity',
+            [
+                _PLUGIN_FILE => $file,
+                _IS_SECURITY => true,
+            ]
+        );
         $this->willThrow(
             function () {
-                replug('testSecurity', [], new HashMap());
+                replug('testRePlugSecurity', [], new HashMap());
             }
         );
     }

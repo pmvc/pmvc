@@ -65,16 +65,11 @@ class Adapter implements ArrayAccess, SplObserver
      */
     public function __call($method, $args = [])
     {
-        $plug = InternalUtility::plugInStore($this->_name);
-        if (!empty($plug)) {
-            return call_user_func_array(
-                [
-                    $plug,
-                    $method,
-                ],
-                $args
-            );
-        }
+        return InternalUtility::callPlugInFunc(
+            $this->_name,
+            $method,
+            $args
+        );
     }
 
     /**

@@ -20,6 +20,11 @@ class FakeAlias extends PlugIn
 
         return __DIR__.'/';
     }
+
+    public function getParentAlias()
+    {
+        return $this->parentAlias;
+    }
 }
 
 class FakeAliasChild extends FakeAlias

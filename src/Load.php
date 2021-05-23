@@ -951,9 +951,9 @@ function exists($v, $type)
     }
     switch (strtolower($type)) {
     case 'plugin':
-        return (bool) InternalUtility::plugInStore($v);
+        return InternalUtility::isPlugInExists($v);
     case 'plug': //check if OK to plug
-        if (InternalUtility::plugInStore($v)) {
+        if (InternalUtility::isPlugInExists($v)) {
             return true;
         } else {
             return plug($v, [PAUSE => true]);
@@ -1033,7 +1033,7 @@ function addPlugInFolders(array $folders, array $alias = [])
  */
 function unPlug($name, $reject = false)
 {
-    return InternalUtility::plugInStore($name, false, $reject);
+    return !!InternalUtility::plugInStore($name, false, $reject);
 }
 
 /**
@@ -1048,16 +1048,20 @@ function unPlug($name, $reject = false)
 function rePlug($name, array $config = [], $object = null)
 {
     if (!is_null($object)) {
+        $cookName = strtolower($name);
+        $config[NAME] = $cookName;
+        $config[THIS] = new Adapter($cookName);
         if (isArray($object)) {
-            $object[NAME] = $name;
-            $object[THIS] = new Adapter($name);
+            InternalUtility::setPlugInConfig($object, $config);
         }
 
-        return InternalUtility::plugInStore(
+        InternalUtility::plugInStore(
             $name,
             $object,
             get($object, _IS_SECURITY)
         );
+
+        return $config[THIS];
     } else {
         unplug($name);
 
@@ -1077,7 +1081,7 @@ function initPlugIn(array $arr, $pause = false)
 {
     $init = [];
     foreach ($arr as $plugIn => $config) {
-        $isPlug = InternalUtility::plugInStore($plugIn);
+        $isPlug = InternalUtility::isPlugInExists($plugIn);
         if (empty($isPlug) || !empty($config)) {
             $plugConfig = $config;
             if (empty($plugConfig)) {
@@ -1109,27 +1113,31 @@ function plug($name, array $config = [])
         );
     }
     if (empty($config)) {
-        $oPlugin = InternalUtility::plugInStore($name);
+        $hasPlug = InternalUtility::plugInStore($name);
     } else {
-        $oPlugin = InternalUtility::plugInStore(
+        $hasPlug = InternalUtility::plugInStore(
             $name,
             null,
             get($config, _IS_SECURITY)
         );
-        InternalUtility::plugWithConfig($oPlugin, $config);
-    }
-    if (!empty($oPlugin)) {
-        return $oPlugin->update();
+
+        $hasPlug && InternalUtility::plugWithConfig($name, $config);
     }
 
     // check alias
     $folders = folders(_PLUGIN);
-    $alias = get($folders['alias'], strtolower($name));
-    if ($alias) {
-        return InternalUtility::plugAlias($alias, $name);
+    if (!$hasPlug) {
+        $hasPlug = InternalUtility::plugAlias($folders, $name);
     }
 
-    return InternalUtility::plugInGenerate($folders, $name, $name, $config);
+    if ($hasPlug) {
+        return InternalUtility::callPlugInFunc(
+            $name,
+            'update'
+        ); 
+    } else {
+        return InternalUtility::plugInGenerate($folders, $name, $config);
+    }
 }
 
 /*

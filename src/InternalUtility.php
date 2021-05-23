@@ -36,6 +36,13 @@ use stdClass;
 class InternalUtility
 {
     /**
+     * Private plugin store.
+     *
+     * @var array Plugin store.
+     */
+    private static $_plugins = [];
+
+    /**
      * Private function for l.
      *
      * @param string $name   File name.
@@ -62,36 +69,73 @@ class InternalUtility
     }
 
     /**
+     * Check plugin is already plug.
+     *
+     * @param string $name File name.
+     *
+     * @return bool 
+     */
+    public static function isPlugInExists($name)
+    {
+        $cookName = strtolower($name);
+        return !empty(self::$_plugins[$cookName]);
+    }
+
+    /**
+     * Call plugin function.
+     *
+     * @param string $name   plugin.
+     * @param string $method method.
+     * @param array  $args   args.
+     *
+     * @return mixed 
+     */
+    public static function callPlugInFunc($name, $method, $args = [])
+    {
+        $oPlugIn = get(self::$_plugins, strtolower($name)); 
+        if (!empty($oPlugIn)) {
+            return call_user_func_array(
+                [
+                    $oPlugIn,
+                    $method,
+                ],
+                $args
+            );
+        }
+    }
+
+    /**
      * PlugIn Store for Security.
      *
-     * @param string $key        plug-in name
+     * @param string $name       plug-in name
      * @param PlugIn $value      [null: get only] [false: unset] [other: set]
      * @param bool   $isSecurity security flag
      *
      * @return mixed
      */
     public static function plugInStore(
-        $key = null,
+        $name = null,
         $value = null,
         $isSecurity = false
     ) {
-        static $plugins = [];
         static $securitys = [];
+        $plugins =& self::$_plugins;
         $currentPlug = false;
         $hasSecurity = false;
-        if (!is_null($key)) {
-            $cookKey = strtolower($key);
-            if (isset($plugins[$cookKey])) {
-                $currentPlug = $plugins[$cookKey];
+        if (!is_null($name)) {
+            $cookName = strtolower($name);
+            if (isset($plugins[$cookName])) {
+                $currentPlug = $plugins[$cookName];
             }
-            if (isset($securitys[$cookKey])) {
-                $hasSecurity = $securitys[$cookKey];
+            if (isset($securitys[$cookName])) {
+                $hasSecurity = $securitys[$cookName];
             }
         }
+
         if (is_null($value)) {
             if ($currentPlug) {
-                return $currentPlug;
-            } elseif (is_null($key)) {
+                return true;
+            } elseif (is_null($name)) {
                 return array_keys($plugins);
             } else {
                 return false;
@@ -100,60 +144,62 @@ class InternalUtility
         if ($currentPlug && false !== $value && ($isSecurity || $hasSecurity)) {
             throw new DomainException(
                 'Security plugin ['.
-                    $key.
+                    $name.
                     '] already plug or unplug, '.
                     'you need check your code if it is safe.'
             );
         }
         if ($hasSecurity) {
             return !trigger_error(
-                'You can not change security plugin. ['.$key.']'
+                'You can not change security plugin. ['.$name.']'
             );
         } else {
             if (empty($value)) { // false === $value
-                unset($plugins[$cookKey]);
-                $plugins[$cookKey] = null;
+                unset($plugins[$cookName]);
+                $plugins[$cookName] = null;
             } else {
-                $plugins[$cookKey] = $value;
+                $plugins[$cookName] = $value;
             }
             if ($isSecurity) {
-                $securitys[$cookKey] = true;
+                $securitys[$cookName] = true;
             }
 
-            return $currentPlug;
+            return !!$currentPlug;
         }
     }
 
     /**
      * Plug alias.
      *
-     * @param string $targetPlugin Target plugin.
-     * @param string $aliasName    New alias name.
+     * @param array  $folders   Plug-in folder.
+     * @param string $aliasName New alias name.
      *
      * @return PlugIn
      */
-    public static function plugAlias($targetPlugin, $aliasName)
+    public static function plugAlias($folders, $aliasName)
     {
-        $oPlugin = InternalUtility::plugInStore($targetPlugin);
-        if (empty($oPlugin)) {
-            throw new DomainException(
-                'Plug alias fail. Target: ['.
-                    $targetPlugin.
-                    '], New Alias: ['.
-                    $aliasName.
-                    ']'
-            );
+        $cookName = strtolower($aliasName);
+        $targetPlugin = get($folders['alias'], $cookName);
+        if (!empty($targetPlugin)) {
+            $oPlugin = get(self::$_plugins, $targetPlugin); 
+            if (empty($oPlugin)) {
+                throw new DomainException(
+                    'Plug alias fail. Target: ['.
+                        $targetPlugin.
+                        '], New Alias: ['.
+                        $aliasName.
+                        ']'
+                );
+            }
+            InternalUtility::plugInStore($aliasName, $oPlugin);
+            return $targetPlugin;
         }
-        InternalUtility::plugInStore($aliasName, $oPlugin);
-
-        return $oPlugin;
     }
 
     /**
      * Plug.
      *
      * @param array  $folders Plug-in folder.
-     * @param array  $plugTo  New name in plugin folder.
      * @param string $name    Plug-in name
      * @param array  $config  Plug-in configs
      *
@@ -161,7 +207,6 @@ class InternalUtility
      */
     public static function plugInGenerate(
         $folders,
-        $plugTo,
         $name,
         array $config = []
     ) {
@@ -247,8 +292,7 @@ class InternalUtility
             }
             $config[_PLUGIN_FILE] = $r->name;
         }
-        InternalUtility::plugWithConfig($oPlugin, $config);
-        rePlug($plugTo, [], $oPlugin);
+        rePlug($name, $config, $oPlugin);
         $oPlugin->init();
         if (false === strpos('|debug|dev|cli|', $name)) {
             dev(
@@ -275,18 +319,32 @@ class InternalUtility
     /**
      * Plug With Config.
      *
-     * @param PlugIn $oPlugin Plug-in object
+     * @param string $name   Plug-in name 
+     * @param array  $config Plug-in configs
+     *
+     * @return void
+     */
+    public static function plugWithConfig($name, array $config)
+    {
+        $oPlugIn = get(self::$_plugins, strtolower($name)); 
+        InternalUtility::setPlugInConfig($oPlugIn, $config);
+    }
+
+    /**
+     * Set plugin config.
+     *
+     * @param PlugIn $oPlugIn Plug-in object
      * @param array  $config  Plug-in configs
      *
      * @return void
      */
-    public static function plugWithConfig($oPlugin, array $config)
+    public static function setPlugInConfig($oPlugIn, array $config)
     {
-        if (!empty($oPlugin) && !empty($config)) {
+        if (!empty($oPlugIn) && !empty($config)) {
             if (is_callable(get($config, _LAZY_CONFIG))) {
                 $config = array_replace($config, $config[_LAZY_CONFIG]());
             }
-            set($oPlugin, $config);
+            set($oPlugIn, $config);
         }
     }
 }
