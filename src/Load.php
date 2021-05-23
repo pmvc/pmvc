@@ -881,7 +881,7 @@ function v()
             $pn = get($pn);
         }
     }
-    d(utf8JsonEncode($p));
+    d( testString($p) ? $p : utf8JsonEncode($p));
 }
 
 /**
