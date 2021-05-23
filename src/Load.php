@@ -1112,17 +1112,7 @@ function plug($name, array $config = [])
             'Plug name should be string. '.print_r($name, true)
         );
     }
-    if (empty($config)) {
-        $hasPlug = InternalUtility::plugInStore($name);
-    } else {
-        $hasPlug = InternalUtility::plugInStore(
-            $name,
-            null,
-            get($config, _IS_SECURITY)
-        );
-
-        $hasPlug && InternalUtility::plugWithConfig($name, $config);
-    }
+    $hasPlug = exists($name, 'plugin');
 
     // check alias
     $folders = folders(_PLUGIN);
@@ -1131,6 +1121,9 @@ function plug($name, array $config = [])
     }
 
     if ($hasPlug) {
+        if (!empty($config)) {
+            InternalUtility::plugWithConfig($name, $config);
+        }
         return InternalUtility::callPlugInFunc(
             $name,
             'update'
