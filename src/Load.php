@@ -1081,8 +1081,7 @@ function initPlugIn(array $arr, $pause = false)
 {
     $init = [];
     foreach ($arr as $plugIn => $config) {
-        $isPlug = InternalUtility::isPlugInExists($plugIn);
-        if (empty($isPlug) || !empty($config)) {
+        if (!exists($plugIn, 'plugin') || !empty($config)) {
             $plugConfig = $config;
             if (empty($plugConfig)) {
                 $plugConfig = [];
