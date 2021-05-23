@@ -18,7 +18,7 @@ class UtilIncludeTest extends TestCase
     public function testIncludeMoreThanOnce()
     {
         l(__DIR__.'/../resources/empty.php');
-        l(__DIR__.'/../resources/empty.php', null, false);
+        l(__DIR__.'/../resources/empty.php', null, ['once'=>false]);
     }
 
     /**
