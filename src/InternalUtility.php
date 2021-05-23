@@ -131,17 +131,17 @@ class InternalUtility
     ) {
         static $securitys = [];
         $plugins = &self::$_plugins;
-        $hasPlug = false;
+        $hadPlug = false;
         $hasSecurity = false;
         $cookName = strtolower($name);
-        if (!empty($plugins[$cookName])) {
-            $hasPlug = true;
+        if (isset($plugins[$cookName])) {
+            $hadPlug = true;
         }
         if (isset($securitys[$cookName])) {
             $hasSecurity = $securitys[$cookName];
         }
 
-        if ($hasPlug && false !== $value && ($isSecurity || $hasSecurity)) {
+        if ($hadPlug && false !== $value && ($isSecurity || $hasSecurity)) {
             throw new DomainException(
                 'Security plugin ['.
                     $name.
@@ -157,7 +157,7 @@ class InternalUtility
         } else {
             if (empty($value)) { // false === $value
                 unset($plugins[$cookName]);
-                $plugins[$cookName] = null;
+                $plugins[$cookName] = false;
             } else {
                 $plugins[$cookName] = $value;
             }
@@ -165,7 +165,7 @@ class InternalUtility
                 $securitys[$cookName] = true;
             }
 
-            return (bool) $hasPlug;
+            return (bool) $hadPlug;
         }
     }
 

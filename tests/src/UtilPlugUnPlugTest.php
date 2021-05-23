@@ -28,7 +28,7 @@ class UtilPlugUnPlugTest extends TestCase
      * Test can not unplug reject plug.
      *
      * @expectedException        Exception
-     * @expectedExceptionMessage You can not change security plugin
+     * @expectedExceptionMessage Security plugin [fake-can-not-replug] already plug or unplug
      */
     public function testRejectPlug()
     {
