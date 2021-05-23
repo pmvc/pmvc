@@ -73,11 +73,12 @@ class InternalUtility
      *
      * @param string $name File name.
      *
-     * @return bool 
+     * @return bool
      */
     public static function isPlugInExists($name)
     {
         $cookName = strtolower($name);
+
         return !empty(self::$_plugins[$cookName]);
     }
 
@@ -88,11 +89,11 @@ class InternalUtility
      * @param string $method method.
      * @param array  $args   args.
      *
-     * @return mixed 
+     * @return mixed
      */
     public static function callPlugInFunc($name, $method, $args = [])
     {
-        $oPlugIn = get(self::$_plugins, strtolower($name)); 
+        $oPlugIn = get(self::$_plugins, strtolower($name));
         if (!empty($oPlugIn)) {
             return call_user_func_array(
                 [
@@ -119,7 +120,7 @@ class InternalUtility
         $isSecurity = false
     ) {
         static $securitys = [];
-        $plugins =& self::$_plugins;
+        $plugins = &self::$_plugins;
         $currentPlug = false;
         $hasSecurity = false;
         if (!is_null($name)) {
@@ -164,7 +165,7 @@ class InternalUtility
                 $securitys[$cookName] = true;
             }
 
-            return !!$currentPlug;
+            return (bool) $currentPlug;
         }
     }
 
@@ -181,7 +182,7 @@ class InternalUtility
         $cookName = strtolower($aliasName);
         $targetPlugin = get($folders['alias'], $cookName);
         if (!empty($targetPlugin)) {
-            $oPlugin = get(self::$_plugins, $targetPlugin); 
+            $oPlugin = get(self::$_plugins, $targetPlugin);
             if (empty($oPlugin)) {
                 throw new DomainException(
                     'Plug alias fail. Target: ['.
@@ -192,6 +193,7 @@ class InternalUtility
                 );
             }
             InternalUtility::plugInStore($aliasName, $oPlugin);
+
             return $targetPlugin;
         }
     }
@@ -319,14 +321,14 @@ class InternalUtility
     /**
      * Plug With Config.
      *
-     * @param string $name   Plug-in name 
+     * @param string $name   Plug-in name
      * @param array  $config Plug-in configs
      *
      * @return void
      */
     public static function plugWithConfig($name, array $config)
     {
-        $oPlugIn = get(self::$_plugins, strtolower($name)); 
+        $oPlugIn = get(self::$_plugins, strtolower($name));
         InternalUtility::setPlugInConfig($oPlugIn, $config);
     }
 
