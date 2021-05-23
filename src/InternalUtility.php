@@ -108,12 +108,12 @@ class InternalUtility
     /**
      * Get Plugins.
      *
-     * @return array 
+     * @return array
      */
     public static function getPlugInNameList()
     {
         return array_keys(self::$_plugins);
-    } 
+    }
 
     /**
      * PlugIn Store for Security.

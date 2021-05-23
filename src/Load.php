@@ -1124,6 +1124,7 @@ function plug($name, array $config = [])
         if (!empty($config)) {
             InternalUtility::plugWithConfig($name, $config);
         }
+
         return InternalUtility::callPlugInFunc(
             $name,
             'update'
