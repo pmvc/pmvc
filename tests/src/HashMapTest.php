@@ -147,6 +147,20 @@ class HashMapTest extends TestCase
         $this->assertFalse(isset($hash->a));
     }
 
+    public function testUnsetAll()
+    {
+        $hash = new HashMap();
+        $hash['foo'] = 'bar';
+        $this->assertTrue(1===count($hash));
+        unset($hash[null]);
+        $this->assertTrue(\PMVC\isArrayAccess($hash));
+        $hash['foo'] = 'bar';
+        $this->assertTrue(1===count($hash));
+        unset($hash->null);
+        unset($hash);
+        $this->assertTrue(!isset($hash)); // become undefined
+    }
+
     public function testAppend()
     {
         $arr = [
