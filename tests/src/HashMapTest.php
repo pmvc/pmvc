@@ -151,11 +151,11 @@ class HashMapTest extends TestCase
     {
         $hash = new HashMap();
         $hash['foo'] = 'bar';
-        $this->assertTrue(1===count($hash));
+        $this->assertTrue(1 === count($hash));
         unset($hash[null]);
         $this->assertTrue(\PMVC\isArrayAccess($hash));
         $hash['foo'] = 'bar';
-        $this->assertTrue(1===count($hash));
+        $this->assertTrue(1 === count($hash));
         unset($hash->null);
         $this->assertTrue(\PMVC\isArrayAccess($hash));
         unset($hash);
