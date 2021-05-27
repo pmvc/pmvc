@@ -295,7 +295,7 @@ class InternalUtility
             $config[_PLUGIN_FILE] = $r->name;
         }
 
-        return $oPlugIn; 
+        return $oPlugIn;
     }
 
     /**
