@@ -201,16 +201,16 @@ class InternalUtility
     /**
      * Plug.
      *
+     * @param string $name    Plug-in name.
+     * @param array  $config  Plug-in configs.
      * @param array  $folders Plug-in folder.
-     * @param string $name    Plug-in name
-     * @param array  $config  Plug-in configs
      *
      * @return PlugIn
      */
-    public static function plugInGenerate(
-        $folders,
+    public static function initPlugInObject(
         $name,
-        array $config = []
+        &$config,
+        $folders = null
     ) {
         // get config from global options
         $names = explode('_', $name);
@@ -266,8 +266,8 @@ class InternalUtility
             return $exists; //for inclue only purpose
         }
         if ($exists) {
-            $oPlugin = new $class();
-            if (!($oPlugin instanceof PlugIn)) {
+            $oPlugIn = new $class();
+            if (!($oPlugIn instanceof PlugIn)) {
                 return !trigger_error(
                     'Class is not a plug-in('.ns('PlugIn').') instance.'
                 );
@@ -294,8 +294,27 @@ class InternalUtility
             }
             $config[_PLUGIN_FILE] = $r->name;
         }
-        rePlug($name, $config, $oPlugin);
-        $oPlugin->init();
+
+        return $oPlugIn; 
+    }
+
+    /**
+     * Generate Plug-In.
+     *
+     * @param string $name    Plug-in name.
+     * @param array  $config  Plug-in configs.
+     * @param array  $folders Plug-in folder.
+     *
+     * @return PlugIn
+     */
+    public static function generatePlugIn(
+        $name,
+        array $config = [],
+        $folders = null
+    ) {
+        $oPlugIn = self::initPlugInObject($name, $config, $folders);
+        rePlug($name, $config, $oPlugIn);
+        $oPlugIn->init();
         if (false === strpos('|debug|dev|cli|', $name)) {
             dev(
                 /**
@@ -315,7 +334,7 @@ class InternalUtility
             );
         }
 
-        return $oPlugin->update();
+        return $oPlugIn->update();
     }
 
     /**

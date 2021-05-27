@@ -312,7 +312,7 @@ function lastSlash($s)
 function split($delimiters, $s)
 {
     if (!is_string($s)) {
-        return $s;
+        return toArray($s);
     }
     if (is_string($delimiters)) {
         $delimiters = str_split($delimiters);
@@ -956,7 +956,11 @@ function exists($v, $type)
         if (InternalUtility::isPlugInExists($v)) {
             return true;
         } else {
-            return plug($v, [PAUSE => true]);
+            return InternalUtility::initPlugInObject(
+                $v,
+                passByRef([PAUSE => true]),
+                folders(_PLUGIN)['folders']
+            );
         }
     default:
         throw new DomainException(
@@ -1075,21 +1079,25 @@ function rePlug($name, array $config = [], $object = null)
  * @param array $arr   plug-in array
  * @param bool  $pause for includ file only
  *
- * @return array set pause to true will return plugin exits array
+ * @return array set pause to true will return plugin exists array
  */
 function initPlugIn(array $arr, $pause = false)
 {
     $init = [];
+    $plugInFolders = folders(_PLUGIN)['folders']; 
     foreach ($arr as $plugIn => $config) {
         if (!exists($plugIn, 'plugin') || !empty($config)) {
-            $plugConfig = $config;
-            if (empty($plugConfig)) {
-                $plugConfig = [];
-            }
             if ($pause || false === $config) {
-                $plugConfig[PAUSE] = true;
+                $config = $config ? $config : [];
+                $config[PAUSE] = true;
+                $init[$plugIn] = InternalUtility::initPlugInObject(
+                    $plugIn,
+                    $config,
+                    $plugInFolders
+                );
+            } else {
+                $init[$plugIn] = $config ? plug($plugIn, $config) : plug($plugIn);
             }
-            $init[$plugIn] = plug($plugIn, $plugConfig);
         }
     }
 
@@ -1129,7 +1137,7 @@ function plug($name, array $config = [])
             'update'
         );
     } else {
-        return InternalUtility::plugInGenerate($folders['folders'], $name, $config);
+        return InternalUtility::generatePlugIn($name, $config, $folders['folders']);
     }
 }
 
