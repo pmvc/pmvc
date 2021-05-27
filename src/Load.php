@@ -1084,7 +1084,7 @@ function rePlug($name, array $config = [], $object = null)
 function initPlugIn(array $arr, $pause = false)
 {
     $init = [];
-    $plugInFolders = folders(_PLUGIN)['folders']; 
+    $plugInFolders = folders(_PLUGIN)['folders'];
     foreach ($arr as $plugIn => $config) {
         if (!exists($plugIn, 'plugin') || !empty($config)) {
             if ($pause || false === $config) {
