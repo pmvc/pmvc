@@ -172,15 +172,15 @@ class InternalUtility
     /**
      * Plug alias.
      *
-     * @param array  $folders   Plug-in folder.
+     * @param array  $aliasList Alias list.
      * @param string $aliasName New alias name.
      *
      * @return PlugIn
      */
-    public static function plugAlias($folders, $aliasName)
+    public static function plugAlias($aliasList, $aliasName)
     {
         $cookName = strtolower($aliasName);
-        $targetPlugin = get($folders['alias'], $cookName);
+        $targetPlugin = get($aliasList, $cookName);
         if (!empty($targetPlugin)) {
             $oPlugin = get(self::$_plugins, $targetPlugin);
             if (empty($oPlugin)) {
@@ -245,7 +245,7 @@ class InternalUtility
                 $file = $name.'/'.$name.'.php';
                 $r = load(
                     $file,
-                    $folders['folders'],
+                    $folders,
                     _INIT_CONFIG,
                     true,
                     false
@@ -280,7 +280,7 @@ class InternalUtility
                         ' ['.
                         $file.
                         '] '.
-                        print_r($folders['folders'], true);
+                        print_r($folders, true);
                 }
             } else {
                 $error = 'Plug-in '.$name.': class not found ('.$class.')';

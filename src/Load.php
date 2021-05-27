@@ -1116,7 +1116,7 @@ function plug($name, array $config = [])
     // check alias
     $folders = folders(_PLUGIN);
     if (!$hasPlug) {
-        $hasPlug = InternalUtility::plugAlias($folders, $name);
+        $hasPlug = InternalUtility::plugAlias($folders['alias'], $name);
     }
 
     if ($hasPlug) {
@@ -1129,7 +1129,7 @@ function plug($name, array $config = [])
             'update'
         );
     } else {
-        return InternalUtility::plugInGenerate($folders, $name, $config);
+        return InternalUtility::plugInGenerate($folders['folders'], $name, $config);
     }
 }
 
