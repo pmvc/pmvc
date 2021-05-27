@@ -848,7 +848,7 @@ function ns($s)
 function triggerJson($error, $debug = null, $type = E_USER_NOTICE)
 {
     return !trigger_error(
-        utf8JsonEncode(['Error' => $error, 'Debug' => $debug]),
+        utf8JsonEncode(['Error' => $error, 'Debug' => get($debug)]),
         $type
     );
 }
