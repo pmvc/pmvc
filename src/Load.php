@@ -416,20 +416,21 @@ function camelCase($s, $join = null)
  * @param array    $arr        Array for input data.
  * @param array    $replaces   Replace keys.
  * @param callable $cb         Handle replaces.
- * @param callable $replaceTpl Replace Tpl. 
+ * @param callable $replaceTpl Replace Tpl.
  * @param callable $keyTpl     Key Tpl use with Replace Tpl.
  *
- * @return void 
+ * @return void
  */
 function tpl(
     array &$arr,
     array $replaces,
     callable $cb,
-    $replaceTpl='[KEY]',
-    $keyTpl='KEY'
+    $replaceTpl = '[KEY]',
+    $keyTpl = 'KEY'
 ) {
     array_walk_recursive(
-        $arr, function (&$item, $itemKey) use (
+        $arr,
+        function (&$item, $itemKey) use (
             $replaces,
             $cb,
             $replaceTpl,

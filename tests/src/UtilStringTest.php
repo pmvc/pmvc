@@ -76,11 +76,11 @@ class UtilStringTest extends PHPUnit_Framework_TestCase
     public function testTpl()
     {
         $arr = [
-            'foo1'=>'[BAR]1',
-            'foo2'=>'[BAR]2'
+            'foo1'=> '[BAR]1',
+            'foo2'=> '[BAR]2',
         ];
-        \PMVC\tpl($arr, ['BAR'], function(){
-            return 'bar'; 
+        \PMVC\tpl($arr, ['BAR'], function () {
+            return 'bar';
         });
         $this->assertEquals(['foo1'=>'bar1', 'foo2'=>'bar2'], $arr);
     }
