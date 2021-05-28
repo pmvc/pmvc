@@ -410,6 +410,46 @@ function camelCase($s, $join = null)
     return $result;
 }
 
+/**
+ * String tpl.
+ *
+ * @param array    $arr        Array for input data.
+ * @param array    $replaces   Replace keys.
+ * @param callable $cb         Handle replaces.
+ * @param callable $replaceTpl Replace Tpl. 
+ * @param callable $keyTpl     Key Tpl use with Replace Tpl.
+ *
+ * @return void 
+ */
+function tpl(
+    array &$arr,
+    array $replaces,
+    callable $cb,
+    $replaceTpl='[KEY]',
+    $keyTpl='KEY'
+) {
+    array_walk_recursive(
+        $arr, function (&$item, $itemKey) use (
+            $replaces,
+            $cb,
+            $replaceTpl,
+            $keyTpl
+        ) {
+            foreach ($replaces as $replaceKey) {
+                $replaceString = str_replace($keyTpl, $replaceKey, $replaceTpl);
+                if (false === strpos($item, $replaceString)) {
+                    continue;
+                }
+                $item = str_replace(
+                    $replaceString,
+                    $cb(compact('item', 'itemKey', 'replaceKey')),
+                    $item
+                );
+            }
+        }
+    );
+}
+
 /*
  * String -->.
  */
