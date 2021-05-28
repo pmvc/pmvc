@@ -182,8 +182,13 @@ class HashMapTest extends TestCase
         $hash[] = ['ddd'];
         $this->assertEquals(['ddd'], $hash[0]);
     }
-
-    public function testAppendSameKey()
+    
+    /**
+     * Key will merge if last key isnot same
+     *
+     * @group mergeSameKey
+     */
+    public function testAppendSameKeyAndMerge()
     {
         $hash1 = new HashMap();
         $hash1[[]] = ['a'=>'111'];
@@ -195,6 +200,15 @@ class HashMapTest extends TestCase
             ],
         ];
         $this->assertEquals($expected1, get($hash1));
+    }
+
+    /**
+     * Key will not merge if last key is different
+     *
+     * @group mergeSameKey
+     */
+    public function testAppendSameKeyAndNotMerge()
+    {
         $hash2 = new HashMap();
         $hash2[[]] = ['a'=>['b1'=>'c1']];
         $hash2[[]] = ['a'=>['b2'=>'c2']];
@@ -207,46 +221,22 @@ class HashMapTest extends TestCase
         $this->assertEquals($expected2, get($hash2));
     }
 
-    public function testMerge()
+    /**
+     * Key will merge the last child key is same. 
+     *
+     * @group mergeSameKey
+     */
+    public function testAppendSameKeyAndMergeChild()
     {
-        $arr = [
-            'aaa' => 111,
-        ];
-        $hash = new HashMap($arr);
-        $hash[[]] = [
-            'aaa' => 222,
-        ];
-        $expected = [
-            'aaa'=> [
-                '111',
-                '222',
+        $hash3 = new HashMap();
+        $hash3[[]] = ['a'=>['b1'=>'c1']];
+        $hash3[[]] = ['a'=>['b1'=>'c2']];
+        $expected3 = [
+            'a' => [
+                'b1' => ['c1', 'c2'],
             ],
         ];
-        $this->assertEquals($expected, \PMVC\get($expected));
-    }
-
-    public function testReplace()
-    {
-        $arr = [
-            'aaa' => 111,
-        ];
-        $hash = new HashMap($arr);
-        $hash[[]] = function () {
-            return [
-                'aaa' => 222,
-            ];
-        };
-        $expected = [
-            'aaa'=> '222',
-        ];
-        $this->assertEquals($expected, \PMVC\get($expected));
-    }
-
-    public function testAppendWithSameKey()
-    {
-        $hash = new HashMap(['foo' => 'bar']);
-        $hash[[]] = ['foo' => 'bar'];
-        $this->assertEquals(['foo' => ['bar', 'bar']], get($hash));
+        $this->assertEquals($expected3, get($hash3));
     }
 
     public function testMergeDefault()
@@ -263,6 +253,24 @@ class HashMapTest extends TestCase
             ]
             ] = [];
         $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
+    }
+
+
+    public function testReplace()
+    {
+        $arr = [
+            'aaa' => 111,
+        ];
+        $hash = new HashMap($arr);
+        $hash[[]] = function () {
+            return [
+                'aaa' => 222,
+            ];
+        };
+        $expected = [
+            'aaa'=> '222',
+        ];
+        $this->assertEquals($expected, \PMVC\get($expected));
     }
 
     public function testHashMapWalk()
