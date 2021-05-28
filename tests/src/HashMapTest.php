@@ -182,9 +182,9 @@ class HashMapTest extends TestCase
         $hash[] = ['ddd'];
         $this->assertEquals(['ddd'], $hash[0]);
     }
-    
+
     /**
-     * Key will merge if last key isnot same
+     * Key will merge if last key isnot same.
      *
      * @group mergeSameKey
      */
@@ -203,7 +203,7 @@ class HashMapTest extends TestCase
     }
 
     /**
-     * Key will not merge if last key is different
+     * Key will not merge if last key is different.
      *
      * @group mergeSameKey
      */
@@ -222,7 +222,7 @@ class HashMapTest extends TestCase
     }
 
     /**
-     * Key will merge the last child key is same. 
+     * Key will merge the last child key is same.
      *
      * @group mergeSameKey
      */
@@ -254,7 +254,6 @@ class HashMapTest extends TestCase
             ] = [];
         $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
     }
-
 
     public function testReplace()
     {
