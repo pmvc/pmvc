@@ -413,7 +413,7 @@ function camelCase($s, $join = null)
 /**
  * String tpl.
  *
- * @param array    $arr        Array for input data.
+ * @param string   $input      Input string.
  * @param array    $replaces   Replace keys.
  * @param callable $cb         Handle replaces.
  * @param callable $replaceTpl Replace Tpl.
@@ -422,33 +422,24 @@ function camelCase($s, $join = null)
  * @return void
  */
 function tpl(
-    array &$arr,
+    $input,
     array $replaces,
     callable $cb,
     $replaceTpl = '[KEY]',
     $keyTpl = 'KEY'
 ) {
-    array_walk_recursive(
-        $arr,
-        function (&$item, $itemKey) use (
-            $replaces,
-            $cb,
-            $replaceTpl,
-            $keyTpl
-        ) {
-            foreach ($replaces as $replaceKey) {
-                $replaceString = str_replace($keyTpl, $replaceKey, $replaceTpl);
-                if (false === strpos($item, $replaceString)) {
-                    continue;
-                }
-                $item = str_replace(
-                    $replaceString,
-                    $cb(compact('item', 'itemKey', 'replaceKey')),
-                    $item
-                );
-            }
+    foreach ($replaces as $replaceKey) {
+        $replaceString = str_replace($keyTpl, $replaceKey, $replaceTpl);
+        if (false === strpos($input, $replaceString)) {
+            continue;
         }
-    );
+        $input = str_replace(
+            $replaceString,
+            $cb(compact('input', 'replaceString', 'replaceKey')),
+            $input
+        );
+    }
+    return $input;
 }
 
 /*
