@@ -103,7 +103,6 @@ class UtilPlugPlugTest extends TestCase
         $p = callPlugIn(['test', ['foo'=>'bar']]);
         $this->assertTrue($p->is(ns('PlugIn')));
         $this->assertEquals('bar', $p['foo']);
-
     }
 
     /**

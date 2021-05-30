@@ -1028,6 +1028,7 @@ function callPlugin($plugIn, $func = null, $args = [])
     }
     if (exists($plugIn, 'plugin')) {
         $obj = plug($plugIn, $config);
+
         return is_null($func)
             ? $obj
             : call_user_func_array([$obj, $func], $args);
