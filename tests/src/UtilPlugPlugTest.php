@@ -92,6 +92,20 @@ class UtilPlugPlugTest extends TestCase
         $this->assertTrue(!empty($test));
     }
 
+    public function testCallPlugInWithConfig()
+    {
+        plug(
+            'test',
+            [
+                _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
+            ]
+        );
+        $p = callPlugIn(['test', ['foo'=>'bar']]);
+        $this->assertTrue($p->is(ns('PlugIn')));
+        $this->assertEquals('bar', $p['foo']);
+
+    }
+
     /**
      * @expectedException        Exception
      * @expectedExceptionMessage Plug-in test not found

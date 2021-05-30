@@ -1021,10 +1021,16 @@ function exists($v, $type)
  */
 function callPlugin($plugIn, $func = null, $args = [])
 {
+    $config = [];
+    if (is_array($plugIn)) {
+        $config = $plugIn[1];
+        $plugIn = $plugIn[0];
+    }
     if (exists($plugIn, 'plugin')) {
+        $obj = plug($plugIn, $config);
         return is_null($func)
-            ? plug($plugIn)
-            : call_user_func_array([plug($plugIn), $func], $args);
+            ? $obj
+            : call_user_func_array([$obj, $func], $args);
     }
 }
 
