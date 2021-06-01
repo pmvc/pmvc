@@ -256,7 +256,7 @@ class HashMapTest extends TestCase
     }
 
     /**
-     * @group replace 
+     * @group replace
      */
     public function testReplace()
     {
@@ -276,13 +276,13 @@ class HashMapTest extends TestCase
     }
 
     /**
-     * @group replace 
+     * @group replace
      */
     public function testReplaceSameKey()
     {
         $hash = new HashMap();
         $hash[[]] = ['a'=>['b1'=>'c1']];
-        $hash[[]] = function(){
+        $hash[[]] = function () {
             return  ['a'=>['b1'=>'c2']];
         };
 
