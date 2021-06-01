@@ -255,6 +255,9 @@ class HashMapTest extends TestCase
         $this->assertEquals(['a' => 0, 'b' => 2], get($hash));
     }
 
+    /**
+     * @group replace 
+     */
     public function testReplace()
     {
         $arr = [
@@ -269,7 +272,26 @@ class HashMapTest extends TestCase
         $expected = [
             'aaa'=> '222',
         ];
-        $this->assertEquals($expected, \PMVC\get($expected));
+        $this->assertEquals($expected, \PMVC\get($hash));
+    }
+
+    /**
+     * @group replace 
+     */
+    public function testReplaceSameKey()
+    {
+        $hash = new HashMap();
+        $hash[[]] = ['a'=>['b1'=>'c1']];
+        $hash[[]] = function(){
+            return  ['a'=>['b1'=>'c2']];
+        };
+
+        $expected = [
+            'a' => [
+                'b1' => 'c2',
+            ],
+        ];
+        $this->assertEquals($expected, \PMVC\get($hash));
     }
 
     public function testHashMapWalk()
