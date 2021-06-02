@@ -62,7 +62,7 @@ class Load
         }
         self::initPlugInFolder();
         if (!empty($init)) {
-            initPlugin($init, get($options, PAUSE));
+            initPlugin($init);
         }
     }
 
@@ -991,8 +991,9 @@ function exists($v, $type)
         } else {
             return InternalUtility::initPlugInObject(
                 $v,
-                passByRef([PAUSE => true]),
-                folders(_PLUGIN)['folders']
+                passByRef([]),
+                folders(_PLUGIN)['folders'],
+                true
             );
         }
     default:
@@ -1127,16 +1128,16 @@ function initPlugIn(array $arr, $pause = false)
     $plugInFolders = folders(_PLUGIN)['folders'];
     foreach ($arr as $plugIn => $config) {
         if (!exists($plugIn, 'plugin') || !empty($config)) {
+            $config = $config ? $config : [];
             if ($pause || false === $config) {
-                $config = $config ? $config : [];
-                $config[PAUSE] = true;
                 $init[$plugIn] = InternalUtility::initPlugInObject(
                     $plugIn,
                     $config,
-                    $plugInFolders
+                    $plugInFolders,
+                    true
                 );
             } else {
-                $init[$plugIn] = $config ? plug($plugIn, $config) : plug($plugIn);
+                $init[$plugIn] = plug($plugIn, $config);
             }
         }
     }

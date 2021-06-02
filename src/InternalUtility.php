@@ -204,13 +204,15 @@ class InternalUtility
      * @param string $name    Plug-in name.
      * @param array  $config  Plug-in configs.
      * @param array  $folders Plug-in folder.
+     * @param bool   $pause   Pause.
      *
      * @return PlugIn
      */
     public static function initPlugInObject(
         $name,
         &$config,
-        $folders = null
+        $folders = null,
+        $pause = false
     ) {
         // get config from global options
         $names = explode('_', $name);
@@ -262,7 +264,7 @@ class InternalUtility
             );
         }
         $exists = class_exists($class);
-        if (!empty($config[PAUSE])) {
+        if ($pause) {
             return $exists; //for inclue only purpose
         }
         if ($exists) {

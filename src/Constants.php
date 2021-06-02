@@ -64,7 +64,6 @@ namespace PMVC {
     /**
      * Plugins.
      */
-    const PAUSE = '__pause__';
     const NAME = '__name__';
     const THIS = 'this';
 }
