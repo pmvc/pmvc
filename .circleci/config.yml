@@ -15,7 +15,7 @@ jobs:
             date
             php -v
             php -m
-            php composer.phar --version
+            composer --version
             phpunit --version
 
 workflows:
