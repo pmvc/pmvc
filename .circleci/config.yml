@@ -25,4 +25,4 @@ workflows:
           matrix:
             name: test-<< matrix.php-version >>
             parameters:
-              docker-tag: ["8"]
+              php-version: ["8"]
