@@ -1,0 +1,28 @@
+version: 2.1
+
+jobs:
+  unittest:
+    parameters:
+      php-version:
+        type: string
+    docker:
+      - image: hillliu/pmvc-phpunit:<< parameters.php-version >>
+    steps:
+      - checkout
+      - run:
+          name: "Display information"
+          command: |
+            date
+            php -v
+            php -m
+            php composer.phar --version
+            phpunit --version
+
+workflows:
+  run-job:
+    jobs:
+      - unittest:
+          matrix:
+            name: test-<< matrix.php-version >>
+            parameters:
+              docker-tag: ["8"]
