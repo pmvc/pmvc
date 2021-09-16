@@ -22,13 +22,13 @@ jobs:
           command: |
             composer update
             composer install --prefer-source
-            if [[ "<< parameters.php-version >>" == '5.6' ]]; then
+            if [[ "<< parameters.php-version >>" == "5.6" ]]; then
               composer require satooshi/php-coveralls:1.* -n ;
             fi
       - run:
           name: PHPUnit
           command: |
-            if [[ "<< parameters.php-version >>" == '5.6' ]]; then
+            if [[ "<< parameters.php-version >>" == "5.6" ]]; then
               phpunit -v --coverage-clover clover.xml;
               vendor/bin/phpcs src/;
             else
