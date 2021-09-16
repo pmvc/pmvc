@@ -22,9 +22,18 @@ jobs:
           command: |
             composer update
             composer install --prefer-source
+            if [[ "<< parameters.php-version >>" == '5.6' ]]; then \
+              composer require satooshi/php-coveralls:1.* -n ; \ 
+            fi
       - run:
           name: PHPUnit
-          command: phpunit
+          command: |
+            if [[ "<< parameters.php-version >>" == '5.6' ]]; then \
+              phpunit -v --coverage-clover clover.xml; \ 
+              vendor/bin/phpcs src/; \ 
+            else \
+              phpunit \
+            fi
 
 workflows:
   run-job:
@@ -33,4 +42,4 @@ workflows:
           matrix:
             name: test-<< matrix.php-version >>
             parameters:
-              php-version: ["8", "7.4"]
+              php-version: ["8", "5.6"]
