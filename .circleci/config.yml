@@ -7,7 +7,7 @@ jobs:
         type: string
     docker:
       - image: hillliu/pmvc-phpunit:<< parameters.php-version >>
-    working_directory: /tmp
+    working_directory: /tmp/code
     steps:
       - checkout
       - run:
@@ -37,7 +37,7 @@ jobs:
               phpunit
             fi
       - store_artifacts:
-          path: /tmp/clover.xml
+          path: /tmp/code/clover.xml
 
 workflows:
   run-job:
