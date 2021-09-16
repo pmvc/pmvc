@@ -17,6 +17,14 @@ jobs:
             php -m
             composer --version
             phpunit --version
+      - run:
+          name: Composer install packages
+          command: |
+            composer update
+            composer install --prefer-source
+      - run:
+          name: PHPUnit
+          command: phpunit
 
 workflows:
   run-job:
