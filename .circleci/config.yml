@@ -7,7 +7,7 @@ jobs:
         type: string
     docker:
       - image: hillliu/pmvc-phpunit:<< parameters.php-version >>
-    working_directory: /tmp/code
+    working_directory: /var/www/html
     steps:
       - checkout
       - run:
@@ -30,14 +30,15 @@ jobs:
           name: PHPUnit
           command: |
             if [[ "<< parameters.php-version >>" == "5.6" ]]; then
-              phpunit -v --coverage-clover clover.xml;
-              vendor/bin/phpcs src/;
+              phpunit -v --coverage-clover clover.xml
+              ls -la
+              vendor/bin/phpcs src/
               php vendor/bin/coveralls --coverage_clover=clover.xml -v
             else
               phpunit
             fi
       - store_artifacts:
-          path: /tmp/code/clover.xml
+          path: /var/www/html
 
 workflows:
   run-job:
