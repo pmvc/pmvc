@@ -3,4 +3,5 @@ demo.php
 composer.lock
 .php_cs.cache
 .phpunit.result.cache
+clover.xml
 .*.sw?

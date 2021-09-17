@@ -17,6 +17,7 @@ class UtilDevTest extends TestCase
     public function testDump()
     {
         d('test');
+        $this->assertTrue(true);
     }
 
     public function testVariableDump()
@@ -67,19 +68,15 @@ class UtilDevTest extends TestCase
         );
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testLog()
     {
         log('test');
+        $this->assertTrue(true);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testIsDev()
     {
         isDev();
+        $this->assertTrue(true);
     }
 }

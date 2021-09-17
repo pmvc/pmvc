@@ -2,9 +2,7 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-
-class LoadTest extends PHPUnit_Framework_TestCase
+class LoadTest extends TestCase
 {
     public function testLoadWithLazyFunction()
     {
@@ -21,18 +19,12 @@ class LoadTest extends PHPUnit_Framework_TestCase
         \PMVC\option('set', _VIEW_ENGINE, '');
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testLoad()
     {
         \PMVC\Load::plug();
+        $this->assertTrue(true);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     * @runInSeparateProcess
-     */
     public function testRunInSeparateProcess()
     {
         \PMVC\Load::plug(
@@ -43,11 +35,9 @@ class LoadTest extends PHPUnit_Framework_TestCase
             ],
             ['./']
         );
+        $this->assertTrue(true);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function testSetOption()
     {
         \PMVC\option('set', 'foo', 'bar');

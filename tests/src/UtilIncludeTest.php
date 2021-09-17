@@ -12,13 +12,11 @@ class UtilIncludeTest extends TestCase
         $this->_fakePlugFile = __DIR__.'/../resources/FakePlugFile.php';
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testIncludeMoreThanOnce()
     {
         l(__DIR__.'/../resources/empty.php');
         l(__DIR__.'/../resources/empty.php', null, ['once'=>false]);
+        $this->assertTrue(true);
     }
 
     /**
