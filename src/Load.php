@@ -893,7 +893,7 @@ function triggerJson($error, $debug = null, $type = E_USER_NOTICE)
  */
 function d()
 {
-    callPlugin('debug', 'd', func_get_args());
+    return callPlugin('debug', 'd', func_get_args());
 }
 
 /**
@@ -914,7 +914,7 @@ function v()
             $pn = get($pn);
         }
     }
-    d(testString($p) ? $p : utf8JsonEncode($p));
+    return d(testString($p) ? $p : utf8JsonEncode($p));
 }
 
 /**
@@ -924,7 +924,7 @@ function v()
  */
 function log()
 {
-    callPlugin('error_trace', 'log', func_get_args());
+    return callPlugin('error_trace', 'log', func_get_args());
 }
 
 /**

@@ -11,9 +11,6 @@ class UtilDevTest extends TestCase
             '\FakeDebugPlugIn';
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
     public function testDump()
     {
         d('test');

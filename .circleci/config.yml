@@ -45,4 +45,4 @@ workflows:
           matrix:
             name: test-<< matrix.php-version >>
             parameters:
-              php-version: ["8", "5.6"]
+              php-version: ["8", "7.4", "7.3", "7.2", "7.1", "7.0", "5.6", "5.5"]
