@@ -18,7 +18,7 @@ A simple MVC for unidirectional dataflow architecture.
 
 [![Latest Stable Version](https://poser.pugx.org/pmvc/pmvc/v/stable)](https://packagist.org/packages/pmvc/pmvc) 
 [![Latest Unstable Version](https://poser.pugx.org/pmvc/pmvc/v/unstable)](https://packagist.org/packages/pmvc/pmvc) 
-[![Build Status](https://travis-ci.org/pmvc/pmvc.svg?branch=master)](https://travis-ci.org/pmvc/pmvc)
+[![CircleCI](https://circleci.com/gh/pmvc/pmvc/tree/master.svg?style=svg)](https://circleci.com/gh/pmvc/pmvc/tree/master)
 [![StyleCI](https://styleci.io/repos/34601083/shield)](https://styleci.io/repos/34601083)
 [![Coverage Status](https://coveralls.io/repos/github/pmvc/pmvc/badge.svg?branch=master)](https://coveralls.io/github/pmvc/pmvc?branch=master)
 [![License](https://poser.pugx.org/pmvc/pmvc/license)](https://packagist.org/packages/pmvc/pmvc)
