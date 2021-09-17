@@ -914,6 +914,7 @@ function v()
             $pn = get($pn);
         }
     }
+
     return d(testString($p) ? $p : utf8JsonEncode($p));
 }
 
