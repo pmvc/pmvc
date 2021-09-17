@@ -23,22 +23,20 @@ jobs:
           command: |
             composer update
             composer install --prefer-source
-            if [[ "<< parameters.php-version >>" == "5.6" ]]; then
-              composer require satooshi/php-coveralls:1.* -n ;
-            fi
       - run:
           name: PHPUnit
           command: |
             if [[ "<< parameters.php-version >>" == "5.6" ]]; then
-              phpunit -v --coverage-clover clover.xml
-              ls -la
+              XDEBUG_MODE=coverage phpunit --coverage-clover clover.xml
               vendor/bin/phpcs src/
-              php vendor/bin/coveralls --coverage_clover=clover.xml -v
+              coveralls --coverage_clover=clover.xml -v -o coveralls-upload.json
             else
               phpunit
             fi
       - store_artifacts:
-          path: /var/www/html
+          path: /var/www/html/clover.xml
+      - store_artifacts:
+          path: /var/www/html/coveralls-upload.json
 
 workflows:
   run-job:
