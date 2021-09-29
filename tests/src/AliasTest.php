@@ -68,7 +68,7 @@ class AliasTest extends TestCase
     {
         $obj = $a();
         option('set', 'd', 0);
-        $obj->FakeTask();
+        $obj->fake_task();
         $this->assertEquals(1, getOption('d'), 'Test for: '.$tData);
     }
 
@@ -80,18 +80,18 @@ class AliasTest extends TestCase
     public function testFileAliasCache($a, $tData)
     {
         $obj = $a();
-        $obj->FakeTask();
+        $obj->fake_task();
         option('set', 'd', 0);
         option('set', 'e', 0);
         if (\PMVC\value($obj, ['parentAlias'])) {
-            $this->assertTrue((bool) \PMVC\value($obj, ['parentAlias', 'faketask']), 'Test for: '.$tData);
-        } elseif (\PMVC\value($obj, ['faketask'])) {
-            $this->assertTrue((bool) \PMVC\value($obj, ['faketask']), 'Test for: '.$tData);
+            $this->assertTrue((bool) \PMVC\value($obj, ['parentAlias', 'fake_task']), 'Test for: '.$tData);
+        } elseif (\PMVC\value($obj, ['fake_task'])) {
+            $this->assertTrue((bool) \PMVC\value($obj, ['fake_task']), 'Test for: '.$tData);
         } else {
             $plugin = plug($obj[NAME]);
-            $this->assertTrue((bool) \PMVC\value(passByRef($plugin->getParentAlias()), ['faketask']), 'Test for: '.$tData);
+            $this->assertTrue((bool) \PMVC\value(passByRef($plugin->getParentAlias()), ['fake_task']), 'Test for: '.$tData);
         }
-        $obj->FakeTask();
+        $obj->fake_task();
         $this->assertEquals(1, getOption('d'), 'Test for: '.$tData);
         $this->assertEquals(0, getOption('e'), 'Test for: '.$tData);
     }
@@ -117,10 +117,10 @@ class AliasTest extends TestCase
     public function testCallerWithPlugin()
     {
         $pFake = \PMVC\plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
-        $pFake->fakeTask();
+        $pFake->fake_task();
         $this->assertTrue(
             is_a(
-                $pFake['faketask']->caller,
+                $pFake['fake_task']->caller,
                 '\PMVC\Adapter'
             )
         );
@@ -132,8 +132,8 @@ class AliasTest extends TestCase
     public function testCallerWithoutPlugin()
     {
         $oAlias = new FakeAliasWithoutArrayAccess();
-        $oAlias->fakeTask();
-        $oCaller = \PMVC\value($oAlias, ['faketask', 'caller']);
+        $oAlias->fake_task();
+        $oCaller = \PMVC\value($oAlias, ['fake_task', 'caller']);
         $this->assertTrue(
             !is_a(
                 $oCaller,

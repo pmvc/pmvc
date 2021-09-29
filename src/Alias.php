@@ -271,7 +271,7 @@ class AliasSrcFile extends AbstractAlias
         $path = $this->_getPath($self, $lowerMethod);
         $r = l($path, _INIT_CONFIG, ['ignore'=> true]);
         if (!$r) {
-            $path = $this->_getPath($self, camelCase($method, '_'));
+            $path = $this->_getPath($self, $method);
             $r = l($path, _INIT_CONFIG, ['ignore'=> true]);
             if (!$r) {
                 return false;

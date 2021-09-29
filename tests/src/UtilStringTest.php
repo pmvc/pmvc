@@ -33,9 +33,9 @@ class UtilStringTest extends PHPUnit_Framework_TestCase
     public function testCamelCase()
     {
         $expected = ['camel', 'case'];
-        $this->assertEquals($expected, camelcase('CamelCase'), 'first Upper');
-        $this->assertEquals($expected, camelcase('camelCase'), 'first Lower');
-        $this->assertEquals(null, camelcase(null), 'test null');
+        $this->assertEquals($expected, splitCamelcase('CamelCase'), 'first Upper');
+        $this->assertEquals($expected, splitCamelcase('camelCase'), 'first Lower');
+        $this->assertEquals(null, splitCamelcase(null), 'test null');
     }
 
     public function testUtf8Export()

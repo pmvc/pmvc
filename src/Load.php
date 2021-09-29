@@ -387,7 +387,7 @@ function testString($s)
  *
  * @return mixed
  */
-function camelCase($s, $join = null)
+function splitCamelCase($s, $join = null)
 {
     if (empty($s)) {
         return $s;
