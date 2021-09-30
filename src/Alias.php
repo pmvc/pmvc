@@ -34,6 +34,7 @@ trait Alias
 {
     public $defaultAlias;
     public $parentAlias;
+    public $preCookFunctionName;
     private $_typeOfAlias;
 
     /**
@@ -45,6 +46,12 @@ trait Alias
      */
     public function isCallable($method)
     {
+        if (is_string($method)) {
+            $method = strtolower($method);
+            if (is_callable($this->preCookFunctionName)) {
+                $method = call_user_func($this->preCookFunctionName, $method);
+            }
+        }
         if (method_exists($this, $method)) {
             return [$this, $method];
         }
@@ -86,9 +93,9 @@ trait Alias
         $func = $this->isCallable($method);
         if (empty($func)) {
             return !trigger_error(
-                'Method not found: '.
+                'Method not found: "'.
                 str_replace('\\\\', '\\', get_class($this)).'::'.
-                $method.'()'.
+                $method.'()"'.
                 '. Please confirm alias file already use lowercase.'
             );
         } else {
@@ -193,7 +200,7 @@ class AliasAsKey extends AbstractAlias
      */
     public function get($self, $method, $caller)
     {
-        $func = get($self, strtolower($method));
+        $func = get($self, $method);
         if (is_callable($func)) {
             return $func;
         } else {
@@ -267,8 +274,7 @@ class AliasSrcFile extends AbstractAlias
         if (!method_exists($self, 'getDir')) {
             return false;
         }
-        $lowerMethod = strtolower($method);
-        $path = $this->_getPath($self, $lowerMethod);
+        $path = $this->_getPath($self, $method);
         $r = l($path, _INIT_CONFIG, ['ignore'=> true]);
         if (!$r) {
             $path = $this->_getPath($self, $method);
@@ -296,10 +302,10 @@ class AliasSrcFile extends AbstractAlias
                     'method'=> $method, ]
             );
         }
-        if (isArray($self) && !isset($self[$lowerMethod])) {
-            $self[$lowerMethod] = $func;
-        } elseif (!isset($self->{$lowerMethod})) {
-            $self->{$lowerMethod} = $func;
+        if (isArray($self) && !isset($self[$method])) {
+            $self[$method] = $func;
+        } elseif (!isset($self->{$method})) {
+            $self->{$method} = $func;
         }
 
         return $func;

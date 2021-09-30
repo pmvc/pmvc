@@ -206,4 +206,19 @@ class AliasTest extends TestCase
             }
         );
     }
+
+
+    public function testPreCookFunctionName()
+    {
+        $oAlias = new FakeAliasWithoutArrayAccess();
+        $fakeMethod = 'FOO';
+        $oAlias->preCookFunctionName = function($m){
+            return 'bar';
+        };
+        $oAlias->bar = function() {
+          return 'bar';
+        };
+        $func = $oAlias->isCallable($fakeMethod);
+        $this->assertTrue(empty($fund));
+    }
 }
