@@ -95,6 +95,22 @@ class HashMap extends ListIterator implements ArrayAccess
     }
 
     /**
+     * Last effect keys store.
+     *
+     * @param array $keys last effect keys.
+     *
+     * @return mixed 
+     */
+    protected function lastKeys($keys = null)
+    {
+        static $_lastKeys;
+        if (!is_null($keys)) {
+            $_lastKeys = $keys;
+        }
+        return $_lastKeys;
+    }
+
+    /**
      * Set.
      *
      * @param mixed $k key
@@ -105,6 +121,9 @@ class HashMap extends ListIterator implements ArrayAccess
     public function offsetSet($k, $v)
     {
         if ([] === $k) {
+            if (isArrayAccess($v)) {
+                $v = get($v);
+            }
             if (is_array($v)) {
                 /**
                  * Overwrite with all new value.
@@ -114,20 +133,23 @@ class HashMap extends ListIterator implements ArrayAccess
                  *
                  * https://www.php.net/manual/en/function.array-merge-recursive.php
                  */
+                $this->lastKeys(array_keys($v));
                 $this->state = array_merge_recursive($this->state, $v);
             } else {
-                $this->state = array_replace_recursive($this->state, $v());
+                $next = $v();
+                $this->lastKeys(array_keys($next));
+                $this->state = array_replace_recursive($this->state, $next);
             }
         } elseif ([] === $v && is_array($k) && !empty($k)) {
             // overwrite with not exists key only
-            $arrKeys = array_keys($k);
+            $arrKeys = $this->lastKeys(array_keys($k));
             foreach ($arrKeys as $kk) {
                 if (!isset($this->state[$kk])) {
                     $this->state[$kk] = $k[$kk];
                 }
             }
         } else {
-            set($this->state, $k, $v);
+            $this->lastKeys(set($this->state, $k, $v));
         }
 
         return $this;

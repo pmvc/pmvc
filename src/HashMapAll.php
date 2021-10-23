@@ -43,10 +43,11 @@ class HashMapAll extends HashMap
     public function offsetSet($k, $v)
     {
         parent::offsetSet($k, $v);
-        foreach ($this->state as $sk=> $sv) {
-            if (is_array($sv)) {
-                $this->state[$sk] = new static($sv, true);
-            }
+        $keys = toArray($this->lastKeys());
+        foreach ($keys as $k) {
+          if (is_array($this->state[$k])) {
+            $this->state[$k] = new static($this->state[$k], true);
+          }
         }
 
         return $this;

@@ -786,11 +786,15 @@ function set(&$a, $k, $v = null)
             $k = (array) $k;
         }
 
-        return $a = arrayReplace($a, $k); //merge by new array
+        $a = arrayReplace($a, $k); //merge by new array
+        return isArrayAccess($k) ? $k->keySet() : array_keys($k);
     } elseif (is_null($k)) {
-        return $a[] = $v; //append value when no-assign key
+        $a[] = $v; //append value when no-assign key
+        end($a);
+        return key($a);
     } else {
-        return $a[$k] = $v; //exactly set key and value
+        $a[$k] = $v; //exactly set key and value
+        return $k;
     }
 }
 
