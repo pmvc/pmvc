@@ -183,7 +183,8 @@ class HashMapTest extends TestCase
         $this->assertEquals(['ddd'], $hash[0]);
     }
 
-    public function testMergeHash() {
+    public function testMergeHash()
+    {
         $a = new HashMap(['a']);
         $a[[]] = new HashMap(['b', 'c']);
         $this->assertEquals(['a', 'b', 'c'], get($a));

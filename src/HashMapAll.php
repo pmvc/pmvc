@@ -45,9 +45,9 @@ class HashMapAll extends HashMap
         parent::offsetSet($k, $v);
         $keys = toArray($this->lastKeys());
         foreach ($keys as $k) {
-          if (is_array($this->state[$k])) {
-            $this->state[$k] = new static($this->state[$k], true);
-          }
+            if (is_array($this->state[$k])) {
+                $this->state[$k] = new static($this->state[$k], true);
+            }
         }
 
         return $this;

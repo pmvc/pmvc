@@ -99,7 +99,7 @@ class HashMap extends ListIterator implements ArrayAccess
      *
      * @param array $keys last effect keys.
      *
-     * @return mixed 
+     * @return mixed
      */
     protected function lastKeys($keys = null)
     {
@@ -107,6 +107,7 @@ class HashMap extends ListIterator implements ArrayAccess
         if (!is_null($keys)) {
             $_lastKeys = $keys;
         }
+
         return $_lastKeys;
     }
 
