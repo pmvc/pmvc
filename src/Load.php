@@ -787,13 +787,16 @@ function set(&$a, $k, $v = null)
         }
 
         $a = arrayReplace($a, $k); //merge by new array
+
         return isArrayAccess($k) ? $k->keySet() : array_keys($k);
     } elseif (is_null($k)) {
         $a[] = $v; //append value when no-assign key
         end($a);
+
         return key($a);
     } else {
         $a[$k] = $v; //exactly set key and value
+
         return $k;
     }
 }
