@@ -2,9 +2,7 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-
-class UtilStringTest extends PHPUnit_Framework_TestCase
+class UtilStringTest extends TestCase
 {
     public function testSplitDir()
     {
@@ -28,14 +26,6 @@ class UtilStringTest extends PHPUnit_Framework_TestCase
     {
         $a = 'xxx';
         $this->assertEquals($a.'/', lastSlash($a));
-    }
-
-    public function testCamelCase()
-    {
-        $expected = ['camel', 'case'];
-        $this->assertEquals($expected, splitCamelcase('CamelCase'), 'first Upper');
-        $this->assertEquals($expected, splitCamelcase('camelCase'), 'first Lower');
-        $this->assertEquals(null, splitCamelcase(null), 'test null');
     }
 
     public function testUtf8Export()

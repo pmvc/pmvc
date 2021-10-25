@@ -2,9 +2,7 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-
-class NamespaceAdapterTest extends PHPUnit_Framework_TestCase
+class NamespaceAdapterTest extends TestCase
 {
     public function testCall()
     {

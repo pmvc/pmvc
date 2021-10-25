@@ -2,9 +2,7 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-
-class ObjectTest extends PHPUnit_Framework_TestCase
+class ObjectTest extends TestCase
 {
     public function testSetValue()
     {

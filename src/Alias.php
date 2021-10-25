@@ -47,13 +47,13 @@ trait Alias
     public function isCallable($method)
     {
         if (is_string($method)) {
+            if (method_exists($this, $method)) {
+                return [$this, $method];
+            }
             $method = strtolower($method);
             if (is_callable($this->preCookFunctionName)) {
                 $method = call_user_func($this->preCookFunctionName, $method);
             }
-        }
-        if (method_exists($this, $method)) {
-            return [$this, $method];
         }
         $func = false;
         if (!$this->_typeOfAlias) {
@@ -277,11 +277,7 @@ class AliasSrcFile extends AbstractAlias
         $path = $this->_getPath($self, $method);
         $r = l($path, _INIT_CONFIG, ['ignore'=> true]);
         if (!$r) {
-            $path = $this->_getPath($self, $method);
-            $r = l($path, _INIT_CONFIG, ['ignore'=> true]);
-            if (!$r) {
-                return false;
-            }
+            return false;
         }
         $class = value($r, ['var', _INIT_CONFIG, _CLASS]);
         if (!$class) {

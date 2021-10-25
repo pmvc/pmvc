@@ -2,9 +2,7 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-
-class UtilFileTest extends PHPUnit_Framework_TestCase
+class UtilFileTest extends TestCase
 {
     public function testRealPathWithEmpty()
     {

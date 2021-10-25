@@ -2,9 +2,7 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-
-class UtilFolderTest extends PHPUnit_Framework_TestCase
+class UtilFolderTest extends TestCase
 {
     public function testDeDuplicate()
     {

@@ -4,7 +4,7 @@ namespace PMVC;
 
 use stdClass;
 
-class UtilCleanGetSetTest extends \PHPUnit_Framework_TestCase
+class UtilCleanGetSetTest extends TestCase
 {
     public function testGetAll()
     {

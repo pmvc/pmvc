@@ -2,9 +2,7 @@
 
 namespace PMVC;
 
-use PHPUnit_Framework_TestCase;
-
-class UtilRefTest extends PHPUnit_Framework_TestCase
+class UtilRefTest extends TestCase
 {
     public function testGeneralVerb()
     {
