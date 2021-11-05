@@ -6,55 +6,55 @@ class UtilAssignTest extends TestCase
 {
     public function testAssign()
     {
-        $arr = ['a'=>'aa', 'b'=>'bb', 'c'=>'cc']; 
-        $actual = assign(['b'], $arr); 
+        $arr = ['a'=>'aa', 'b'=>'bb', 'c'=>'cc'];
+        $actual = assign(['b'], $arr);
         $expected = [
-            'b' => 'bb'
+            'b' => 'bb',
         ];
         $this->assertEquals($expected, $actual);
     }
 
     public function testAssignWithNewKey()
     {
-        $arr = ['a'=>'aa', 'b'=>'bb', 'c'=>'cc']; 
-        $actual = assign([['b', 'bb']], $arr); 
+        $arr = ['a'=>'aa', 'b'=>'bb', 'c'=>'cc'];
+        $actual = assign([['b', 'bb']], $arr);
         $expected = [
-            'bb' => 'bb'
+            'bb' => 'bb',
         ];
         $this->assertEquals($expected, $actual);
     }
 
     public function testAssignWithDefaultValue()
     {
-        $arr = ['a'=>'aa', 'c'=>'cc']; 
-        $actual = assign([['b', null, 'def']], $arr); 
+        $arr = ['a'=>'aa', 'c'=>'cc'];
+        $actual = assign([['b', null, 'def']], $arr);
         $expected = [
-            'b' => 'def'
+            'b' => 'def',
         ];
         $this->assertEquals($expected, $actual);
     }
 
     public function testAssignWithSeqArray()
     {
-        $arr = ['foo', 'bar']; 
-        $actual = assign(['f', 'b'], $arr); 
+        $arr = ['foo', 'bar'];
+        $actual = assign(['f', 'b'], $arr);
         $expected = [
-          'f' => 'foo',
-          'b' => 'bar'
+            'f' => 'foo',
+            'b' => 'bar',
         ];
         $this->assertEquals($expected, $actual);
     }
 
     public function testAssignWithRest()
     {
-        $arr = ['a'=>'aa', 'b'=>'bb', 'c'=>'cc']; 
-        $actual = assign(['a', 'b'], $arr, 'o'); 
+        $arr = ['a'=>'aa', 'b'=>'bb', 'c'=>'cc'];
+        $actual = assign(['a', 'b'], $arr, 'o');
         $expected = [
-          'a' => 'aa',
-          'b' => 'bb',
-          'o' => [
-            'c' => 'cc'
-          ],
+            'a' => 'aa',
+            'b' => 'bb',
+            'o' => [
+                'c' => 'cc',
+            ],
         ];
         $this->assertEquals($expected, $actual);
     }

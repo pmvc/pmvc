@@ -647,7 +647,7 @@ function &passByRef($v)
  *
  * $keys could be [key, ...others] or [[tarKey, newKey, defaultValue]]
  *
- * @param array  $keys      The new keys. 
+ * @param array  $keys      The new keys.
  * @param array  $arr       Handle arrays.
  * @param string $spreadKey The remain key to assign.
  *
@@ -677,6 +677,7 @@ function assign($keys, $arr, $spreadKey = null)
     if (!is_null($spreadKey)) {
         $result[$spreadKey] = array_diff_key($arr, $tarKeys);
     }
+
     return $result;
 }
 
