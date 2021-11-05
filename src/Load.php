@@ -376,7 +376,7 @@ function &fromJson($s)
  */
 function testString($s)
 {
-    return is_string($s) || is_numeric($s) || is_null($s) || is_bool($s);
+    return is_scalar($s) || is_null($s);
 }
 
 /**
@@ -640,6 +640,44 @@ function &ref(&$v, $new = null)
 function &passByRef($v)
 {
     return $v;
+}
+
+/**
+ * Spread/Reest util.
+ *
+ * $keys could be [key, ...others] or [[tarKey, newKey, defaultValue]]
+ *
+ * @param array  $keys      The new keys. 
+ * @param array  $arr       Handle arrays.
+ * @param string $spreadKey The remain key to assign.
+ *
+ * @return array cook array.
+ */
+function assign($keys, $arr, $spreadKey = null)
+{
+    $isSeqArray = array_values($arr) === $arr;
+    $result = [];
+    $tarKeys = [];
+    foreach ($keys as $k => $v) {
+        $defV = null;
+        if (is_array($v)) {
+            $vKey = $v[0];
+            $newKey = get($v, 1, $vKey);
+            if (isset($v[2])) {
+                $defV = $v[2];
+            }
+        } else {
+            $vKey = $v;
+            $newKey = $v;
+        }
+        $tarKey = $isSeqArray ? $k : $vKey;
+        $tarKeys[$tarKey] = null;
+        $result[$newKey] = get($arr, $tarKey, $defV);
+    }
+    if (!is_null($spreadKey)) {
+        $result[$spreadKey] = array_diff_key($arr, $tarKeys);
+    }
+    return $result;
 }
 
 /*
