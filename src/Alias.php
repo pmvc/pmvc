@@ -96,7 +96,7 @@ trait Alias
         if (empty($func)) {
             return !trigger_error(
                 'Method not found: "'.
-                str_replace('\\\\', '\\', get_class($this)).'::'.
+                get_class($this).'::'.
                 $method.'()"'.
                 '. Please confirm alias file already use lowercase.'
             );
@@ -253,14 +253,13 @@ class AliasAsDefault extends AbstractAlias
      */
     public function get($self, $method, $caller)
     {
-        $func = false;
         if (isset($self->defaultAlias)) {
             $classes = is_array($self->defaultAlias) ?
-            $self->defaultAlias :
-            [$self->defaultAlias];
+              $self->defaultAlias :
+              [$self->defaultAlias];
             foreach ($classes as $c) {
-                if (method_exists($c, $method)) {
-                    $func = [$c, $method];
+                $func = [$c, $method];
+                if (is_callable($func)) {
                     $self->setCallableToAttribute($method, $func);
 
                     return $func;
@@ -268,7 +267,7 @@ class AliasAsDefault extends AbstractAlias
             }
         }
 
-        return $func;
+        return false;
     }
 }
 
