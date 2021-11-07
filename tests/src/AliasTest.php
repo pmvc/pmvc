@@ -104,14 +104,14 @@ class AliasTest extends TestCase
             new FakeObjectB(),
         ]);
         $this->assertEquals(
-          [
-              'bbb',
-              null
-          ],
-          [
-              $obj->b('bbb'), 
-              $obj->a()
-          ]
+            [
+                'bbb',
+                null,
+            ],
+            [
+                $obj->b('bbb'),
+                $obj->a(),
+            ]
         );
         unplug($obj);
         $obj = plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
@@ -120,14 +120,14 @@ class AliasTest extends TestCase
             new FakeObject(),
         ]);
         $this->assertEquals(
-          [
-              'bbb',
-              'aaa--b' 
-          ],
-          [
-              $obj->b('bbb'), 
-              $obj->a('aaa')
-          ]
+            [
+                'bbb',
+                'aaa--b',
+            ],
+            [
+                $obj->b('bbb'),
+                $obj->a('aaa'),
+            ]
         );
     }
 

@@ -27,7 +27,6 @@ class FakeAlias extends PlugIn
     }
 }
 
-
 class FakeFileFilterAlias extends FakeAlias
 {
     public function init()
@@ -35,7 +34,8 @@ class FakeFileFilterAlias extends FakeAlias
         parent::init();
     }
 
-    public function setFilter($filter) {
+    public function setFilter($filter)
+    {
         $this->aliasFileFilter = $filter;
     }
 }
@@ -101,7 +101,7 @@ class FakeObjectB
 {
     public function a($v)
     {
-        return $v."--b";
+        return $v.'--b';
     }
 
     public function b($v)
