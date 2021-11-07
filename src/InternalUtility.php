@@ -382,5 +382,4 @@ class InternalUtility
     {
         return is_string($name) ? $name : get($name, NAME);
     }
-
 }

@@ -6,7 +6,8 @@ use Exception;
 
 class AliasFileTest extends TestCase
 {
-    public function getPlugIn($class) {
+    public function getPlugIn($class)
+    {
         return plug('fake', [_CLASS => __NAMESPACE__.'\\'.$class]);
     }
 
@@ -27,9 +28,10 @@ class AliasFileTest extends TestCase
     public function testAliasCustomFileFilter()
     {
         $p = $this->getPlugIn('FakeFileFilterAlias');
-        $p->setFilter(function($name){
-          $name = str_replace('_', '__', $name);
-          return $name;
+        $p->setFilter(function ($name) {
+            $name = str_replace('_', '__', $name);
+
+            return $name;
         });
         $expected = 'FakeTask';
         $actual = $p->fake__task($expected);
@@ -37,22 +39,21 @@ class AliasFileTest extends TestCase
     }
 
     /**
-     * Test not setup correct alias file filteer. 
+     * Test not setup correct alias file filteer.
      *
      * @expectedException        Exception
-     * @expectedExceptionMessage aliasFileFilter 
+     * @expectedExceptionMessage aliasFileFilter
      */
     public function testAliasCustomFileFilterNotSetCorreect()
     {
         $p = $this->getPlugIn('FakeFileFilterAlias');
-        $p->setFilter(function(){ });
+        $p->setFilter(function () { });
         $this->willThrow(
-          function() use ($p){
-          $p->foo();
+            function () use ($p) {
+              $p->foo();
           }
         );
     }
-
 
     /**
      * Test not defned class in alias file.

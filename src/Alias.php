@@ -36,7 +36,7 @@ trait Alias
     public $parentAlias;
     public $preCookFunctionName;
     public $aliasFileFilter;
-    public $aliasFileMapping; 
+    public $aliasFileMapping;
     private $_typeOfAlias;
 
     /**
@@ -140,7 +140,7 @@ trait Alias
      * @param string   $method Alias method name.
      * @param callable $func   Callable function.
      *
-     * @return void 
+     * @return void
      */
     public function setCallableToAttribute($method, $func)
     {
@@ -262,6 +262,7 @@ class AliasAsDefault extends AbstractAlias
                 if (method_exists($c, $method)) {
                     $func = [$c, $method];
                     $self->setCallableToAttribute($method, $func);
+
                     return $func;
                 }
             }
@@ -331,7 +332,7 @@ class AliasSrcFile extends AbstractAlias
     /**
      * Get file mapping.
      *
-     * @param string   $path   Folder path. 
+     * @param string   $path   Folder path.
      * @param callable $filter Callable filter.
      *
      * @return string
@@ -347,7 +348,7 @@ class AliasSrcFile extends AbstractAlias
         }
         foreach ($files as $fPath) {
             $fName = basename($fPath);
-            $fName = $filter(substr($fName, 1, strlen($fName)-5));
+            $fName = $filter(substr($fName, 1, strlen($fName) - 5));
             if (empty($fName)) {
                 return !trigger_error(
                     'aliasFileFilter not setup correct.'
@@ -355,6 +356,7 @@ class AliasSrcFile extends AbstractAlias
             }
             $mapArr[$fName] = $fPath;
         }
+
         return $mapArr;
     }
 
@@ -379,6 +381,7 @@ class AliasSrcFile extends AbstractAlias
                 return $map[$method];
             }
         }
+
         return $path.$method;
     }
 }

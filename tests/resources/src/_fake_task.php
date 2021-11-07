@@ -12,6 +12,7 @@ class _faketask
     public function __invoke($v = '')
     {
         PMVC\option('set', 'd', 1);
+
         return $v;
     }
 }
