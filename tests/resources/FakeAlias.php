@@ -40,6 +40,14 @@ class FakeFileFilterAlias extends FakeAlias
     }
 }
 
+class FakeAliasDefault extends FakeAlias
+{
+    protected function getTypeOfAlias()
+    {
+        return [AliasAsDefault::getInstance()];
+    }
+}
+
 class FakeAliasChild extends FakeAlias
 {
     public function getDir()
