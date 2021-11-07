@@ -370,4 +370,17 @@ class InternalUtility
             set($oPlugIn, $config);
         }
     }
+
+    /**
+     * Set plugin config.
+     *
+     * @param mixed $name get name from object
+     *
+     * @return string
+     */
+    public static function getPlugName($name)
+    {
+        return is_string($name) ? $name : get($name, NAME);
+    }
+
 }

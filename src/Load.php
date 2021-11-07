@@ -554,11 +554,11 @@ function isArray($obj)
  * @param array $a       array
  * @param array $path    array's path
  * @param mixed $default if value not exists, return default value
- * @param mixed $setter  set values.
+ * @param mixed $newVal  set values.
  *
  * @return mixed
  */
-function value(&$a, array $path, $default = null, $setter = null)
+function value(&$a, array $path, $default = null, $newVal = null)
 {
     $getValue = function ($v) {
         if (is_callable($v)) {
@@ -577,7 +577,7 @@ function value(&$a, array $path, $default = null, $setter = null)
 
         return $v;
     };
-    if (!is_null($setter)) {
+    if (!is_null($newVal)) {
         $lastPath = array_pop($path);
         if (is_null($default)) {
             $default = [];
@@ -606,7 +606,7 @@ function value(&$a, array $path, $default = null, $setter = null)
         $next = &$a;
     }
 
-    return $lastPath ? $setValue($previous, $lastPath, $setter) : $next;
+    return $lastPath ? $setValue($previous, $lastPath, $newVal) : $next;
 }
 
 /**
@@ -1125,7 +1125,11 @@ function addPlugInFolders(array $folders, array $alias = [])
  */
 function unPlug($name, $reject = false)
 {
-    return (bool) InternalUtility::plugInStore($name, false, $reject);
+    return (bool) InternalUtility::plugInStore(
+        InternalUtility::getPlugName($name),
+        false,
+        $reject
+    );
 }
 
 /**
@@ -1139,8 +1143,8 @@ function unPlug($name, $reject = false)
  */
 function rePlug($name, array $config = [], $object = null)
 {
+    $cookName = strtolower(InternalUtility::getPlugName($name));
     if (!is_null($object)) {
-        $cookName = strtolower($name);
         $config[NAME] = $cookName;
         $config[THIS] = new Adapter($cookName);
         if (isArray($object)) {
@@ -1148,16 +1152,16 @@ function rePlug($name, array $config = [], $object = null)
         }
 
         InternalUtility::plugInStore(
-            $name,
+            $cookName,
             $object,
             get($object, _IS_SECURITY)
         );
 
         return $config[THIS];
     } else {
-        unplug($name);
+        unplug($cookName);
 
-        return plug($name, $config);
+        return plug($cookName, $config);
     }
 }
 

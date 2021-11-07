@@ -34,7 +34,7 @@ class UtilPlugRePlugTest extends TestCase
 
     /**
      * @expectedException        Exception
-     * @expectedExceptionMessage Security plugin [testRePlugSecurity] already plug
+     * @expectedExceptionMessage Security plugin [testreplugsecurity] already plug
      */
     public function testRePlugSecurityWarning()
     {

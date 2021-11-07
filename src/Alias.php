@@ -35,6 +35,8 @@ trait Alias
     public $defaultAlias;
     public $parentAlias;
     public $preCookFunctionName;
+    public $aliasFileFilter;
+    public $aliasFileMapping; 
     private $_typeOfAlias;
 
     /**
@@ -130,6 +132,23 @@ trait Alias
     public function setDefaultAlias($obj)
     {
         $this->defaultAlias = $obj;
+    }
+
+    /**
+     * Cache function.
+     *
+     * @param string   $method Alias method name.
+     * @param callable $func   Callable function.
+     *
+     * @return void 
+     */
+    public function setCallableToAttribute($method, $func)
+    {
+        if (isArray($this) && !isset($this[$method])) {
+            $this[$method] = $func;
+        } elseif (!isset($this->{$method})) {
+            $this->{$method} = $func;
+        }
     }
 }
 
@@ -236,10 +255,16 @@ class AliasAsDefault extends AbstractAlias
     {
         $func = false;
         if (isset($self->defaultAlias)) {
-            $func = [$self->defaultAlias, $method];
-        }
-        if (!is_callable($func)) {
-            $func = false;
+            $classes = is_array($self->defaultAlias) ?
+            $self->defaultAlias :
+            [$self->defaultAlias];
+            foreach ($classes as $c) {
+                if (method_exists($c, $method)) {
+                    $func = [$c, $method];
+                    $self->setCallableToAttribute($method, $func);
+                    return $func;
+                }
+            }
         }
 
         return $func;
@@ -298,13 +323,39 @@ class AliasSrcFile extends AbstractAlias
                     'method'=> $method, ]
             );
         }
-        if (isArray($self) && !isset($self[$method])) {
-            $self[$method] = $func;
-        } elseif (!isset($self->{$method})) {
-            $self->{$method} = $func;
-        }
+        $self->setCallableToAttribute($method, $func);
 
         return $func;
+    }
+
+    /**
+     * Get file mapping.
+     *
+     * @param string   $path   Folder path. 
+     * @param callable $filter Callable filter.
+     *
+     * @return string
+     */
+    private function _getFileMapping($path, $filter = true)
+    {
+        $mapArr = [];
+        $files = glob($path);
+        if (true === $filter) {
+            $filter = function ($f) {
+                return strtolower(str_replace('_', '', $f));
+            };
+        }
+        foreach ($files as $fPath) {
+            $fName = basename($fPath);
+            $fName = $filter(substr($fName, 1, strlen($fName)-5));
+            if (empty($fName)) {
+                return !trigger_error(
+                    'aliasFileFilter not setup correct.'
+                );
+            }
+            $mapArr[$fName] = $fPath;
+        }
+        return $mapArr;
     }
 
     /**
@@ -317,6 +368,17 @@ class AliasSrcFile extends AbstractAlias
      */
     private function _getPath($self, $method)
     {
-        return $self->getDir().'src/_'.$method;
+        $path = $self->getDir().'src/_';
+        if ($self->aliasFileFilter) {
+            if (empty($self->aliasFileMapping)) {
+                $self->aliasFileMapping
+                    = $this->_getFileMapping($path.'*.php', $self->aliasFileFilter);
+            }
+            $map = $self->aliasFileMapping;
+            if (isset($map[$method])) {
+                return $map[$method];
+            }
+        }
+        return $path.$method;
     }
 }

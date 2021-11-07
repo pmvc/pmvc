@@ -27,6 +27,19 @@ class FakeAlias extends PlugIn
     }
 }
 
+
+class FakeFileFilterAlias extends FakeAlias
+{
+    public function init()
+    {
+        parent::init();
+    }
+
+    public function setFilter($filter) {
+        $this->aliasFileFilter = $filter;
+    }
+}
+
 class FakeAliasChild extends FakeAlias
 {
     public function getDir()
@@ -81,6 +94,19 @@ class FakeObject
     public function a()
     {
         option('set', 'a', 1);
+    }
+}
+
+class FakeObjectB
+{
+    public function a($v)
+    {
+        return $v."--b";
+    }
+
+    public function b($v)
+    {
+        return $v;
     }
 }
 

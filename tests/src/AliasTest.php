@@ -6,7 +6,7 @@ use Exception;
 
 class AliasTest extends TestCase
 {
-    public function pmvc_setup()
+    public function pmvc_teardown()
     {
         unplug('fake');
         unplug('fakeChild');
@@ -96,6 +96,41 @@ class AliasTest extends TestCase
         $this->assertEquals(0, getOption('e'), 'Test for: '.$tData);
     }
 
+    public function testMultiDefaultAlias()
+    {
+        $obj = plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
+        $obj->setDefaultAlias([
+            new FakeObject(),
+            new FakeObjectB(),
+        ]);
+        $this->assertEquals(
+          [
+              'bbb',
+              null
+          ],
+          [
+              $obj->b('bbb'), 
+              $obj->a()
+          ]
+        );
+        unplug($obj);
+        $obj = plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
+        $obj->setDefaultAlias([
+            new FakeObjectB(),
+            new FakeObject(),
+        ]);
+        $this->assertEquals(
+          [
+              'bbb',
+              'aaa--b' 
+          ],
+          [
+              $obj->b('bbb'), 
+              $obj->a('aaa')
+          ]
+        );
+    }
+
     /**
      * Test parent method not exists.
      *
@@ -155,54 +190,6 @@ class AliasTest extends TestCase
             function () {
                 $oAlias = new FakeAliasWithOutGetDir();
                 $result = $oAlias->faketask();
-            }
-        );
-    }
-
-    /**
-     * Test not defned class in alias file.
-     *
-     * @expectedException        Exception
-     * @expectedExceptionMessage Not defined default Class
-     */
-    public function testAliasFileWithoutClass()
-    {
-        $this->willThrow(
-            function () {
-                $oAlias = new FakeAliasWithoutArrayAccess();
-                $oAlias->without_class();
-            }
-        );
-    }
-
-    /**
-     * Test defined class not exist.
-     *
-     * @expectedException        Exception
-     * @expectedExceptionMessage Default class not exists
-     */
-    public function testAliasFileWithWrongName()
-    {
-        $this->willThrow(
-            function () {
-                $oAlias = new FakeAliasWithoutArrayAccess();
-                $oAlias->with_wrong_name();
-            }
-        );
-    }
-
-    /**
-     * Test not implement invoke.
-     *
-     * @expectedException        Exception
-     * @expectedExceptionMessage Not implement __invoke
-     */
-    public function testAliasFileWithoutInvoke()
-    {
-        $this->willThrow(
-            function () {
-                $oAlias = new FakeAliasWithoutArrayAccess();
-                $oAlias->without_invoke();
             }
         );
     }

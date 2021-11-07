@@ -9,8 +9,9 @@ ${_INIT_CONFIG
 
 class _faketask
 {
-    public function __invoke()
+    public function __invoke($v = '')
     {
         PMVC\option('set', 'd', 1);
+        return $v;
     }
 }
