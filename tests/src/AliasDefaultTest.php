@@ -4,7 +4,6 @@ namespace PMVC;
 
 class AliasDefaultTest extends TestCase
 {
-
     public function pmvc_teardown()
     {
         unplug('fake');
@@ -63,5 +62,4 @@ class AliasDefaultTest extends TestCase
             }
         );
     }
-
 }
