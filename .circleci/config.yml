@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  unittest:
+  build:
     parameters:
       php-version:
         type: string
@@ -42,7 +42,7 @@ jobs:
 workflows:
   run-job:
     jobs:
-      - unittest:
+      - build:
           matrix:
             name: test-<< matrix.php-version >>
             parameters:
