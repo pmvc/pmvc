@@ -6,9 +6,8 @@ class UtilIncludeTest extends TestCase
 {
     private $_fakePlugFile;
 
-    public function __construct()
+    public function pmvc_setup()
     {
-        parent::__construct();
         $this->_fakePlugFile = __DIR__.'/../resources/FakePlugFile.php';
     }
 
