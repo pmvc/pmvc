@@ -60,6 +60,10 @@ class NamespaceAdapter
                 $func,
                 $args
             );
+        } else {
+            return !trigger_error(
+                'Function not found: ['.$this->_name.$method.']'
+            );
         }
     }
 
@@ -75,6 +79,8 @@ class NamespaceAdapter
         $func = $this->_name.$method;
         if (function_exists($func)) {
             return $func;
+        } else {
+            return false;
         }
     }
 }

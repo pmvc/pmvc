@@ -15,11 +15,18 @@ class NamespaceAdapterTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * @expectedException        Exception
+     * @expectedExceptionMessage Function not found 
+     */
     public function testFunctionNotExists()
     {
         $class = new NamespaceAdapter('PMVC');
-        $actual = $class->xxx();
-        $this->assertNull($actual);
-        $this->assertNull($class->isCallable('xxx'));
+        $this->assertFalse($class->isCallable('xxx'));
+        $this->willThrow(
+            function() use ($class) {
+                $class->xxx();
+            }
+        );
     }
 }
