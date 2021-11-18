@@ -36,8 +36,8 @@ use Serializable;
  * @link https://packagist.org/packages/pmvc/pmvc
  */
 class ListIterator extends BaseObject implements
-    IteratorAggregate,
     Countable,
+    IteratorAggregate,
     Serializable
 {
     /**
