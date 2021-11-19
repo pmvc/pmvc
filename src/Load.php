@@ -413,11 +413,11 @@ function splitCamelCase($s, $join = null)
 /**
  * String tpl.
  *
- * @param string   $input      Input string.
- * @param array    $replaces   Replace keys.
- * @param callable $cb         Handle replaces.
- * @param callable $replaceTpl Replace Tpl.
- * @param callable $keyTpl     Key Tpl use with Replace Tpl.
+ * @param string   $input       Tpl content.
+ * @param array    $replaces    Replace keys.
+ * @param callable $cb          Handle replaces.
+ * @param callable $paramTpl    Replace Tpl.
+ * @param callable $paramKeyTpl Key Tpl use with Replace Tpl.
  *
  * @return void
  */
@@ -425,11 +425,11 @@ function tpl(
     $input,
     array $replaces,
     callable $cb,
-    $replaceTpl = '[KEY]',
-    $keyTpl = 'KEY'
+    $paramTpl = '[KEY]',
+    $paramKeyTpl = 'KEY'
 ) {
     foreach ($replaces as $replaceKey) {
-        $replaceString = str_replace($keyTpl, $replaceKey, $replaceTpl);
+        $replaceString = str_replace($paramKeyTpl, $replaceKey, $paramTpl);
         if (false === strpos($input, $replaceString)) {
             continue;
         }
