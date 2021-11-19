@@ -149,12 +149,12 @@ class UtilCleanGetSetTest extends TestCase
         $this->assertEquals(0, count($a));
     }
 
-    public function testCleanByReplace()
+    public function testCleanMulti()
     {
-        $a = ['foo'];
-        $b = ['bar'];
+        $a = ['foo', 'bar'];
+        $b = [0, 1];
         clean($a, $b);
-        $this->assertEquals($b, $a);
+        $this->assertTrue(empty($a));
     }
 }
 

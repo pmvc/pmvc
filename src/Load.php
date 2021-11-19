@@ -711,8 +711,9 @@ function clean(&$a, $k = null)
         return $a;
     } else {
         if (isArray($k)) {
-            //replace
-            $a = $k;
+            foreach ($k as $delKey) {
+                unset($a[$delKey]); //clean by key
+            }
 
             return $a;
         } else {
