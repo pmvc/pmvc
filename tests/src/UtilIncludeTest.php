@@ -6,7 +6,7 @@ class UtilIncludeTest extends TestCase
 {
     private $_fakePlugFile;
 
-    public function pmvc_setup()
+    public function pmvc_init()
     {
         $this->_fakePlugFile = __DIR__.'/../resources/FakePlugFile.php';
     }
