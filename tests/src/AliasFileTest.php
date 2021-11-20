@@ -50,8 +50,8 @@ class AliasFileTest extends TestCase
         $p->setFilter(function () { });
         $this->willThrow(
             function () use ($p) {
-              $p->foo();
-          }
+                $p->foo();
+            }
         );
     }
 
