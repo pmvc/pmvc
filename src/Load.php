@@ -568,10 +568,17 @@ function value(&$a, array $path, $default = null, $newVal = null, $isAppend = fa
 
         return $v;
     };
-    $setValue = function (&$p, $k, $v) use ($getValue, $isAppend) {
+    $setValue = function (&$p, $k, $v, $isAppend = null) use ($getValue) {
         $v = $getValue($v);
         if (is_object($p)) {
-            $p->{$k} = $v;
+            if ($isAppend) {
+                if (!isset($p->{$k}) || !is_array($p->{$k})) {
+                    $p->{$k} = [];
+                }
+                $p->{$k}[] = $v;
+            } else {
+                $p->{$k} = $v;
+            }
         } else {
             set($p, $k, $v, $isAppend);
         }
@@ -607,7 +614,7 @@ function value(&$a, array $path, $default = null, $newVal = null, $isAppend = fa
         $next = &$a;
     }
 
-    return $lastPath ? $setValue($previous, $lastPath, $newVal) : $next;
+    return $lastPath ? $setValue($previous, $lastPath, $newVal, $isAppend) : $next;
 }
 
 /**
@@ -838,7 +845,7 @@ function set(&$a, $k, $v = null, $isAppend = false)
         return key($a);
     } else {
         if ($isAppend) {
-            if (!is_array($a[$k])) {
+            if (!isset($a[$k]) || !is_array($a[$k])) {
                 $a[$k] = [];
             }
             $a[$k][] = $v;

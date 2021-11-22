@@ -4,7 +4,7 @@ namespace PMVC;
 
 use TypeError;
 
-class UtilGetValueTest extends TestCase
+class UtilValueTest extends TestCase
 {
     public function testGetValue()
     {
@@ -64,6 +64,26 @@ class UtilGetValueTest extends TestCase
         $this->assertEquals('d', $actual);
     }
 
+    public function testSetObjectValue()
+    {
+        $a = (object) [
+            'b' 
+        ];
+        value($a, ['c', 'd'], (object)[], 'e');
+        $this->assertEquals('e', $a->c->d);
+    }
+
+    public function testSetObjectValueWithAppend()
+    {
+        $a = (object) [
+            'b' 
+        ];
+        value($a, ['b', 'c'], (object)[], 'e', true);
+        value($a, ['b', 'c'], (object)[], 'f', true);
+        $this->assertEquals(['e', 'f'], $a->b->c);
+    }
+
+
     /**
      * Test get a->xxx.
      */
@@ -76,7 +96,7 @@ class UtilGetValueTest extends TestCase
             ],
         ];
         $this->assertEquals($expected, $a->b->c);
-        $this->assertEquals($expected, \PMVC\value($a, ['b', 'c']));
+        $this->assertEquals($expected, value($a, ['b', 'c']));
     }
 
     /**

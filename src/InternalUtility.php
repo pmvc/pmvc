@@ -253,15 +253,15 @@ class InternalUtility
                     false
                 );
             }
-            $class = value(
-                $r,
-                ['var', _INIT_CONFIG, _CLASS],
+            $class = isset($r->var) ? get(
+                $r->var[_INIT_CONFIG],
+                _CLASS,
                 function () use (
                     $config
                 ) {
                     return get($config, _DEFAULT_CLASS);
                 }
-            );
+            ) : null;
         }
         $exists = class_exists($class);
         if ($pause) {
