@@ -551,14 +551,15 @@ function isArray($obj)
 /**
  * Safe get multi layer array value.
  *
- * @param array $a       array
- * @param array $path    array's path
- * @param mixed $default if value not exists, return default value
- * @param mixed $newVal  set values.
+ * @param array $a        array
+ * @param array $path     array's path
+ * @param mixed $default  if value not exists, return default value
+ * @param mixed $newVal   set values.
+ * @param bool  $isAppend Append or not.
  *
  * @return mixed
  */
-function value(&$a, array $path, $default = null, $newVal = null)
+function value(&$a, array $path, $default = null, $newVal = null, $isAppend = false)
 {
     $getValue = function ($v) {
         if (is_callable($v)) {
@@ -567,12 +568,12 @@ function value(&$a, array $path, $default = null, $newVal = null)
 
         return $v;
     };
-    $setValue = function (&$p, $k, $v) use ($getValue) {
+    $setValue = function (&$p, $k, $v) use ($getValue, $isAppend) {
         $v = $getValue($v);
         if (is_object($p)) {
             $p->{$k} = $v;
         } else {
-            set($p, $k, $v);
+            set($p, $k, $v, $isAppend);
         }
 
         return $v;
@@ -811,13 +812,14 @@ function &get(&$a, $k = null, $default = null)
 /**
  * Magic Set function.
  *
- * @param array $a array
- * @param mixed $k key
- * @param mixed $v value
+ * @param array $a        Array
+ * @param mixed $k        Key
+ * @param mixed $v        Value
+ * @param bool  $isAppend Append or not.
  *
  * @return mixed
  */
-function set(&$a, $k, $v = null)
+function set(&$a, $k, $v = null, $isAppend = false)
 {
     if (is_null($k) && is_null($v)) {
         return false;
@@ -835,7 +837,14 @@ function set(&$a, $k, $v = null)
 
         return key($a);
     } else {
-        $a[$k] = $v; //exactly set key and value
+        if ($isAppend) {
+            if (!is_array($a[$k])) {
+                $a[$k] = [];
+            }
+            $a[$k][] = $v;
+        } else {
+            $a[$k] = $v; //exactly set key and value
+        }
 
         return $k;
     }

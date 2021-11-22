@@ -130,6 +130,14 @@ class UtilCleanGetSetTest extends TestCase
         $this->assertEquals($b, $a);
     }
 
+    public function testSetAppend()
+    {
+        $a = ['foo'=>'a', 'bar'=>'b'];
+        set($a, 'bar', 'aaa', true);
+        set($a, 'bar', 'bbb', true);
+        $this->assertEquals(['foo' => 'a', 'bar' => ['aaa', 'bbb']], $a);
+    }
+
     /**
      * @function clean
      */
