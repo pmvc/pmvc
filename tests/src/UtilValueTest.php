@@ -67,22 +67,21 @@ class UtilValueTest extends TestCase
     public function testSetObjectValue()
     {
         $a = (object) [
-            'b' 
+            'b',
         ];
-        value($a, ['c', 'd'], (object)[], 'e');
+        value($a, ['c', 'd'], (object) [], 'e');
         $this->assertEquals('e', $a->c->d);
     }
 
     public function testSetObjectValueWithAppend()
     {
         $a = (object) [
-            'b' 
+            'b',
         ];
-        value($a, ['b', 'c'], (object)[], 'e', true);
-        value($a, ['b', 'c'], (object)[], 'f', true);
+        value($a, ['b', 'c'], (object) [], 'e', true);
+        value($a, ['b', 'c'], (object) [], 'f', true);
         $this->assertEquals(['e', 'f'], $a->b->c);
     }
-
 
     /**
      * Test get a->xxx.
