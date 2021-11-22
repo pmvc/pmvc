@@ -291,7 +291,7 @@ class InternalUtility
             return !trigger_error($error);
         }
         if (!empty($r)) {
-            if (isset($r->var[_INIT_CONFIG])) {
+            if (isset($r->var)) {
                 $config = arrayReplace($r->var[_INIT_CONFIG], $config);
             }
             $config[_PLUGIN_FILE] = $r->name;
