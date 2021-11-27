@@ -84,17 +84,17 @@ class Load
 /**
  * RealPath.
  *
- * @param string $p parameters
+ * @param string $name path name 
  *
  * @return string
  */
-function realPath($p)
+function realPath($name)
 {
-    if (!$p) {
+    if (!$name) {
         return false;
     }
 
-    return run('\realpath', [$p]);
+    return run('\realpath', [$name]);
 }
 
 /**
@@ -110,16 +110,13 @@ function realPath($p)
 function l($name, $export = null, $options = [])
 {
     $once = get($options, 'once', true);
-    $real = realpath($name.'.php');
+    $real = InternalUtility::realPathPhp($name);
     if (!$real) {
-        $real = realpath($name);
-        if (!$real) {
-            $ignore = get($options, 'ignore');
-            if ($ignore) {
-                return false;
-            } else {
-                return !trigger_error('File not found. ['.$name.']');
-            }
+          $ignore = get($options, 'ignore');
+        if ($ignore) {
+            return false;
+        } else {
+            return !trigger_error('File not found. ['.$name.']');
         }
     }
     $import = get($options, 'import');
@@ -175,8 +172,9 @@ function find($name, $dirs = null)
             continue;
         }
         $mergeName = mergeFileName($name, $dirPath);
-        if (realpath($mergeName)) {
-            return $mergeName;
+        $real = InternalUtility::realPathPhp($mergeName);
+        if ($real) {
+            return $real;
         }
     }
 

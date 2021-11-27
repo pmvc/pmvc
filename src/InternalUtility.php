@@ -69,6 +69,42 @@ class InternalUtility
     }
 
     /**
+     * Realpath auto append .php. 
+     *
+     * @param string $name path name 
+     *
+     * @return string
+     */
+    public static function realPathPhpNoCache($name)
+    {
+        $ext = substr($name, -4, 4);
+        $append = '.php';
+        $real = null;
+        if ($ext !== $append) {
+            $real = realpath($name.$append);
+        }
+        if (!$real) {
+            $real = realpath($name);
+        }
+        return $real;
+    }
+
+    /**
+     * Cache realpath auto append .php. 
+     *
+     * @param string $name path name 
+     *
+     * @return string
+     */
+    public static function realPathPhp($name)
+    {
+        return run(
+            ns('InternalUtility::realPathPhpNoCache'),
+            [$name]
+        );
+    }
+
+    /**
      * Check plugin is already plug.
      *
      * @param string $name File name.
@@ -242,7 +278,7 @@ class InternalUtility
                     $config[_PLUGIN_FILE] = $r->name;
                 }
             } else {
-                $file = $name.'/'.$name.'.php';
+                $file = $name.'/'.$name;
                 $r = load(
                     $file,
                     $folders,
