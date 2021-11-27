@@ -506,7 +506,10 @@ function arrayReplace()
     // it helpful if you just pass pure array without assign.
     $new = $a[0];
     if (!isArray($new)) {
-        return triggerJson('Param1 should be array type.', ['Array' => $new]);
+        return triggerJson(
+            '\PMVC\arrayReplace Param1 should be array type.',
+            ['Array' => $new]
+        );
     }
     for ($i = 1, $j = count($a); $i < $j; $i++) {
         // This is for handle empty array not empty value

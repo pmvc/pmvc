@@ -221,28 +221,26 @@ class InternalUtility
             value(getOption('PW'), $names, []),
             $config
         );
+        $file = null;
 
         if (isset($config[_CLASS]) && class_exists($config[_CLASS])) {
             $class = $config[_CLASS];
         } else {
-            $file = null;
             if (isset($config[_PLUGIN_FILE])) {
-                $file = realpath($config[_PLUGIN_FILE]);
-                if (empty($file)) {
+                $file = $config[_PLUGIN_FILE];
+                $r = l($file, _INIT_CONFIG, ['ignore' => true]);
+                if (empty($r)) {
                     return !trigger_error(
                         'PlugIn '.
                             $name.
                             ': defined file not found. '.
                             '['.
-                            $config[_PLUGIN_FILE].
+                            $file.
                             ']'
                     );
+                } else {
+                    $config[_PLUGIN_FILE] = $r->name;
                 }
-                // assign realpath
-                $config[_PLUGIN_FILE] = $file;
-            }
-            if ($file) {
-                $r = l($file, _INIT_CONFIG);
             } else {
                 $file = $name.'/'.$name.'.php';
                 $r = load(
@@ -253,7 +251,7 @@ class InternalUtility
                     false
                 );
             }
-            $class = isset($r->var) ? get(
+            $class = !empty($r) && !is_int($r) ? get(
                 $r->var[_INIT_CONFIG],
                 _CLASS,
                 function () use (
@@ -291,7 +289,7 @@ class InternalUtility
             return !trigger_error($error);
         }
         if (!empty($r)) {
-            if (isset($r->var)) {
+            if (isset($r->var) && isArray($r->var[_INIT_CONFIG])) {
                 $config = arrayReplace($r->var[_INIT_CONFIG], $config);
             }
             $config[_PLUGIN_FILE] = $r->name;
