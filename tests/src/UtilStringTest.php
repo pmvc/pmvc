@@ -63,19 +63,4 @@ class UtilStringTest extends TestCase
         $this->assertEquals('{"a":"b","c":"d"}', $acture);
     }
 
-    public function testTpl()
-    {
-        $arr = [
-            'foo1'=> 'BAR1',
-            'foo2'=> '[BAR]2',
-        ];
-        $noReplace = \PMVC\tpl($arr['foo1'], ['BAR'], function () {
-            return 'bar';
-        });
-        $haveReplace = \PMVC\tpl($arr['foo2'], ['BAR'], function () {
-            return 'bar';
-        });
-        $this->assertEquals('BAR1', $noReplace);
-        $this->assertEquals('bar2', $haveReplace);
-    }
 }

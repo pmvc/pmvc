@@ -419,7 +419,7 @@ function splitCamelCase($s, $join = null)
  * @param callable $paramTpl    Replace Tpl.
  * @param callable $paramKeyTpl Key Tpl use with Replace Tpl.
  *
- * @return void
+ * @return string
  */
 function tpl(
     $input,
@@ -441,6 +441,30 @@ function tpl(
     }
 
     return $input;
+}
+
+/**
+ * Tpl with array replace.
+ *
+ * @param string $input         Tpl content.
+ * @param array  $replaceKeys   Tpl keys.
+ * @param array  $replaceValues Tpl values.
+ *
+ * @return string
+ */
+function tplArrayReplace($input, $replaceKeys, $replaceValues = null)
+{
+    if (is_null($replaceValues)) {
+        $values = get($replaceKeys);
+        $keys = array_keys($values);
+    } else {
+        $values = $replaceValues;
+        $keys = $replaceKeys;
+    }
+    $cb = function ($payload) use ($values) {
+        return $values[$payload['replaceKey']];
+    };
+    return tpl($input, $keys, $cb);
 }
 
 /*
