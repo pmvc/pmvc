@@ -84,7 +84,7 @@ class Load
 /**
  * RealPath.
  *
- * @param string $name path name 
+ * @param string $name path name
  *
  * @return string
  */
@@ -112,7 +112,7 @@ function l($name, $export = null, $options = [])
     $once = get($options, 'once', true);
     $real = InternalUtility::realPathPhp($name);
     if (!$real) {
-          $ignore = get($options, 'ignore');
+        $ignore = get($options, 'ignore');
         if ($ignore) {
             return false;
         } else {
