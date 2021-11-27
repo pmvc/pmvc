@@ -62,5 +62,4 @@ class UtilStringTest extends TestCase
         $acture = utf8JsonEncode($foo);
         $this->assertEquals('{"a":"b","c":"d"}', $acture);
     }
-
 }

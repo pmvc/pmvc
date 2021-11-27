@@ -464,6 +464,7 @@ function tplArrayReplace($input, $replaceKeys, $replaceValues = null)
     $cb = function ($payload) use ($values) {
         return $values[$payload['replaceKey']];
     };
+
     return tpl($input, $keys, $cb);
 }
 
