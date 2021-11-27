@@ -69,9 +69,9 @@ class InternalUtility
     }
 
     /**
-     * Realpath auto append .php. 
+     * Realpath auto append .php.
      *
-     * @param string $name path name 
+     * @param string $name path name
      *
      * @return string
      */
@@ -86,13 +86,14 @@ class InternalUtility
         if (!$real) {
             $real = realpath($name);
         }
+
         return $real;
     }
 
     /**
-     * Cache realpath auto append .php. 
+     * Cache realpath auto append .php.
      *
-     * @param string $name path name 
+     * @param string $name path name
      *
      * @return string
      */
