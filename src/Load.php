@@ -427,13 +427,20 @@ function tpl(
     $paramKeyTpl = 'KEY'
 ) {
     foreach ($replaces as $replaceKey) {
-        $replaceString = str_replace($paramKeyTpl, $replaceKey, $paramTpl);
-        if (false === strpos($input, $replaceString)) {
+        $replaceFrom = str_replace($paramKeyTpl, $replaceKey, $paramTpl);
+        if (false === strpos($input, $replaceFrom)) {
             continue;
         }
+        $replaceTo = $cb(compact('input', 'replaceFrom', 'replaceKey'));
+        if (!is_string($replaceTo)) {
+            return triggerJson(
+                '\PMVC\tpl callback should return string.',
+                compact('replaceTo')
+            );
+        }
         $input = str_replace(
-            $replaceString,
-            $cb(compact('input', 'replaceString', 'replaceKey')),
+            $replaceFrom,
+            $replaceTo,
             $input
         );
     }
