@@ -22,12 +22,12 @@ class UtilStringTplTest extends TestCase
 
     /**
      * @expectedException        Exception
-     * @expectedExceptionMessage \\PMVC\\tpl 
+     * @expectedExceptionMessage \\PMVC\\tpl
      */
     public function testTplNotReturnString()
     {
-        $this->willThrow(function(){
-            \PMVC\tpl('[foo]', ['foo'], function(){return null;});
+        $this->willThrow(function () {
+            \PMVC\tpl('[foo]', ['foo'], function () {return null; });
         });
     }
 
