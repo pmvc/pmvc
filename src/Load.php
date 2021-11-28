@@ -453,11 +453,11 @@ function tpl(
  *
  * @param string $input         Tpl content.
  * @param array  $replaceKeys   Tpl keys.
- * @param array  $replaceValues Tpl values.
+ * @param mixed  $replaceValues Tpl values.
  *
  * @return string
  */
-function tplArrayReplace($input, $replaceKeys, $replaceValues = null)
+function tplArrayReplace($input, array $replaceKeys, $replaceValues = null)
 {
     if (is_null($replaceValues)) {
         $values = get($replaceKeys);
@@ -467,7 +467,7 @@ function tplArrayReplace($input, $replaceKeys, $replaceValues = null)
         $keys = $replaceKeys;
     }
     $cb = function ($payload) use ($values) {
-        return $values[$payload['replaceKey']];
+        return get($values, $payload['replaceKey'], '');
     };
 
     return tpl($input, $keys, $cb);

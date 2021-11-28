@@ -40,4 +40,12 @@ class UtilStringTplTest extends TestCase
         $actual2 = tplArrayReplace($tpl, ['BAR'], $data);
         $this->assertEquals('aaa[FOO]_bar1bbb', $actual2);
     }
+
+    public function testTplArrayReplaceKeyNotExists()
+    {
+        $data = [];
+        $tpl = 'aaa[FOO]_[BAR]bbb';
+        $actual = tplArrayReplace($tpl, ['BAR'], $data);
+        $this->assertEquals('aaa[FOO]_bbb', $actual);
+    }
 }
