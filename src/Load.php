@@ -713,13 +713,13 @@ function assign($keys, $arr, $spreadKey = null)
         }
         $tarKey = $isSeqArray ? $k : $vKey;
         $tarKeys[$tarKey] = '';
-        $result[$newKey] =& get($arr, $tarKey, $defV);
+        $result[$newKey] = &get($arr, $tarKey, $defV);
     }
     if (!is_null($spreadKey)) {
         $result[$spreadKey] = [];
         foreach ($arr as $k=>$v) {
             if (!isset($tarKeys[$k])) {
-                $result[$spreadKey][$k] =& $arr[$k];
+                $result[$spreadKey][$k] = &$arr[$k];
             }
         }
     }
