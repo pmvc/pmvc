@@ -694,7 +694,7 @@ function &passByRef($v)
  *
  * @return array cook array.
  */
-function assign($keys, $arr, $spreadKey = null)
+function &assign($keys, &$arr, $spreadKey = null)
 {
     $isSeqArray = array_values($arr) === $arr;
     $result = [];
