@@ -712,11 +712,16 @@ function assign($keys, $arr, $spreadKey = null)
             $newKey = $v;
         }
         $tarKey = $isSeqArray ? $k : $vKey;
-        $tarKeys[$tarKey] = null;
-        $result[$newKey] = get($arr, $tarKey, $defV);
+        $tarKeys[$tarKey] = '';
+        $result[$newKey] =& get($arr, $tarKey, $defV);
     }
     if (!is_null($spreadKey)) {
-        $result[$spreadKey] = array_diff_key($arr, $tarKeys);
+        $result[$spreadKey] = [];
+        foreach ($arr as $k=>$v) {
+            if (!isset($tarKeys[$k])) {
+                $result[$spreadKey][$k] =& $arr[$k];
+            }
+        }
     }
 
     return $result;
