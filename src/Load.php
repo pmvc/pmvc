@@ -694,7 +694,7 @@ function &passByRef($v)
  *
  * @return array cook array.
  */
-function &assign($keys, &$arr, $spreadKey = null)
+function &assign($keys, $arr, $spreadKey = null)
 {
     $isSeqArray = array_values($arr) === $arr;
     $result = [];
@@ -719,7 +719,7 @@ function &assign($keys, &$arr, $spreadKey = null)
         $result[$spreadKey] = [];
         foreach ($arr as $k=>$v) {
             if (!isset($tarKeys[$k])) {
-                $result[$spreadKey][$k] = &$arr[$k];
+                $result[$spreadKey][$k] = &get($arr, $k);
             }
         }
     }
