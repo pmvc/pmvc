@@ -288,15 +288,14 @@ class InternalUtility
                     false
                 );
             }
-            $class = !empty($r) && !is_int($r) ? get(
-                $r->var[_INIT_CONFIG],
-                _CLASS,
+            $class = getExportClass(
+                $r,
                 function () use (
                     $config
                 ) {
                     return get($config, _DEFAULT_CLASS);
                 }
-            ) : null;
+            );
         }
         $exists = class_exists($class);
         if ($pause) {

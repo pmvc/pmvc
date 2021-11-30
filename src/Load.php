@@ -98,6 +98,24 @@ function realPath($name)
 }
 
 /**
+ * Get export $class.
+ *
+ * @param mixed $export  File export, possible empty. 
+ * @param mixed $default Default value.
+ *
+ * @return mixed
+ */
+function getExportClass($export, $default = null)
+{
+    $class = isset($export->var) ? get(
+        $export->var[_INIT_CONFIG],
+        _CLASS
+    ) : getDefault($default);
+
+    return $class;
+}
+
+/**
  * Same with include, but manage include_once by self.
  * and make global variable to local variable.
  *
@@ -594,15 +612,8 @@ function isArray($obj)
  */
 function value(&$a, array $path, $default = null, $newVal = null, $isAppend = false)
 {
-    $getValue = function ($v) {
-        if (is_callable($v)) {
-            $v = call_user_func($v);
-        }
-
-        return $v;
-    };
-    $setValue = function (&$p, $k, $v, $isAppend = null) use ($getValue) {
-        $v = $getValue($v);
+    $setValue = function (&$p, $k, $v, $isAppend = null) {
+        $v = getDefault($v);
         if (is_object($p)) {
             if ($isAppend) {
                 if (!isset($p->{$k}) || !is_array($p->{$k})) {
@@ -631,7 +642,7 @@ function value(&$a, array $path, $default = null, $newVal = null, $isAppend = fa
         unset($next);
         $next = &get($previous, $p);
         if (is_null($next)) {
-            $defV = $getValue($default);
+            $defV = getDefault($default);
             if ($lastPath) {
                 $setValue($previous, $p, $defV);
                 $next = &get($previous, $p);
@@ -771,6 +782,22 @@ function clean(&$a, $k = null)
 }
 
 /**
+ * Get default or callable function.
+ *
+ * @param mixed $default Default value.
+ *
+ * @return mixed
+ */
+function &getDefault($default)
+{
+    if (is_callable($default)) {
+        $default = call_user_func($default);
+    }
+
+    return $default;
+}
+
+/**
  * Magic Get function.
  *
  * @param array $a       array
@@ -847,11 +874,8 @@ function &get(&$a, $k = null, $default = null)
             }
         }
     }
-    if (is_callable($default)) {
-        $default = call_user_func($default);
-    }
 
-    return $default;
+    return getDefault($default);
 }
 
 /**

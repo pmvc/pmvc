@@ -304,7 +304,7 @@ class AliasSrcFile extends AbstractAlias
         if (!$r) {
             return false;
         }
-        $class = isset($r->var) ? get($r->var[_INIT_CONFIG], _CLASS) : null;
+        $class = getExportClass($r);
         if (!$class) {
             return !trigger_error('Not defined default Class. ['.$path.']');
         } else {
