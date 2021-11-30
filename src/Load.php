@@ -100,7 +100,7 @@ function realPath($name)
 /**
  * Get export $class.
  *
- * @param mixed $export  File export, possible empty. 
+ * @param mixed $export  File export, possible empty.
  * @param mixed $default Default value.
  *
  * @return mixed
