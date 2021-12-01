@@ -112,6 +112,10 @@ function getExportClass($export, $default = null)
         _CLASS
     ) : getDefault($default);
 
+    if (is_null($class)) {
+        $class = '';
+    }
+
     return $class;
 }
 
@@ -1105,7 +1109,7 @@ function run($func, $args)
  */
 function exists($v, $type)
 {
-    if (!strlen($v)) {
+    if (is_null($v) || !strlen($v)) {
         return false;
     }
     switch (strtolower($type)) {

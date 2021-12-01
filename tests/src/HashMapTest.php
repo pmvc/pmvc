@@ -2,6 +2,9 @@
 
 namespace PMVC;
 
+const SERIALIZE_81 = 'O:12:"PMVC\HashMap":1:{s:3:"foo";s:3:"bar";}';
+const SERIALIZE_80 = 'C:12:"PMVC\HashMap":26:{a:1:{s:3:"foo";s:3:"bar";}}';
+
 class HashMapTest extends TestCase
 {
     public function testHashMap()
@@ -316,7 +319,7 @@ class HashMapTest extends TestCase
     {
         $arr = ['foo' => 'bar'];
         $map = new HashMap($arr);
-        $expected = 'a:1:{s:3:"foo";s:3:"bar";}';
+        $expected = version_compare(PHP_VERSION, '7.4.0') >= 0 ? SERIALIZE_81 : SERIALIZE_80;
         $this->assertEquals($expected, (string) $map);
     }
 
@@ -333,9 +336,18 @@ class HashMapTest extends TestCase
         $arr = ['foo' => 'bar'];
         $map = new HashMap($arr);
         $str = serialize($map);
-        $expected = 'C:12:"PMVC\HashMap":26:{a:1:{s:3:"foo";s:3:"bar";}}';
+        $expected = version_compare(PHP_VERSION, '7.4.0') >= 0 ? SERIALIZE_81 : SERIALIZE_80;
         $this->assertEquals($expected, $str);
         $this->assertEquals(unserialize($str), $map);
+    }
+
+    public function testHashMapSerializeFunction()
+    {
+        $arr = ['foo' => 'bar'];
+        $map = new HashMap($arr);
+        $sSerialize = $map->serialize();
+        $map->unserialize($sSerialize);
+        $this->assertEquals($arr, get($map));
     }
 }
 

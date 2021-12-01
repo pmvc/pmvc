@@ -76,14 +76,17 @@ class fakeSplSubject implements SplSubject
 {
     public $state = 'test';
 
+    #[\ReturnTypeWillChange]
     public function attach(SplObserver $SplObserver)
     {
     }
 
+    #[\ReturnTypeWillChange]
     public function detach(SplObserver $SplObserver)
     {
     }
 
+    #[\ReturnTypeWillChange]
     public function notify()
     {
     }

@@ -27,7 +27,7 @@ jobs:
           name: PHPUnit
           command: |
             ENABLE_COVERAGE=true
-            if [ "<< parameters.php-version >>" == "8" ] && [ "$ENABLE_COVERAGE" == "true" ]; then
+            if [ "<< parameters.php-version >>" == "8.1" ] && [ "$ENABLE_COVERAGE" == "true" ]; then
               XDEBUG_MODE=coverage phpunit --coverage-clover clover.xml
               vendor/bin/phpcs src/
               coveralls --coverage_clover=clover.xml -v -o coveralls-upload.json
@@ -46,4 +46,4 @@ workflows:
           matrix:
             parameters:
               php-version:
-                ["8", "7.4", "7.3", "7.2", "7.1", "7.0", "5.6", "5.5"]
+                ["8.1", "8.0", "7.4", "7.3", "7.2", "7.1", "7.0", "5.6", "5.5"]

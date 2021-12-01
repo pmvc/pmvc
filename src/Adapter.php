@@ -89,6 +89,7 @@ class Adapter implements ArrayAccess, SplObserver
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function &offsetGet($k = null)
     {
         if (is_string($k)) {
@@ -109,6 +110,7 @@ class Adapter implements ArrayAccess, SplObserver
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($k, $v = null)
     {
         return $this->__call(__FUNCTION__, [$k, $v]);
@@ -121,6 +123,7 @@ class Adapter implements ArrayAccess, SplObserver
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($k = null)
     {
         return $this->__call(__FUNCTION__, [$k]);
@@ -133,6 +136,7 @@ class Adapter implements ArrayAccess, SplObserver
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($k)
     {
         return $this->__call(__FUNCTION__, [$k]);
@@ -145,6 +149,7 @@ class Adapter implements ArrayAccess, SplObserver
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function update(SplSubject $subject = null)
     {
         return $this->__call(__FUNCTION__, [$subject]);

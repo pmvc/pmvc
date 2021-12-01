@@ -53,6 +53,7 @@ class HashMap extends ListIterator implements ArrayAccess
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($k)
     {
         return isset($this->state[$k]);
@@ -77,6 +78,7 @@ class HashMap extends ListIterator implements ArrayAccess
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function &offsetGet($k = null)
     {
         return get($this->state, $k);
@@ -119,6 +121,7 @@ class HashMap extends ListIterator implements ArrayAccess
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($k, $v)
     {
         if ([] === $k) {
@@ -176,6 +179,7 @@ class HashMap extends ListIterator implements ArrayAccess
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($k = null)
     {
         clean($this->state, $k);

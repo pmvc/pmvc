@@ -184,13 +184,13 @@ abstract class AbstractAlias
      */
     public static function getInstance()
     {
-        static $self;
-        if (empty($self)) {
-            $class = get_called_class();
-            $self = new $class();
+        static $_self = [];
+        $class = get_called_class();
+        if (empty($_self[$class])) {
+            $_self[$class] = new $class();
         }
 
-        return $self;
+        return $_self[$class];
     }
 }
 

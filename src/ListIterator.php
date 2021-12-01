@@ -36,9 +36,9 @@ use Serializable;
  * @link https://packagist.org/packages/pmvc/pmvc
  */
 class ListIterator extends BaseObject implements
+    Serializable,
     Countable,
-    IteratorAggregate,
-    Serializable
+    IteratorAggregate
 {
     /**
      * Construct.
@@ -80,6 +80,7 @@ class ListIterator extends BaseObject implements
      *
      * @return ArrayIterator
      */
+    #[\ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->state);
@@ -90,6 +91,7 @@ class ListIterator extends BaseObject implements
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return count($this->state);
@@ -102,7 +104,17 @@ class ListIterator extends BaseObject implements
      */
     public function __toString()
     {
-        return $this->serialize();
+        return serialize($this);
+    }
+
+    /**
+     * Magic Serializable.
+     *
+     * @return array
+     */
+    public function __serialize()
+    {
+        return $this->state;
     }
 
     /**
@@ -116,11 +128,23 @@ class ListIterator extends BaseObject implements
     }
 
     /**
-     * Serializable.
+     * Magic UnSerialize.
      *
      * @param array $state state
      *
-     * @return array
+     * @return void
+     */
+    public function __unserialize($state)
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * UnSerialize.
+     *
+     * @param array $state state
+     *
+     * @return void
      */
     public function unserialize($state)
     {

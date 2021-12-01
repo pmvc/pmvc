@@ -47,7 +47,9 @@ class PlugIn extends HashMap implements SplObserver
      */
     public function getDir()
     {
-        return dirname($this[_PLUGIN_FILE]).'/';
+        if (!is_null($this[_PLUGIN_FILE])) {
+            return dirname($this[_PLUGIN_FILE]).'/';
+        }
     }
 
     /**
@@ -78,6 +80,7 @@ class PlugIn extends HashMap implements SplObserver
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function update(SplSubject $subject = null)
     {
         if ($subject) {
