@@ -313,8 +313,7 @@ function mergeFileName($name, $dir = null)
  */
 function lastSlash($s)
 {
-    $c = strlen($s);
-    if ($c && $s[$c - 1] !== '/') {
+    if (substr($s, -1) !== '/') {
         $s .= '/';
     }
 
