@@ -16,6 +16,7 @@ jobs:
             date
             php -v
             php -m
+            php -r "if(function_exists('gd_info'))print_r(gd_info());"
             composer --version
             phpunit --version
       - run:
