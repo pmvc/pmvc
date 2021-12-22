@@ -66,8 +66,8 @@ class HashMapTest extends TestCase
     {
         $this->willThrow(
             function () {
-                 $hash = new HashMap();
-                 $tmp = $hash->abc;
+                $hash = new HashMap();
+                $tmp = $hash->abc;
             }
         );
     }

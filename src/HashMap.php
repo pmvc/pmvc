@@ -97,6 +97,7 @@ class HashMap extends ListIterator implements ArrayAccess
         if (!$this->offsetExists($k)) {
             throw new OutOfBoundsException($k.' is not in hashmap.');
         }
+
         return new BaseObject($this->offsetGet($k));
     }
 
