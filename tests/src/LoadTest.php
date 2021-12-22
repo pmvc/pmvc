@@ -48,16 +48,16 @@ class LoadTest extends TestCase
     public function testError()
     {
         $Errors = getOption(ERRORS);
-        $ref =& ref($Errors->{SYSTEM_ERRORS});
+        $ref = &ref($Errors->{SYSTEM_ERRORS});
         $ref[] = 'foo1';
-        $ref =& ref($Errors->{USER_ERRORS});
+        $ref = &ref($Errors->{USER_ERRORS});
         $ref[] = 'foo2';
-        $ref =& ref($Errors->{APP_ERRORS});
+        $ref = &ref($Errors->{APP_ERRORS});
         $ref[] = 'foo3';
         $expectError = [
-          SYSTEM_ERRORS => ['foo1'], 
-          USER_ERRORS => ['foo2'],
-          APP_ERRORS => ['foo3'],
+            SYSTEM_ERRORS => ['foo1'],
+            USER_ERRORS   => ['foo2'],
+            APP_ERRORS    => ['foo3'],
         ];
         $this->assertEquals($expectError, get($Errors));
     }
