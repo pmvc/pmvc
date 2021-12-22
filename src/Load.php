@@ -55,7 +55,13 @@ class Load
             $folders = $params[1];
             $options = $params[2];
         }
-        $options[ERRORS] = new HashMap();
+        $options[ERRORS] = new HashMap(
+            [
+            SYSTEM_ERRORS=>[],
+            USER_ERRORS=>[],
+            APP_ERRORS=>[],
+             ] 
+        );
         option('set', $options);
         if (!empty($folders)) {
             addPlugInFolders($folders);
@@ -812,7 +818,7 @@ function &getDefault($default)
 function &get(&$a, $k = null, $default = null)
 {
     /**
-     * Can't assign default by $a[$k]
+     * Should not assign default by $a[$k]
      * So the default value will handle at last.
      */
     if (isArrayAccess($a)) {

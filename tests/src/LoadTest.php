@@ -6,7 +6,7 @@ class LoadTest extends TestCase
 {
     public function testLoadWithLazyFunction()
     {
-        \PMVC\Load::plug(
+        Load::plug(
             function () {
                 return [
                     [],
@@ -15,19 +15,19 @@ class LoadTest extends TestCase
                 ];
             }
         );
-        $this->assertEquals('xxx', \PMVC\getOption(_VIEW_ENGINE));
-        \PMVC\option('set', _VIEW_ENGINE, '');
+        $this->assertEquals('xxx', getOption(_VIEW_ENGINE));
+        option('set', _VIEW_ENGINE, '');
     }
 
     public function testLoad()
     {
-        \PMVC\Load::plug();
+        Load::plug();
         $this->assertTrue(true);
     }
 
     public function testRunInSeparateProcess()
     {
-        \PMVC\Load::plug(
+        Load::plug(
             [
                 'test' => [
                     _PLUGIN_FILE => __DIR__.'/../resources/FakePlugFile.php',
@@ -40,8 +40,25 @@ class LoadTest extends TestCase
 
     public function testSetOption()
     {
-        \PMVC\option('set', 'foo', 'bar');
-        \PMVC\Load::plug([], [], ['foo' => 'bar']);
-        $this->assertEquals('bar', \PMVC\getOption('foo'));
+        option('set', 'foo', 'bar');
+        Load::plug([], [], ['foo' => 'bar']);
+        $this->assertEquals('bar', getOption('foo'));
+    }
+
+    public function testError()
+    {
+        $Errors = getOption(ERRORS);
+        $ref =& ref($Errors->{SYSTEM_ERRORS});
+        $ref[] = 'foo1';
+        $ref =& ref($Errors->{USER_ERRORS});
+        $ref[] = 'foo2';
+        $ref =& ref($Errors->{APP_ERRORS});
+        $ref[] = 'foo3';
+        $expectError = [
+          SYSTEM_ERRORS => ['foo1'], 
+          USER_ERRORS => ['foo2'],
+          APP_ERRORS => ['foo3'],
+        ];
+        $this->assertEquals($expectError, get($Errors));
     }
 }
