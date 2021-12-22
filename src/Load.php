@@ -57,10 +57,10 @@ class Load
         }
         $options[ERRORS] = new HashMap(
             [
-            SYSTEM_ERRORS=>[],
-            USER_ERRORS=>[],
-            APP_ERRORS=>[],
-             ] 
+                SYSTEM_ERRORS=> [],
+                USER_ERRORS  => [],
+                APP_ERRORS   => [],
+            ]
         );
         option('set', $options);
         if (!empty($folders)) {
