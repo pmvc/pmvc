@@ -19,6 +19,7 @@
 namespace PMVC;
 
 use ArrayAccess;
+use OutOfBoundsException;
 
 /**
  * HashMap.
@@ -93,6 +94,9 @@ class HashMap extends ListIterator implements ArrayAccess
      */
     public function __get($k)
     {
+        if (!$this->offsetExists($k)) {
+            throw new OutOfBoundsException($k.' is not in hashmap.');
+        }
         return new BaseObject($this->offsetGet($k));
     }
 

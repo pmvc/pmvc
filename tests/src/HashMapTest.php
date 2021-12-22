@@ -58,6 +58,20 @@ class HashMapTest extends TestCase
         $this->assertEquals('pqr', ref($hash->abc));
     }
 
+    /**
+     * @expectedException        Exception
+     * @expectedExceptionMessage abc is not in hashmap
+     */
+    public function testGetObjectWithAttrNotExists()
+    {
+        $this->willThrow(
+            function () {
+                 $hash = new HashMap();
+                 $tmp = $hash->abc;
+            }
+        );
+    }
+
     public function testRefArray()
     {
         $hash = new HashMap();
