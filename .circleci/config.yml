@@ -19,6 +19,7 @@ jobs:
             php -r "if(function_exists('gd_info'))print_r(gd_info());"
             composer --version
             phpunit --version
+            cat /etc/alpine-release
       - run:
           name: Composer install packages
           command: |
