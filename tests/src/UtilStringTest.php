@@ -56,7 +56,7 @@ class UtilStringTest extends TestCase
 
     public function testUtf8JsonEncodeWithObject()
     {
-        $foo = new \StdClass();
+        $foo = new \stdClass();
         $foo->a = 'b';
         $foo->c = 'd';
         $acture = utf8JsonEncode($foo);
