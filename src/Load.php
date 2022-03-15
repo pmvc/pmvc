@@ -319,6 +319,9 @@ function mergeFileName($name, $dir = null)
  */
 function lastSlash($s)
 {
+    if (empty($s)) {
+        $s = '';
+    }
     if (substr($s, -1) !== '/') {
         $s .= '/';
     }
