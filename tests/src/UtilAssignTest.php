@@ -2,11 +2,13 @@
 
 namespace PMVC;
 
+use Exception;
+
 class UtilAssignTest extends TestCase
 {
     public function testAssign()
     {
-        $arr = ['a'=>'aa', 'b'=>'bb', 'c'=>'cc'];
+        $arr = ['a' => 'aa', 'b' => 'bb', 'c' => 'cc'];
         $actual = assign(['b'], $arr);
         $expected = [
             'b' => 'bb',
@@ -16,7 +18,7 @@ class UtilAssignTest extends TestCase
 
     public function testAssignWithNewKey()
     {
-        $arr = ['a'=>'aa', 'b'=>'bb', 'c'=>'cc'];
+        $arr = ['a' => 'aa', 'b' => 'bb', 'c' => 'cc'];
         $actual = assign([['b', 'bb']], $arr);
         $expected = [
             'bb' => 'bb',
@@ -26,7 +28,7 @@ class UtilAssignTest extends TestCase
 
     public function testAssignWithDefaultValue()
     {
-        $arr = ['a'=>'aa', 'c'=>'cc'];
+        $arr = ['a' => 'aa', 'c' => 'cc'];
         $actual = assign([['b', null, 'def']], $arr);
         $expected = [
             'b' => 'def',
@@ -47,7 +49,7 @@ class UtilAssignTest extends TestCase
 
     public function testAssignWithRest()
     {
-        $arr = ['a'=>'aa', 'b'=>'bb', 'c'=>'cc'];
+        $arr = ['a' => 'aa', 'b' => 'bb', 'c' => 'cc'];
         $actual = assign(['a', 'b'], $arr, 'o');
         $expected = [
             'a' => 'aa',
@@ -57,5 +59,15 @@ class UtilAssignTest extends TestCase
             ],
         ];
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @expectedException Exception
+     */
+    public function testAssignPassNonArray()
+    {
+        $this->willThrow(function () {
+            $actual = assign(['foo'], null);
+        });
     }
 }

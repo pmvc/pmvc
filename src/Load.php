@@ -719,6 +719,12 @@ function &passByRef($v)
  */
 function &assign($keys, $arr, $spreadKey = null)
 {
+    if (!is_array($arr)) {
+        return triggerJson(
+            'Assign not pass array',
+            compact('arr')
+        );
+    }
     $isSeqArray = array_values($arr) === $arr;
     $result = [];
     $tarKeys = [];
