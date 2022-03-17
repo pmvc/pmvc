@@ -263,6 +263,17 @@ class HashMapTest extends TestCase
         $this->assertEquals($expected3, get($hash3));
     }
 
+    /**
+     * @expectedException Exception
+     */
+    public function testIllegalMerge()
+    {
+        $this->willThrow(function () {
+            $hash = new HashMap();
+            $hash[[]] = 'foo';
+        });
+    }
+
     public function testMergeDefault()
     {
         $hash = new HashMap(

@@ -145,6 +145,12 @@ class HashMap extends ListIterator implements ArrayAccess
                 $this->lastKeys(array_keys($v));
                 $this->state = array_merge_recursive($this->state, $v);
             } else {
+                if (!is_callable($v)) {
+                    return triggerJson(
+                        'Hashmap merge mode only accept array or function call.',
+                        compact('v')
+                    );
+                }
                 $next = $v();
                 $this->lastKeys(array_keys($next));
                 $this->state = array_replace_recursive($this->state, $next);
