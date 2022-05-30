@@ -462,7 +462,7 @@ function tpl(
             continue;
         }
         $replaceTo = $cb(compact('input', 'replaceFrom', 'replaceKey'));
-        if (!is_string($replaceTo)) {
+        if (!is_scalar($replaceTo)) {
             return triggerJson(
                 '\PMVC\tpl callback should return string.',
                 compact('replaceTo')
