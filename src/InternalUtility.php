@@ -288,7 +288,7 @@ class InternalUtility
                     false
                 );
             }
-            $class = getExportClass(
+            $class = importClass(
                 $r,
                 function () use (
                     $config

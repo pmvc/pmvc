@@ -104,14 +104,14 @@ function realPath($name)
 }
 
 /**
- * Get export $class.
+ * Import $class from export file.
  *
  * @param mixed $export  File export, possible empty.
  * @param mixed $default Default value.
  *
  * @return mixed
  */
-function getExportClass($export, $default = null)
+function importClass($export, $default = null)
 {
     $class = isset($export->var) ? get(
         $export->var[_INIT_CONFIG],
