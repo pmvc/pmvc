@@ -265,7 +265,7 @@ class InternalUtility
         } else {
             if (isset($config[_PLUGIN_FILE])) {
                 $file = $config[_PLUGIN_FILE];
-                $r = l($file, _INIT_CONFIG, ['ignore' => true]);
+                $r = l($file, _INIT_CONFIG, ['ignoreError' => true]);
                 if (empty($r)) {
                     return !trigger_error(
                         'PlugIn '.

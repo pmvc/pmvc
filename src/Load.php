@@ -106,15 +106,16 @@ function realPath($name)
 /**
  * Import $class from export file.
  *
- * @param mixed $export  File export, possible empty.
- * @param mixed $default Default value.
+ * @param mixed  $export    File export, possible empty.
+ * @param mixed  $default   Default value.
+ * @param string $exportKey Export key
  *
  * @return mixed
  */
-function importClass($export, $default = null)
+function importClass($export, $default = null, $exportKey = _INIT_CONFIG)
 {
     $class = isset($export->var) ? get(
-        $export->var[_INIT_CONFIG],
+        $export->var[$exportKey],
         _CLASS
     ) : getDefault($default);
 
@@ -129,19 +130,19 @@ function importClass($export, $default = null)
  * Same with include, but manage include_once by self.
  * and make global variable to local variable.
  *
- * @param string $name    File name
- * @param string $export  Extract one variable name.
- * @param bool   $options $once, $ignore, $import
+ * @param string $name      File name
+ * @param string $exportKey Extract one variable name.
+ * @param bool   $options   $once, $ignoreError, $import
  *
  * @return mixed
  */
-function l($name, $export = null, $options = [])
+function l($name, $exportKey = _INIT_CONFIG, $options = [])
 {
     $once = get($options, 'once', true);
     $real = InternalUtility::realPathPhp($name);
     if (!$real) {
-        $ignore = get($options, 'ignore');
-        if ($ignore) {
+        $ignoreError = get($options, 'ignoreError');
+        if ($ignoreError) {
             return false;
         } else {
             return !trigger_error('File not found. ['.$name.']');
@@ -151,10 +152,10 @@ function l($name, $export = null, $options = [])
     if ($once) {
         return run(
             ns('InternalUtility::l'),
-            [$real, $export, $import]
+            [$real, $exportKey, $import]
         );
     } else {
-        return InternalUtility::l($real, $export, $import);
+        return InternalUtility::l($real, $exportKey, $import);
     }
 }
 
