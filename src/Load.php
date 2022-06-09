@@ -1029,7 +1029,7 @@ function ns($s)
  */
 function triggerJson($error, $debug = null, $type = E_USER_NOTICE)
 {
-    return !trigger_error( encodeError($error, $debug), $type);
+    return !trigger_error(encodeError($error, $debug), $type);
 }
 
 /**
