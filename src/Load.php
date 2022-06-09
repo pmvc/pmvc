@@ -1029,10 +1029,20 @@ function ns($s)
  */
 function triggerJson($error, $debug = null, $type = E_USER_NOTICE)
 {
-    return !trigger_error(
-        utf8JsonEncode(['Error' => $error, 'Debug' => get($debug)]),
-        $type
-    );
+    return !trigger_error( encodeError($error, $debug), $type);
+}
+
+/**
+ * Encode error.
+ *
+ * @param string $error Error message
+ * @param object $debug Error payload
+ *
+ * @return string
+ */
+function encodeError($error, $debug = null)
+{
+    return utf8JsonEncode(['Error' => $error, 'Debug' => get($debug)]);
 }
 
 /**
