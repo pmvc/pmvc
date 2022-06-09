@@ -1029,7 +1029,7 @@ function ns($s)
  */
 function triggerJson($error, $debug = null, $type = E_USER_NOTICE)
 {
-    return !trigger_error( encodeError($error, $debug), $type);
+    return !trigger_error(debugInfoEncode($error, $debug), $type);
 }
 
 /**
@@ -1040,7 +1040,7 @@ function triggerJson($error, $debug = null, $type = E_USER_NOTICE)
  *
  * @return string
  */
-function encodeError($error, $debug = null)
+function debugInfoEncode($error, $debug = null)
 {
     return utf8JsonEncode(['Error' => $error, 'Debug' => get($debug)]);
 }
