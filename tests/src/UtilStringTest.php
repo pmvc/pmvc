@@ -22,6 +22,12 @@ class UtilStringTest extends TestCase
         $this->assertEquals($a, lastSlash($a));
     }
 
+    public function testLastSlashWithEmpty()
+    {
+        $a = '';
+        $this->assertEquals('/', lastSlash($a));
+    }
+
     public function testAppendLastSlash()
     {
         $a = 'xxx';
