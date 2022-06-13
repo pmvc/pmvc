@@ -494,17 +494,14 @@ function tpl(
 function tplArrayReplace($input, array $replaceKeys, $replaceValues = null)
 {
     if (is_null($replaceValues)) {
-        $values = get($replaceKeys);
-        $keys = array_keys($values);
-    } else {
-        $values = $replaceValues;
-        $keys = $replaceKeys;
+        $replaceValues = get($replaceKeys);
+        $replaceKeys = array_keys($replaceKeys);
     }
-    $cb = function ($payload) use ($values) {
-        return get($values, $payload['replaceKey'], '');
+    $cb = function ($payload) use ($replaceValues) {
+        return get($replaceValues, $payload['replaceKey'], '');
     };
 
-    return tpl($input, $keys, $cb);
+    return tpl($input, $replaceKeys, $cb);
 }
 
 /*
