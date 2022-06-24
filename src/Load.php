@@ -1128,7 +1128,7 @@ function run($func, $args, $callback = null)
             $cache[$hash] = false;
             $cache[$hash] = $result;
         } else {
-            return;
+            return $isCache;
         }
     }
 
