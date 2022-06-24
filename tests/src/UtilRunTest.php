@@ -17,6 +17,17 @@ class UtilRunTest extends TestCase
         });
         $this->assertEquals($actual, null);
     }
+
+    public function testChangeResult()
+    {
+        $actual1 = run([ns('FakeRun'), 'foo'], ['bar2'], function (&$v) {
+            $v = 'barbar';
+            return true;
+        });
+        $this->assertEquals($actual1, 'barbar');
+        $actual2 = run([ns('FakeRun'), 'foo'], ['bar2']);
+        $this->assertEquals($actual2, 'barbar');
+    }
 }
 
 class FakeRun

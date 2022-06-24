@@ -1120,7 +1120,7 @@ function run($func, $args, $callback = null)
     if (!isset($cache[$hash])) {
         $result = call_user_func_array($func, $args);
         if (is_callable($callback)) {
-            $isCache = call_user_func_array($callback, [$result]);
+            $isCache = call_user_func_array($callback, [&$result]);
         } else {
             $isCache = true;
         }
