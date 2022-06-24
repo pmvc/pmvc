@@ -1107,18 +1107,29 @@ function isDev()
 /**
  * Cache function run result.
  *
- * @param function $func run function
- * @param array    $args parameters
+ * @param function $func     run function
+ * @param array    $args     parameters
+ * @param callable $callback test if need cache.
  *
  * @return mixed Cache result.
  */
-function run($func, $args)
+function run($func, $args, $callback = null)
 {
     static $cache = [];
     $hash = hash($func, $args);
     if (!isset($cache[$hash])) {
-        $cache[$hash] = false;
-        $cache[$hash] = call_user_func_array($func, $args);
+        $result = call_user_func_array($func, $args);
+        if (is_callable($callback)) {
+            $isCache = call_user_func_array($callback, [$result]);
+        } else {
+            $isCache = true;
+        }
+        if ($isCache) {
+            $cache[$hash] = false;
+            $cache[$hash] = $result;
+        } else {
+            return;
+        }
     }
 
     return $cache[$hash];
