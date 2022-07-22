@@ -1060,13 +1060,6 @@ function v()
     $p = func_get_args();
     if (1 === count($p)) {
         $p = $p[0];
-    } else {
-        // avoid console.table
-        $p[''] = $p[0];
-        unset($p[0]);
-        foreach ($p as &$pn) {
-            $pn = get($pn);
-        }
     }
 
     return d(testString($p) ? $p : utf8JsonEncode($p));
