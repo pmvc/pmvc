@@ -267,7 +267,7 @@ class InternalUtility
                 $file = $config[_PLUGIN_FILE];
                 $r = l($file, _INIT_CONFIG, ['ignoreError' => true]);
                 if (empty($r)) {
-                    return !trigger_error(
+                    throw new DomainException(
                         'PlugIn '.
                             $name.
                             ': defined file not found. '.
@@ -304,7 +304,7 @@ class InternalUtility
         if ($exists) {
             $oPlugIn = new $class();
             if (!($oPlugIn instanceof PlugIn)) {
-                return !trigger_error(
+                throw new DomainException(
                     'Class is not a plug-in('.ns('PlugIn').') instance.'
                 );
             }
@@ -322,7 +322,7 @@ class InternalUtility
                 $error = 'Plug-in '.$name.': class not found ('.$class.')';
             }
 
-            return !trigger_error($error);
+            throw new DomainException($error);
         }
         if (!empty($r)) {
             if (isset($r->var) && isArray($r->var[_INIT_CONFIG])) {
