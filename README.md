@@ -108,8 +108,22 @@ composer require pmvc/pmvc
 ```
 ### Quick test with docker
 ```
-docker run --rm -i -v $(pwd):/var/www/html hillliu/pmvc-phpunit composer require pmvc/pmvc
+docker run --rm -v $(pwd):/var/www/html hillliu/pmvc-phpunit composer require pmvc/pmvc
 ```
+
+* vim test.php
+```
+<?php
+ include_once('vendor/autoload.php');
+ \PMVC\Load::plug();
+ \PMVC\d("Hello There");
+```
+
+* Run
+```
+docker run --rm -v $(pwd):/var/www/html hillliu/pmvc-phpunit php ./test.php
+```
+
 
 ## phpunit Docker
 * https://github.com/pmvc/docker-pmvc-phpunit
