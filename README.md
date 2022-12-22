@@ -106,6 +106,11 @@ If folder a and folder b both have same plugin will apply with folder b.
 ```
 composer require pmvc/pmvc
 ```
+### Quick test with docker
+```
+docker run --rm -i hillliu/pmvc-phpunit composer require pmvc/pmvc
+```
+
 ## phpunit Docker
 * https://github.com/pmvc/docker-pmvc-phpunit
 
