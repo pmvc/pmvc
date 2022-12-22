@@ -106,7 +106,10 @@ If folder a and folder b both have same plugin will apply with folder b.
 ```
 composer require pmvc/pmvc
 ```
-### Quick test with docker
+
+## Quick test with docker
+* https://github.com/pmvc/docker-pmvc-phpunit
+
 ```
 docker run --rm -v $(pwd):/var/www/html hillliu/pmvc-phpunit composer require pmvc/pmvc
 ```
@@ -123,9 +126,5 @@ docker run --rm -v $(pwd):/var/www/html hillliu/pmvc-phpunit composer require pm
 ```
 docker run --rm -v $(pwd):/var/www/html hillliu/pmvc-phpunit php ./test.php
 ```
-
-
-## phpunit Docker
-* https://github.com/pmvc/docker-pmvc-phpunit
 
 MIT 2022
