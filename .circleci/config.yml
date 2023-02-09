@@ -28,6 +28,12 @@ jobs:
             composer install --prefer-source
       - run:
           name: PHPUnit
+          ###
+          # ENABLE_COVERAGE
+          # 1. create coverage token (COVERALLS_REPO_TOKEN)
+          # https://coveralls.io/account
+          # 2. Update Environment COVERALLS_REPO_TOKEN
+          ###
           command: |
             ENABLE_COVERAGE=true
             if [ "<< parameters.php-version >>" == "8.1" ] && [ "$ENABLE_COVERAGE" == "true" ]; then
