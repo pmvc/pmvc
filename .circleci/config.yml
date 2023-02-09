@@ -30,9 +30,9 @@ jobs:
           name: PHPUnit
           ###
           # ENABLE_COVERAGE
-          # 1. create coverage token (COVERALLS_REPO_TOKEN)
-          # https://coveralls.io/account
-          # 2. Update Environment COVERALLS_REPO_TOKEN
+          # 1. get coveralls repo token (COVERALLS_REPO_TOKEN)
+          # https://coveralls.io/github/pmvc/pmvc/settings
+          # 2. Update Environment "COVERALLS_REPO_TOKEN"
           ###
           command: |
             ENABLE_COVERAGE=true
