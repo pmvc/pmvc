@@ -7,5 +7,5 @@ ${_INIT_CONFIG
 
 class _without_invoke
 {
-  public $caller;
+    public $caller;
 }

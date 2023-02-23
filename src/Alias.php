@@ -97,11 +97,11 @@ trait Alias
         $func = $this->isCallable($method);
         if (empty($func)) {
             return !trigger_error(
-                'Method not found: "' .
-                    get_class($this) .
-                    '::' .
-                    $method .
-                    '()"' .
+                'Method not found: "'.
+                    get_class($this).
+                    '::'.
+                    $method.
+                    '()"'.
                     '. Please confirm alias file already use lowercase.'
             );
         } else {
@@ -117,8 +117,8 @@ trait Alias
     protected function getTypeOfAlias()
     {
         return [
-            'aliasAsKey' => AliasAsKey::getInstance(),
-            'aliasSrcFile' => AliasSrcFile::getInstance(),
+            'aliasAsKey'     => AliasAsKey::getInstance(),
+            'aliasSrcFile'   => AliasSrcFile::getInstance(),
             'aliasAsDefault' => AliasAsDefault::getInstance(),
         ];
     }
@@ -147,7 +147,7 @@ trait Alias
     {
         if (isArray($this) && !isset($this[$method])) {
             $this[$method] = $func;
-        } elseif (!isset($this->{$method}) && property_exists($this, $method)){
+        } elseif (!isset($this->{$method}) && property_exists($this, $method)) {
             $this->{$method} = $func;
         }
     }
@@ -307,22 +307,22 @@ class AliasSrcFile extends AbstractAlias
         }
         $class = importClass($r);
         if (!$class) {
-            return !trigger_error('Not defined default Class. [' . $path . ']');
+            return !trigger_error('Not defined default Class. ['.$path.']');
         } else {
             if (!class_exists($class)) {
                 return !trigger_error(
-                    'Default class not exists. [' . $class . ']'
+                    'Default class not exists. ['.$class.']'
                 );
             }
             $func = new $class($caller);
-            if (property_exists($func, "caller")) {
+            if (property_exists($func, 'caller')) {
                 $func->caller = $caller;
             }
         }
         if (!is_callable($func)) {
             return triggerJson('Not implement __invoke function', [
-                'path' => $path,
-                'class' => $class,
+                'path'   => $path,
+                'class'  => $class,
                 'method' => $method,
             ]);
         }
@@ -370,11 +370,11 @@ class AliasSrcFile extends AbstractAlias
      */
     private function _getPath($self, $method)
     {
-        $path = $self->getDir() . 'src/_';
+        $path = $self->getDir().'src/_';
         if ($self->aliasFileFilter) {
             if (empty($self->aliasFileMapping)) {
                 $self->aliasFileMapping = $this->_getFileMapping(
-                    $path . '*.php',
+                    $path.'*.php',
                     $self->aliasFileFilter
                 );
             }
@@ -384,6 +384,6 @@ class AliasSrcFile extends AbstractAlias
             }
         }
 
-        return $path . $method;
+        return $path.$method;
     }
 }

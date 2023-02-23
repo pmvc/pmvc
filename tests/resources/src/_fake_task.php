@@ -10,6 +10,7 @@ ${_INIT_CONFIG
 class _faketask
 {
     public $caller;
+
     public function __invoke($v = 1)
     {
         PMVC\option('set', 'foo', $v);

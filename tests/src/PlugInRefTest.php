@@ -44,7 +44,7 @@ class PluginRefTest extends TestCase
         $key = true;
         $p[$key] = 'bar';
         // non string will always not connect ref
-        $abc =& passByRef($p[$key]);
+        $abc = &passByRef($p[$key]);
         $this->assertEquals('bar', $abc);
         $abc = 'def';
         $this->assertEquals('bar', $p[$key]);

@@ -12,7 +12,7 @@ class AliasTest extends TestCase
         unplug('fakeChild');
     }
 
-    static public function getAliasProvider()
+    public static function getAliasProvider()
     {
         $parent = function () {
             return plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
@@ -89,8 +89,8 @@ class AliasTest extends TestCase
             $this->assertTrue((bool) \PMVC\value($obj, ['fake_task']), 'Test for[2]: '.$tData);
         } else {
             if (isArray($obj)) {
-              $plugin = plug($obj[NAME]);
-              $this->assertTrue((bool) \PMVC\value(passByRef($plugin->getParentAlias()), ['fake_task']), 'Test for[3]: '.$tData);
+                $plugin = plug($obj[NAME]);
+                $this->assertTrue((bool) \PMVC\value(passByRef($plugin->getParentAlias()), ['fake_task']), 'Test for[3]: '.$tData);
             }
         }
         $obj->fake_task();
