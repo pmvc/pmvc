@@ -17,6 +17,7 @@
  */
 
 namespace {
+    
     if (defined('\PMVC\ERRORS')) {
         return;
     }

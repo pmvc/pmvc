@@ -21,7 +21,6 @@
     "pmvc-plugin/debug": "*"
   },
   "autoload": {
-    "files": ["src/Constants.php"],
     "psr-4": {
       "PMVC\\": "src"
     }

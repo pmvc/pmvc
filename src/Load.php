@@ -20,6 +20,7 @@ namespace PMVC;
 
 use ArrayAccess;
 use DomainException;
+require __DIR__.'/Constants.php';
 
 /**
  * PMVC Loader.
