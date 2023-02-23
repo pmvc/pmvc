@@ -12,7 +12,7 @@ class AliasTest extends TestCase
         unplug('fakeChild');
     }
 
-    public function getAliasProvider()
+    static public function getAliasProvider()
     {
         $parent = function () {
             return plug('fake', [_CLASS => __NAMESPACE__.'\FakeAlias']);
@@ -52,13 +52,13 @@ class AliasTest extends TestCase
     {
         $obj = $a();
         if (isArray($obj)) {
-            $obj['c'] = new FakeInvoke();
+            $obj['foo'] = new FakeInvoke();
         } else {
-            $obj->c = new FakeInvoke();
+            $obj->foo = new FakeInvoke();
         }
-        option('set', 'c', 0);
-        $obj->c();
-        $this->assertEquals(1, getOption('c'), 'Test for: '.$tData);
+        option('set', 'foo', 0);
+        $obj->foo();
+        $this->assertEquals(1, getOption('foo'), 'Test for: '.$tData);
     }
 
     /**
@@ -67,9 +67,9 @@ class AliasTest extends TestCase
     public function testSourceFromFile($a, $tData)
     {
         $obj = $a();
-        option('set', 'd', 0);
+        option('set', 'foo', 0);
         $obj->fake_task();
-        $this->assertEquals(1, getOption('d'), 'Test for: '.$tData);
+        $this->assertEquals(1, getOption('foo'), 'Test for: '.$tData);
     }
 
     /**
@@ -81,19 +81,21 @@ class AliasTest extends TestCase
     {
         $obj = $a();
         $obj->fake_task();
-        option('set', 'd', 0);
+        option('set', 'foo', 0);
         option('set', 'e', 0);
         if (\PMVC\value($obj, ['parentAlias'])) {
-            $this->assertTrue((bool) \PMVC\value($obj, ['parentAlias', 'fake_task']), 'Test for: '.$tData);
+            $this->assertTrue((bool) \PMVC\value($obj, ['parentAlias', 'fake_task']), 'Test for[1]: '.$tData);
         } elseif (\PMVC\value($obj, ['fake_task'])) {
-            $this->assertTrue((bool) \PMVC\value($obj, ['fake_task']), 'Test for: '.$tData);
+            $this->assertTrue((bool) \PMVC\value($obj, ['fake_task']), 'Test for[2]: '.$tData);
         } else {
-            $plugin = plug($obj[NAME]);
-            $this->assertTrue((bool) \PMVC\value(passByRef($plugin->getParentAlias()), ['fake_task']), 'Test for: '.$tData);
+            if (isArray($obj)) {
+              $plugin = plug($obj[NAME]);
+              $this->assertTrue((bool) \PMVC\value(passByRef($plugin->getParentAlias()), ['fake_task']), 'Test for[3]: '.$tData);
+            }
         }
         $obj->fake_task();
-        $this->assertEquals(1, getOption('d'), 'Test for: '.$tData);
-        $this->assertEquals(0, getOption('e'), 'Test for: '.$tData);
+        $this->assertEquals(1, getOption('foo'), 'Test for[4]: '.$tData);
+        $this->assertEquals(0, getOption('e'), 'Test for[5]: '.$tData);
     }
 
     /**
@@ -132,14 +134,13 @@ class AliasTest extends TestCase
     public function testCallerWithoutPlugin()
     {
         $oAlias = new FakeAliasWithoutArrayAccess();
-        $oAlias->fake_task();
-        $oCaller = \PMVC\value($oAlias, ['fake_task', 'caller']);
+        $oCallee = $oAlias->fake_task();
         $this->assertTrue(
             !is_a(
-                $oCaller,
+                $oCallee->caller,
                 '\PMVC\Adapter'
             ) &&
-            is_object($oCaller)
+            is_object($oCallee->caller)
         );
     }
 
@@ -166,7 +167,7 @@ class AliasTest extends TestCase
         $oAlias->preCookFunctionName = function ($m) {
             return 'bar';
         };
-        $oAlias->bar = function () {
+        $oAlias->foo = function () {
             return 'bar';
         };
         $func = $oAlias->isCallable($fakeMethod);

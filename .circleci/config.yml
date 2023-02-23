@@ -36,10 +36,14 @@ jobs:
           ###
           command: |
             ENABLE_COVERAGE=true
-            if [ "<< parameters.php-version >>" == "8.1" ] && [ "$ENABLE_COVERAGE" == "true" ]; then
-              XDEBUG_MODE=coverage phpunit --coverage-clover clover.xml
-              vendor/bin/phpcs src/
-              coveralls --coverage_clover=clover.xml -v -o coveralls-upload.json
+            if [ "<< parameters.php-version >>" == "8.2" ]; then
+              if [ "$ENABLE_COVERAGE" == "true" ]; then
+                XDEBUG_MODE=coverage phpunit --coverage-clover clover.xml
+                vendor/bin/phpcs src/
+                coveralls --coverage_clover=clover.xml -v -o coveralls-upload.json
+              else
+                phpunit --display-deprecations
+              fi
             else
               phpunit
             fi

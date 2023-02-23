@@ -7,6 +7,8 @@ namespace PMVC;
  */
 class FakeAlias extends PlugIn
 {
+    public $foo;
+
     public function init()
     {
         $this->setDefaultAlias(new FakeObject());
@@ -60,6 +62,8 @@ class FakeAliasChild extends FakeAlias
  */
 class FakeAliasWithoutArrayAccess
 {
+    public $foo;
+    public $fake_task;
     use Alias;
 
     public function __construct()
@@ -122,6 +126,6 @@ class FakeInvoke
 {
     public function __invoke()
     {
-        option('set', 'c', 1);
+        option('set', 'foo', 1);
     }
 }

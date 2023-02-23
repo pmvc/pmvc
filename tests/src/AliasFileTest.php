@@ -21,7 +21,8 @@ class AliasFileTest extends TestCase
         $p = $this->getPlugIn('FakeFileFilterAlias');
         $p->setFilter(true);
         $expected = 'FakeTask';
-        $actual = $p->fakeTask($expected);
+        $p->fakeTask($expected);
+        $actual = \PMVC\getOption('foo');
         $this->assertEquals($expected, $actual);
     }
 
@@ -34,7 +35,8 @@ class AliasFileTest extends TestCase
             return $name;
         });
         $expected = 'FakeTask';
-        $actual = $p->fake__task($expected);
+        $p->fake__task($expected);
+        $actual = \PMVC\getOption('foo');
         $this->assertEquals($expected, $actual);
     }
 

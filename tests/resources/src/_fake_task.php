@@ -9,10 +9,11 @@ ${_INIT_CONFIG
 
 class _faketask
 {
-    public function __invoke($v = '')
+    public $caller;
+    public function __invoke($v = 1)
     {
-        PMVC\option('set', 'd', 1);
+        PMVC\option('set', 'foo', $v);
 
-        return $v;
+        return $this;
     }
 }

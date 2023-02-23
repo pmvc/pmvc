@@ -275,9 +275,7 @@ function utf8Export($p, $exists = '\PMVC\exists')
 {
     return $exists('utf8', 'plug')
         ? plug('utf8')->toUtf8($p)
-        : (testString($p)
-            ? utf8_encode($p)
-            : $p);
+        : $p;
 }
 
 /**

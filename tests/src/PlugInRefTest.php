@@ -43,7 +43,8 @@ class PluginRefTest extends TestCase
         $p = \PMVC\plug($this->_name);
         $key = true;
         $p[$key] = 'bar';
-        @$abc = &$p[$key];
+        // non string will always not connect ref
+        $abc =& passByRef($p[$key]);
         $this->assertEquals('bar', $abc);
         $abc = 'def';
         $this->assertEquals('bar', $p[$key]);

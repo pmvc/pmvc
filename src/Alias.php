@@ -32,6 +32,7 @@ namespace PMVC;
  */
 trait Alias
 {
+    public $caller;
     public $defaultAlias;
     public $parentAlias;
     public $preCookFunctionName;
@@ -71,8 +72,9 @@ trait Alias
         if (!$func) {
             if (!empty($this->parentAlias)) {
                 $parent = $this->parentAlias;
-                if (spl_object_hash($parent) !== spl_object_hash($caller)
-                    && is_callable([$parent, 'isCallable'])
+                if (
+                    spl_object_hash($parent) !== spl_object_hash($caller) &&
+                    is_callable([$parent, 'isCallable'])
                 ) {
                     $func = $parent->isCallable($method);
                 }
@@ -95,16 +97,15 @@ trait Alias
         $func = $this->isCallable($method);
         if (empty($func)) {
             return !trigger_error(
-                'Method not found: "'.
-                get_class($this).'::'.
-                $method.'()"'.
-                '. Please confirm alias file already use lowercase.'
+                'Method not found: "' .
+                    get_class($this) .
+                    '::' .
+                    $method .
+                    '()"' .
+                    '. Please confirm alias file already use lowercase.'
             );
         } else {
-            return call_user_func_array(
-                $func,
-                $args
-            );
+            return call_user_func_array($func, $args);
         }
     }
 
@@ -116,8 +117,8 @@ trait Alias
     protected function getTypeOfAlias()
     {
         return [
-            'aliasAsKey'     => AliasAsKey::getInstance(),
-            'aliasSrcFile'   => AliasSrcFile::getInstance(),
+            'aliasAsKey' => AliasAsKey::getInstance(),
+            'aliasSrcFile' => AliasSrcFile::getInstance(),
             'aliasAsDefault' => AliasAsDefault::getInstance(),
         ];
     }
@@ -146,7 +147,7 @@ trait Alias
     {
         if (isArray($this) && !isset($this[$method])) {
             $this[$method] = $func;
-        } elseif (!isset($this->{$method})) {
+        } elseif (!isset($this->{$method}) && property_exists($this, $method)){
             $this->{$method} = $func;
         }
     }
@@ -254,9 +255,9 @@ class AliasAsDefault extends AbstractAlias
     public function get($self, $method, $caller)
     {
         if (isset($self->defaultAlias)) {
-            $classes = is_array($self->defaultAlias) ?
-              $self->defaultAlias :
-              [$self->defaultAlias];
+            $classes = is_array($self->defaultAlias)
+                ? $self->defaultAlias
+                : [$self->defaultAlias];
             foreach ($classes as $c) {
                 $func = [$c, $method];
                 if (is_callable($func)) {
@@ -300,28 +301,28 @@ class AliasSrcFile extends AbstractAlias
             return false;
         }
         $path = $this->_getPath($self, $method);
-        $r = l($path, _INIT_CONFIG, ['ignoreError'=> true]);
+        $r = l($path, _INIT_CONFIG, ['ignoreError' => true]);
         if (!$r) {
             return false;
         }
         $class = importClass($r);
         if (!$class) {
-            return !trigger_error('Not defined default Class. ['.$path.']');
+            return !trigger_error('Not defined default Class. [' . $path . ']');
         } else {
             if (!class_exists($class)) {
-                return !trigger_error('Default class not exists. ['.$class.']');
+                return !trigger_error(
+                    'Default class not exists. [' . $class . ']'
+                );
             }
             $func = new $class($caller);
             $func->caller = $caller;
         }
         if (!is_callable($func)) {
-            return triggerJson(
-                'Not implement __invoke function',
-                [
-                    'path'  => $path,
-                    'class' => $class,
-                    'method'=> $method, ]
-            );
+            return triggerJson('Not implement __invoke function', [
+                'path' => $path,
+                'class' => $class,
+                'method' => $method,
+            ]);
         }
         $self->setCallableToAttribute($method, $func);
 
@@ -349,9 +350,7 @@ class AliasSrcFile extends AbstractAlias
             $fName = basename($fPath);
             $fName = $filter(substr($fName, 1, strlen($fName) - 5));
             if (empty($fName)) {
-                return !trigger_error(
-                    'aliasFileFilter not setup correct.'
-                );
+                return !trigger_error('aliasFileFilter not setup correct.');
             }
             $mapArr[$fName] = $fPath;
         }
@@ -369,11 +368,13 @@ class AliasSrcFile extends AbstractAlias
      */
     private function _getPath($self, $method)
     {
-        $path = $self->getDir().'src/_';
+        $path = $self->getDir() . 'src/_';
         if ($self->aliasFileFilter) {
             if (empty($self->aliasFileMapping)) {
-                $self->aliasFileMapping
-                    = $this->_getFileMapping($path.'*.php', $self->aliasFileFilter);
+                $self->aliasFileMapping = $this->_getFileMapping(
+                    $path . '*.php',
+                    $self->aliasFileFilter
+                );
             }
             $map = $self->aliasFileMapping;
             if (isset($map[$method])) {
@@ -381,6 +382,6 @@ class AliasSrcFile extends AbstractAlias
             }
         }
 
-        return $path.$method;
+        return $path . $method;
     }
 }

@@ -4,6 +4,8 @@ namespace PMVC;
 
 class UtilDevTest extends TestCase
 {
+    private $_debugClass;
+
     protected function pmvc_setup()
     {
         unplug('debug');

@@ -182,8 +182,8 @@ class UtilPlugPlugTest extends TestCase
 
     public function testPluginDevInfo()
     {
-        $dumpMock = $this->getMockBuilder(FakeDebugDump::class)
-            ->setMethods(['dump'])
+        $dumpMock = $this->getPMVCMockBuilder(FakeDebugDump::class)
+            ->pmvc_onlyMethods(['dump'])
             ->getMock();
         $dumpMock
             ->expects($this->atLeastOnce())
@@ -202,8 +202,8 @@ class UtilPlugPlugTest extends TestCase
 
     public function testAddPluginFolderDevInfo()
     {
-        $dumpMock = $this->getMockBuilder(FakeDebugDump::class)
-            ->setMethods(['dump'])
+        $dumpMock = $this->getPMVCMockBuilder(FakeDebugDump::class)
+            ->pmvc_onlyMethods(['dump'])
             ->getMock();
         $dumpMock
             ->expects($this->atLeastOnce())
