@@ -72,7 +72,7 @@ trait Alias
         if (!$func) {
             if (!empty($this->parentAlias)) {
                 $parent = $this->parentAlias;
-                if (spl_object_hash($parent) !== spl_object_hash($caller) 
+                if (spl_object_hash($parent) !== spl_object_hash($caller)
                     && is_callable([$parent, 'isCallable'])
                 ) {
                     $func = $parent->isCallable($method);
@@ -320,10 +320,11 @@ class AliasSrcFile extends AbstractAlias
         }
         if (!is_callable($func)) {
             return triggerJson(
-                'Not implement __invoke function', [
-                'path'   => $path,
-                'class'  => $class,
-                'method' => $method,
+                'Not implement __invoke function',
+                [
+                    'path'   => $path,
+                    'class'  => $class,
+                    'method' => $method,
                 ]
             );
         }
