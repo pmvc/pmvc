@@ -61,6 +61,7 @@ namespace PMVC\Event {
 namespace PMVC {
     use ArrayAccess;
     use DomainException;
+
     /**
      * System Error.
      */
@@ -115,9 +116,9 @@ namespace PMVC {
             }
             $options[ERRORS] = new HashMap(
                 [
-                SYSTEM_ERRORS=> [],
-                USER_ERRORS  => [],
-                APP_ERRORS   => [],
+                    SYSTEM_ERRORS=> [],
+                    USER_ERRORS  => [],
+                    APP_ERRORS   => [],
                 ]
             );
             option('set', $options);
@@ -236,7 +237,7 @@ namespace PMVC {
             return 1;
         }
         /*
-         * Cache find in load case, 
+         * Cache find in load case,
          * if some case can't use cahce please use find directly
          */
         $file = run(ns('find'), [$name, $dirs]);
@@ -309,8 +310,8 @@ namespace PMVC {
         }
 
         return [
-        'folders' => array_reverse($_folders[$type]),
-        'alias'   => $_alias[$type],
+            'folders' => array_reverse($_folders[$type]),
+            'alias'   => $_alias[$type],
         ];
     }
 
@@ -680,7 +681,11 @@ namespace PMVC {
      *
      * @return mixed
      */
-    function value(&$a, array $path, $default = null, $newVal = null, 
+    function value(
+        &$a,
+        array $path,
+        $default = null,
+        $newVal = null,
         $isAppend = false
     ) {
         $setValue = function (&$p, $k, $v, $isAppend = null) {
@@ -730,7 +735,7 @@ namespace PMVC {
         }
 
         return $lastPath ?
-          $setValue($previous, $lastPath, $newVal, $isAppend) 
+          $setValue($previous, $lastPath, $newVal, $isAppend)
           : $next;
     }
 
@@ -1402,7 +1407,9 @@ namespace PMVC {
             );
         } else {
             return InternalUtility::generatePlugIn(
-                $name, $config, $folders['folders']
+                $name,
+                $config,
+                $folders['folders']
             );
         }
     }
@@ -1411,4 +1418,3 @@ namespace PMVC {
     * Plugins -->.
     */
 }
-
