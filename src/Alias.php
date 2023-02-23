@@ -315,7 +315,9 @@ class AliasSrcFile extends AbstractAlias
                 );
             }
             $func = new $class($caller);
-            $func->caller = $caller;
+            if (property_exists($func, "caller")) {
+                $func->caller = $caller;
+            }
         }
         if (!is_callable($func)) {
             return triggerJson('Not implement __invoke function', [
