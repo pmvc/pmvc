@@ -3,7 +3,7 @@
   "description": "Pure plugin framework (PMVC with PHP8), use anything you like. No mvc, http inside.",
   "type": "library",
   "keywords": ["pmvc", "plug", "plug-in", "framework", "mvc", "phramework"],
-  "license": "MIT",
+  "license": "ISC",
   "authors": [
     {
       "name": "Hill",
