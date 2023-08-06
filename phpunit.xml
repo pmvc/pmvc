@@ -26,4 +26,7 @@
     <ini name="display_startup_errors" value="true" />
     <env name="APP_ENV" value="testing" />
   </php>
+  <logging>
+    <junit outputFile="/tmp/test_output/junit.xml" />
+  </logging>
 </phpunit>

@@ -51,6 +51,8 @@ jobs:
           path: /var/www/app/clover.xml
       - store_artifacts:
           path: /var/www/app/coveralls-upload.json
+      - store_test_results:
+          path: /tmp/test_output
 
 workflows:
   run-job:
