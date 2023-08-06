@@ -1045,12 +1045,12 @@ namespace PMVC {
     {
         static $options = [];
         switch ($act) {
-        case 'get':
-            $return = &get($options, $k, $v);
-            break;
-        case 'set':
-            $return = set($options, $k, $v);
-            break;
+            case 'get': // phpcs:ignore
+                $return = &get($options, $k, $v);
+                break;
+            case 'set': // phpcs:ignore
+                $return = set($options, $k, $v);
+                break;
         }
 
         return $return;
@@ -1207,23 +1207,24 @@ namespace PMVC {
             return false;
         }
         switch (strtolower($type)) {
-        case 'plugin':
-            return InternalUtility::isPlugInExists($v);
-        case 'plug': //check if OK to plug
-            if (InternalUtility::isPlugInExists($v)) {
-                return true;
-            } else {
-                return InternalUtility::initPlugInObject(
-                    $v,
-                    passByRef([]),
-                    folders(_PLUGIN)['folders'],
-                    true
+            case 'plugin': // phpcs:ignore
+                return InternalUtility::isPlugInExists($v);
+            case 'plug': // phpcs:ignore
+                //check if OK to plug
+                if (InternalUtility::isPlugInExists($v)) { // phpcs:ignore
+                    return true;
+                } else { // phpcs:ignore
+                    return InternalUtility::initPlugInObject(
+                        $v,
+                        passByRef([]),
+                        folders(_PLUGIN)['folders'],
+                        true
+                    );
+                } // phpcs:ignore
+            default: // phpcs:ignore
+                throw new DomainException(
+                    'Exists checker not support ['.$type.']'
                 );
-            }
-        default:
-            throw new DomainException(
-                'Exists checker not support ['.$type.']'
-            );
         }
     }
 
