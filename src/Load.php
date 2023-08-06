@@ -1045,12 +1045,12 @@ namespace PMVC {
     {
         static $options = [];
         switch ($act) {
-        case 'get':
-            $return = &get($options, $k, $v);
-            break;
-        case 'set':
-            $return = set($options, $k, $v);
-            break;
+            case 'get':
+                $return = &get($options, $k, $v);
+                break;
+            case 'set':
+                $return = set($options, $k, $v);
+                break;
         }
 
         return $return;
@@ -1207,23 +1207,23 @@ namespace PMVC {
             return false;
         }
         switch (strtolower($type)) {
-        case 'plugin':
-            return InternalUtility::isPlugInExists($v);
-        case 'plug': //check if OK to plug
-            if (InternalUtility::isPlugInExists($v)) {
-                return true;
-            } else {
-                return InternalUtility::initPlugInObject(
-                    $v,
-                    passByRef([]),
-                    folders(_PLUGIN)['folders'],
-                    true
+            case 'plugin':
+                return InternalUtility::isPlugInExists($v);
+            case 'plug': //check if OK to plug
+                if (InternalUtility::isPlugInExists($v)) {
+                    return true;
+                } else {
+                    return InternalUtility::initPlugInObject(
+                        $v,
+                        passByRef([]),
+                        folders(_PLUGIN)['folders'],
+                        true
+                    );
+                }
+            default:
+                throw new DomainException(
+                    'Exists checker not support ['.$type.']'
                 );
-            }
-        default:
-            throw new DomainException(
-                'Exists checker not support ['.$type.']'
-            );
         }
     }
 
@@ -1271,11 +1271,11 @@ namespace PMVC {
     function addPlugInFolders(array $folders, array $alias = [])
     {
         dev(
-        /**
-         * Dev.
-         *
-         * @help Debug for PMVC add plugin folder.
-         */
+            /**
+             * Dev.
+             *
+             * @help Debug for PMVC add plugin folder.
+             */
             function () use ($folders, $alias) {
                 $trace = plug('debug')->parseTrace(debug_backtrace(), 9);
 
