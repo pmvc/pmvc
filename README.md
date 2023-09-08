@@ -111,7 +111,7 @@ composer require pmvc/pmvc
 * https://github.com/pmvc/docker-pmvc-phpunit
 
 ```
-docker run --rm -v $(pwd):/var/www/html hillliu/pmvc-phpunit composer require pmvc/pmvc
+docker run --rm -v $(pwd):/var/www/html allfunc/pmvc-phpunit composer require pmvc/pmvc
 ```
 
 * vim test.php
@@ -124,7 +124,7 @@ docker run --rm -v $(pwd):/var/www/html hillliu/pmvc-phpunit composer require pm
 
 * Run
 ```
-docker run --rm -v $(pwd):/var/www/html hillliu/pmvc-phpunit php ./test.php
+docker run --rm -v $(pwd):/var/www/html allfunc/pmvc-phpunit php ./test.php
 ```
 
 MIT 2023
