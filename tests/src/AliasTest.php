@@ -3,6 +3,7 @@
 namespace PMVC;
 
 use Exception;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class AliasTest extends TestCase
 {
@@ -37,6 +38,7 @@ class AliasTest extends TestCase
     /**
      * @dataProvider getAliasProvider
      */
+    #[DataProvider('getAliasProvider')]
     public function testDefaultAlias($a, $tData)
     {
         option('set', 'a', 0);
@@ -48,6 +50,7 @@ class AliasTest extends TestCase
     /**
      * @dataProvider getAliasProvider
      */
+    #[DataProvider('getAliasProvider')]
     public function testConfigAlias($a, $tData)
     {
         $obj = $a();
@@ -64,6 +67,7 @@ class AliasTest extends TestCase
     /**
      * @dataProvider getAliasProvider
      */
+    #[DataProvider('getAliasProvider')]
     public function testSourceFromFile($a, $tData)
     {
         $obj = $a();
@@ -73,10 +77,9 @@ class AliasTest extends TestCase
     }
 
     /**
-     * Test file alias will cache to attribute alias.
-     *
      * @dataProvider getAliasProvider
      */
+    #[DataProvider('getAliasProvider')]
     public function testFileAliasCache($a, $tData)
     {
         $obj = $a();

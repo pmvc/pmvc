@@ -2,6 +2,8 @@
 
 namespace PMVC;
 
+use PHPUnit\Framework\Attributes\Group;
+
 const SERIALIZE_81 = 'O:12:"PMVC\HashMap":1:{s:3:"foo";s:3:"bar";}';
 const SERIALIZE_80 = 'C:12:"PMVC\HashMap":26:{a:1:{s:3:"foo";s:3:"bar";}}';
 
@@ -208,10 +210,9 @@ class HashMapTest extends TestCase
     }
 
     /**
-     * Key will merge if last key isnot same.
-     *
      * @group mergeSameKey
      */
+    #[Group('mergeSameKey')]
     public function testAppendSameKeyAndMerge()
     {
         $hash1 = new HashMap();
@@ -227,10 +228,9 @@ class HashMapTest extends TestCase
     }
 
     /**
-     * Key will not merge if last key is different.
-     *
      * @group mergeSameKey
      */
+    #[Group('mergeSameKey')]
     public function testAppendSameKeyAndNotMerge()
     {
         $hash2 = new HashMap();
@@ -246,10 +246,9 @@ class HashMapTest extends TestCase
     }
 
     /**
-     * Key will merge the last child key is same.
-     *
      * @group mergeSameKey
      */
+    #[Group('mergeSameKey')]
     public function testAppendSameKeyAndMergeChild()
     {
         $hash3 = new HashMap();
@@ -293,6 +292,7 @@ class HashMapTest extends TestCase
     /**
      * @group replace
      */
+    #[Group('replace')]
     public function testReplace()
     {
         $arr = [
@@ -313,6 +313,7 @@ class HashMapTest extends TestCase
     /**
      * @group replace
      */
+    #[Group('replace')]
     public function testReplaceSameKey()
     {
         $hash = new HashMap();

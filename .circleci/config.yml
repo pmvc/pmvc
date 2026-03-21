@@ -45,7 +45,7 @@ jobs:
                 phpunit --display-deprecations
               fi
             else
-              phpunit
+              phpunit -c phpunit-legacy/phpunit-legacy.xml
             fi
       - store_artifacts:
           path: /var/www/app/clover.xml
