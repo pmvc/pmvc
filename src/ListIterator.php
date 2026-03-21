@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PMVC.
  *
@@ -57,7 +58,7 @@ class ListIterator extends BaseObject implements
         }
         $hashMapAllClass = 'PMVC\HashMapAll';
         if ($walk || $this instanceof $hashMapAllClass) {
-            foreach ($this->state as $k=>$v) {
+            foreach ($this->state as $k => $v) {
                 if (is_array($v)) {
                     $this->state[$k] = new static($v, true);
                 }

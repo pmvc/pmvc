@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PMVC.
  *
@@ -96,11 +97,11 @@ trait Alias
         $func = $this->isCallable($method);
         if (empty($func)) {
             return !trigger_error(
-                'Method not found: "'.
-                    get_class($this).
-                    '::'.
-                    $method.
-                    '()"'.
+                'Method not found: "' .
+                    get_class($this) .
+                    '::' .
+                    $method .
+                    '()"' .
                     '. Please confirm alias file already use lowercase.'
             );
         } else {
@@ -306,11 +307,11 @@ class AliasSrcFile extends AbstractAlias
         }
         $class = importClass($r);
         if (!$class) {
-            return !trigger_error('Not defined default Class. ['.$path.']');
+            return !trigger_error('Not defined default Class. [' . $path . ']');
         } else {
             if (!class_exists($class)) {
                 return !trigger_error(
-                    'Default class not exists. ['.$class.']'
+                    'Default class not exists. [' . $class . ']'
                 );
             }
             $func = new $class($caller);
@@ -372,11 +373,11 @@ class AliasSrcFile extends AbstractAlias
      */
     private function _getPath($self, $method)
     {
-        $path = $self->getDir().'src/_';
+        $path = $self->getDir() . 'src/_';
         if ($self->aliasFileFilter) {
             if (empty($self->aliasFileMapping)) {
                 $self->aliasFileMapping = $this->_getFileMapping(
-                    $path.'*.php',
+                    $path . '*.php',
                     $self->aliasFileFilter
                 );
             }
@@ -386,6 +387,6 @@ class AliasSrcFile extends AbstractAlias
             }
         }
 
-        return $path.$method;
+        return $path . $method;
     }
 }

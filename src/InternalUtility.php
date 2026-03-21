@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PMVC.
  *
@@ -81,7 +82,7 @@ class InternalUtility
         $append = '.php';
         $real = null;
         if ($ext !== $append) {
-            $real = realpath($name.$append);
+            $real = realpath($name . $append);
         }
         if (!$real) {
             $real = realpath($name);
@@ -180,16 +181,16 @@ class InternalUtility
 
         if ($hadPlug && false !== $value && ($isSecurity || $hasSecurity)) {
             throw new DomainException(
-                'Security plugin ['.
-                    $name.
-                    '] already plug or unplug, '.
+                'Security plugin [' .
+                    $name .
+                    '] already plug or unplug, ' .
                     'you need check your code if it is safe.'
             );
         }
 
         if ($hasSecurity) {
             return !trigger_error(
-                'You can not change security plugin. ['.$name.']'
+                'You can not change security plugin. [' . $name . ']'
             );
         } else {
             if (empty($value)) { // false === $value
@@ -222,10 +223,10 @@ class InternalUtility
             $oPlugin = get(self::$_plugins, $targetPlugin);
             if (empty($oPlugin)) {
                 throw new DomainException(
-                    'Plug alias fail. Target: ['.
-                        $targetPlugin.
-                        '], New Alias: ['.
-                        $aliasName.
+                    'Plug alias fail. Target: [' .
+                        $targetPlugin .
+                        '], New Alias: [' .
+                        $aliasName .
                         ']'
                 );
             }
@@ -268,18 +269,18 @@ class InternalUtility
                 $r = l($file, _INIT_CONFIG, ['ignoreError' => true]);
                 if (empty($r)) {
                     throw new DomainException(
-                        'PlugIn '.
-                            $name.
-                            ': defined file not found. '.
-                            '['.
-                            $file.
+                        'PlugIn ' .
+                            $name .
+                            ': defined file not found. ' .
+                            '[' .
+                            $file .
                             ']'
                     );
                 } else {
                     $config[_PLUGIN_FILE] = $r->name;
                 }
             } else {
-                $file = $name.'/'.$name;
+                $file = $name . '/' . $name;
                 $r = load(
                     $file,
                     $folders,
@@ -305,21 +306,21 @@ class InternalUtility
             $oPlugIn = new $class();
             if (!($oPlugIn instanceof PlugIn)) {
                 throw new DomainException(
-                    'Class is not a plug-in('.ns('PlugIn').') instance.'
+                    'Class is not a plug-in(' . ns('PlugIn') . ') instance.'
                 );
             }
         } else {
             if (!$class) {
-                $error = 'Plug-in '.$name.' not found.';
+                $error = 'Plug-in ' . $name . ' not found.';
                 if (!empty($file)) {
                     $error .=
-                        ' ['.
-                        $file.
-                        '] '.
+                        ' [' .
+                        $file .
+                        '] ' .
                         print_r($folders, true);
                 }
             } else {
-                $error = 'Plug-in '.$name.': class not found ('.$class.')';
+                $error = 'Plug-in ' . $name . ': class not found (' . $class . ')';
             }
 
             throw new DomainException($error);

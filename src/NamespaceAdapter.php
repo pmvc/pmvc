@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PMVC.
  *
@@ -41,7 +42,7 @@ class NamespaceAdapter
      */
     public function __construct($name)
     {
-        $this->_name = '\\'.$name.'\\';
+        $this->_name = '\\' . $name . '\\';
     }
 
     /**
@@ -62,7 +63,7 @@ class NamespaceAdapter
             );
         } else {
             return !trigger_error(
-                'Function not found: ['.$this->_name.$method.']'
+                'Function not found: [' . $this->_name . $method . ']'
             );
         }
     }
@@ -76,7 +77,7 @@ class NamespaceAdapter
      */
     public function isCallable($method)
     {
-        $func = $this->_name.$method;
+        $func = $this->_name . $method;
         if (function_exists($func)) {
             return $func;
         } else {

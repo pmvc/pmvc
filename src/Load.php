@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PMVC.
  *
@@ -116,7 +117,7 @@ namespace PMVC {
             }
             $options[ERRORS] = new HashMap(
                 [
-                    SYSTEM_ERRORS=> [],
+                    SYSTEM_ERRORS => [],
                     USER_ERRORS  => [],
                     APP_ERRORS   => [],
                 ]
@@ -138,7 +139,7 @@ namespace PMVC {
          */
         public static function initPlugInFolder()
         {
-            addPlugInFolders([__DIR__.'/../../../pmvc-plugin']);
+            addPlugInFolders([__DIR__ . '/../../../pmvc-plugin']);
         }
     }
 
@@ -207,7 +208,7 @@ namespace PMVC {
             if ($ignoreError) {
                 return false;
             } else {
-                return !trigger_error('File not found. ['.$name.']');
+                return !trigger_error('File not found. [' . $name . ']');
             }
         }
         $import = get($options, 'import');
@@ -366,7 +367,7 @@ namespace PMVC {
     function mergeFileName($name, $dir = null)
     {
         if (!empty($dir)) {
-            $name = lastSlash($dir).$name;
+            $name = lastSlash($dir) . $name;
         }
 
         return $name;
@@ -493,7 +494,7 @@ namespace PMVC {
         } else {
             $result = strtolower($arr[0]);
             for ($i = 1, $j = count($arr); $i < $j; $i++) {
-                $result .= $join.strtolower($arr[$i]);
+                $result .= $join . strtolower($arr[$i]);
             }
         }
 
@@ -812,7 +813,7 @@ namespace PMVC {
         }
         if (!is_null($spreadKey)) {
             $result[$spreadKey] = [];
-            foreach ($arr as $k=>$v) {
+            foreach ($arr as $k => $v) {
                 if (!isset($tarKeys[$k])) {
                     $result[$spreadKey][$k] = &get($arr, $k);
                 }
@@ -1075,7 +1076,7 @@ namespace PMVC {
      */
     function ns($s)
     {
-        return __NAMESPACE__.'\\'.$s;
+        return __NAMESPACE__ . '\\' . $s;
     }
 
     /**
@@ -1223,7 +1224,7 @@ namespace PMVC {
                 } // phpcs:ignore
             default: // phpcs:ignore
                 throw new DomainException(
-                    'Exists checker not support ['.$type.']'
+                    'Exists checker not support [' . $type . ']'
                 );
         }
     }
@@ -1386,7 +1387,7 @@ namespace PMVC {
     {
         if (!is_string($name)) {
             return !trigger_error(
-                'Plug name should be string. '.print_r($name, true)
+                'Plug name should be string. ' . print_r($name, true)
             );
         }
         $hasPlug = exists($name, 'plugin');

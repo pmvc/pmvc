@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PMVC.
  *
@@ -48,7 +49,7 @@ class PlugIn extends HashMap implements SplObserver
     public function getDir()
     {
         if (!is_null($this[_PLUGIN_FILE])) {
-            return dirname($this[_PLUGIN_FILE]).'/';
+            return dirname($this[_PLUGIN_FILE]) . '/';
         }
     }
 
@@ -84,7 +85,7 @@ class PlugIn extends HashMap implements SplObserver
     public function update(SplSubject $subject = null)
     {
         if ($subject) {
-            $state = 'on'.$subject->getName();
+            $state = 'on' . $subject->getName();
             $func = $this->isCallable($state);
             if ($func) {
                 return call_user_func($func, $subject);
