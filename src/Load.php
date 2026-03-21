@@ -930,7 +930,7 @@ namespace PMVC {
             $r = [];
             if (is_array($a)) {
                 foreach ($k as $i) {
-                    if (!testString($i)) {
+                    if (!testString($i) || is_null($i)) {
                         continue;
                     }
                     if (isset($a[$i])) {
@@ -1405,7 +1405,7 @@ namespace PMVC {
 
             return InternalUtility::callPlugInFunc(
                 $name,
-                'update'
+                'getAdapter'
             );
         } else {
             return InternalUtility::generatePlugIn(

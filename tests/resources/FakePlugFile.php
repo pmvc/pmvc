@@ -2,8 +2,6 @@
 
 namespace PMVC;
 
-use SplSubject;
-
 ${_INIT_CONFIG
 }['update'] = 1;
 ${_INIT_CONFIG}[_CLASS] = __NAMESPACE__.'\FakePlugFile';
@@ -15,10 +13,10 @@ class FakePlugFile extends PlugIn
         $this['init'] = 1;
     }
 
-    public function update(SplSubject $sub = null)
+    public function getAdapter()
     {
         $this['update']++;
 
-        return parent::update($sub);
+        return parent::getAdapter();
     }
 }

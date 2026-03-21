@@ -126,4 +126,4 @@ docker run --rm -v $(pwd):/var/www/html allfunc/pmvc-phpunit composer require pm
 docker run --rm -v $(pwd):/var/www/html allfunc/pmvc-phpunit php ./test.php
 ```
 
-MIT 2023
+MIT 2026

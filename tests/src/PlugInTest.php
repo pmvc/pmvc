@@ -40,7 +40,7 @@ class PlugInTest extends TestCase
             ]
         );
         $actual = $plug->update($subject);
-        $this->assertEquals($plug[THIS], $actual);
+        $this->assertNull($actual);
     }
 
     public function testThis()
