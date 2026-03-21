@@ -60,17 +60,16 @@ class HashMapTest extends TestCase
         $this->assertEquals('pqr', ref($hash->abc));
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage abc is not in hashmap
-     */
     public function testGetObjectWithAttrNotExists()
     {
         $this->willThrow(
             function () {
                 $hash = new HashMap();
                 $tmp = $hash->abc;
-            }
+            },
+            true,
+            'Exception',
+            'abc is not in hashmap'
         );
     }
 
@@ -262,15 +261,12 @@ class HashMapTest extends TestCase
         $this->assertEquals($expected3, get($hash3));
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testIllegalMerge()
     {
         $this->willThrow(function () {
             $hash = new HashMap();
             $hash[[]] = 'foo';
-        });
+        }, true, 'Exception');
     }
 
     public function testMergeDefault()

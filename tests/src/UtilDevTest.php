@@ -54,16 +54,15 @@ class UtilDevTest extends TestCase
         v(new HashMap(['0']));
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage {"Error":"error","Debug":["debug-payload"]}
-     */
     public function testTriggerJson()
     {
         $this->willThrow(
             function () {
                 triggerJson('error', ['debug-payload']);
-            }
+            },
+            true,
+            'Exception',
+            '{"Error":"error","Debug":["debug-payload"]}'
         );
     }
 

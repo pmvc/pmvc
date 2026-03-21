@@ -15,10 +15,6 @@ class NamespaceAdapterTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage Function not found
-     */
     public function testFunctionNotExists()
     {
         $class = new NamespaceAdapter('PMVC');
@@ -26,7 +22,10 @@ class NamespaceAdapterTest extends TestCase
         $this->willThrow(
             function () use ($class) {
                 $class->xxx();
-            }
+            },
+            true,
+            'Exception',
+            'Function not found'
         );
     }
 }

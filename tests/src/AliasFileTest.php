@@ -42,9 +42,6 @@ class AliasFileTest extends TestCase
 
     /**
      * Test not setup correct alias file filteer.
-     *
-     * @expectedException        Exception
-     * @expectedExceptionMessage aliasFileFilter
      */
     public function testAliasCustomFileFilterNotSetCorreect()
     {
@@ -53,15 +50,15 @@ class AliasFileTest extends TestCase
         $this->willThrow(
             function () use ($p) {
                 $p->foo();
-            }
+            },
+            true,
+            'Exception',
+            'aliasFileFilter'
         );
     }
 
     /**
      * Test not defned class in alias file.
-     *
-     * @expectedException        Exception
-     * @expectedExceptionMessage Not defined default Class
      */
     public function testAliasFileWithoutClass()
     {
@@ -69,15 +66,15 @@ class AliasFileTest extends TestCase
             function () {
                 $oAlias = new FakeAliasWithoutArrayAccess();
                 $oAlias->without_class();
-            }
+            },
+            true,
+            'Exception',
+            'Not defined default Class'
         );
     }
 
     /**
      * Test defined class not exist.
-     *
-     * @expectedException        Exception
-     * @expectedExceptionMessage Default class not exists
      */
     public function testAliasFileWithWrongName()
     {
@@ -85,15 +82,15 @@ class AliasFileTest extends TestCase
             function () {
                 $oAlias = new FakeAliasWithoutArrayAccess();
                 $oAlias->with_wrong_name();
-            }
+            },
+            true,
+            'Exception',
+            'Default class not exists'
         );
     }
 
     /**
      * Test not implement invoke.
-     *
-     * @expectedException        Exception
-     * @expectedExceptionMessage Not implement __invoke
      */
     public function testAliasFileWithoutInvoke()
     {
@@ -101,7 +98,10 @@ class AliasFileTest extends TestCase
             function () {
                 $oAlias = new FakeAliasWithoutArrayAccess();
                 $oAlias->without_invoke();
-            }
+            },
+            true,
+            'Exception',
+            'Not implement __invoke'
         );
     }
 }

@@ -32,16 +32,14 @@ class UtilPlugPlugAliasTest extends TestCase
         $this->assertEquals($class, $abc[_CLASS]);
     }
 
-    /**
-     * @expectedException DomainException
-     */
     public function testPluginNotFound()
     {
         $this->willThrow(
             function () {
                 $abc = plug('fakeAlias');
             },
-            false
+            false,
+            'DomainException'
         );
     }
 }

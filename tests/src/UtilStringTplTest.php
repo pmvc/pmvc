@@ -20,15 +20,11 @@ class UtilStringTplTest extends TestCase
         $this->assertEquals('bar2', $haveReplace);
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage \\PMVC\\tpl
-     */
     public function testTplNotReturnString()
     {
         $this->willThrow(function () {
             \PMVC\tpl('[foo]', ['foo'], function () {return null; });
-        });
+        }, true, 'Exception', '\\\\PMVC\\\\tpl');
     }
 
     public function testTplArrayReplace()

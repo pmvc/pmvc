@@ -12,17 +12,15 @@ class UtilExistsTest extends TestCase
         $this->assertFalse(exists($plug, 'plug'));
     }
 
-    /**
-     * @expectedException        DomainException
-     * @expectedExceptionMessage Exists checker not support
-     */
     public function testExistsNotSupport()
     {
         $this->willThrow(
             function () {
                 exists('test', 'xxx-type');
             },
-            false
+            false,
+            'DomainException',
+            'Exists checker not support'
         );
     }
 

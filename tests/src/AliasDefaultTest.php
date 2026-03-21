@@ -46,9 +46,6 @@ class AliasDefaultTest extends TestCase
 
     /**
      * Test default alias method not exists.
-     *
-     * @expectedException Exception
-     * @expectedExceptionMessage Method not found
      */
     public function testDefaultAliasNotFound()
     {
@@ -59,7 +56,10 @@ class AliasDefaultTest extends TestCase
         $this->willThrow(
             function () use ($obj) {
                 $obj->ggg();
-            }
+            },
+            true,
+            'Exception',
+            'Method not found'
         );
     }
 }

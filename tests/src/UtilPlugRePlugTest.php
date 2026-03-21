@@ -32,10 +32,6 @@ class UtilPlugRePlugTest extends TestCase
         $this->assertEquals(null, $test['foo']);
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage Security plugin [testreplugsecurity] already plug
-     */
     public function testRePlugSecurityWarning()
     {
         $file = __DIR__.'/../resources/FakePlugFile.php';
@@ -49,14 +45,13 @@ class UtilPlugRePlugTest extends TestCase
         $this->willThrow(
             function () {
                 replug('testRePlugSecurity', [], new HashMap());
-            }
+            },
+            true,
+            'Exception',
+            'Security plugin [testreplugsecurity] already plug'
         );
     }
 
-    /**
-     * @expectedException        DomainException
-     * @expectedExceptionMessage Security plugin [test] already plug
-     */
     public function testSecurityPluginAlreadyExists()
     {
         $file = __DIR__.'/../resources/FakePlugFile.php';
@@ -85,7 +80,9 @@ class UtilPlugRePlugTest extends TestCase
                     ]
                 );
             },
-            false
+            false,
+            'DomainException',
+            'Security plugin [test] already plug'
         );
     }
 }

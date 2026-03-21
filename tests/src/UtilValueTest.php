@@ -98,10 +98,6 @@ class UtilValueTest extends TestCase
         $this->assertEquals($expected, value($a, ['b', 'c']));
     }
 
-    /**
-     * @expectedException              TypeError
-     * @expectedExceptionMessageRegExp /(Argument 2 passed to PMVC\\value\(\) must be)/
-     */
     public function testHandlePathIsNotArray()
     {
         $h = ['a', 'b'];
@@ -110,6 +106,7 @@ class UtilValueTest extends TestCase
             function () use ($h) {
                 value($h, 'not-path');
             },
+            'TypeError',
             'TypeError'
         );
     }

@@ -18,16 +18,15 @@ class UtilIncludeTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage File not found.
-     */
     public function testIncludeNotExists()
     {
         $this->willThrow(
             function () {
                 l(__DIR__.'/../resources/empty.php.fake');
-            }
+            },
+            true,
+            'Exception',
+            'File not found.'
         );
     }
 

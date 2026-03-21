@@ -17,17 +17,16 @@ class UtilArrayTest extends TestCase
         $this->assertFalse(hasKey($arr, 'bar'));
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage Param1 should be array type.
-     */
     public function testArrayReplaceWrongType()
     {
         $this->willThrow(
             function () {
                 $s = '';
                 arrayReplace($s);
-            }
+            },
+            true,
+            'Exception',
+            'Param1 should be array type.'
         );
     }
 

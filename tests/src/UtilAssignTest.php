@@ -61,13 +61,10 @@ class UtilAssignTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @expectedException Exception
-     */
     public function testAssignPassNonArray()
     {
         $this->willThrow(function () {
             $actual = assign(['foo'], null);
-        });
+        }, true, 'Exception');
     }
 }

@@ -26,9 +26,6 @@ class UtilPlugUnPlugTest extends TestCase
 
     /**
      * Test can not unplug reject plug.
-     *
-     * @expectedException        Exception
-     * @expectedExceptionMessage Security plugin [fake-can-not-replug] already plug or unplug
      */
     public function testRejectPlug()
     {
@@ -45,7 +42,10 @@ class UtilPlugUnPlugTest extends TestCase
         $this->willThrow(
             function () use ($class) {
                 plug('fake-can-not-replug', [_CLASS => $class]);
-            }
+            },
+            true,
+            'Exception',
+            'Security plugin [fake-can-not-replug] already plug or unplug'
         );
     }
 }

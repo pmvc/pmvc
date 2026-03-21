@@ -91,26 +91,18 @@ class UtilPlugPlugTest extends TestCase
         $this->assertEquals('bar', $p['foo']);
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage Plug-in test not found
-     */
     public function testPlugNotFound()
     {
         $this->willThrow(function () {
             plug('test');
-        });
+        }, true, 'Exception', 'Plug-in test not found');
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage Plug name should be string.
-     */
     public function testPlugNameNotString()
     {
         $this->willThrow(function () {
             plug(new \stdClass());
-        });
+        }, true, 'Exception', 'Plug name should be string.');
     }
 
     public function testCheckNullPlug()
@@ -129,30 +121,22 @@ class UtilPlugPlugTest extends TestCase
         $this->assertEquals(realpath($file.'.php'), $actual[_PLUGIN_FILE]);
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage class not found
-     */
     public function testPlugClassNotFound()
     {
         $this->willThrow(function () {
             plug('test', [
                 _PLUGIN_FILE => __DIR__.'/../resources/FakePlugClassNotFound.php',
             ]);
-        });
+        }, true, 'Exception', 'class not found');
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage Class is not a plug-in(PMVC\PlugIn) instance.
-     */
     public function testPlugNonPlug()
     {
         $this->willThrow(function () {
             plug('test', [
                 _CLASS => __NAMESPACE__.'\NotPlugIn',
             ]);
-        });
+        }, true, 'Exception', 'Class is not a plug-in(PMVC\PlugIn) instance.');
     }
 
     public function testGetConfigFromGlobalOption()
@@ -214,17 +198,13 @@ class UtilPlugPlugTest extends TestCase
         $folders = addPlugInFolders(['fake'], []);
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage PlugIn test: defined file not found. [foo]
-     */
     public function testPlugNotExistsFile()
     {
         $this->willThrow(function () {
             plug('test', [
                 _PLUGIN_FILE => 'foo',
             ]);
-        });
+        }, true, 'Exception', 'PlugIn test: defined file not found. [foo]');
     }
 
     public function testLazyConfig()
@@ -263,17 +243,13 @@ class UtilPlugPlugTest extends TestCase
         $this->assertTrue(exists('testSecurity', 'plugin'));
     }
 
-    /**
-     * @expectedException        Exception
-     * @expectedExceptionMessage You can not change security plugin
-     */
     public function testUnPlugSecurityWarning()
     {
         $this->assertTrue(exists('testSecurity', 'plugin'));
 
         $this->willThrow(function () {
             unplug('testSecurity');
-        });
+        }, true, 'Exception', 'You can not change security plugin');
     }
 }
 

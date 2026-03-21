@@ -103,8 +103,6 @@ class AliasTest extends TestCase
 
     /**
      * Test parent method not exists.
-     *
-     * @expectedException Exception
      */
     public function testParentMethodNotExists()
     {
@@ -112,7 +110,9 @@ class AliasTest extends TestCase
             function () {
                 $child = plug('fakeChild', [_CLASS => __NAMESPACE__.'\FakeAliasChild']);
                 $child->FakeNotExists();
-            }
+            },
+            true,
+            'Exception'
         );
     }
 
@@ -149,9 +149,6 @@ class AliasTest extends TestCase
 
     /**
      * Test alias without implemnet getdir.
-     *
-     * @expectedException        Exception
-     * @expectedExceptionMessage Method not found
      */
     public function testAliasObjectWithoutGetdir()
     {
@@ -159,7 +156,10 @@ class AliasTest extends TestCase
             function () {
                 $oAlias = new FakeAliasWithOutGetDir();
                 $result = $oAlias->faketask();
-            }
+            },
+            true,
+            'Exception',
+            'Method not found'
         );
     }
 
