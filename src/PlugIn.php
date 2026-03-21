@@ -75,6 +75,16 @@ class PlugIn extends HashMap implements SplObserver
     }
 
     /**
+     * Get adapter.
+     *
+     * @return mixed
+     */
+    public function getAdapter()
+    {
+        return $this[THIS];
+    }
+
+    /**
      * Observer update function.
      *
      * @param SplSubject $subject observable
@@ -82,16 +92,12 @@ class PlugIn extends HashMap implements SplObserver
      * @return mixed
      */
     #[\ReturnTypeWillChange]
-    public function update(SplSubject $subject = null)
+    public function update(SplSubject $subject)
     {
-        if ($subject) {
-            $state = 'on' . $subject->getName();
-            $func = $this->isCallable($state);
-            if ($func) {
-                return call_user_func($func, $subject);
-            }
+        $state = 'on' . $subject->getName();
+        $func = $this->isCallable($state);
+        if ($func) {
+            return call_user_func($func, $subject);
         }
-
-        return $this[THIS];
     }
 }

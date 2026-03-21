@@ -152,7 +152,7 @@ class Adapter implements ArrayAccess, SplObserver
      * @return mixed
      */
     #[\ReturnTypeWillChange]
-    public function update(SplSubject $subject = null)
+    public function update(SplSubject $subject)
     {
         return $this->__call(__FUNCTION__, [$subject]);
     }

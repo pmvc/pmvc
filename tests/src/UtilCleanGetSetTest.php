@@ -53,8 +53,9 @@ class UtilCleanGetSetTest extends TestCase
     public function testGetMultiValueWithInvalidKey()
     {
         $key = [new BaseObject(), 'a', 'b', false, null, true];
-        $arr = ['a' => 'foo', 'b' => 'bar', false => 'false', null => 'null',  true=> 'true'];
-        $this->assertEquals($arr, get($arr, $key), 'Test get array with invalid key');
+        $arr = ['a' => 'foo', 'b' => 'bar', false => 'false', '' => 'null',  true=> 'true'];
+        $expected = ['a' => 'foo', 'b' => 'bar', false => 'false', true=> 'true'];
+        $this->assertEquals($expected, get($arr, $key), 'Test get array with invalid key');
         $obj = (object) ['a' => 'foo', 'b' => 'bar'];
         $this->assertEquals(
             (array) $obj,
