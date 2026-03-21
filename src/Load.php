@@ -1405,7 +1405,7 @@ namespace PMVC {
 
             return InternalUtility::callPlugInFunc(
                 $name,
-                'update'
+                'getAdapter'
             );
         } else {
             return InternalUtility::generatePlugIn(

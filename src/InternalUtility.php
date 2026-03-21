@@ -371,7 +371,7 @@ class InternalUtility
             );
         }
 
-        return $oPlugIn->update();
+        return $oPlugIn->getAdapter();
     }
 
     /**
