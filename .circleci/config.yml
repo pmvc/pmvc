@@ -39,7 +39,7 @@ jobs:
             if [ "<< parameters.php-version >>" == "8.2" ]; then
               if [ "$ENABLE_COVERAGE" == "true" ]; then
                 XDEBUG_MODE=coverage phpunit --coverage-clover clover.xml
-                vendor/bin/phpcs src/
+                phpcs src/
                 coveralls --coverage_clover=clover.xml -v -o coveralls-upload.json
               else
                 phpunit --display-deprecations
